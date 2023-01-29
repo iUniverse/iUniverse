@@ -3,7 +3,6 @@ import { pipe } from 'rxjs/internal/util/pipe';
 import { Board, BoardStatus } from './board.model';
 import { BoardsService } from './boards.service';
 import { CreateBoardDto } from './dto/create-board.dto';
-import { BoardStatusValidationPipe } from './pipes/board-status-validation.pipe';
 
 
 @Controller('boards')
@@ -33,12 +32,6 @@ export class BoardsController {
         return this.boardService.deleteBoard(id);
     }
 
-    @Patch('/:id/status')
-    updateBoardStatus(
-        @Param('id', ParseIntPipe) id : number, 
-        @Body('status', BoardStatusValidationPipe) status : BoardStatus
-    ){
-        return this.boardService.updateBoardStatus(id, status)
-    }
+ 
 
 }

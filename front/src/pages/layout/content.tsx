@@ -11,8 +11,7 @@ export default function IUniContent(props : any){
                 padding: 24,
                 minHeight: '30vh',
                 background: colorBgContainer,
-                }}
-            >
+                }}>
                 {props.page}
             </Content>
         </>
