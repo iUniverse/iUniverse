@@ -4,13 +4,13 @@ import { Account } from './account.entity'
 import { AccountStatus } from './account.model';
 import { CreateAccountDto } from './dto/create-account.dto';
 
+
 @CustomRepository(Account)
 export class AccountRepository extends Repository<Account> {
-    async CreateAccount(CreateAccountDto : CreateAccountDto) : Promise<Account> {
+    CreateAccount = async (CreateAccountDto : CreateAccountDto) : Promise<Account> => {
+        console.log(11111,this);
+        
         const {account, password, certified } = CreateAccountDto;
-        console.log("Account this:",this);
-        
-        
         const result = this.create({
             account,
             password,

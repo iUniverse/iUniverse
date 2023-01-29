@@ -1,23 +1,19 @@
-import { Controller, Get, Inject } from '@nestjs/common';
+import { Body, Controller, Get, Inject, Post } from '@nestjs/common';
+import { CreateAccountDto } from '../dto/create-account.dto';
 import {
   SIGN_UP_INBOUND_PORT,
   SignUpInboundPort,
 } from '../inbound-port/sign-up.inbound-port';
 
-@Controller()
+@Controller('account')
 export class GetMembersController {
   constructor(
     @Inject(SIGN_UP_INBOUND_PORT)
     private readonly signUpInboundPort: SignUpInboundPort,
   ) {}
 
-  @Get('/account')
-  async handle(params) {
-    params = {
-      id:"test",
-      password:"1234",
-      certified:true
-    }
-    return this.signUpInboundPort.execute(params);
+  @Post()
+  async handle(@Body() createAccountDto : CreateAccountDto) {
+    return this.signUpInboundPort.execute(createAccountDto);
   }
 }
