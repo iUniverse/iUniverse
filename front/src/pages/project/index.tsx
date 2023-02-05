@@ -1,37 +1,39 @@
 import React, { useEffect, useState } from 'react';
 import { Col, Row, Card, Space, Tooltip, Button, AutoComplete, Input} from 'antd';
-import { SearchOutlined, PlusOutlined, UnorderedListOutlined, TableOutlined,
-    EditOutlined, DeleteOutlined, SettingOutlined, LinkOutlined} from '@ant-design/icons';
+import { EditOutlined, DeleteOutlined, SettingOutlined, LinkOutlined} from '@ant-design/icons';
 import ButtonSpace from './button_space';
+import { loadProject } from 'api/project/project';
+import { useRouter } from 'next/router';
 
 export default function Index(props : any) {
-    const [ids, setId] = useState<Array<number>>([]);
-    function handleIds(id: number): void { setId(prev => [id, ...prev]) }
-    
+    const [projects, setProjects] = useState<Array<object>>([]);
+    const router = useRouter();    
     //프로젝트 전체 로드
-    function load(){
-
+    async function load(){
+        let projects = await loadProject();
+        setProjects(() => [...projects]);
     }
 
     useEffect(() => {
         load()
     }, []);
-    
+
     return (
         <>
-            <ButtonSpace></ButtonSpace>
+            <ButtonSpace setProjects={setProjects}></ButtonSpace>
             <Space direction='vertical' size="middle" style={{ display: 'flex' }}>
                 <Row gutter={[16, 16]}>
+                    <>
                     {
-                        ids.map(id => {
-                            <Col span={6}>
+                        projects.map((project, index) => {
+                            return <Col span={6} key={index}>
                                 <Card 
                                     type="inner" 
-                                    title="프로젝트 001" 
+                                    title={project.name}
                                     hoverable={true} 
                                     bordered={true} 
                                     style={{ width: '100%' }} 
-                                    extra={<a href="#">More</a>}
+                                    extra={<span onClick={() => router.push(`/project/detail?id=${project.id}`)}>More</span>}
                                     actions={[
                                         <Tooltip placement="bottom" color="cyan" title="설정하기">
                                             <SettingOutlined key="setting" />
@@ -46,63 +48,15 @@ export default function Index(props : any) {
                                             <DeleteOutlined key="ellipsis" />
                                         </Tooltip>,
                                     ]}>
+                                    <p>설명 : {project.description}</p>
+                                    <p>상태 : {project.statusId}</p>
                                     <p>Card content</p>
-                                    <p>Card content</p>
-                                    <p>Card content</p>
+                                    <p>생성날짜 : {project.createDate}</p>
                                 </Card>
                             </Col>
                         })
                     }
-                    <Col span={6}>
-                        <Card type="inner" 
-                            title="프로젝트 002" 
-                            hoverable={true} bordered={true} 
-                            style={{ width: '100%' }} 
-                            extra={<a href="#">More</a>}
-                            actions={[
-                                <SettingOutlined key="setting" />,
-                                <EditOutlined key="edit" />,
-                                <DeleteOutlined key="ellipsis" />
-                            ]}>
-                            <p>Card content</p>
-                            <p>Card content</p>
-                            <p>Card content</p>
-                        </Card>
-                    </Col>
-                    <Col span={6}>
-                        <Card type="inner" 
-                            title="프로젝트 003" 
-                            hoverable={true} 
-                            bordered={true} 
-                            style={{ width: '100%' }} 
-                            extra={<a href="#">More</a>}
-                            actions={[
-                                <SettingOutlined key="setting" />,
-                                <EditOutlined key="edit" />,
-                                <DeleteOutlined key="ellipsis" />
-                            ]}>
-                            <p>Card content</p>
-                            <p>Card content</p>
-                            <p>Card content</p>
-                        </Card>
-                    </Col>
-                    <Col span={6}>
-                        <Card type="inner" 
-                            title="프로젝트 004" 
-                            hoverable={true} 
-                            bordered={true} 
-                            style={{ width: '100%' }} 
-                            extra={<a href="#">More</a>}
-                            actions={[
-                                <SettingOutlined key="setting" />,
-                                <EditOutlined key="edit" />,
-                                <DeleteOutlined key="ellipsis" />
-                            ]}>
-                            <p>Card content</p>
-                            <p>Card content</p>
-                            <p>Card content</p>
-                        </Card>
-                    </Col>
+                    </>
                 </Row>
             </Space>
         </>

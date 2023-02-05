@@ -1,12 +1,12 @@
-export type FindProjectsInboundPortInputDto = void;
-export type FindProjectsInboundPortOutputDto = Array<{
-    name:string;
-}>;
+import { FindProjectDto } from "../dto/find-project.dto";
 
-export const FIND_PROJECTS_INBOUND_PORT = 'FIND_PROJECTS_INBOUND_PORT' as const;
+export type FindProjectInboundPortInputDto = { id : number };
+export type FindProjectInboundPortOutputDto = FindProjectDto;
 
-export interface FindProjectsInboundPort{
-    execute(
-        params : FindProjectsInboundPortInputDto,
-    ): Promise<FindProjectsInboundPortOutputDto>;
+export const FIND_PROJECT_INBOUND_PORT = 'FIND_PROJECT_INBOUND_PORT' as const;
+
+export interface FindProjectInboundPort{
+    find(
+        params : FindProjectInboundPortInputDto,
+    ): Promise<FindProjectInboundPortOutputDto>;
 }

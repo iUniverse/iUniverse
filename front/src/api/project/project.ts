@@ -12,20 +12,27 @@ export async function createProject(name:string){
         body: new URLSearchParams({
             name : name
         })
-        
     })
 
     return response.json();
 }
 
 /** 프로젝트 특정 프로젝트 불러오기 */
-export function getProject(id : number){
-
+export async function getProject(id : number){
+    const response = await fetch(url+`/${id}`, {
+        method : 'GET',
+        cache : 'no-cache',
+    })
+    return response.json();
 }
 
 /** 프로젝트 불러오기 */
-export function loadProject(){
-
+export async function loadProject(){
+    const response = await fetch(url, {
+        method : 'GET',
+        cache : 'no-cache',
+    })
+    return response.json();
 }
 
 /** 프로젝트 업데이트 */

@@ -13,9 +13,9 @@ const {Sider} = Layout;
 
 export default function IUniSider(props : any){
     const router = useRouter();
-    const routerPush = (title : string) => {
+    const routerPush = (title : string, routerPath : string) => {
         props.handlePageTitle(title);
-        router.push('/project');
+        router.push(routerPath);
     }
 
     return(
@@ -31,7 +31,7 @@ export default function IUniSider(props : any){
                             key: '1',
                             icon: <UserOutlined />,
                             label: '프로젝트',
-                            onClick: () => routerPush('프로젝트'),
+                            onClick: () => routerPush('프로젝트', '/project'),
                         },
                         {
                             key: '2',

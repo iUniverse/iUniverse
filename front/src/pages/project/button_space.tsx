@@ -3,15 +3,15 @@ import { Space, Tooltip, Button } from 'antd';
 import { SearchOutlined, PlusOutlined, UnorderedListOutlined, TableOutlined } from '@ant-design/icons';
 import { createProject } from '../../api/project/project'; 
 
-export default function ButtonSpace(props : any){
-    const create = () => {
-        createProject('무제').then((data) => console.log(data));
-    }
+interface Props {
+    setProjects : React.Dispatch<React.SetStateAction<Array<object>>>
+}
 
-    const update = () => {
-
+export default function ButtonSpace(props : Props){
+    async function create() {
+        const project : object = await createProject('무제');
+        props.setProjects(prev => [project, ...prev])
     }
-    
     return(
         <>
             <Space size="middle" style={{ display: 'flex' }}>

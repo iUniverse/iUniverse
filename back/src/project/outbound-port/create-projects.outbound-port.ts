@@ -1,5 +1,3 @@
-import { Project } from '../project.entity';
-
 export type CreateProjectsOutboundPortInputDto = {
     name : string
 };
