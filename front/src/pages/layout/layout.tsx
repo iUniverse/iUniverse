@@ -13,10 +13,12 @@ import React ,{ useState } from 'react'
 import IUniContent from './content';
 import IUniHeader from './header';
 import IUniSider from './sider';
+import { useRouter } from 'next/router';
 
 const { Header, Sider, Content } = Layout;
-
 export default function IUniLayout({children} : any){
+    const router = useRouter();
+    console.log('router', router);
     const [collapsed, setCollapsed] = useState(false);
     const [pageTitle, setPageTitle] = useState("");
 

@@ -5,6 +5,7 @@ const nextConfig = {
   reactStrictMode: true,
 }
 
+
 module.exports = (phase, {defaultConfig}) => {
   if (phase === PHASE_DEVELOPMENT_SERVER) {
     return {
@@ -12,7 +13,7 @@ module.exports = (phase, {defaultConfig}) => {
 
     }
   }
-
+  
   return {
     nextConfig,
     /* config options for all phases except development here */

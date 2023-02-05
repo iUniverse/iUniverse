@@ -6,16 +6,16 @@ export async function createProject(name:string){
     const response = await fetch(url,{
         method : 'POST',
         cache : 'no-cache',
-        mode : 'no-cors',
         headers: {
             'Content-Type': 'application/x-www-form-urlencoded'
         },
         body: new URLSearchParams({
             name : name
         })
-    });
+        
+    })
 
-    return response;
+    return response.json();
 }
 
 /** 프로젝트 특정 프로젝트 불러오기 */
