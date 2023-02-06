@@ -7,9 +7,17 @@ import {
   } from '@ant-design/icons';
 import {Layout, Menu} from 'antd';
 import React ,{ useState } from 'react'
+import { useRouter } from 'next/router';
 const {Sider} = Layout;
 
+
 export default function IUniSider(props : any){
+    const router = useRouter();
+    const routerPush = (title : string, routerPath : string) => {
+        props.handlePageTitle(title);
+        router.push(routerPath);
+    }
+
     return(
         <>
             <Sider trigger={null} collapsible collapsed={props.collapsed}>
@@ -23,7 +31,7 @@ export default function IUniSider(props : any){
                             key: '1',
                             icon: <UserOutlined />,
                             label: '프로젝트',
-                            onClick: () => props.handlePageTitle('프로젝트'),
+                            onClick: () => routerPush('프로젝트', '/project'),
                         },
                         {
                             key: '2',

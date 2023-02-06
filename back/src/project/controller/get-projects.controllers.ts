@@ -1,11 +1,23 @@
-import { Controller, Get, Inject } from '@nestjs/common';
+import { Body, Controller, Get, Inject, Param } from '@nestjs/common';
+import { FindProjectInboundPort, FindProjectInboundPortInputDto, FindProjectInboundPortOutputDto, FIND_PROJECT_INBOUND_PORT } from '../inbound-port/find-projects.inbound-port';
+import { LoadProjectsInboundPort, LoadProjectsInboundPortOutputDto, LOAD_PROJECTS_INBOUND_PORT } from '../inbound-port/load-projects.inbound-port';
 
-@Controller()
-export class GetProjectsController {
-    constructor(){}
+@Controller('iuni_project')
+export class GetProjectController {
+    constructor(
+        @Inject(LOAD_PROJECTS_INBOUND_PORT)
+        private readonly loadProjectsInboundPort : LoadProjectsInboundPort,
+        @Inject(FIND_PROJECT_INBOUND_PORT)
+        private readonly findProjectInboundPort : FindProjectInboundPort
+    ){}
 
-    @Get('/projects')
-    async find(){
-        return;
+    @Get('/')
+    async load():Promise<LoadProjectsInboundPortOutputDto>{
+        return this.loadProjectsInboundPort.load();
+    }
+
+    @Get('/:id')
+    async find(@Param() param : FindProjectInboundPortInputDto):Promise<FindProjectInboundPortOutputDto>{   
+        return this.findProjectInboundPort.find(param);
     }
 }

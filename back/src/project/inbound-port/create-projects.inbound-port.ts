@@ -3,7 +3,9 @@ export type CreateProjectsInboundPortInputDto = {
 };
 
 export type CreateProjectsInboundPortOutputDto = {
-    name : string;
+    name : string,
+    id : number,
+    createDate : Date,
 };
 
 export const CREATE_PROJECTS_INBOUND_PORT = 'CREATE_PROJECTS_INBOUND_PORT' as const;
