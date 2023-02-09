@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmExModule } from 'src/typeorm-ex.module';
-import {GetTaskController} from './controller/task.controller';
-import { LOAD_TASK_INBOUND_PORT } from './inbound-port/load-task.inbound';
+import {GetTaskController} from './controller/get-task.controller';
+import { LOAD_TASK_INBOUND_PORT } from './inbound-port/load-task.inbound-port';
 import { LoadTaskRepository } from './outbound-adapter/load-task.repository';
 import { LOAD_TASK_OUTBOUND_PORT } from './outbound-port/load-task.outbound-port';
 import { LoadTaskService } from './service/load-task.service';

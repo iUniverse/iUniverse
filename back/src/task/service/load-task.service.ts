@@ -1,5 +1,5 @@
 import { Inject } from '@nestjs/common';
-import { LoadTaskInboundPort, LoadTaskInboundPortOutputDto } from '../inbound-port/load-task.inbound';
+import { LoadTaskInboundPort, LoadTaskInboundPortOutputDto } from '../inbound-port/load-task.inbound-port';
 import { LoadTaskOutboundPort, LOAD_TASK_OUTBOUND_PORT } from '../outbound-port/load-task.outbound-port';
 
 export class LoadTaskService implements LoadTaskInboundPort {

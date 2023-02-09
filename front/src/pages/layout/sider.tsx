@@ -45,6 +45,12 @@ export default function IUniSider(props : any){
                             label: '난나나나나',
                             onClick: () => props.handlePageTitle('난나나나나'),
                         },
+                        {
+                            key: '4',
+                            icon: <UploadOutlined />,
+                            label: '태스크',
+                            onClick: () => routerPush('태스크', '/iuni_task')
+                        },
                         ]}
                     />
                 </Sider>

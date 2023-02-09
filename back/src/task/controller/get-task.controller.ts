@@ -1,5 +1,5 @@
 import { Controller, Get, Inject } from '@nestjs/common';
-import { LoadTaskInboundPort, LoadTaskInboundPortOutputDto, LOAD_TASK_INBOUND_PORT } from '../inbound-port/load-task.inbound';
+import { LoadTaskInboundPort, LoadTaskInboundPortOutputDto, LOAD_TASK_INBOUND_PORT } from '../inbound-port/load-task.inbound-port';
 
 @Controller('iuni_task')
 export class GetTaskController {
