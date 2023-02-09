@@ -1,16 +1,14 @@
 import { Inject } from '@nestjs/common';
-import { CreateTaskInboundPort, CreateTaskInboundPortOutputDto } from '../inbound-port/create-task.inbound-port';
+import { CreateTaskInboundPort, CreateTaskInboundPortInputDto, CreateTaskInboundPortOutputDto } from '../inbound-port/create-task.inbound-port';
 import { CREATE_TASK_OUTBOUND_PORT, CreateTaskOutboundPort} from '../outbound-port/create-task.outbound-port';
 
 export class CreateTaskService implements CreateTaskInboundPort{
     constructor(
         @Inject(CREATE_TASK_OUTBOUND_PORT)
-        private readonly createTaskOutboundPort = CreateTaskOutboundPort ){}
+        private readonly createTaskOutboundPort: CreateTaskOutboundPort 
+    ){}
 
-    create():Promise<CreateTaskInboundPortOutputDto>{
-        return this.createTaskOutboundPort.create();
+    async create(taskInfo:CreateTaskInboundPortInputDto):Promise<CreateTaskInboundPortOutputDto>{
+        return this.createTaskOutboundPort.create(taskInfo);
     }
-    // async load(): Promise<LoadTaskInboundPortOutputDto>{
-        // return this.loadTaskOutboundPort.load();
-    // }
 }
