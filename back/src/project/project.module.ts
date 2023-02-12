@@ -15,12 +15,21 @@ import { FindProjectService } from './service/find-project.service';
 import { FIND_PROJECT_OUTBOUND_PORT } from './outbound-port/find-projects.outbound-ports';
 import { FindProjectRepository } from './outbound-adapter/find-project.repository';
 import { FIND_PROJECT_INBOUND_PORT } from './inbound-port/find-projects.inbound-port';
+import { PutProjectController } from './controller/put-projects.controller';
+import { UPDATE_PROJECTS_INBOUND_PORT } from './inbound-port/update-projects.inbound-port';
+import { UpdateProjectsService } from './service/update-project.service';
+import { UPDATE_PROJECTS_OUTBOUND_PORT } from './outbound-port/update-projects.outbound-port';
+import { UpdateProjectRepository } from './outbound-adapter/update-project.repository';
+import { RemoveProjectService } from './service/remove-project.service';
+import { RemoveProjectRepository } from './outbound-adapter/remove-project.repository';
+import { REMOVE_PROJECT_INBOUND_PORT } from './inbound-port/remove-projects.inbound-port';
+import { REMOVE_PROJECT_OUTBOUND_PORT } from './outbound-port/remove-projects.outbound-port';
 
 @Module({
     imports : [
         TypeOrmExModule.forCustomRepository([ProjectRepository])
     ],
-    controllers : [PostProjectController, GetProjectController],
+    controllers : [PostProjectController, GetProjectController, PutProjectController],
     providers : [
         {
             //inbound
@@ -48,6 +57,22 @@ import { FIND_PROJECT_INBOUND_PORT } from './inbound-port/find-projects.inbound-
             provide : FIND_PROJECT_OUTBOUND_PORT,
             useClass : FindProjectRepository
         },
+        {
+            provide : UPDATE_PROJECTS_INBOUND_PORT,
+            useClass : UpdateProjectsService
+        },
+        {
+            provide : UPDATE_PROJECTS_OUTBOUND_PORT,
+            useClass : UpdateProjectRepository
+        },
+        {
+            provide : REMOVE_PROJECT_INBOUND_PORT,
+            useClass : RemoveProjectService
+        },
+        {
+            provide : REMOVE_PROJECT_OUTBOUND_PORT,
+            useClass : RemoveProjectRepository
+        }
     ]    
 })
 export class ProjectModule {}

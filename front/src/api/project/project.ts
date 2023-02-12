@@ -36,8 +36,19 @@ export async function loadProject(){
 }
 
 /** 프로젝트 업데이트 */
-export function updateProject(){
-
+export async function updateProject(obj : {id: string, key : string, value : string}){
+    const response = await fetch(url, {
+        method : 'put',
+        cache : 'no-cache',
+        headers : {
+            'Content-Type': 'application/x-www-form-urlencoded'
+        },
+        body : new URLSearchParams({
+            id : obj.id,
+            key : obj.key,
+            value : obj.value
+        })
+    })
 }
 
 /** 프로젝트 삭제 */
