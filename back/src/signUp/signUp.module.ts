@@ -3,6 +3,8 @@ import { TypeOrmExModule } from 'src/typeorm-ex.module';
 import { SignUpController } from './controller/sign-up.controller';
 import { SIGN_UP_INBOUND_PORT } from './inbound-port/sign-up.inbound-port';
 import { SignUpService } from './service/sing-up.service';
+import { AUTH_ACCOUNT_OUTBOUND_PORT } from './outbound-port/auth-account.outbound-port';
+import { AuthAccountRepository } from './outbound-adepter/auth-account.repository';
 import { CREATE_ACCOUNT_OUTBOUND_PORT } from './outbound-port/insert-account.outbound-port';
 import { CreateAccountRepository } from './outbound-adepter/insert-account.repository';
 import { CREATE_USER_OUTBOUND_PORT } from './outbound-port/insert-user.outbound-port';
@@ -21,6 +23,11 @@ import { UserRepository } from './user.repository';
     {
       provide: SIGN_UP_INBOUND_PORT,
       useClass: SignUpService,
+    },
+    // outbound-port
+    {
+      provide: AUTH_ACCOUNT_OUTBOUND_PORT,
+      useClass: AuthAccountRepository,
     },
     // outbound-port
     {
