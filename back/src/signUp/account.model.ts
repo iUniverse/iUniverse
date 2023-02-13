@@ -5,9 +5,3 @@ export interface Account
     password : string;
     certified : boolean;
 }
-
-export enum AccountStatus 
-{
-    PUBLIC = "PUBLIC",
-    PRIVATE = "PRIVATE"
-}

@@ -6,7 +6,4 @@ export class CreateAccountDto{
 
     @IsNotEmpty()
     password : string;
-
-    @IsNotEmpty()
-    certified  : boolean;
 }
