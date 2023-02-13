@@ -1,11 +1,8 @@
-export interface Board{
+export interface User
+{
     id : number;
-    title : string;
-    description : string;
-    status : BoardStatus;
-}
-
-export enum BoardStatus {
-    PUBLIC = "PUBLIC",
-    PRIVATE = "PRIVATE"
+    email:string;
+    familyName : string;
+    givenName: string;
+    nickName: string;
 }

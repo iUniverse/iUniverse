@@ -1,9 +1,15 @@
 export type SignUpInboundPortInputDto = {
   account : string;
   password : string;
+  id : number;
+  email:string;
+  familyName : string;
+  givenName: string;
+  nickName: string;
 };
 export type SignUpInboundPortOutputDto = {
-  result : boolean;
+  status:boolean;
+  code : string;
 };
 
 export const SIGN_UP_INBOUND_PORT = 'SIGN_UP_INBOUND_PORT' as const;
