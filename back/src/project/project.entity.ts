@@ -1,6 +1,8 @@
 //import { ProjectMember } from "../projectmember/projectmember.entity";
 import { Column, CreateDateColumn, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 
+import { Task } from '../task/task.entity';
+
 @Entity()
 export class Project{
     @PrimaryGeneratedColumn()
@@ -45,6 +47,9 @@ export class Project{
     @Column({ default : true })
     isPrivate : boolean;
 
-    // @OneToMany(type => ProjectMember, projectMember => projectMember.project)
-    // projectMembers: ProjectMember[];
+    @OneToMany(
+        (type) => Task,
+        (task) => task.project
+    )
+    tasks! : Task[];
 }

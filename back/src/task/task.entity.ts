@@ -1,5 +1,5 @@
-import { Column, CreateDateColumn, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
-
+import { Column, CreateDateColumn, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
+import { Project } from '../project/project.entity';
 //테스트용으로 id랑 이름만 입력해도 되도록 해놓음. 나중에 바꿔야함!
 @Entity()
 export class Task{
@@ -43,4 +43,10 @@ export class Task{
 
     @Column({nullable: true})
     projectId: number;
+
+    @ManyToOne(
+        (type) => Project,
+        (project) => project.tasks
+    )
+    project!: Project;
 }

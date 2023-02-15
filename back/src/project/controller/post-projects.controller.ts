@@ -1,4 +1,4 @@
-import { Body, Controller, Inject, Post } from "@nestjs/common";
+import { Body, Controller, Inject, Post, UsePipes, ValidationPipe } from "@nestjs/common";
 import { CREATE_PROJECTS_INBOUND_PORT, CreateProjectsInboundPort, CreateProjectsInboundPortInputDto, CreateProjectsInboundPortOutputDto } from "../inbound-port/create-projects.inbound-port";
 
 @Controller('iuni_project')
@@ -8,6 +8,7 @@ export class PostProjectController{
         private readonly createProjectsInboundPort : CreateProjectsInboundPort){};
  
     @Post('/')
+    @UsePipes(ValidationPipe)
     async create(@Body() project : CreateProjectsInboundPortInputDto) : Promise<CreateProjectsInboundPortOutputDto>{
         return await this.createProjectsInboundPort.create(project);
     }
