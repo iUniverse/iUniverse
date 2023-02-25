@@ -5,10 +5,10 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { typeORMConfig } from './configs/typeorm.config';
 import { BoardsModule } from './boards/boards.module';
 import { SignUpModule } from './signUp/signUp.module';
-import { BoardsService } from './boards/boards.service';
+import { ValidateAccountModule } from './validateAccount/validateAccount.module';
 
 @Module({
-  imports: [TypeOrmModule.forRoot(typeORMConfig), BoardsModule, SignUpModule],
+  imports: [TypeOrmModule.forRoot(typeORMConfig), BoardsModule, SignUpModule,ValidateAccountModule],
   controllers: [AppController],
   providers: [AppService]
 })
