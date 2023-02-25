@@ -10,7 +10,8 @@ export async function createProject(name:string){
             'Content-Type': 'application/x-www-form-urlencoded'
         },
         body: new URLSearchParams({
-            name : name
+            name :  name,
+            description : 'test'
         })
     })
 

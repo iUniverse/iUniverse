@@ -3,14 +3,38 @@ import { Space, Tooltip, Button } from 'antd';
 import { SearchOutlined, PlusOutlined, UnorderedListOutlined, TableOutlined } from '@ant-design/icons';
 import { createProject } from '../../api/project/project'; 
 
+export interface Project{
+    id : number,
+    name : string,
+    description : string,
+    createDate : string,
+    dueDate : string,
+    startDate : string,
+    endDate : String,
+    isPrivate : boolean,
+    processRate : number,
+    statusId : number,
+    typeId : number,
+    color : string
+}
+
 interface Props {
-    setProjects : React.Dispatch<React.SetStateAction<Array<object>>>
+    setProjects : React.Dispatch<React.SetStateAction<Array<Project>>>
 }
 
 export default function ButtonSpace(props : Props){
     async function create() {
-        const project : object = await createProject('무제');
-        props.setProjects(prev => [project, ...prev])
+        // const result = await createProject('무제');
+        // console.log(result);
+        createProject('무제').then((result) => {
+            if(result.statusCode === 400){
+                throw new Error('에러 남 ^^');
+            }
+            props.setProjects(prev => [result, ...prev]) 
+        });
+        // const project : Project = await createProject('무제');
+        
+        // props.setProjects(prev => [project, ...prev])
     }
     return(
         <>

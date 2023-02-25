@@ -5,9 +5,25 @@ import ButtonSpace from './button_space';
 import { loadProject } from 'api/project/project';
 import { useRouter } from 'next/router';
 
+export interface Project{
+    id : number,
+    name : string,
+    description : string,
+    createDate : string,
+    dueDate : string,
+    startDate : string,
+    endDate : String,
+    isPrivate : boolean,
+    processRate : number,
+    statusId : number,
+    typeId : number,
+    color : string
+}
+
 export default function Index(props : any) {
-    const [projects, setProjects] = useState<Array<object>>([]);
+    const [projects, setProjects] = useState<Array<Project>>([]);
     const router = useRouter();    
+    
     //프로젝트 전체 로드
     async function load(){
         let projects = await loadProject();
