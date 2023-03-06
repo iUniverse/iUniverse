@@ -8,13 +8,14 @@ export default function IUniHeader(props : any) {
     const { token: { colorBgContainer }, } = theme.useToken();
     return(
         <>
-            <Header style={{ padding: 0, background: colorBgContainer }}>
+            {/* <Header style={{ padding: 0, background: colorBgContainer }}>
                 {React.createElement(props.collapsed ? MenuUnfoldOutlined : MenuFoldOutlined, {
                     className: 'trigger',
                     onClick: () => props.toggleCollapse(),
                     })}
                 <span>{props.pageTitle}</span>
-            </Header>
+            </Header> */}
+            <div className="iuni_header item">Header</div>
         </>
     )
 }

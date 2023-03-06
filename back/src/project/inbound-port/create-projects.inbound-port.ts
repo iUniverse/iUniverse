@@ -5,22 +5,21 @@ import { IsNotEmpty, IsString } from "class-validator";
 //     descriptionsssss : string;
 // };
 
-export class CreateProjectsInboundPortInputDto {
+// export class CreateProjectsInboundPortInputDto {
+//     @IsNotEmpty()
+//     readonly name : string;
+//     @IsNotEmpty()
+//     readonly description : string;
+// }
+
+export class CreateProjectInputDto {
     @IsNotEmpty()
-    @IsString()
     readonly name : string;
     @IsNotEmpty()
     readonly description : string;
 }
 
-export class InputDto {
-    @IsNotEmpty()
-    readonly name : string;
-    @IsNotEmpty()
-    readonly description : string;
-}
-
-export class OutputDto {
+export class CreateProjectOutputDto {
     @IsNotEmpty()
     name : string;
     @IsNotEmpty()
@@ -29,16 +28,16 @@ export class OutputDto {
     createDate : Date,
 }
 
-export type CreateProjectsInboundPortOutputDto = {s
-    name : string
-    id : number,
-    createDate : Date,
-};
+// export type CreateProjectsInboundPortOutputDto = {
+//     name : string
+//     id : number,
+//     createDate : Date,
+// };
 
 export const CREATE_PROJECTS_INBOUND_PORT = 'CREATE_PROJECTS_INBOUND_PORT' as const;
 
 export interface CreateProjectsInboundPort{
     create(
-        params : CreateProjectsInboundPortInputDto,
-    ) : Promise<CreateProjectsInboundPortOutputDto>;
+        params : CreateProjectInputDto,
+    ) : Promise<CreateProjectOutputDto>;
 } 

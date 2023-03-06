@@ -1,6 +1,6 @@
 import { Body, Controller, Inject, Post, UsePipes, ValidationPipe } from "@nestjs/common";
 import { response } from "express";
-import { CREATE_PROJECTS_INBOUND_PORT, CreateProjectsInboundPort, CreateProjectsInboundPortInputDto, CreateProjectsInboundPortOutputDto } from "../inbound-port/create-projects.inbound-port";
+import { CREATE_PROJECTS_INBOUND_PORT, CreateProjectsInboundPort, CreateProjectInputDto, CreateProjectOutputDto } from "../inbound-port/create-projects.inbound-port";
 
 @Controller('iuni_project')
 export class PostProjectController{
@@ -10,7 +10,7 @@ export class PostProjectController{
  
     @Post('/')
     @UsePipes(ValidationPipe)
-    async create(@Body() project : CreateProjectsInboundPortInputDto) : Promise<CreateProjectsInboundPortOutputDto>{
+    async create(@Body() project : CreateProjectInputDto) : Promise<CreateProjectOutputDto>{
         try{
             console.log(project);
             return await this.createProjectsInboundPort.create(project);

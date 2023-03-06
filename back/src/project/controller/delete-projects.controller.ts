@@ -1,5 +1,5 @@
 import { Controller, Delete, Inject, Param } from "@nestjs/common";
-import { RemoveProjectInboundPort, RemoveProjectInboundPortInputDto, RemoveProjectInboundPortOutputDto, REMOVE_PROJECT_INBOUND_PORT } from "../inbound-port/remove-projects.inbound-port";
+import { RemoveProjectInboundPort, RemoveProjectInputDto, RemoveProjectOutputDto, REMOVE_PROJECT_INBOUND_PORT } from "../inbound-port/remove-projects.inbound-port";
 
 @Controller('iuni_project')
 export class DeleteProjectController {
@@ -9,7 +9,7 @@ export class DeleteProjectController {
     ){}
 
     @Delete('/:id')
-    async remove(@Param() param : RemoveProjectInboundPortInputDto) : Promise<RemoveProjectInboundPortOutputDto>{
+    async remove(@Param() param : RemoveProjectInputDto) : Promise<RemoveProjectOutputDto>{
         return this.removeProjectInboundPort.remove(param);
     }
 }

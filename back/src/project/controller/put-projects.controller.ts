@@ -1,5 +1,5 @@
 import { Body, Controller, Inject, Put } from "@nestjs/common";
-import { UpdateProjectsInboundPort, UpdateProjectsInboundPortInputDto, UpdateProjectsInboundPortOutputDto, UPDATE_PROJECTS_INBOUND_PORT } from "../inbound-port/update-projects.inbound-port";
+import { UpdateProjectsInboundPort, UpdateProjectInputDto, UpdateProjectOutputDto, UPDATE_PROJECTS_INBOUND_PORT } from "../inbound-port/update-projects.inbound-port";
 
 @Controller('iuni_project')
 export class PutProjectController{
@@ -8,7 +8,7 @@ export class PutProjectController{
         private readonly updateProjectsInboundPort : UpdateProjectsInboundPort){};
 
     @Put('/')
-    async update(@Body() updateProject : UpdateProjectsInboundPortInputDto) : Promise<UpdateProjectsInboundPortOutputDto>{
+    async update(@Body() updateProject : UpdateProjectInputDto) : Promise<UpdateProjectOutputDto>{
         return await this.updateProjectsInboundPort.update(updateProject);
     }
 }
