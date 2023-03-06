@@ -1,0 +1,80 @@
+
+.row{
+    display:flex;
+    flex-wrap : wrap;
+    justify-content: flex-start;
+  }
+  .col-1{
+    flex: 1 8.33%;
+    max-width: 8.33;
+  }
+  .col-2{
+    flex: 2 16.66%;
+    max-width:16.66%;
+  }
+  .col-3{
+    flex:3 24.99%;
+    max-width: 24.99%;
+  }
+  .col-4{
+    flex:4 33.32%;
+    max-width: 33.32%;
+  }
+  .col-5{
+    flex:5 41.65%;
+    max-width:41.65%;
+  }
+  .col-6{
+    flex:6 49.98%;
+    max-width : 49.98%;
+  }
+  .col-7{
+    flex:7 58.31%;
+    max-width : 58.31%;
+  }
+  .col-8{
+    flex:8 66.64%;
+    max-width : 66.64%;
+  }
+  .col-9{
+    flex:9 74.97%;
+    max-width : 74.97%;
+  }
+  .col-10{
+    flex:10 83.3%;
+    max-width : 83.3%;
+  }
+  .col-11{
+    flex:11 91.63%;
+    max-width: 91.63;
+  }
+  .col-12{
+    flex:12 99.96%;
+    max-width: 99.96%;
+  }
+  
+  .border{
+    border :1px solid black;
+  }
+  
+  .item{
+    border : 1px solid black;
+  }
+  
+  .leftSide{
+    flex-direction: column;
+    min-height : 70vh;
+    justify-content:center;
+    align-items:center;
+    
+  }
+
+
+  .template-color{
+    width : 30px;
+    height : 30px;
+    border-radius: 8px;
+    margin: 5 5 5 5px;
+    background-color : #ff00f5;
+  }
+  
