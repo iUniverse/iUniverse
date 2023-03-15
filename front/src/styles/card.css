@@ -1,0 +1,51 @@
+.card{
+    display:grid;
+    min-width : 300px;
+    min-height : 180px;
+    border-radius: 24px;
+    color : #fff;
+    position : relative;
+    grid-template-rows: 1fr 3fr 1fr;
+}
+
+.banner{
+    height : 297px;
+}
+
+.card-header{
+}
+
+.card-content{
+    margin-top:0.5rem;
+    margin-bottom:0.5rem;
+}
+.card-footer{
+    margin-top:0.3rem;
+    margin-bottom:0.3rem;
+}
+
+.no-content-card{
+    display:grid;
+    min-width : 300px;
+    min-height : 180px;
+    border-radius: 24px;
+    color : #fff;
+    position : relative;
+    grid-template-rows: 4fr 1fr;
+}
+
+.no-content-card-header{
+    margin-top : 0.5rem;
+    margin-bottom : 0.5rem;
+    max-height:65px;
+    overflow:hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+}
+
+.no-content-card-footer{
+    margin-top : 0.5rem;
+    margin-bottom : 0.5rem;
+}

@@ -1,11 +1,8 @@
 import { MenuFoldOutlined, MenuUnfoldOutlined } from '@ant-design/icons';
-import { Layout, theme} from 'antd';
 import React ,{ useState } from 'react'
-const { Header } = Layout;
+
 
 export default function IUniHeader(props : any) {
-
-    const { token: { colorBgContainer }, } = theme.useToken();
     return(
         <>
             {/* <Header style={{ padding: 0, background: colorBgContainer }}>
@@ -15,7 +12,18 @@ export default function IUniHeader(props : any) {
                     })}
                 <span>{props.pageTitle}</span>
             </Header> */}
-            <div className="iuni_header item">Header</div>
+            <div className="iuni_header item row center">
+                <div className="col-5 p-1 pl-2 pb-2 pt-2">
+                    <div className="banner card w-100">
+
+                    </div>
+                </div>
+                <div className="col-7 p-1 pr-2 pb-2 pt-2">
+                    <div className="banner card w-100">
+
+                    </div>
+                </div>
+            </div>
         </>
     )
 }

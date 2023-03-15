@@ -4,52 +4,55 @@
     flex-wrap : wrap;
     justify-content: flex-start;
   }
+  .col{
+    flex : auto;
+  }
   .col-1{
-    flex: 1 8.33%;
+    flex: 1 0 8.33%;
     max-width: 8.33;
   }
   .col-2{
-    flex: 2 16.66%;
+    flex: 2 0 16.66%;
     max-width:16.66%;
   }
   .col-3{
-    flex:3 24.99%;
+    flex:3 0 24.99%;
     max-width: 24.99%;
   }
   .col-4{
-    flex:4 33.32%;
+    flex:4 0 33.32%;
     max-width: 33.32%;
   }
   .col-5{
-    flex:5 41.65%;
+    flex:5 0 41.65%;
     max-width:41.65%;
   }
   .col-6{
-    flex:6 49.98%;
+    flex:6 0 49.98%;
     max-width : 49.98%;
   }
   .col-7{
-    flex:7 58.31%;
+    flex:7 0 58.31%;
     max-width : 58.31%;
   }
   .col-8{
-    flex:8 66.64%;
+    flex:8 0 66.64%;
     max-width : 66.64%;
   }
   .col-9{
-    flex:9 74.97%;
+    flex:9 0 74.97%;
     max-width : 74.97%;
   }
   .col-10{
-    flex:10 83.3%;
+    flex:10 0 83.3%;
     max-width : 83.3%;
   }
   .col-11{
-    flex:11 91.63%;
+    flex:11 0 91.63%;
     max-width: 91.63;
   }
   .col-12{
-    flex:12 99.96%;
+    flex:12 0 99.96%;
     max-width: 99.96%;
   }
   
@@ -64,17 +67,55 @@
   .leftSide{
     flex-direction: column;
     min-height : 70vh;
-    justify-content:center;
-    align-items:center;
-    
+    min-width : 80px;
+    align-items:center; 
+    border-right : 1px solid #e4e4e4;
   }
-
 
   .template-color{
-    width : 30px;
-    height : 30px;
-    border-radius: 8px;
-    margin: 5 5 5 5px;
+    min-width : 62px;
+    max-width : 62px;
+    min-height : 62px;
+    max-height : 62px;
+    border-radius: 5px;
+    margin: 0px 0px 0px 0px;
     background-color : #ff00f5;
   }
-  
+
+  .leftSide-logo {
+    min-width : 62x;
+    max-width : 62px;
+    min-height : 62px;
+    max-height : 62px;
+    margin-top :15px;
+    margin-bottom : 15px;
+  }
+
+  .leftSide div:nth-child(2){
+    margin-top : 15px;
+    min-width : 50px;
+    max-width : 50px;
+    min-height : 50px;
+    max-height : 50px;
+  }
+
+  .leftSide div:nth-child(n+3){
+    margin-top : 15px;
+    min-width : 50px;
+    max-width : 50px;
+    min-height : 50px;
+    max-height : 50px;
+  }
+
+  .leftSide-item>img{
+    width : 100%;
+    height : 100%;
+  }
+
+  /* .banner{
+    display : flex;
+    width :100%;
+    height : 100%;
+    justify-content: center;
+    align-items: center;
+  } */

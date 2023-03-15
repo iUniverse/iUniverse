@@ -1,0 +1,415 @@
+.project-container{
+    display: grid;
+    grid-template-columns: 100%;
+}
+.badge{
+    width:60px;
+    height:30px;
+    background-color:skyblue;
+    border-radius: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.badge>span{
+    font-family : Pretendard;
+    font-size: 18px;
+    font-weight: bold;
+    font-stretch : normal;
+    font-style:normal;
+    letter-spacing: normal;
+    color:#fff;
+}
+/* ------ banner start------ */
+
+.banner{
+    min-height : 25vh;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    margin-bottom: 2rem;
+}
+.banner-container {
+    display:grid;
+    grid-template-columns: 5fr 7fr;
+    width : 100%;
+}
+
+.banner-widget{
+    display : flex;
+    justify-content: center;
+    align-items: center;
+    padding : 1.7rem 0.5rem 0rem 0rem;
+}
+
+.widget{
+    display:grid;
+    grid-template-rows: 1fr 1.5fr 1.3fr;
+    color : #222;
+    
+}
+.widget>div:nth-child(1){
+    padding : 1.5rem 1.5rem 1rem 1.5rem;
+}
+.widget>div:nth-child(2){
+    padding : 0rem 1.5rem 0rem 1.5rem;
+}
+.widget>div:nth-child(3){
+    border-radius: 0px 0px 24px 24px;
+}
+.widget-profile{
+    display:flex;
+    align-items: center;
+}
+
+.widget-profile>.profile{
+    min-width: 48px;
+    min-height:48px;
+    max-width: 48px;
+    max-height: 48px;
+    border-radius: 30px;
+    background-color: #e0e0e0;
+}
+.widget-user{
+    display:flex;
+    align-items: center;
+}
+.widget-cog{
+    width:48px;
+    height:48px;
+}
+.widget-cog>img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+}
+
+.widget-brush{
+    width:48px;
+    height:48px;
+}
+.widget-brush>img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+}
+
+.widget-user-name{
+    font-size:18px;
+}
+
+.widget-user-name>span:nth-child(1){
+    font-weight: 600;
+}
+
+.widget-alaram-type{
+    font-weight:600;
+}
+.widget-date{
+    border-radius: 14px;
+    width: 100%;
+    height : 70%;
+    border-radius: 14px;
+    background-color: #efefef;
+    justify-content:space-between;
+}
+.widget-date-day{
+    font-size:24px;
+    padding:1.2rem;
+}
+.widget-date-day>span:nth-child(1){
+    font-weight:bold;
+}
+
+.widget-date-time{
+    text-align: left;
+    padding:1rem;
+    align-items: center;
+}
+
+.widget-date-time>span:nth-child(2){
+    font-size:18px;
+    font-weight: bold;
+    color:#ccc;
+}
+
+.widget-date-time>span:nth-child(1){
+    font-size:44px;
+    font-weight:300;
+    color:#222;
+}
+
+.widget-footer{
+    background-color: #efefef;
+    padding : 1.7rem 1.7rem 1.7rem 1.7rem;
+}
+
+.banner-widget>div{
+    width : 100%;
+    height : 100%;
+    background-color : #f5f5f5;
+}
+.banner-header{
+    display: row;
+}
+
+
+.banner-recent-project{
+    display : flex;
+    justify-content: center;
+    align-items: center;
+    padding : 1.7rem 0rem 0rem 0.5rem; 
+}
+
+.banner-recent-project>div{
+    width : 100%;
+    height : 100%;
+    background-color : #19007a
+}
+
+.recent-project-card{
+    display:grid;
+    grid-template-rows: 1fr auto 1fr;
+}
+.recent-project-d-day{
+    justify-content: flex-end;
+}
+.recent-project-type{
+    text-align: center;
+    color:#f1f1f1;
+    font-size:24px;
+    padding-bottom : 1rem;
+}
+.recent-project-name{
+    font-size:54px;
+    font-weight:600;
+    text-align: center;
+}
+
+.recent-project-icon-list{
+    justify-content: flex-end;
+    align-items: end;
+}
+.recent-project-icon{
+    width:32px;
+    height:32px;
+    margin:0.2rem;
+}
+
+.recent-project-icon>img{
+    width:100%;
+    height: 100%;
+    object-fit:cover;
+}
+
+/* -------- banner end -------- */
+
+
+/* -------- favorite start --------- */
+.favorite{
+    width :100%;
+    min-height : 23vh;
+    padding-left : 1rem;
+    padding-right: 1rem;
+    padding-bottom : 1.7rem;
+}
+
+.favorite-btn-list{
+    margin-top : 0.4rem;
+    display:flex;
+}
+
+.favorite-btn{
+    width : 144px;
+    height : 42px;
+    border-radius: 9px;
+    border: solid 1px #e4e4e4;
+    background-color:#fff;
+    display : flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.favorite-btn-name{
+    font-family: Pretendard;
+    font-size : 24px;
+    font-weight:bold;
+    font-stretch: normal;
+    font-style : normal;
+    line-height : 1.42;
+    letter-spacing: normal;
+    text-align : left;
+    color : #222;
+}
+.favorite-btn-icon{
+    width : 32px;
+    height : 32px;
+    margin : 0.2rem;
+}
+
+.favorite-btn-icon>img{
+    width:100%;
+    height: 100%;
+    object-fit:cover;
+}
+
+.favorite-card{
+    padding : 1.5rem;
+    border:1px solid white;
+    width : 100%;
+    height :100%;
+}
+
+.favorite-card-list{
+    margin-top: 0.4rem;
+    display : grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+}
+
+.favorite-card-list>div{
+    height : 240px;
+}
+
+.favorite-card-list>div:nth-child(1){
+    margin-right : 0.5rem;
+    background-color: #5c66fb;
+}
+.favorite-card-list>div:nth-child(2){
+    margin-left : 0.5rem;
+    margin-right : 0.5rem;
+    background-color: #3a45e6;
+}
+.favorite-card-list>div:nth-child(3){
+    margin-left : 0.5rem;
+    margin-right : 0.5rem;
+    background-color: #7e5ffc;
+}
+.favorite-card-list>div:nth-child(4){
+    margin-left : 0.5rem;
+    background-color: #5914b2;
+}
+
+.favorite-project-name{
+    font-size:36px;
+    font-family: Pretendard;;
+    font-weight : 600;
+    font-stretch: normal;
+    font-style:normal;
+    line-height : 1.17;
+    letter-spacing: -0.36px;
+    text-align: left;
+    color:#fff;
+}
+
+.favorite-project-icon-list{
+    display:flex;
+    justify-content : space-between;
+}
+.favorite-project-icon{
+    width : 32px;
+    height : 32px;
+}
+
+.favorite-project-icon>img{
+    width:100%;
+    height: 100%;
+    object-fit:cover;
+}
+/* -------- favorite end ----------- */
+
+/* -------- myProject start -------- */
+.project{
+    width :100%;
+    min-height : 23vh;
+    padding-left : 1rem;
+    padding-right: 1rem;
+    padding-bottom : 1.7rem;
+}
+
+.project-btn-list{
+    margin-top : 0.4rem;
+    display: flex;
+}
+
+.project-btn{
+    width : 180px;
+    height : 42px;
+    border-radius: 9px;
+    border: solid 1px #e4e4e4;
+    background-color:#fff;
+    display : flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.project-btn-name{
+    font-family: Pretendard;
+    font-size : 24px;
+    font-weight:bold;
+    font-stretch: normal;
+    font-style : normal;
+    line-height : 1.42;
+    letter-spacing: normal;
+    text-align : left;
+    color : #222;
+}
+.project-btn-icon{
+    width : 32px;
+    height : 32px;
+    margin : 0.2rem;
+}
+.project-btn-icon>img{
+    width:100%;
+    height: 100%;
+    object-fit:cover;
+}
+
+.project-card{
+    padding : 1.5rem;
+    border:1px solid white;
+    width : 100%;
+    height :100%;
+}
+
+.project-card-list{
+    margin-top: 0.4rem;
+    display : grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    gap : 1rem;
+}
+
+.project-card-list>div{
+    height : 152px;
+    background-color : #f5f5f5;
+}
+
+.project-name{
+    font-size:24px;
+    font-family: Pretendard;;
+    font-weight : 600;
+    font-stretch: normal;
+    font-style:normal;
+    line-height : 1.33;
+    letter-spacing: -0.36px;
+    text-align: left;
+    color:#222;
+}
+
+.project-icon-list{
+    display:flex;
+    justify-content : space-between;
+}
+
+.project-icon{
+    width : 32px;
+    height : 32px;
+    margin : 1rem;
+}
+
+.project-icon>img{
+    width:100%;
+    height: 100%;
+    object-fit:cover;
+}
+
+
+/* -------- myProject end -------- */

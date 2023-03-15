@@ -127,7 +127,6 @@ a {
 
 .iuni_container {
   display :grid;
-  grid-template-columns: 1fr 10fr 1fr;
   max-width : 100%;
   margin : 0 auto;
   /* align-items, justify-items 순서로 진행한다. */
@@ -154,6 +153,7 @@ a {
     padding-bottom:5vh;
     background-color: skyblue;
   }
+
   .iuni_left_side{
     position : fixed;
     bottom : 0;
@@ -171,17 +171,16 @@ a {
 
 @media screen and (min-width:800px){
   .iuni_container {
-    grid-template-columns: 1fr 10fr 1fr;
+    grid-template-columns: 80px 1fr;
   }
 
   .iuni_header {
     grid-row : 1 / 1;
-    min-height : 15vh;
+    min-height : 25vh;
   }
 
   .iuni_left_side{
     grid-row : 1 / span 3;
-    max-width: 10vw;
     position : relative;
   }
 
@@ -191,9 +190,8 @@ a {
     grid-row : 1 / span 3;
 
   }
-
   .iuni_content{
-    min-height: 77vh;
+    min-height: 92vh;
   }
 
   .iuni_footer{
@@ -202,4 +200,114 @@ a {
 }
 
 
+.center{
+  justify-content: center;
+  align-items: center;
+}
+.w-100{
+  width : 100%;
+}
 
+.favorite-project{
+  
+}
+
+.favorite-btn{
+
+}
+
+
+.p-1{
+  padding: 1rem;
+}
+.p-1-1{
+  padding: 1.1rem;
+}
+
+.pl-1{
+  padding-left : 1rem;
+}
+.pl-2{
+  padding-left : 2rem;
+}
+.pr-1{
+  padding-right : 1rem;
+}
+.pr-2{
+  padding-right: 2rem;
+}
+
+.pt-1 {
+  padding-top : 1rem;
+}
+.pt-2{
+  padding-top : 2rem;
+}
+
+.pb-1{
+  padding-bottom: 1rem;
+}
+
+.pb-2{
+  padding-bottom:2rem;
+}
+
+
+
+.p-2{
+  padding:2rem;
+}
+.m-1{
+  margin : 1rem;
+}
+.ml-1{
+  margin-left: 1rem;
+}
+
+.mr-1{
+  margin-right : 1rem;
+}
+
+.ml-2{
+  margin-left: 2rem;
+}
+
+.mr-2{
+  margin-right : 2rem;
+}
+
+.ml-3{
+  margin-left: 3rem;
+}
+
+.mr-3{
+  margin-right : 3rem;
+}
+
+
+.iuni-color-primary{
+  background-color: #1120FF;
+}
+
+.iuni-color-primary-se{
+  background-color : #050475;
+}
+
+.iuni-color-secondary{
+  background-color : #00ffbe;
+}
+
+.iuni-color-bg{
+  background-color : #eff2ff;
+}
+
+.iuni-color-error{
+  background-color : #00ffbe;
+}
+
+.content-container{
+  width : 100%;
+  margin-left:2rem;
+  margin-right:2rem;
+  display:grid
+}
