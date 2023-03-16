@@ -142,7 +142,10 @@
     background-color: #efefef;
     padding : 1.7rem 1.7rem 1.7rem 1.7rem;
 }
-
+.widget-icon{
+    align-items: center;
+    justify-content: end;
+}
 .banner-widget>div{
     width : 100%;
     height : 100%;

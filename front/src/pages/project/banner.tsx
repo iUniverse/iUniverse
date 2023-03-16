@@ -60,7 +60,7 @@ export default function Banner(props: any) {
 
                                     </div>
                                 </div>
-                                <div className="widget-user col-9">
+                                <div className="widget-user col-8">
                                     <div className="widget-user-name">
                                         <span className="user-name">알새우</span>
                                         <span>님</span>
@@ -68,13 +68,13 @@ export default function Banner(props: any) {
                                         <span>안녕하세요</span>
                                     </div>
                                 </div>
-                                <div className="col center">
+                                <div className="col widget-icon">
                                     <div className="widget-cog">
                                         <img src={"/img/project/widget_cog.png"} />
                                     </div>
                                 </div>
 
-                                <div className="col center">
+                                <div className="col widget-icon">
                                     <div className="widget-brush">
                                         <img src={"/img/project/widget_brush.png"} />
                                     </div>
@@ -100,7 +100,7 @@ export default function Banner(props: any) {
                                     </div>
                                 </div>
                                 <div className="widget-user col-11">
-                                    <div className="widget-user-name">
+                                    <div className="widget-user-name ml-1">
                                         <span className="widget-user-alaram">알림 4개</span>
                                         <br />
                                         <span>'내 집마련 프로젝트'에 </span>
