@@ -126,7 +126,7 @@ a {
 
 
 .iuni_container {
-  display :grid;
+ 
   max-width : 100%;
   margin : 0 auto;
   /* align-items, justify-items 순서로 진행한다. */
@@ -135,7 +135,7 @@ a {
 
 @media screen and (max-width : 768px){
   .iuni_container {
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(1fr, 1fr);
   }
   .iuni_header {
     grid-row : 1 / span 1;
@@ -157,12 +157,11 @@ a {
   .iuni_left_side{
     position : fixed;
     bottom : 0;
-    min-width : 100vh;
+    min-width : 100%;
     max-height: 5vh;
     min-height : 5vh;
     max-width : 100vh;
     z-index: 9999;
-    background-color: blue;
   }
   .iuni_right_side{
     display: none;
@@ -171,6 +170,7 @@ a {
 
 @media screen and (min-width:800px){
   .iuni_container {
+    display :grid;
     grid-template-columns: 80px 1fr;
   }
 
