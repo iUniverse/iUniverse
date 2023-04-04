@@ -457,6 +457,17 @@
 
 
 
+.add-project-btn {
+    position : absolute;
+    width : 48px;
+    height: 48px;
+    background-color : #5915b2;
+    border-radius: 3px;
+    right:16px;
+    top : 57%;
+    z-index: 99999;
+    cursor : pointer
+}
 
 .project-card-list>div {
     height: 152px;

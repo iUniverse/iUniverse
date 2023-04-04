@@ -47,7 +47,8 @@ export default function Banner(props: any) {
 
     useEffect(() => {
         getToday();
-    }, [])
+    }, []);
+
     return (
         <>
             <div className="banner">
@@ -60,6 +61,7 @@ export default function Banner(props: any) {
 
                                     </div>
                                 </div>
+
                                 <div className="widget-user col-8">
                                     <div className="widget-user-name">
                                         <span className="user-name">알새우</span>
@@ -68,6 +70,7 @@ export default function Banner(props: any) {
                                         <span>안녕하세요</span>
                                     </div>
                                 </div>
+                                
                                 <div className="col widget-icon">
                                     <div className="widget-cog">
                                         <img src={"/img/project/widget_cog.png"} />

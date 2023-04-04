@@ -47,6 +47,9 @@ export class Project{
     @Column({ default : true })
     isPrivate : boolean;
 
+    @Column({default : false})
+    isFavorite : boolean;
+    
     @OneToMany(
         (type) => Task,
         (task) => task.project

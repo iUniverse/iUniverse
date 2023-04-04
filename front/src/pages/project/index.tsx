@@ -17,7 +17,8 @@ export interface Project{
     createDate : string,
     dueDate : string,
     startDate : string,
-    endDate : String,
+    endDate : string,
+    isFavorite : boolean,
     isPrivate : boolean,
     processRate : number,
     statusId : number,
@@ -26,12 +27,35 @@ export interface Project{
 }
 
 export default function Index(props : any) {
+    const [favoriteProjects, setFavoriteProjects] = useState<Array<Project>>([]);
+    const [projects, setProjects] = useState<Array<Project>>([]);
+    
+    const router = useRouter();
+    
+    function load(){
+        loadProject().then(result => {
+            setFavoriteProjects(() => [...result.favorite_projects]);
+            setProjects(() => [...result.normal_projects])
+        });
+    }
+    
+
+    useEffect(() => {
+        load()
+    }, []);
+
     return(
         <>
             <div className="project-container">
                 <Banner />
-                <Favorite />
-                <MyProject />
+                <Favorite 
+                    favoriteProjects = {favoriteProjects}
+                    setFavoriteProjects = {setFavoriteProjects}
+                />
+                <MyProject
+                    projects = {projects}
+                    setProjects = {setProjects}
+                />
             </div>            
         </>
     )

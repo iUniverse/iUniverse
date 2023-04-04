@@ -1,7 +1,7 @@
 import { Inject, UsePipes, ValidationPipe } from '@nestjs/common';
 import { CreateProjectsInboundPort, 
-    CreateProjectInputDto,
-    CreateProjectOutputDto} from '../inbound-port/create-projects.inbound-port';
+    CreateProjectIPInputDto,
+    CreateProjectIPOutputDto} from '../inbound-port/create-projects.inbound-port';
 
 import { CREATE_PROJECTS_OUTBOUND_PORT, CreateProjectsOutboundPort } from '../outbound-port/create-projects.outbound-port';
 
@@ -12,8 +12,8 @@ export class CreateProjectsService implements CreateProjectsInboundPort{
 
     @UsePipes(ValidationPipe)
     async create(
-        params : CreateProjectInputDto,
-    ) : Promise<CreateProjectOutputDto> {
+        params : CreateProjectIPInputDto,
+    ) : Promise<CreateProjectIPOutputDto> {
         return this.createProjectOutboundPort.create(params);
     }
 } 

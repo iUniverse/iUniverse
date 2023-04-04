@@ -1,6 +1,6 @@
 import { Body, Controller, Get, Inject, Param } from '@nestjs/common';
-import { FindProjectInboundPort, FindProjectInputDto, FindProjectOutputDto, FIND_PROJECT_INBOUND_PORT } from '../inbound-port/find-projects.inbound-port';
-import { LoadProjectsInboundPort, LoadProjectsInboundPortOutputDto, LOAD_PROJECTS_INBOUND_PORT } from '../inbound-port/load-projects.inbound-port';
+import { FindProjectInboundPort, FindProjectIPInputDto, FindProjectIPOutputDto, FIND_PROJECT_INBOUND_PORT } from '../inbound-port/find-projects.inbound-port';
+import { LoadProjectsInboundPort, LoadProjectsIPOutputDto, LOAD_PROJECTS_INBOUND_PORT } from '../inbound-port/load-projects.inbound-port';
 
 @Controller('iuni_project')
 export class GetProjectController {
@@ -12,12 +12,12 @@ export class GetProjectController {
     ){}
 
     @Get('/')
-    async load():Promise<LoadProjectsInboundPortOutputDto>{
+    async load():Promise<LoadProjectsIPOutputDto>{
         return this.loadProjectsInboundPort.load();
     }
 
     @Get('/:id')
-    async find(@Param() param : FindProjectInputDto):Promise<FindProjectOutputDto>{   
+    async find(@Param() param : FindProjectIPInputDto):Promise<FindProjectIPOutputDto>{   
         return this.findProjectInboundPort.find(param);
     }
 }

@@ -17,5 +17,6 @@ export class FindProjectDto {
     id : number;
     @IsNotEmpty()
     createDate : Date;
+    isFavorite : boolean;
     isPrivate : boolean;
 }

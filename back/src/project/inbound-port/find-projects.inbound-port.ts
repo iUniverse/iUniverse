@@ -1,12 +1,12 @@
 import { IsNotEmpty } from "class-validator";
 import { FindProjectDto } from "../dto/find-project.dto";
 
-export class FindProjectInputDto {
+export class FindProjectIPInputDto {
     @IsNotEmpty()
     id : number;
 }
 
-export class FindProjectOutputDto{
+export class FindProjectIPOutputDto{
     @IsNotEmpty()
     name : string;
     description : string;
@@ -32,6 +32,6 @@ export const FIND_PROJECT_INBOUND_PORT = 'FIND_PROJECT_INBOUND_PORT' as const;
 
 export interface FindProjectInboundPort{
     find(
-        params : FindProjectInputDto,
-    ): Promise<FindProjectOutputDto>;
+        params : FindProjectIPInputDto,
+    ): Promise<FindProjectIPOutputDto>;
 }

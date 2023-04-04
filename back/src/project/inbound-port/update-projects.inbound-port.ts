@@ -6,7 +6,7 @@ import { IsNotEmpty } from "class-validator";
 //     value : string;
 // }
 
-export class UpdateProjectInputDto {
+export class UpdateProjectIPInputDto {
     @IsNotEmpty()
     id : number;
     @IsNotEmpty()
@@ -19,7 +19,7 @@ export class UpdateProjectInputDto {
 //     result : boolean;
 // }
 
-export class UpdateProjectOutputDto {
+export class UpdateProjectIPOutputDto {
     result : boolean;
 }
 
@@ -28,6 +28,6 @@ export const UPDATE_PROJECTS_INBOUND_PORT = 'UPDATE_PROJECTS_INBOUND_PORT' as co
 
 export interface UpdateProjectsInboundPort {
     update(
-        params : UpdateProjectInputDto
-    ) : Promise<UpdateProjectOutputDto>;
+        params : UpdateProjectIPInputDto
+    ) : Promise<UpdateProjectIPOutputDto>;
 }

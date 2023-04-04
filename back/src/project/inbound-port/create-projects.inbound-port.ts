@@ -12,20 +12,20 @@ import { IsNotEmpty, IsString } from "class-validator";
 //     readonly description : string;
 // }
 
-export class CreateProjectInputDto {
+export class CreateProjectIPInputDto {
     @IsNotEmpty()
     readonly name : string;
     @IsNotEmpty()
     readonly description : string;
 }
 
-export class CreateProjectOutputDto {
+export class CreateProjectIPOutputDto {
     @IsNotEmpty()
     name : string;
     @IsNotEmpty()
     id : number;
     @IsNotEmpty()
-    createDate : Date,
+    createDate : Date;
 }
 
 // export type CreateProjectsInboundPortOutputDto = {
@@ -38,6 +38,6 @@ export const CREATE_PROJECTS_INBOUND_PORT = 'CREATE_PROJECTS_INBOUND_PORT' as co
 
 export interface CreateProjectsInboundPort{
     create(
-        params : CreateProjectInputDto,
-    ) : Promise<CreateProjectOutputDto>;
+        params : CreateProjectIPInputDto,
+    ) : Promise<CreateProjectIPOutputDto>;
 } 

@@ -1,10 +1,45 @@
-import React, {useEffect, useState} from 'react';
-import {useRouter} from 'next/router';
+import React, { useEffect, useState, Dispatch, SetStateAction } from 'react';
+import { useRouter } from 'next/router';
+import { createProject } from '../../api/project/project';
 
-export default function MyProject(props:any){
-    return(
+interface Project{
+    id : number,
+    name : string,
+    description : string,
+    createDate : string,
+    dueDate : string,
+    startDate : string,
+    endDate : string,
+    isFavorite : boolean,
+    isPrivate : boolean,
+    processRate : number,
+    statusId : number,
+    typeId : number,
+    color : string
+}
+
+interface Props {
+    projects: Project[]
+    setProjects: Dispatch<SetStateAction<Project[]>>
+}
+
+export default function MyProject(props: Props) {
+    /* 프로젝트 생성 */
+    async function create() {
+        createProject('무제').then(result => {
+            if (result.statusCode === 400) {
+                throw new Error('프로젝트 생성도중 에러가 발생 했어요.');
+            }
+            props.setProjects(prev => [result, ...prev]);
+        })
+    }
+
+    return (
         <>
             <div className="project">
+                <div className="add-project-btn" onClick={() => create()}>
+
+                </div>
                 <div className="project-btn-list">
                     <div className="project-btn">
                         <div className="project-btn-icon">
@@ -16,53 +51,25 @@ export default function MyProject(props:any){
                     </div>
                 </div>
                 <div className="project-card-list">
-                    <div className="project-card no-content-card">
-                        <div className="no-content-card-header">
-                            <div className="project-name">
-                                김링고의 집사 수명줄이기 프로젝트1
-                                김링고의 집사 수명줄이기 프로젝트2
-                                김링고의 집사 수명줄이기 프로젝트3
-                            </div>
-                        </div>
-                        <div className="card-footer">
-                            <div className="favorite-project-icon-list">
-                                <div className="favorite-project-icon">
-                                    <img src={"/img/project/project_heart.png"} />
+                    {
+                        props.projects.map((value, index) => (
+                            <div className="project-card no-content-card" key={value.id}>
+                                <div className="project-name">
+                                    {value.name}
                                 </div>
-                                <div className="favorite-project-icon">
-                                    <img src={"/img/project/project_mountain.png"} />
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div className="project-card no-content-card">
-                        <div className="no-content-card-header">
-                            <div className="project-name">
-                                김링고의 집사 수명줄이기 프로젝트1
-                            </div>
-                        </div>
-                        <div className="no-content-card-footer">
-                            <div className="project-icon-list">
-                                <div className="project-icon">
-                                    <img src={"/img/project/project_heart.png"} />
-                                </div>
-                                <div className="project-icon">
-                                    <img src={"/img/project/project_mountain.png"} />
+                                <div className="card-footer">
+                                    <div className="favorite-project-icon-list">
+                                        <div className="favorite-project-icon">
+                                            <img src={"/img/project/project_heart.png"} />
+                                        </div>
+                                        <div className="favorite-project-icon">
+                                            <img src={"/img/project/project_mountain.png"} />
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    </div>
-
-                    <div className="project-card card">
-
-                    </div>
-                    <div className="project-card card">
-
-                    </div>
-                    <div className="project-card card">
-
-                    </div>
+                        ))
+                    }
                 </div>
             </div>
         </>

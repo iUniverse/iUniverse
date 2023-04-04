@@ -2,14 +2,14 @@ import { IsNotEmpty } from "class-validator";
 
 //export type RemoveProjectInboundPortInputDto = { id : number };
 
-export class RemoveProjectInputDto {
+export class RemoveProjectIPInputDto {
     @IsNotEmpty()
     id : number;
 }
 
 //export type RemoveProjectInboundPortOutputDto = { result : boolean };
 
-export class RemoveProjectOutputDto {
+export class RemoveProjectIPOutputDto {
     @IsNotEmpty()
     result : boolean;
 }
@@ -18,6 +18,6 @@ export const REMOVE_PROJECT_INBOUND_PORT = 'REMOVE_PROJECT_INBOUND_PORT' as cons
 
 export interface RemoveProjectInboundPort{
     remove(
-        params : RemoveProjectInputDto,
-    ): Promise<RemoveProjectOutputDto>;
+        params : RemoveProjectIPInputDto,
+    ): Promise<RemoveProjectIPOutputDto>;
 }

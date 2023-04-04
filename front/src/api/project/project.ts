@@ -3,19 +3,25 @@
 const url = 'http://localhost:3500/iuni_project';
 
 export async function createProject(name:string){
-    const response = await fetch(url,{
-        method : 'POST',
-        cache : 'no-cache',
-        headers: {
-            'Content-Type': 'application/x-www-form-urlencoded'
-        },
-        body: new URLSearchParams({
-            name :  name,
-            description : 'test'
+    try{
+        const response = await fetch(url,{
+            method : 'POST',
+            cache : 'no-cache',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded'
+            },
+            body: new URLSearchParams({
+                name :  name,
+                description : 'test'
+            })
         })
-    })
 
-    return response.json();
+        return response.json();
+    }
+    catch(e){
+        throw(e);
+    }
+    
 }
 
 /** 프로젝트 특정 프로젝트 불러오기 */
@@ -29,11 +35,16 @@ export async function getProject(id : number){
 
 /** 프로젝트 불러오기 */
 export async function loadProject(){
-    const response = await fetch(url, {
-        method : 'GET',
-        cache : 'no-cache',
-    })
-    return response.json();
+    try{
+        const response = await fetch(url, {
+            method : 'GET',
+            cache : 'no-cache',
+        })
+        return response.json();
+    }
+    catch(e){
+        throw(e)
+    }
 }
 
 /** 프로젝트 업데이트 */
