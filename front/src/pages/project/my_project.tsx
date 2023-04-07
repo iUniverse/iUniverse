@@ -1,6 +1,6 @@
 import React, { useEffect, useState, Dispatch, SetStateAction } from 'react';
 import { useRouter } from 'next/router';
-import { createProject } from '../../api/project/project';
+import { createProject, updateProject } from '../../api/project/project';
 
 interface Project{
     id : number,
@@ -20,18 +20,57 @@ interface Project{
 
 interface Props {
     projects: Project[]
+    favorite_projects : Project[]   
     setProjects: Dispatch<SetStateAction<Project[]>>
+    setFavoriteProjects : Dispatch<SetStateAction<Project[]>>
 }
 
 export default function MyProject(props: Props) {
     /* 프로젝트 생성 */
     async function create() {
-        createProject('무제').then(result => {
-            if (result.statusCode === 400) {
-                throw new Error('프로젝트 생성도중 에러가 발생 했어요.');
+        const result = await createProject('무제');
+    
+        if(result.statusCode === 400)
+            throw new Error('프로젝트 생성도중 에러가 발생 했어요.')
+        
+        props.setProjects(prev => [result, ...prev])
+    }
+
+    function checkFavoriteCount(){
+        if(props.favorite_projects.length >= 4){
+            return false;
+        } else {
+            return true;           
+        }
+    }
+    /* 즐겨찾기 프로젝트로 수정 */
+    async function updateFavorite(id:number){   
+        if(checkFavoriteCount() === false){
+            alert("즐겨찾기는 4개 까지만 추가할 수 있어요.");
+            return;
+        }
+    
+        const obj = {
+            'key' : 'isFavorite',
+            'value' : JSON.stringify(true),
+            'id': id
+        }
+
+        const result = await updateProject(obj);        
+        if(result.statusCode === 400){
+            throw new Error('즐겨찾기 추가 도중 에러가 발생 했어요.');
+        } else {
+            const favorite_project = props.projects.find(p => p.id === id);
+            if(favorite_project !== undefined){
+                props.setFavoriteProjects(prev => [favorite_project, ...prev])
             }
-            props.setProjects(prev => [result, ...prev]);
-        })
+
+            props.setProjects(prev => {
+                const i = prev.findIndex(p => p.id === id);
+                prev.splice(i, 1);
+                return [...prev];
+            })
+        }
     }
 
     return (
@@ -59,7 +98,7 @@ export default function MyProject(props: Props) {
                                 </div>
                                 <div className="card-footer">
                                     <div className="favorite-project-icon-list">
-                                        <div className="favorite-project-icon">
+                                        <div className="favorite-project-icon" onClick={() => updateFavorite(value.id)}>
                                             <img src={"/img/project/project_heart.png"} />
                                         </div>
                                         <div className="favorite-project-icon">

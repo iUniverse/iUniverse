@@ -34,12 +34,12 @@ export default function Index(props : any) {
     
     function load(){
         loadProject().then(result => {
+            console.log(result);
             setFavoriteProjects(() => [...result.favorite_projects]);
             setProjects(() => [...result.normal_projects])
         });
     }
     
-
     useEffect(() => {
         load()
     }, []);
@@ -49,16 +49,20 @@ export default function Index(props : any) {
             <div className="project-container">
                 <Banner />
                 <Favorite 
-                    favoriteProjects = {favoriteProjects}
+                    projects = {favoriteProjects}
+                    setProjects = {setProjects}
                     setFavoriteProjects = {setFavoriteProjects}
                 />
                 <MyProject
                     projects = {projects}
+                    favorite_projects = {favoriteProjects}
                     setProjects = {setProjects}
+                    setFavoriteProjects = {setFavoriteProjects}
                 />
             </div>            
         </>
     )
+
     // const [projects, setProjects] = useState<Array<Project>>([]);
     // const router = useRouter();    
     
