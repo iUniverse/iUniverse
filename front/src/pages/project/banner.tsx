@@ -3,7 +3,7 @@ import { useRouter } from 'next/router';
 import useInterval from 'use-interval'
 import moment from 'moment';
 import 'moment/locale/ko';
-
+import themeData from "../../../public/temp-theme.json"
 type Day = {
     [key: number]: string
 }
@@ -13,6 +13,8 @@ export default function Banner(props: any) {
     const [currentDay, setCurrentDay] = useState('');
     const [time, setTime] = useState('');
     const [timeDeco, setTimeDeco] = useState('');
+    const [isShow, setIsShow] = useState('no-show');
+    const [themeList, setThemeList] = useState([]);
 
     const day: Day = {
         0: '일요일',
@@ -23,6 +25,16 @@ export default function Banner(props: any) {
         5: '금요일',
         6: '토요일'
     }
+
+    /* 테마 메뉴 열기 */
+    function openThemeMenu(){
+        if(isShow === 'no-show'){
+            setIsShow(() => 'block-show')
+        } else{
+            setIsShow(() => 'no-show')
+        }
+    }
+
     /* 오늘날짜 구하기 */
     function getToday() {
         const currentDate = new Date();
@@ -34,6 +46,7 @@ export default function Banner(props: any) {
         setToday(() => `${current_year}. ${current_month}. ${current_date}`);
         setCurrentDay(() => `. ${day[current_day]}`);
     }
+
     /* 현재시각 구하기 */
     function getTime() {
         moment().format('hh')
@@ -41,12 +54,23 @@ export default function Banner(props: any) {
         setTime(() => moment().format('hh:mm:ss'))
     }
 
+    /* 테마 변경 */
+    function changeTheme(){
+
+    }
+
+    function readThemeFile(){
+        console.log(themeData);
+    }
+
     useInterval(() => {
         getTime();
     }, 1000);
 
+    
     useEffect(() => {
         getToday();
+        readThemeFile();
     }, []);
 
     return (
@@ -71,15 +95,20 @@ export default function Banner(props: any) {
                                     </div>
                                 </div>
                                 
-                                <div className="col widget-icon">
+                                <div className="col widget-icon dropdown">
                                     <div className="widget-cog">
                                         <img src={"/img/project/widget_cog.png"} />
-                                    </div>
+                                    </div>                                    
                                 </div>
 
-                                <div className="col widget-icon">
-                                    <div className="widget-brush">
+                                <div className="col widget-icon dropdown">
+                                    <div className="widget-brush" onClick={() => openThemeMenu()}>
                                         <img src={"/img/project/widget_brush.png"} />
+                                    </div>
+                                    <div className={`dropdown-content ${isShow}`}>
+                                        <div onClick={() => changeTheme()}>기본테마</div>
+                                        <div onClick={() => changeTheme()}>모노테마</div>
+                                        <div onClick={() => changeTheme()}>코지테마</div>
                                     </div>
                                 </div>
                             </div>

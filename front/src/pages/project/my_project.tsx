@@ -26,6 +26,9 @@ interface Props {
 }
 
 export default function MyProject(props: Props) {
+    function moveTaskPage(){
+        console.log('moveTaskPage!!');
+    }
     /* 프로젝트 생성 */
     async function create() {
         const result = await createProject('무제');
@@ -92,7 +95,7 @@ export default function MyProject(props: Props) {
                 <div className="project-card-list">
                     {
                         props.projects.map((value, index) => (
-                            <div className="project-card no-content-card" key={value.id}>
+                            <div className="project-card no-content-card" key={value.id} onClick={() => moveTaskPage()}>
                                 <div className="project-name">
                                     {value.name}
                                 </div>

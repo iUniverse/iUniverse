@@ -436,11 +436,48 @@
     height: 100%;
 }
 
+
+.project-card:hover{
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
+}
+
 .project-card-list {
     margin-top: 0.4rem;
     display: grid;
     gap: 1rem;
 }
+
+.dropdown-content{
+    display:none;
+    position : absolute;
+    background-color : #f9f9f9;
+    min-width : 116px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;    
+
+}
+
+.dropdown-content>div{
+    display : flex;
+    justify-content : center;
+    align-items : center;
+    height : 48px;
+}
+
+.dropdown-content>div:hover{
+
+    background-color:#f2f3ff;
+    color : #1120ff;
+}
+.no-show{
+    display : none;
+}
+
+.block-show{
+    display : block;
+}
+
+
 
 @media screen and (min-width: 768px) {
     .project-card-list {

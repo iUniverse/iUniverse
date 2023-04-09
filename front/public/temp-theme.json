@@ -1,0 +1,44 @@
+{
+    "basic" :[ 
+        {"recent" : "#19007A"},
+        {"favorite":[
+            "#5C66FB",
+            "#3A45E6",
+            "#7E5FFC",
+            "#5914B2",
+            "#503FB1",
+            "#684ee8",
+            "#340090",
+            "#351673",
+            "#0a1a87",
+            "#6C4DB4",
+            "#834DB8",
+            "#560275"
+            ]
+        }
+    ],
+    "mono":[
+        {"recent":"#373737"},
+        {"favorite" : [
+            "#F5F5F5"
+        ]}
+    ],
+    "cozy" : [
+        {"receont" : "#B2C6B4"},
+        {"favorite" : [
+            "#E7DFCA",
+            "#e8dabf",
+            "#ddcdb4",
+            "#D1C1A7",
+            "#E7E3DA",
+            "#E4DDCD",
+            "#dad4c8",
+            "#d6c9b6",
+            "#E0E1CF",
+            "#d7d8d0",
+            "#cfd1c6",
+            "#bcbfb8"
+        ]}
+       
+    ]
+}
