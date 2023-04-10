@@ -14,17 +14,33 @@
             "#6C4DB4",
             "#834DB8",
             "#560275"
-            ]
-        }
+        ]},
+        {"recent_font" : "#3a45e6"},
+        {"banner_font" : "#fff"},
+        {"font" : "#fff"}
     ],
     "mono":[
         {"recent":"#373737"},
         {"favorite" : [
+            "#F5F5F5",
+            "#F5F5F5",
+            "#F5F5F5",
+            "#F5F5F5",
+            "#F5F5F5",
+            "#F5F5F5",
+            "#F5F5F5",
+            "#F5F5F5",
+            "#F5F5F5",
+            "#F5F5F5",
+            "#F5F5F5",
             "#F5F5F5"
-        ]}
+        ]},
+        {"recent_font" : "#b2c6b4"},
+        {"banner_font" : "#fff"},
+        {"font" : "#222"}
     ],
     "cozy" : [
-        {"receont" : "#B2C6B4"},
+        {"recent" : "#B2C6B4"},
         {"favorite" : [
             "#E7DFCA",
             "#e8dabf",
@@ -38,7 +54,10 @@
             "#d7d8d0",
             "#cfd1c6",
             "#bcbfb8"
-        ]}
+        ]},
+        {"recent_font" : "#373737"},
+        {"banner_font" : "#fff"}, 
+        {"font" : "#222"}
        
     ]
 }

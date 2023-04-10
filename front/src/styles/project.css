@@ -203,7 +203,6 @@
 .banner-recent-project>div {
     width: 100%;
     height: 100%;
-    background-color: #19007a
 }
 
 
@@ -218,7 +217,6 @@
 
 .recent-project-type {
     text-align: center;
-    color: #f1f1f1;
     font-size: 24px;
     padding-bottom: 1rem;
 }
@@ -329,24 +327,20 @@
 
 .favorite-card-list>div:nth-child(1) {
     margin-right: 0.5rem;
-    background-color: #5c66fb;
 }
 
 .favorite-card-list>div:nth-child(2) {
     margin-left: 0.5rem;
     margin-right: 0.5rem;
-    background-color: #3a45e6;
 }
 
 .favorite-card-list>div:nth-child(3) {
     margin-left: 0.5rem;
     margin-right: 0.5rem;
-    background-color: #7e5ffc;
 }
 
 .favorite-card-list>div:nth-child(4) {
     margin-left: 0.5rem;
-    background-color: #5914b2;
 }
 
 .favorite-project-name {
@@ -359,7 +353,6 @@
     line-height: 1.17;
     letter-spacing: -0.36px;
     text-align: left;
-    color: #fff;
 }
 
 .favorite-project-icon-list {

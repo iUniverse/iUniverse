@@ -19,8 +19,10 @@ interface Project {
 
 interface Props {
     projects: Project[]
+    favoriteBgColor : string[]
     setFavoriteProjects: Dispatch<SetStateAction<Project[]>>
     setProjects: Dispatch<SetStateAction<Project[]>>
+    favoriteFontColor : string
 }
 
 export default function Favorite(props: Props) {
@@ -67,14 +69,14 @@ export default function Favorite(props: Props) {
                 <div className="favorite-card-list">
                     {
                         props.projects.map((value, index) => (
-                            <div className="favorite-card card" key={`favorite_${value.id}`}>
+                            <div className="favorite-card card" key={`favorite_${value.id}`} style={{backgroundColor : `${props.favoriteBgColor[index]}`}}>
                                 <div className="card-header">
-                                    <div className="favorite-d-day badge">
+                                    <div className="favorite-d-day badge" style={{color : `${props.favoriteFontColor}`}}>
                                         <span>D-13</span>
                                     </div>
                                 </div>
                                 <div className="card-content">
-                                    <div className="favorite-project-name">
+                                    <div className="favorite-project-name" style={{color : `${props.favoriteFontColor}`}}>
                                         {value.name}
                                     </div>
                                 </div>

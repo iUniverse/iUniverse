@@ -1,9 +1,18 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, Dispatch, SetStateAction } from 'react';
 import { useRouter } from 'next/router';
 import useInterval from 'use-interval'
 import moment from 'moment';
 import 'moment/locale/ko';
 import themeData from "../../../public/temp-theme.json"
+
+
+
+
+interface Props {
+    setFavoriteBgColor : Dispatch<SetStateAction<string[]>>
+    setFavoriteFontColor : string
+}
+
 type Day = {
     [key: number]: string
 }
@@ -14,7 +23,9 @@ export default function Banner(props: any) {
     const [time, setTime] = useState('');
     const [timeDeco, setTimeDeco] = useState('');
     const [isShow, setIsShow] = useState('no-show');
-    const [themeList, setThemeList] = useState([]);
+    const [recentBgColor, setRecentBgColor] = useState('');
+    const [recentFontColor, setRecentFontColor] = useState('');
+    const [bannerFontColor, setBannerFontColor] = useState('');
 
     const day: Day = {
         0: '일요일',
@@ -54,14 +65,21 @@ export default function Banner(props: any) {
         setTime(() => moment().format('hh:mm:ss'))
     }
 
-    /* 테마 변경 */
-    function changeTheme(){
 
+    function settingTheme(type:string){
+        const favoriteBgColor = themeData[type][1];
+        const recent_font = themeData[type][2]['recent_font'];
+        console.log(recent_font);
+        setRecentBgColor(() => themeData[type][0]['recent']);
+        setRecentFontColor(() => recent_font);
+        setBannerFontColor(() => themeData[type][3]['banner_font']);
+
+        props.setFavoriteBgColor(() => [...favoriteBgColor['favorite']]);
+        props.setFavoriteFontColor(() => themeData[type][4]['font']);
+     
     }
 
-    function readThemeFile(){
-        console.log(themeData);
-    }
+
 
     useInterval(() => {
         getTime();
@@ -70,7 +88,7 @@ export default function Banner(props: any) {
     
     useEffect(() => {
         getToday();
-        readThemeFile();
+        settingTheme('basic');
     }, []);
 
     return (
@@ -106,9 +124,9 @@ export default function Banner(props: any) {
                                         <img src={"/img/project/widget_brush.png"} />
                                     </div>
                                     <div className={`dropdown-content ${isShow}`}>
-                                        <div onClick={() => changeTheme()}>기본테마</div>
-                                        <div onClick={() => changeTheme()}>모노테마</div>
-                                        <div onClick={() => changeTheme()}>코지테마</div>
+                                        <div onClick={() => settingTheme('basic')}>기본테마</div>
+                                        <div onClick={() => settingTheme('mono')}>모노테마</div>
+                                        <div onClick={() => settingTheme('cozy')}>코지테마</div>
                                     </div>
                                 </div>
                             </div>
@@ -145,14 +163,14 @@ export default function Banner(props: any) {
                     </div>
 
                     <div className="banner-recent-project">
-                        <div className="recent-project-card card p-1">
+                        <div className="recent-project-card card p-1" style={{backgroundColor:`${recentBgColor}`}}>
                             <div className="recent-project-d-day card-header row">
                                 <div className="badge">D-13</div>
                             </div>
                             <div className="card-content row">
-                                <div className="recent-project-type col-12">최근 프로젝트</div>
+                                <div className="recent-project-type col-12" style={{color:`${recentFontColor}`}}>최근 프로젝트</div>
                                 <br />
-                                <div className="recent-project-name col-12">그림그리기 프로젝트</div>
+                                <div className="recent-project-name col-12" style={{color: `${bannerFontColor}`}}>그림그리기 프로젝트</div>
                             </div>
                             <div className="recent-project-icon-list card-footer row ">
                                 <div className="recent-project-icon">
