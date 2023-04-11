@@ -14,7 +14,7 @@ export class LoadProjectsService implements LoadProjectsInboundPort{
         
         return {
             'favorite_projects' : projects.filter(d => d.isFavorite === true),
-            'normal_projects' : projects.filter(d => d.isFavorite === false)
+            'normal_projects' : projects
         };
     }
 }

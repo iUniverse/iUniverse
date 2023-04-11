@@ -160,17 +160,20 @@
     align-items: center;
 }
 
-.widget-date-time>span:nth-child(2) {
+.widget-date-time>div:nth-child(1) {
     font-size: 18px;
     font-weight: bold;
     color: #ccc;
+    margin-bottom: 1.1rem;
+    margin-right: 0.3rem;
 }
 
-.widget-date-time>span:nth-child(1) {
+.widget-date-time>div:nth-child(2) {
     font-size: 44px;
     font-weight: 300;
     color: #222;
 }
+
 
 .widget-footer {
     background-color: #efefef;
@@ -178,6 +181,7 @@
 }
 
 .widget-icon {
+    display: flex;
     align-items: center;
     justify-content: end;
 }
@@ -252,6 +256,7 @@
     width: 100%;
     padding-left: 1rem;
     padding-right: 1rem;
+    padding-top : 1.5rem;
 }
 
 .favorite-btn-list {
@@ -325,23 +330,6 @@
     height: 240px;
 }
 
-.favorite-card-list>div:nth-child(1) {
-    margin-right: 0.5rem;
-}
-
-.favorite-card-list>div:nth-child(2) {
-    margin-left: 0.5rem;
-    margin-right: 0.5rem;
-}
-
-.favorite-card-list>div:nth-child(3) {
-    margin-left: 0.5rem;
-    margin-right: 0.5rem;
-}
-
-.favorite-card-list>div:nth-child(4) {
-    margin-left: 0.5rem;
-}
 
 .favorite-project-name {
     font-size: 36px;
@@ -380,6 +368,7 @@
     padding-left: 1rem;
     padding-right: 1rem;
     padding-bottom: 1.7rem;
+    padding-top : 1.5rem;
 }
 
 .project-btn-list {
@@ -430,7 +419,7 @@
 }
 
 
-.project-card:hover{
+.project-card:hover {
     box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
 }
 
@@ -440,34 +429,36 @@
     gap: 1rem;
 }
 
-.dropdown-content{
-    display:none;
-    position : absolute;
-    background-color : #f9f9f9;
-    min-width : 116px;
-    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-    z-index: 1;    
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 116px;
+    right:1.9rem;
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+    z-index: 1;
 
 }
 
-.dropdown-content>div{
-    display : flex;
-    justify-content : center;
-    align-items : center;
-    height : 48px;
+.dropdown-content>div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 48px;
 }
 
-.dropdown-content>div:hover{
+.dropdown-content>div:hover {
 
-    background-color:#f2f3ff;
-    color : #1120ff;
-}
-.no-show{
-    display : none;
+    background-color: #f2f3ff;
+    color: #1120ff;
 }
 
-.block-show{
-    display : block;
+.no-show {
+    display: none;
+}
+
+.block-show {
+    display: block;
 }
 
 
@@ -488,15 +479,15 @@
 
 
 .add-project-btn {
-    position : absolute;
-    width : 48px;
+    position: fixed;
+    width: 48px;
     height: 48px;
-    background-color : #5915b2;
+    background-color: #5915b2;
     border-radius: 3px;
-    right:16px;
-    top : 57%;
+    right: 16px;
+    top: 57%;
     z-index: 99999;
-    cursor : pointer
+    cursor: pointer
 }
 
 .project-card-list>div {

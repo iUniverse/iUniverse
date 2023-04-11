@@ -47,15 +47,10 @@ export default function MyProject(props: Props) {
         }
     }
     /* 즐겨찾기 프로젝트로 수정 */
-    async function updateFavorite(id:number){   
-        if(checkFavoriteCount() === false){
-            alert("즐겨찾기는 4개 까지만 추가할 수 있어요.");
-            return;
-        }
-    
+    async function updateFavorite(id:number, type:boolean){   
         const obj = {
             'key' : 'isFavorite',
-            'value' : JSON.stringify(true),
+            'value' : JSON.stringify(type),
             'id': id
         }
 
@@ -63,18 +58,45 @@ export default function MyProject(props: Props) {
         if(result.statusCode === 400){
             throw new Error('즐겨찾기 추가 도중 에러가 발생 했어요.');
         } else {
-            const favorite_project = props.projects.find(p => p.id === id);
-            if(favorite_project !== undefined){
-                props.setFavoriteProjects(prev => [favorite_project, ...prev])
-            }
 
-            props.setProjects(prev => {
-                const i = prev.findIndex(p => p.id === id);
-                prev.splice(i, 1);
-                return [...prev];
-            })
+            if(type === true){
+                const favorite_project = props.projects.find(p => p.id === id);
+                if(favorite_project !== undefined){
+                    props.setFavoriteProjects(prev => [favorite_project, ...prev])
+                }
+
+                const data = props.projects.find(p => p.id === id);
+                // if(data !== undefined){
+                //     props.setProjects(prev => [data, ...prev]);
+                // }
+                props.setProjects(prev => {
+                    const data = prev.find(p => p.id === id);
+                    if(data !== undefined){
+                        data.isFavorite = true;
+                    }
+                    return [...prev];
+                })
+
+            } else {
+                props.setFavoriteProjects(prev => {
+                    const i = prev.findIndex(p => p.id === id);
+                    prev.splice(i, 1);
+                    return [...prev];
+                });
+
+                props.setProjects(prev => {
+                    const data = prev.find(p => p.id === id);
+                    if(data !== undefined){
+                        data.isFavorite = false;
+                    }
+                    return [...prev];
+                })
+            }
+            
         }
     }
+
+
 
     return (
         <>
@@ -101,9 +123,16 @@ export default function MyProject(props: Props) {
                                 </div>
                                 <div className="card-footer">
                                     <div className="favorite-project-icon-list">
-                                        <div className="favorite-project-icon" onClick={() => updateFavorite(value.id)}>
-                                            <img src={"/img/project/project_heart.png"} />
-                                        </div>
+                                        {
+                                            value.isFavorite === false ?
+                                            <div className="favorite-project-icon" onClick={() => updateFavorite(value.id, true)}>
+                                                  <img src={"/img/project/project_heart.png"} />
+                                            </div> :
+                                            <div className="favorite-project-icon" onClick={() => updateFavorite(value.id, false)}>
+                                                <img src={"/img/project/heart.png"} />
+                                            </div>
+                                        }
+                                     
                                         <div className="favorite-project-icon">
                                             <img src={"/img/project/project_mountain.png"} />
                                         </div>

@@ -26,7 +26,7 @@ interface Props {
 }
 
 export default function Favorite(props: Props) {
-
+    console.log(props.projects);
     /* 프로젝트 즐겨찾기 on / off */
     async function updateFavorite(id: number) {
         const obj = {
@@ -39,11 +39,6 @@ export default function Favorite(props: Props) {
         if (result.statusCode === 400) {
             throw new Error('즐겨찾기 추가 도중 에러가 발생 했어요.');
         } else {
-            const data = props.projects.find(p => p.id === id);
-            if(data !== undefined){
-                props.setProjects(prev => [data, ...prev]);
-            }
-
             props.setFavoriteProjects(prev => {
                 const i = prev.findIndex(p => p.id === id);
                 prev.splice(i, 1);
