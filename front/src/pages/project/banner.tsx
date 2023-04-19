@@ -36,7 +36,7 @@ export default function Banner(props: any) {
         5: '금요일',
         6: '토요일'
     }
-
+    
     /* 테마 메뉴 열기 */
     function openThemeMenu() {
         if (isShow === 'no-show') {
@@ -76,10 +76,13 @@ export default function Banner(props: any) {
 
         props.setFavoriteBgColor(() => [...favoriteBgColor['favorite']]);
         props.setFavoriteFontColor(() => themeData[type][4]['font']);
-
     }
-
-
+    const router = useRouter();
+    /* 테마 관리하기 */
+    function managementTheme(){
+       
+        router.push('/theme');
+    }
 
     useInterval(() => {
         getTime();
@@ -125,6 +128,7 @@ export default function Banner(props: any) {
                                             <div onClick={() => settingTheme('basic')}>기본테마</div>
                                             <div onClick={() => settingTheme('mono')}>모노테마</div>
                                             <div onClick={() => settingTheme('cozy')}>코지테마</div>
+                                            <div onClick={() => managementTheme()}>테마 관리</div>
                                         </div>
                                     </div>
                                 </div>

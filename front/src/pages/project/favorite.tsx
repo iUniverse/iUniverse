@@ -39,11 +39,13 @@ export default function Favorite(props: Props) {
         if (result.statusCode === 400) {
             throw new Error('즐겨찾기 추가 도중 에러가 발생 했어요.');
         } else {
+
             props.setFavoriteProjects(prev => {
                 const i = prev.findIndex(p => p.id === id);
                 prev.splice(i, 1);
                 return [...prev];
             });
+            
         }
     }
 

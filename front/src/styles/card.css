@@ -6,6 +6,7 @@
     color : #fff;
     position : relative;
     grid-template-rows: 1fr 3fr 1fr;
+    cursor: pointer;
 }
 
 .banner{
@@ -31,6 +32,7 @@
     color : #fff;
     position : relative;
     grid-template-rows: 4fr 1fr;
+    cursor : pointer;
 }
 
 .no-content-card-header{
