@@ -1,6 +1,4 @@
-import { IsNotEmpty } from "class-validator";
-
-export class CreateThemeIPInputDto{
+export type CreateThemeOPInputDto = {
     //테마명
     readonly name : string;
     //즐겨찾기 배경화면 색상코드들
@@ -19,7 +17,7 @@ export class CreateThemeIPInputDto{
     readonly userId : number;
 }
 
-export class CreateThemeIPOutputDto{
+export type CreateThemeOPOutputDto = {
     //테마명
     name : string;
     //즐겨찾기 배경화면 색상코드들
@@ -38,12 +36,8 @@ export class CreateThemeIPOutputDto{
     userId : number;
 }
 
-export const CREATE_THEME_INBOUND_PORT = 'CREATE_THEME_INBOUND_PORT' as const;
+export const CREATE_THEME_OUTBOUND_PORT = 'CREATE_THEME_OUTBOUND_PORT' as const;
 
-export interface CreateThemeInboundPort{
-    // create(
-    //     params : CreateThemeIPInputDto,
-    // ) : Promise<CreateThemeIPInputDto>;
-
-    create(params: CreateThemeIPInputDto) : Promise<CreateThemeIPInputDto>;
+export interface CreateThemeOutboundPort{
+    create(params : CreateThemeOPInputDto) : Promise<CreateThemeOPOutputDto>;
 }
