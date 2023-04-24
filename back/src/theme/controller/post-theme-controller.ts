@@ -16,7 +16,17 @@ export class PostThemeController{
             return await this.createThemeInboundPort.create(theme);
         }
         catch(e){
-            console.log(e);
+            throw Error(e);
+        }
+    }
+
+    @Post('/init')
+    @UsePipes(ValidationPipe)
+    async createInit(@Body() theme : CreateThemeIPInputDto) : Promise<boolean> {
+        try{
+            return await this.createThemeInboundPort.createInit(theme);
+        }
+        catch(e){
             throw Error(e);
         }
     }

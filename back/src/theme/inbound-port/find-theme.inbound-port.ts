@@ -1,8 +1,13 @@
-import { IsNotEmpty } from "class-validator";
+import { IsNotEmpty, IsOptional } from "class-validator";
+import { FindThemeDto } from "../dto/find-theme.dto";
 
 export class FindThemeIPInputDto{
-    @IsNotEmpty()
-    userId : number; 
+    @IsOptional()
+    id : number;
+    @IsOptional()
+    userId : number;
+    @IsOptional() 
+    name : string;
 }
 
 export class FindThemeIPOutputDto{
@@ -27,12 +32,22 @@ export class FindThemeIPOutputDto{
     userId : number;
 }
 
-
+export class LoadThemeIPOutputDto {
+    'themeList' : Array<FindThemeDto>    
+}
 
 export const FIND_THEME_INBOUND_PORT =  'FIND_THEME_INBOUND_PORT' as const;
 
 export interface FindThemeInboundPort{
+    //특정 테마 정보 찾기
     find(
         params : FindThemeIPInputDto,
-    ) : Promise<FindThemeIPOutputDto>;
+    ) : Promise<FindThemeIPOutputDto>
+
+    //테마 기본값 있는지 확인
+    checkInit(
+        params : FindThemeIPInputDto,
+    ) : Promise<boolean>
+
+    load() : Promise<LoadThemeIPOutputDto>;
 }

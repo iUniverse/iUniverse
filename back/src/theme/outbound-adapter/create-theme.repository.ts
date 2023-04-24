@@ -15,6 +15,6 @@ export class CreateThemeRepository implements CreateThemeOutboundPort{
 
     async createInit(param : CreateThemeOPInputDto) : Promise<boolean>{
         const result = await this.createThemeRepo.CreateTheme(param);
-        result;
+        return true;
     }
 }

@@ -1,16 +1,34 @@
 import { Body, Controller, Get, Inject, Param } from '@nestjs/common';
 
-import { FIND_THEME_INBOUND_PORT, FindThemeIPInputDto, FindThemeIPOutputDto, FindThemeInboundPort } from '../inbound-port/find-theme.inbound-port';
+import { FIND_THEME_INBOUND_PORT, FindThemeIPInputDto, FindThemeIPOutputDto, FindThemeInboundPort, LoadThemeIPOutputDto } from '../inbound-port/find-theme.inbound-port';
 
 @Controller('iuni_theme')
-export class GetProjectController {
+export class GetThemeController {
     constructor(
         @Inject(FIND_THEME_INBOUND_PORT)
-        private readonly findProjectInboundPort : FindThemeInboundPort
+        private readonly findThemeInboundPort : FindThemeInboundPort,
     ){}
 
     @Get('/:id')
     async find(@Param() param : FindThemeIPInputDto):Promise<FindThemeIPOutputDto>{   
-        return this.findProjectInboundPort.find(param);
+        return this.findThemeInboundPort.find(param);
+    }
+
+    @Get('/')
+    async load() : Promise<LoadThemeIPOutputDto>{
+        try{
+            return this.findThemeInboundPort.load();
+        }
+        catch(e){
+            console.log(e);
+            console.log("dsafsdaf");
+            throw e;
+        }
+    }
+
+    @Get('/init/:name')
+    async checkInit(@Param() param : FindThemeIPInputDto) : Promise<boolean>{
+        param.userId = 0;
+        return this.findThemeInboundPort.checkInit(param);
     }
 }

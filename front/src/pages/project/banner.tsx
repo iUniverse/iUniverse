@@ -4,6 +4,7 @@ import useInterval from 'use-interval'
 import moment from 'moment';
 import 'moment/locale/ko';
 import themeData from "../../../public/temp-theme.json"
+import { getMyTheme, loadMyThemeInfo } from 'api/theme/card-theme';
 
 
 
@@ -17,6 +18,10 @@ type Day = {
     [key: number]: string
 }
 
+export interface ThemeInfo{
+    id : number;
+    name : string;
+}
 export default function Banner(props: any) {
     const [today, setToday] = useState('');
     const [currentDay, setCurrentDay] = useState('');
@@ -26,6 +31,15 @@ export default function Banner(props: any) {
     const [recentBgColor, setRecentBgColor] = useState('');
     const [recentFontColor, setRecentFontColor] = useState('');
     const [bannerFontColor, setBannerFontColor] = useState('');
+
+    const [favoriteBColors, setFavoriteBColors] = useState<string[]>([]);
+    const [favoriteBadgeColor,setFavoriteBadgeColors] = useState<string[]>([]);
+    const [favoriteTColor, setFavoriteTColor] = useState<string>('');
+    const [bannerBC, setBannerBC] = useState<string>('');
+    const [bannerBadgeColor, setBannerBadgeColor] = useState<string[]>([]);
+    const [bannerTColor , setBannerTColor] = useState<string>('');
+    const [currentThemeId, setCurrentThemeId] = useState<number>(0);
+    const [themeInfo, setThemeInfo] = useState<Array<ThemeInfo>>([]);
 
     const day: Day = {
         0: '일요일',
@@ -65,8 +79,35 @@ export default function Banner(props: any) {
         setTime(() => moment().format('hh:mm:ss'))
     }
 
+    /* 테마 선택 박스 정보 */
+    async function settingThemeSelectBox(){
+        const my_theme_list = await loadMyThemeInfo(['name', 'id']);
+        
+        for(const my_theme of my_theme_list){
+            setThemeInfo(prev => {
+                return [...prev, {'id' : my_theme.id, 'name' : my_theme.name}]
+            })
+        }
+    }
 
-    function settingTheme(type: string) {
+    /* 테마 업데이트 */
+    async function updateTheme(id:number){
+        //현재는 유저 정보가 없기에 업데이트문은 없음
+        const theme = await getMyTheme(id);
+        setFavoriteBColors(() => theme.favoriteBColors);
+        setFavoriteBadgeColors(() => theme.favoriteBadgeColor);
+        setFavoriteTColor(() => theme.favoriteTColor);
+        setBannerBC(() => theme.bannerBC);
+        setBannerBadgeColor(() => theme.bannerBadgeColor);
+        setBannerTColor(() => theme.bannerTColor);
+        setCurrentThemeId(() => id);
+    }
+
+    /* 기본 테마 설정 */
+    async function settingTheme(type: string) {
+        //현재 설정한 나의 테마 정보 가져오기
+        //const my_theme = await getMyTheme();
+
         const favoriteBgColor = themeData[type][1];
         const recent_font = themeData[type][2]['recent_font'];
         console.log(recent_font);
@@ -92,6 +133,7 @@ export default function Banner(props: any) {
     useEffect(() => {
         getToday();
         settingTheme('basic');
+        settingThemeSelectBox();
     }, []);
 
     return (
@@ -101,8 +143,6 @@ export default function Banner(props: any) {
                     <div className="banner-widget">
                         <div className="widget card">
                             <div className="widget-header row">
-
-
                                 <div className="widget-user col-8">
                                     <div className="widget-profile">
                                         <div className="profile">
@@ -125,9 +165,11 @@ export default function Banner(props: any) {
                                     <div className="widget-brush dropdown" onClick={() => openThemeMenu()}>
                                         <img src={"/img/project/widget_brush.png"} />
                                         <div className={`dropdown-content ${isShow}`}>
-                                            <div onClick={() => settingTheme('basic')}>기본테마</div>
-                                            <div onClick={() => settingTheme('mono')}>모노테마</div>
-                                            <div onClick={() => settingTheme('cozy')}>코지테마</div>
+                                            {
+                                                themeInfo.map((val, index) => (
+                                                    <div key={val.id} onClick={() => updateTheme(val.id)}>{val.name}</div>
+                                                ))
+                                            }
                                             <div onClick={() => managementTheme()}>테마 관리</div>
                                         </div>
                                     </div>

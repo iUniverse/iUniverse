@@ -10,8 +10,6 @@ export class LoadProjectsService implements LoadProjectsInboundPort{
 
     async load() : Promise<LoadProjectsIPOutputDto> {
         const projects =  await this.loadProjectOutboundPort.load();
-        
-        
         return {
             'favorite_projects' : projects.filter(d => d.isFavorite === true),
             'normal_projects' : projects

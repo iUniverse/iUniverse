@@ -40,4 +40,5 @@ export const CREATE_THEME_OUTBOUND_PORT = 'CREATE_THEME_OUTBOUND_PORT' as const;
 
 export interface CreateThemeOutboundPort{
     create(params : CreateThemeOPInputDto) : Promise<CreateThemeOPOutputDto>;
+    createInit(params : CreateThemeOPInputDto) : Promise<boolean>;
 }

@@ -1,6 +1,7 @@
 import { TypeOrmExModule } from "src/typeorm-ex.module";
 import { ThemeRepository } from "./theme.repository";
 import { PostThemeController } from "./controller/post-theme-controller";
+import { GetThemeController } from "./controller/get-theme.controller";
 import { CREATE_THEME_INBOUND_PORT } from "./inbound-port/create-theme.inbound-port";
 import { CreateThemeService } from "./service/create-theme.service";
 import { Module } from "@nestjs/common";
@@ -11,11 +12,12 @@ import { FIND_THEME_OUTBOUND_PORT } from "./outbound-port/find-theme.outbound-po
 import { FindThemeRepository } from "./outbound-adapter/find-theme.repository";
 import { FindThemeService } from "./service/find-theme.service";
 
+
 @Module({
     imports : [
         TypeOrmExModule.forCustomRepository([ThemeRepository])
     ],
-    controllers : [PostThemeController],
+    controllers : [PostThemeController, GetThemeController],
     providers : [
         {
             provide : CREATE_THEME_INBOUND_PORT,
@@ -32,7 +34,7 @@ import { FindThemeService } from "./service/find-theme.service";
         {
             provide : FIND_THEME_OUTBOUND_PORT,
             useClass : FindThemeRepository,
-        }
+        },
     ]
 })
 export class ThemeModule{}
