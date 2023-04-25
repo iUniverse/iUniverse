@@ -13,6 +13,8 @@ export const FIND_THEME_OUTBOUND_PORT = 'FIND_THEME_OUTBOUND_PORT' as const;
 export interface FindThemeOutboundPort{
     find(param: FindThemeOPInputDto) : Promise<FindThemeOPOutputDto>;
 
+    findMyTheme(param : FindThemeOPInputDto) : Promise<FindThemeOPOutputDto>;
+    
     checkInit(param : FindThemeOPInputDto) : Promise<boolean>;
 
     load() : Promise<LoadThemeOPOutputDto>;

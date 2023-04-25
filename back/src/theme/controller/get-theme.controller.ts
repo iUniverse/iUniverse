@@ -9,9 +9,15 @@ export class GetThemeController {
         private readonly findThemeInboundPort : FindThemeInboundPort,
     ){}
 
-    @Get('/:id')
+    @Get('/themes/:id')
     async find(@Param() param : FindThemeIPInputDto):Promise<FindThemeIPOutputDto>{   
         return this.findThemeInboundPort.find(param);
+    }
+
+    @Get('/mytheme')
+    async findMyTheme(@Param() param : FindThemeIPInputDto) : Promise<FindThemeIPOutputDto>{
+        console.log("엄?");
+        return this.findThemeInboundPort.findMyTheme(param);
     }
 
     @Get('/')
@@ -20,8 +26,6 @@ export class GetThemeController {
             return this.findThemeInboundPort.load();
         }
         catch(e){
-            console.log(e);
-            console.log("dsafsdaf");
             throw e;
         }
     }

@@ -40,14 +40,13 @@ export const FIND_THEME_INBOUND_PORT =  'FIND_THEME_INBOUND_PORT' as const;
 
 export interface FindThemeInboundPort{
     //특정 테마 정보 찾기
-    find(
-        params : FindThemeIPInputDto,
-    ) : Promise<FindThemeIPOutputDto>
+    find(params : FindThemeIPInputDto) : Promise<FindThemeIPOutputDto>
+
+    //현재 나의 테마 보기
+    findMyTheme(param : FindThemeIPInputDto) : Promise<FindThemeIPOutputDto>
 
     //테마 기본값 있는지 확인
-    checkInit(
-        params : FindThemeIPInputDto,
-    ) : Promise<boolean>
+    checkInit(params : FindThemeIPInputDto) : Promise<boolean>
 
     load() : Promise<LoadThemeIPOutputDto>;
 }

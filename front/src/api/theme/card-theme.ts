@@ -25,13 +25,22 @@ export async function loadMyThemeInfo(requireList : string[] | undefined){
         return result;
     }
 }
-
-/* 나의 테마 불러오기 */
-export async function getMyTheme(id : number) {
-    const response = await fetch(url + `/${id}`, {
+export async function getTheme(id : number){
+    const response = await fetch(url + `/themes/${id}`, {
         method: 'GET',
         cache: 'no-cache'
     })
+
+    return response.json();
+}
+
+/* 나의 기본 설정된 테마 불러오기 */
+export async function getMyInitTheme() {
+    const response = await fetch(url + `/mytheme`, {
+        method: 'GET',
+        cache: 'no-cache'
+    })
+    
     return response.json();
 }
 

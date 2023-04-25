@@ -17,6 +17,7 @@ export class ThemeRepository extends Repository<Theme>{
         }
     }
 
+    
     async LoadMyTheme(param: number): Promise<LoadThemeOPOutputDto> {
         try {
             const result = await this.find({
@@ -34,9 +35,19 @@ export class ThemeRepository extends Repository<Theme>{
 
     }
 
+    async FindMyTheme(param : FindThemeOPInputDto) : Promise<Theme>{
+        try{
+            return await this.findOne({
+                where :{
+                    userId : param.userId
+                }
+            })
+        }
+        catch(e){
+            throw e;
+        }
+    }
     async FindTheme(param: FindThemeOPInputDto): Promise<Theme> {
-        console.log("------");
-        console.log(param);
         try {
             return await this.findOne({
                 where: {

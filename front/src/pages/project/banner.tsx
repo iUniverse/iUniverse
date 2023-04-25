@@ -4,14 +4,15 @@ import useInterval from 'use-interval'
 import moment from 'moment';
 import 'moment/locale/ko';
 import themeData from "../../../public/temp-theme.json"
-import { getMyTheme, loadMyThemeInfo } from 'api/theme/card-theme';
+import { getMyInitTheme, getTheme, loadMyThemeInfo } from 'api/theme/card-theme';
 
 
 
 
 interface Props {
-    setFavoriteBgColor: Dispatch<SetStateAction<string[]>>
-    setFavoriteFontColor: string
+    setFavoriteBColors: Dispatch<SetStateAction<string[]>>
+    setFavoriteBadgeColors : Dispatch<SetStateAction<string[]>>
+    setFavoriteTColor: string
 }
 
 type Day = {
@@ -28,13 +29,11 @@ export default function Banner(props: any) {
     const [time, setTime] = useState('');
     const [timeDeco, setTimeDeco] = useState('');
     const [isShow, setIsShow] = useState('no-show');
-    const [recentBgColor, setRecentBgColor] = useState('');
-    const [recentFontColor, setRecentFontColor] = useState('');
-    const [bannerFontColor, setBannerFontColor] = useState('');
+    // const [recentBgColor, setRecentBgColor] = useState('');
+    // const [recentFontColor, setRecentFontColor] = useState('');
+    // const [bannerFontColor, setBannerFontColor] = useState('');
 
-    const [favoriteBColors, setFavoriteBColors] = useState<string[]>([]);
-    const [favoriteBadgeColor,setFavoriteBadgeColors] = useState<string[]>([]);
-    const [favoriteTColor, setFavoriteTColor] = useState<string>('');
+
     const [bannerBC, setBannerBC] = useState<string>('');
     const [bannerBadgeColor, setBannerBadgeColor] = useState<string[]>([]);
     const [bannerTColor , setBannerTColor] = useState<string>('');
@@ -93,10 +92,11 @@ export default function Banner(props: any) {
     /* 테마 업데이트 */
     async function updateTheme(id:number){
         //현재는 유저 정보가 없기에 업데이트문은 없음
-        const theme = await getMyTheme(id);
-        setFavoriteBColors(() => theme.favoriteBColors);
-        setFavoriteBadgeColors(() => theme.favoriteBadgeColor);
-        setFavoriteTColor(() => theme.favoriteTColor);
+        const theme = await getTheme(id);
+        console.log(theme);
+        props.setFavoriteBColors(() => theme.favoriteBColors);
+        props.setFavoriteBadgeColors(() => theme.favoriteBadgeColor);
+        props.setFavoriteTColor(() => theme.favoriteTColor);
         setBannerBC(() => theme.bannerBC);
         setBannerBadgeColor(() => theme.bannerBadgeColor);
         setBannerTColor(() => theme.bannerTColor);
@@ -104,19 +104,16 @@ export default function Banner(props: any) {
     }
 
     /* 기본 테마 설정 */
-    async function settingTheme(type: string) {
+    async function settingTheme(id : number) {
         //현재 설정한 나의 테마 정보 가져오기
-        //const my_theme = await getMyTheme();
-
-        const favoriteBgColor = themeData[type][1];
-        const recent_font = themeData[type][2]['recent_font'];
-        console.log(recent_font);
-        setRecentBgColor(() => themeData[type][0]['recent']);
-        setRecentFontColor(() => recent_font);
-        setBannerFontColor(() => themeData[type][3]['banner_font']);
-
-        props.setFavoriteBgColor(() => [...favoriteBgColor['favorite']]);
-        props.setFavoriteFontColor(() => themeData[type][4]['font']);
+        const theme = await getMyInitTheme();
+        props.setFavoriteBColors(() => theme.favoriteBColors);
+        props.setFavoriteBadgeColors(() => theme.favoriteBadgeColor);
+        props.setFavoriteTColor(() => theme.favoriteTColor);
+        setBannerBC(() => theme.bannerBC);
+        setBannerBadgeColor(() => theme.bannerBadgeColor);
+        setBannerTColor(() => theme.bannerTColor);
+        setCurrentThemeId(() => id);
     }
     const router = useRouter();
     /* 테마 관리하기 */
@@ -132,7 +129,7 @@ export default function Banner(props: any) {
 
     useEffect(() => {
         getToday();
-        settingTheme('basic');
+        settingTheme(0);
         settingThemeSelectBox();
     }, []);
 
@@ -206,14 +203,14 @@ export default function Banner(props: any) {
                     </div>
 
                     <div className="banner-recent-project">
-                        <div className="recent-project-card card p-1" style={{ backgroundColor: `${recentBgColor}` }}>
+                        <div className="recent-project-card card p-1" style={{ backgroundColor: `${bannerBC}` }}>
                             <div className="recent-project-d-day card-header row">
                                 <div className="badge">D-13</div>
                             </div>
                             <div className="card-content row">
-                                <div className="recent-project-type col-12" style={{ color: `${recentFontColor}` }}>최근 프로젝트</div>
+                                <div className="recent-project-type col-12" style={{ color: `${bannerTColor}` }}>최근 프로젝트</div>
                                 <br />
-                                <div className="recent-project-name col-12" style={{ color: `${bannerFontColor}` }}>그림그리기 프로젝트</div>
+                                <div className="recent-project-name col-12" style={{ color: `${bannerTColor}` }}>그림그리기 프로젝트</div>
                             </div>
                             <div className="recent-project-icon-list card-footer row ">
                                 <div className="recent-project-icon">

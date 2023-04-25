@@ -14,12 +14,15 @@ export class FindThemeService implements FindThemeInboundPort{
         return this.findThemeOutboundPort.find(param);
     }
 
+    async findMyTheme(param : FindThemeOPInputDto): Promise<FindThemeIPOutputDto> {
+        param.userId = 0;
+        return this.findThemeOutboundPort.findMyTheme(param);
+    }
     async load() : Promise<LoadThemeOPOutputDto>{
         return this.findThemeOutboundPort.load();
     }
 
     async checkInit(param: FindThemeOPInputDto):Promise<boolean>{
-        
         return this.findThemeOutboundPort.checkInit(param);
     }
 }
