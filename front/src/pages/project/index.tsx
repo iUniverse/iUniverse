@@ -8,6 +8,7 @@ import { useRouter } from 'next/router';
 import Banner from './banner';
 import Favorite from './favorite';
 import MyProject from './my_project';
+import { checkInitTheme, createInitTheme } from 'api/theme/card-theme';
 
 
 export interface Project{
@@ -37,14 +38,13 @@ export default function Index(props : any) {
     
     function load(){
         loadProject().then(result => {
-            console.log(result);
             setFavoriteProjects(() => [...result.favorite_projects]);
             setProjects(() => [...result.normal_projects])
         });
     }
     
     useEffect(() => {
-        load()
+        load();
     }, []);
 
     return(

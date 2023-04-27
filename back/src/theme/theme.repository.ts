@@ -37,11 +37,13 @@ export class ThemeRepository extends Repository<Theme>{
 
     async FindMyTheme(param : FindThemeOPInputDto) : Promise<Theme>{
         try{
-            return await this.findOne({
+            const result = await this.findOne({
                 where :{
                     userId : param.userId
                 }
-            })
+            }) 
+           
+            return result; 
         }
         catch(e){
             throw e;

@@ -36,12 +36,20 @@ export async function getTheme(id : number){
 
 /* 나의 기본 설정된 테마 불러오기 */
 export async function getMyInitTheme() {
-    const response = await fetch(url + `/mytheme`, {
-        method: 'GET',
-        cache: 'no-cache'
-    })
+    try{
+        const response = await fetch(url + `/mytheme`, {
+            method: 'GET',
+            cache: 'no-cache'
+        });
+
+        return response.json();
+        
+    }
+    catch(e){
+        console.log(e);
+        return null;
+    }
     
-    return response.json();
 }
 
 export async function createInitTheme(themeName : string) : Promise<boolean> {

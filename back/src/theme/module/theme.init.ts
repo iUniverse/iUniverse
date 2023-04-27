@@ -135,6 +135,28 @@ const init_theme = {
         bannerBC : "#B2C6B4",
         bannerTColor : "#fff",
         bannerBadgeColor : ["skyblue", "#fff"],
+    },
+    '트로피컬테마' : {
+        name : "트로피컬테마",
+        favoriteBColors : [
+            "#b2e4ed",
+            "#feec83",
+            "#f5bade",
+            "#c4dc5c",
+            "#bae1ac",
+            "#ffcb9c",
+            "#d4d4ec",
+            "#90dad0",
+            "#ffcec8",
+            "#c4dc5c",
+            "#b2d4ed",
+            "#ffbc79"
+        ],
+        favoriteBadgeColor : ["skyblue", "#fff"],
+        favoriteTColor : "#222",
+        bannerBC : "linear-gradient(to bottom, #a8edea, #fed6e3)",
+        bannerTColor : "#fff",
+        bannerBadgeColor : ["skyblue", "#fff"],
     }
 }
 

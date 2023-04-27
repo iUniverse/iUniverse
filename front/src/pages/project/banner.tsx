@@ -5,13 +5,14 @@ import moment from 'moment';
 import 'moment/locale/ko';
 import themeData from "../../../public/temp-theme.json"
 import { getMyInitTheme, getTheme, loadMyThemeInfo } from 'api/theme/card-theme';
+import { IuniCat } from 'api/project/iuni-cat';
 
 
 
 
 interface Props {
     setFavoriteBColors: Dispatch<SetStateAction<string[]>>
-    setFavoriteBadgeColors : Dispatch<SetStateAction<string[]>>
+    setFavoriteBadgeColors: Dispatch<SetStateAction<string[]>>
     setFavoriteTColor: string
 }
 
@@ -19,9 +20,9 @@ type Day = {
     [key: number]: string
 }
 
-export interface ThemeInfo{
-    id : number;
-    name : string;
+export interface ThemeInfo {
+    id: number;
+    name: string;
 }
 export default function Banner(props: any) {
     const [today, setToday] = useState('');
@@ -29,17 +30,14 @@ export default function Banner(props: any) {
     const [time, setTime] = useState('');
     const [timeDeco, setTimeDeco] = useState('');
     const [isShow, setIsShow] = useState('no-show');
-    // const [recentBgColor, setRecentBgColor] = useState('');
-    // const [recentFontColor, setRecentFontColor] = useState('');
-    // const [bannerFontColor, setBannerFontColor] = useState('');
-
 
     const [bannerBC, setBannerBC] = useState<string>('');
     const [bannerBadgeColor, setBannerBadgeColor] = useState<string[]>([]);
-    const [bannerTColor , setBannerTColor] = useState<string>('');
+    const [bannerTColor, setBannerTColor] = useState<string>('');
     const [currentThemeId, setCurrentThemeId] = useState<number>(0);
     const [themeInfo, setThemeInfo] = useState<Array<ThemeInfo>>([]);
 
+    const [iuniCat, setIuniCat] = useState<string>('');
     const day: Day = {
         0: '일요일',
         1: '월요일',
@@ -49,7 +47,7 @@ export default function Banner(props: any) {
         5: '금요일',
         6: '토요일'
     }
-    
+
     /* 테마 메뉴 열기 */
     function openThemeMenu() {
         if (isShow === 'no-show') {
@@ -79,18 +77,18 @@ export default function Banner(props: any) {
     }
 
     /* 테마 선택 박스 정보 */
-    async function settingThemeSelectBox(){
+    async function settingThemeSelectBox() {
         const my_theme_list = await loadMyThemeInfo(['name', 'id']);
-        
-        for(const my_theme of my_theme_list){
+
+        for (const my_theme of my_theme_list) {
             setThemeInfo(prev => {
-                return [...prev, {'id' : my_theme.id, 'name' : my_theme.name}]
+                return [...prev, { 'id': my_theme.id, 'name': my_theme.name }]
             })
         }
     }
 
     /* 테마 업데이트 */
-    async function updateTheme(id:number){
+    async function updateTheme(id: number) {
         //현재는 유저 정보가 없기에 업데이트문은 없음
         const theme = await getTheme(id);
         console.log(theme);
@@ -104,22 +102,39 @@ export default function Banner(props: any) {
     }
 
     /* 기본 테마 설정 */
-    async function settingTheme(id : number) {
+    async function settingTheme(id: number) {
         //현재 설정한 나의 테마 정보 가져오기
         const theme = await getMyInitTheme();
-        props.setFavoriteBColors(() => theme.favoriteBColors);
-        props.setFavoriteBadgeColors(() => theme.favoriteBadgeColor);
-        props.setFavoriteTColor(() => theme.favoriteTColor);
-        setBannerBC(() => theme.bannerBC);
-        setBannerBadgeColor(() => theme.bannerBadgeColor);
-        setBannerTColor(() => theme.bannerTColor);
-        setCurrentThemeId(() => id);
+        console.log(theme);
+        if (theme !== null) {
+            props.setFavoriteBColors(() => theme.favoriteBColors);
+            props.setFavoriteBadgeColors(() => theme.favoriteBadgeColor);
+            props.setFavoriteTColor(() => theme.favoriteTColor);
+            setBannerBC(() => theme.bannerBC);
+            setBannerBadgeColor(() => theme.bannerBadgeColor);
+            setBannerTColor(() => theme.bannerTColor);
+            setCurrentThemeId(() => id);
+        }
+
     }
     const router = useRouter();
     /* 테마 관리하기 */
-    function managementTheme(){
-       
+    function managementTheme() {
+
         router.push('/theme');
+    }
+
+    function getIuniCat() {
+        const iuni_cat = new IuniCat();
+        iuni_cat.background = '#b7bbff';
+        iuni_cat.body = '#5762ff';
+        iuni_cat.nose = '#fff';
+        iuni_cat.leftEyeWhite = '#fff';
+        iuni_cat.leftEye = '#020918';
+        iuni_cat.rightEyeWhite = '#fff';
+        iuni_cat.rightEye = '#020918';
+        console.log(iuni_cat.draw());
+        setIuniCat(() => iuni_cat.draw());
     }
 
     useInterval(() => {
@@ -129,8 +144,10 @@ export default function Banner(props: any) {
 
     useEffect(() => {
         getToday();
+        getIuniCat();
         settingTheme(0);
         settingThemeSelectBox();
+
     }, []);
 
     return (
@@ -142,8 +159,7 @@ export default function Banner(props: any) {
                             <div className="widget-header row">
                                 <div className="widget-user col-8">
                                     <div className="widget-profile">
-                                        <div className="profile">
-
+                                        <div className="profile" dangerouslySetInnerHTML={{ __html: iuniCat }}>
                                         </div>
                                     </div>
 
@@ -203,7 +219,7 @@ export default function Banner(props: any) {
                     </div>
 
                     <div className="banner-recent-project">
-                        <div className="recent-project-card card p-1" style={{ backgroundColor: `${bannerBC}` }}>
+                        <div className="recent-project-card card p-1" style={{ background: `${bannerBC}` }}>
                             <div className="recent-project-d-day card-header row">
                                 <div className="badge">D-13</div>
                             </div>
