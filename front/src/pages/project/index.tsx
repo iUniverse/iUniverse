@@ -1,7 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import { Col, Row, Card, Space, Tooltip, Button, AutoComplete, Input} from 'antd';
-import { EditOutlined, DeleteOutlined, SettingOutlined, LinkOutlined} from '@ant-design/icons';
-import ButtonSpace from './button_space';
 import { loadProject } from 'api/project/project';
 import { useRouter } from 'next/router';
 

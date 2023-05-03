@@ -2,6 +2,8 @@ import 'styles/globals.css'
 import 'styles/layout.css'
 import 'styles/card.css'
 import 'styles/project.css';
+import 'styles/theme.css';
+
 import type { AppProps } from 'next/app'
 import IUniLayout from './layout/layout'
 import { useEffect } from 'react';

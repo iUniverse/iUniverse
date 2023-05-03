@@ -102,7 +102,9 @@ export default function MyProject(props: Props) {
         <>
             <div className="project">
                 <div className="add-project-btn" onClick={() => create()}>
-
+                <img src={"/img/project/bt-add-default.webp"} 
+                    style={{width :'35px', height :'35px'}}
+                />
                 </div>
                 <div className="project-btn-list">
                     <div className="project-btn">

@@ -1,11 +1,5 @@
 import { IsNotEmpty } from "class-validator";
 
-// export type UpdateProjectsInboundPortInputDto = {
-//     id : number;
-//     key : string;
-//     value : string;
-// }
-
 export class UpdateProjectIPInputDto {
     @IsNotEmpty()
     id : number;
@@ -14,10 +8,6 @@ export class UpdateProjectIPInputDto {
     @IsNotEmpty()
     value : string;
 }
-
-// export type UpdateProjectsInboundPortOutputDto = {
-//     result : boolean;
-// }
 
 export class UpdateProjectIPOutputDto {
     result : boolean;

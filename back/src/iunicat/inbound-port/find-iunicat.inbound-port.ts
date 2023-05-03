@@ -1,8 +1,7 @@
 import { IsNotEmpty } from "class-validator";
 
 export class FindIuniCatIPInputDto {
-    @IsNotEmpty()
-    theme_id : number;
+    userId : number;
 }
 
 export class FindIuniCatIPOutputDto {
@@ -24,4 +23,14 @@ export class FindIuniCatIPOutputDto {
     body : string;
     @IsNotEmpty()
     background : string;
+}
+
+// export type FindProjectInboundPortOutputDto = FindProjectDto;
+
+export const FIND_IUNICAT_INBOUND_PORT = 'FIND_IUNICAT_INBOUND_PORT' as const;
+
+export interface FindIuniCatInboundPort{
+    find(
+        params : FindIuniCatIPInputDto,
+    ): Promise<FindIuniCatIPOutputDto>;
 }

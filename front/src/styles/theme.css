@@ -1,0 +1,63 @@
+.theme {
+    padding-left : 1rem;
+    padding-right : 1rem;
+    padding-top : 1rem;
+}
+
+.theme-container{
+    display : grid;
+    width :100%;
+    gap : 1rem;
+}
+.theme-other-cat{
+    display:flex;
+    flex-wrap : wrap;
+}
+.mt-1{
+    margin-top : 1rem;
+}
+
+.mt-2{
+    margin-top : 1.2rem;
+}
+.theme-flex{
+    display:flex;
+}
+
+.theme-flex-center{
+    justify-content: center;
+    align-items: center;
+}
+
+.theme-content-center{
+    justify-content: center;
+    align-items: center;
+}
+.theme-cat-setting-header{
+    display:flex;
+    justify-content: center;
+    align-items: center;
+}
+.theme-cat-setting-body{
+    display :flex;
+    justify-content: space-between;
+}
+.theme-cat{
+    width : 100%;
+    border-radius: 24px;
+    background-color: #f5f5f5;
+}
+.theme-my-iuni-cat-name{
+    color : black;
+}
+@media screen and (min-width : 768px) {
+    .theme-container {
+        grid-template-columns: minmax(1fr, 1fr)
+    }
+}
+
+@media screen and (min-width : 800px) {
+    .theme-container {
+        grid-template-columns: 5fr 7fr;
+    }
+}

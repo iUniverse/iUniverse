@@ -487,7 +487,10 @@
     right: 16px;
     top: 57%;
     z-index: 99999;
-    cursor: pointer
+    cursor: pointer;
+    display:flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .project-card-list>div {

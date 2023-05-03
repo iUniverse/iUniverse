@@ -5,7 +5,9 @@ import moment from 'moment';
 import 'moment/locale/ko';
 import themeData from "../../../public/temp-theme.json"
 import { getMyInitTheme, getTheme, loadMyThemeInfo } from 'api/theme/card-theme';
-import { IuniCat } from 'api/project/iuni-cat';
+import { IuniCatStyle } from 'api/project/iuni-cat';
+import BannerIuniCat from './banner_iuni_cat';
+
 
 
 
@@ -124,18 +126,20 @@ export default function Banner(props: any) {
         router.push('/theme');
     }
 
-    function getIuniCat() {
-        const iuni_cat = new IuniCat();
-        iuni_cat.background = '#b7bbff';
-        iuni_cat.body = '#5762ff';
-        iuni_cat.nose = '#fff';
-        iuni_cat.leftEyeWhite = '#fff';
-        iuni_cat.leftEye = '#020918';
-        iuni_cat.rightEyeWhite = '#fff';
-        iuni_cat.rightEye = '#020918';
-        console.log(iuni_cat.draw());
-        setIuniCat(() => iuni_cat.draw());
-    }
+    // function getIuniCat() {
+    //     const iuni_cat = new IuniCatStyle();
+    //     iuni_cat.background = '#b7bbff';
+    //     iuni_cat.body = '#5762ff';
+    //     iuni_cat.nose = '#fff';
+    //     iuni_cat.leftEyeWhite = '#fff';
+    //     iuni_cat.leftEye = '#020918';
+    //     iuni_cat.rightEyeWhite = '#fff';
+    //     iuni_cat.rightEye = '#020918';
+        
+    //     iuni_cat.draw()
+    //         .then(result => setIuniCat(() => result));
+        
+    // }
 
     useInterval(() => {
         getTime();
@@ -144,7 +148,7 @@ export default function Banner(props: any) {
 
     useEffect(() => {
         getToday();
-        getIuniCat();
+        //getIuniCat();
         settingTheme(0);
         settingThemeSelectBox();
 
@@ -159,7 +163,8 @@ export default function Banner(props: any) {
                             <div className="widget-header row">
                                 <div className="widget-user col-8">
                                     <div className="widget-profile">
-                                        <div className="profile" dangerouslySetInnerHTML={{ __html: iuniCat }}>
+                                        <div className="profile">
+                                            <BannerIuniCat />
                                         </div>
                                     </div>
 
