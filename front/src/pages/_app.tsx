@@ -8,6 +8,7 @@ import type { AppProps } from 'next/app'
 import IUniLayout from './layout/layout'
 import { useEffect } from 'react';
 import { checkInitTheme, createInitTheme } from 'api/theme/card-theme';
+import { checkInitCatStyle, createInitCatStyle } from 'api/theme/iuni-cat-theme';
 
 export default function App({ Component, pageProps }: AppProps) {
   function createInit(theme_name_list: string[]): Promise<boolean> {
@@ -28,16 +29,20 @@ export default function App({ Component, pageProps }: AppProps) {
     })
   }
 
+
+
   function checkInit(): Promise<string[]> {
     const theme_name_list = ['기본테마', '모노테마', '코지테마', '트로피컬테마'];
+
     return new Promise(resolve => {
       Promise.all([
         checkInitTheme(theme_name_list[0]),
         checkInitTheme(theme_name_list[1]),
         checkInitTheme(theme_name_list[2]),
-        checkInitTheme(theme_name_list[3])
+        checkInitTheme(theme_name_list[3]),
+        
       ])
-        .then(async result => {
+        .then(result => {
           let not_exist_theme = [];
           let i = 0;
           for (const value of result) {
@@ -63,7 +68,16 @@ export default function App({ Component, pageProps }: AppProps) {
             } 
           })  
         }
-      })
+      });
+
+    checkInitCatStyle()
+      .then(async result => {
+        console.log(result);
+        if(result === false){
+          const iuniCat = await createInitCatStyle();
+          console.log(iuniCat);
+        } 
+      });
   }, []);
   return (
     <IUniLayout>

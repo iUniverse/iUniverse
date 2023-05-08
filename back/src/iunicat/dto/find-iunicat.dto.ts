@@ -12,3 +12,7 @@ export class FindIuniCatDto{
     body : string;
     background : string;
 }
+
+export class CheckInitDto {
+    userId: number;
+}

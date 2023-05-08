@@ -5,7 +5,7 @@ export class IuniCat{
     @PrimaryGeneratedColumn()
     id : number;
 
-    @Column({length : 50})
+    @Column({length : 50, default : '아유니', nullable : true})
     name : string;
 
     @Column({default : '#020918'})

@@ -9,9 +9,6 @@ import { IuniCatStyle } from 'api/project/iuni-cat';
 import BannerIuniCat from './banner_iuni_cat';
 
 
-
-
-
 interface Props {
     setFavoriteBColors: Dispatch<SetStateAction<string[]>>
     setFavoriteBadgeColors: Dispatch<SetStateAction<string[]>>
@@ -125,21 +122,6 @@ export default function Banner(props: any) {
 
         router.push('/theme');
     }
-
-    // function getIuniCat() {
-    //     const iuni_cat = new IuniCatStyle();
-    //     iuni_cat.background = '#b7bbff';
-    //     iuni_cat.body = '#5762ff';
-    //     iuni_cat.nose = '#fff';
-    //     iuni_cat.leftEyeWhite = '#fff';
-    //     iuni_cat.leftEye = '#020918';
-    //     iuni_cat.rightEyeWhite = '#fff';
-    //     iuni_cat.rightEye = '#020918';
-        
-    //     iuni_cat.draw()
-    //         .then(result => setIuniCat(() => result));
-        
-    // }
 
     useInterval(() => {
         getTime();

@@ -21,8 +21,14 @@ export type CreateIuniCatOPOutputDto = {
     background : string;  
 }
 
+export type CreateInitOPInputDto = {
+    userId : number;
+}
+
 export const CREATE_IUNICAT_OUTBOUND_PORT = 'CREATE_IUNICAT_OUTBOUND_PORT' as const;
 
 export interface CreateIuniCatOutboundPort{
     create(param : CreateIuniCatOPInputDto) : Promise<CreateIuniCatOPOutputDto>
+
+    createInit(param : CreateInitOPInputDto) : Promise<CreateIuniCatOPOutputDto>
 }

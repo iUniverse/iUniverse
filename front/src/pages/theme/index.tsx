@@ -1,5 +1,4 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { checkInitTheme, createInitTheme } from 'api/theme/card-theme';
 import { IuniCatStyle } from 'api/project/iuni-cat';
 import { BlockPicker } from 'react-color';
 import IuniCat from './iuni_cat';

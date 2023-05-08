@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { loadProject } from 'api/project/project';
 import { useRouter } from 'next/router';
-
 import Banner from './banner';
 import Favorite from './favorite';
 import MyProject from './my_project';
-import { checkInitTheme, createInitTheme } from 'api/theme/card-theme';
+
 
 
 export interface Project{

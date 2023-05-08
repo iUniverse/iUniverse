@@ -1,6 +1,6 @@
 import { Inject } from "@nestjs/common";
-import { FindIuniCatIPInputDto, FindIuniCatIPOutputDto, FindIuniCatInboundPort } from "../inbound-port/find-iunicat.inbound-port";
-import { FIND_IUNICAT_OUTBOUND_PORT, FindIuniCatOutboundPort } from "../outbound-port/find-iunicat.outbound-port";
+import { CheckInitCatIPInputDto, FindIuniCatIPInputDto, FindIuniCatIPOutputDto, FindIuniCatInboundPort } from "../inbound-port/find-iunicat.inbound-port";
+import { CheckInitCatOPInputDto, FIND_IUNICAT_OUTBOUND_PORT, FindIuniCatOutboundPort } from "../outbound-port/find-iunicat.outbound-port";
 
 export class FindIuniCatService implements FindIuniCatInboundPort{
     constructor(
@@ -8,7 +8,11 @@ export class FindIuniCatService implements FindIuniCatInboundPort{
         private readonly findIuniCatOutboundPort : FindIuniCatOutboundPort
     ){}
     
-    async find(param: FindIuniCatIPInputDto) : Promise<FindIuniCatIPOutputDto>{
-        return this.findIuniCatOutboundPort.find(param);
+    async findMyCat(param: FindIuniCatIPInputDto) : Promise<FindIuniCatIPOutputDto>{
+        return this.findIuniCatOutboundPort.findMyCat(param);
+    }
+
+    async checkInit(param : CheckInitCatOPInputDto) : Promise<boolean> {
+        return this.findIuniCatOutboundPort.checkInit(param);      
     }
 } 

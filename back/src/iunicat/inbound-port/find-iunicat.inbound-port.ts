@@ -23,14 +23,21 @@ export class FindIuniCatIPOutputDto {
     body : string;
     @IsNotEmpty()
     background : string;
+    createDate : Date;
 }
 
-// export type FindProjectInboundPortOutputDto = FindProjectDto;
+export class CheckInitCatIPInputDto {
+    @IsNotEmpty()
+    userId : number;
+}
+
+
 
 export const FIND_IUNICAT_INBOUND_PORT = 'FIND_IUNICAT_INBOUND_PORT' as const;
 
 export interface FindIuniCatInboundPort{
-    find(
-        params : FindIuniCatIPInputDto,
-    ): Promise<FindIuniCatIPOutputDto>;
+    findMyCat(param : FindIuniCatIPInputDto): Promise<FindIuniCatIPOutputDto>; 
+    
+    checkInit(params: CheckInitCatIPInputDto) : Promise<boolean>;
+    
 }
