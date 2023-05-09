@@ -4,6 +4,12 @@
     flex-wrap : wrap;
     justify-content: flex-start;
   }
+
+.row-column{
+  display : flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
   .col{
     flex : auto;
   }

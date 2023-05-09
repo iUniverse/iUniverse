@@ -429,6 +429,36 @@
     gap: 1rem;
 }
 
+.project-empty {
+    margin-top : 0.4em;
+    display : grid;
+    grid-template-columns: 1fr;
+    
+}
+
+.project-empty>div{
+    height : 480px;
+    background-color : #f2f3ff;
+    border-radius: 24px;
+    display : flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+}
+
+.project-empty-create-btn{
+    font-family: Pretendard;
+    font-size: 18px;
+    font-weight: 500;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 0.78;
+    letter-spacing: -0.18px;
+    text-align: left;
+    color: #222;
+    background-color : #e6e8ff;
+    cursor: pointer;
+}
 .dropdown-content {
     display: none;
     position: absolute;

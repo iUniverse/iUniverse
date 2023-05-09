@@ -51,18 +51,20 @@ export default function Index(props : any) {
                     setFavoriteTColor = {setFavoriteTColor}
                     setFavoriteBadgeColors = {setFavoriteBadgeColors}
                 />
-                <Favorite 
+                {
+                    projects.length > 0 &&
+                    <Favorite 
                     projects = {favoriteProjects}
                     setProjects = {setProjects}
                     setFavoriteProjects = {setFavoriteProjects}
                     favoriteFontColor = {favoriteTColor}
                     favoriteBgColor = {favoriteBColors}
-                    
-                />
+                    />
+                }
+                
                 <MyProject
                     projects = {projects}
                     favorite_projects = {favoriteProjects}
-                    
                     setProjects = {setProjects}
                     setFavoriteProjects = {setFavoriteProjects}
                 />

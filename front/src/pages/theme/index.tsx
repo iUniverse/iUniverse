@@ -52,6 +52,8 @@ export default function Index(props: any) {
     </g>
     <path data-name="패스 10991" d="m82.169 37.624-1.39-1.54h2.78z" transform="translate(-57.779)" style="fill:#fff" />
 </svg>`);
+
+
     const [secondIuniCat, setSecondIuniCat] = useState<string>(`  <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 48 48">
     <path data-name="패스 10977" d="M82.17 0a24 24 0 1 1-24 24 24 24 0 0 1 24-24" transform="translate(-58.17)" style="fill:#b7bbff" />
     <path data-name="패스 10978" d="M92.114 10.305h-2.42l-3.337 6.936h-8.375l-3.337-6.936h-2.421S63.444 22.35 59.56 32.058a24 24 0 0 0 45.219 0c-3.885-9.708-12.665-21.753-12.665-21.753" transform="translate(-58.17)" style="fill:#5762ff" />
@@ -62,6 +64,8 @@ export default function Index(props: any) {
     <path data-name="패스 10983" d="M90.051 33.475c-.655 0-1.187-2.531-1.187-3.187S89.4 27.1 90.051 27.1s1.186 2.531 1.186 3.186-.531 3.187-1.186 3.187" transform="translate(-58.17)" style="fill:#020918" />
     <path data-name="패스 10984" d="m82.169 37.624-1.39-1.54h2.78z" transform="translate(-58.17)" style="fill:#fff" />
 </svg>`);
+
+
     const [thirdIuniCat, setThridIuniCat] = useState<string>(`  <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 48 48">
     <defs>
         <clipPath id="luodfoc8ua">
@@ -89,6 +93,8 @@ export default function Index(props: any) {
         <path data-name="패스 10990" d="m24 37.624-1.39-1.54h2.78z" transform="translate(.39)" style="fill:#fff" />
     </g>
 </svg>`);
+
+
     const [forthIuniCat, setForthIuniCat] = useState<string>(`<svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 48 48">
     <path data-name="패스 10985" d="M140.339 1.729a24 24 0 1 1-24 24 24 24 0 0 1 24-24" transform="translate(-116.339 -1.729)" style="fill:#b7bbff" />
     <path data-name="패스 10986" d="M150.284 12.034h-2.42l-3.337 6.936h-8.375l-3.337-6.936h-2.421s-8.78 12.045-12.664 21.753a24 24 0 0 0 45.219 0c-3.885-9.708-12.665-21.753-12.665-21.753" transform="translate(-116.339 -1.729)" style="fill:#5762ff" />
