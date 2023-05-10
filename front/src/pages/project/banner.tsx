@@ -5,7 +5,7 @@ import moment from 'moment';
 import 'moment/locale/ko';
 import themeData from "../../../public/temp-theme.json"
 import { getMyInitTheme, getTheme, loadMyThemeInfo } from 'api/theme/card-theme';
-import { IuniCatStyle } from 'api/project/iuni-cat';
+
 import BannerIuniCat from './banner_iuni_cat';
 
 
@@ -36,7 +36,7 @@ export default function Banner(props: any) {
     const [currentThemeId, setCurrentThemeId] = useState<number>(0);
     const [themeInfo, setThemeInfo] = useState<Array<ThemeInfo>>([]);
 
-    const [iuniCat, setIuniCat] = useState<string>('');
+    const [timePeriod, setTimePeriod] = useState<string>('');
     const day: Day = {
         0: '일요일',
         1: '월요일',
@@ -70,9 +70,25 @@ export default function Banner(props: any) {
 
     /* 현재시각 구하기 */
     function getTime() {
-        moment().format('hh')
-        setTimeDeco(() => moment().format('hh') < '12' ? 'PM' : 'AM');
-        setTime(() => moment().format('hh:mm:ss'))
+        const current_hour = Number(moment().format('HH'));
+        setTimeDeco(() => current_hour < 12 ? 'PM' : 'AM'); 
+        setTime(() => moment().format('hh:mm:ss'));
+        
+        if(current_hour >= 22 || current_hour < 6){
+            setTimePeriod(() => 'dawn');
+        }
+        else if(current_hour >= 6 && current_hour < 9){
+            setTimePeriod(() => 'morning');
+        } 
+        else if(current_hour >= 9 && current_hour < 14){
+            setTimePeriod(() => 'afternoon');
+        } 
+        else if(current_hour >= 14 && current_hour < 18){
+            setTimePeriod(() => 'dinner');
+        } 
+        else if(current_hour >= 18 && current_hour < 22) {
+            setTimePeriod(() => 'night');
+        }
     }
 
     /* 테마 선택 박스 정보 */
@@ -146,7 +162,9 @@ export default function Banner(props: any) {
                                 <div className="widget-user col-8">
                                     <div className="widget-profile">
                                         <div className="profile">
-                                            <BannerIuniCat />
+                                            <BannerIuniCat
+                                                timePeriod = {timePeriod}
+                                            />
                                         </div>
                                     </div>
 

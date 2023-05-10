@@ -29,13 +29,12 @@ export default function MyProject(props: Props) {
     function moveTaskPage() {
         console.log('moveTaskPage!!');
     }
+    
     /* 프로젝트 생성 */
     async function create() {
         const result = await createProject('무제');
-
         if (result.statusCode === 400)
             throw new Error('프로젝트 생성도중 에러가 발생 했어요.')
-
         props.setProjects(prev => [result, ...prev])
     }
 

@@ -458,6 +458,7 @@
     color: #222;
     background-color : #e6e8ff;
     cursor: pointer;
+    border-radius: 8px;
 }
 .dropdown-content {
     display: none;
