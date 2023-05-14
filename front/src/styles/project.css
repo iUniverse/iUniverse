@@ -447,6 +447,8 @@
 }
 
 .project-empty-create-btn{
+    display: flex;
+    align-items: center;
     font-family: Pretendard;
     font-size: 18px;
     font-weight: 500;

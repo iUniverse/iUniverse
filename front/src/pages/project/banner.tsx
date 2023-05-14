@@ -231,7 +231,7 @@ export default function Banner(props: any) {
                             <div className="card-content row">
                                 <div className="recent-project-type col-12" style={{ color: `${bannerTColor}` }}>최근 프로젝트</div>
                                 <br />
-                                <div className="recent-project-name col-12" style={{ color: `${bannerTColor}` }}>그림그리기 프로젝트</div>
+                                <div className="recent-project-name col-12" style={{ color: `${bannerTColor}` }}>진행되는 프로젝트가 없어요</div>
                             </div>
                             <div className="recent-project-icon-list card-footer row ">
                                 <div className="recent-project-icon">

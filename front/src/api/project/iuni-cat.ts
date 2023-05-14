@@ -147,7 +147,8 @@ export class IuniCatStyle {
     /* 
     6am ~ 9am : morning
     9am ~ 2pm : afternoon
-    6pm ~ 10pm : dinner
+    2pm ~ 6pm : dinner
+    6pm ~ 10pm : night
     10pm ~ 6am : dawn
     */
     get timePeriod(): string {

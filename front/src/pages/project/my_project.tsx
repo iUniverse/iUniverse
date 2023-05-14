@@ -29,7 +29,7 @@ export default function MyProject(props: Props) {
     function moveTaskPage() {
         console.log('moveTaskPage!!');
     }
-    
+
     /* 프로젝트 생성 */
     async function create() {
         const result = await createProject('무제');
@@ -154,9 +154,13 @@ export default function MyProject(props: Props) {
                                             style={{ width: '320px', height: '195px' }} />
                                     </div>
 
-                                    <div className="w-auto mt-2">
-                                        <div className="p-1 project-empty-create-btn">
-                                            새로운 프로젝트 만들기
+                                    <div className="w-auto mt-2"  style={{width:'215px'}}>
+                                        <div className="p-0-5 project-empty-create-btn">
+                                            <img src={"/img/project/btn-add-blue.webp"}
+                                                style={{ width: '23.9px', height: '23.9px', marginRight : '3%' }} />
+                                            <span>
+                                                새로운 프로젝트 만들기
+                                            </span>
                                         </div>
                                     </div>
 
