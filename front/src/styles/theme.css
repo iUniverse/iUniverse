@@ -1,0 +1,224 @@
+.theme {
+    padding-left: 1rem;
+    padding-right: 1rem;
+    padding-top: 1rem;
+}
+
+.theme-container {
+    display: grid;
+    width: 100%;
+    gap: 1rem;
+}
+
+
+.theme-setting-container {
+    display: grid;
+    width: 100%;
+    grid-template-columns: 1fr 4fr;
+}
+
+.theme-setting-menu {
+    padding: 3rem;
+}
+
+.theme-setting-content {
+    padding-top: 3rem;
+    border: 1px solid black;
+}
+
+
+.sub-side-menu-list>div {
+    margin-top: 1.5rem;
+    font-family: Pretendard;
+    font-size: 18px;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 0.78;
+    letter-spacing: -0.18px;
+    text-align: left;
+    color: #222;
+    cursor: pointer;
+}
+
+.side-menu-list-unactive {
+    font-weight: 500;
+}
+
+.side-menu-list-active {
+    font-weight: bold;
+}
+
+.sub-side-menu-title {
+    font-family: Pretendard;
+    font-size: 24px;
+    font-weight: 600;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.75;
+    letter-spacing: -0.24px;
+    text-align: left;
+    color: #222;
+}
+
+.theme-setting-content-title {
+    display: flex;
+    justify-content: space-between;
+}
+
+.theme-setting-save-btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 104px;
+    height: 48px;
+    border-radius: 8px;
+    color: #fff;
+    background-color: #1120ff;
+}
+
+.theme-setting-content-title>span {
+    font-family: Pretendard;
+    font-size: 36px;
+    font-weight: 600;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.17;
+    letter-spacing: -0.36px;
+    text-align: left;
+    color: #222;
+}
+
+.choice-theme-content-list {
+    display : flex;
+    align-items: center;
+}
+
+.choice-font-color-list {
+    display : flex;
+    align-items: center;
+}
+
+
+.choice-theme-radio{
+    width: 18px;
+    height: 18px;
+}
+
+.choice-font-color-radio{
+    width: 18px;
+    height: 18px;
+}
+
+.choice-theme-content {
+    display:block;
+    width : 100%;
+    height: 107px;
+    border-radius: 14px;
+}
+
+.choice-font-color-content {
+    display:block;
+    width : 100%;
+    height: 64px;
+    border-radius: 14px;
+    border: solid 2px #1120ff;    
+}
+
+/* .choice-font-content {
+    display : block;
+    width : 184px;
+    height : 64px;
+    border-radius: 14px;
+} */
+
+.choice-theme-container {
+    margin-top: 3rem;
+}
+
+.choice-font-color-container {
+    margin-top: 3rem;
+}
+
+.choice-theme-title {
+    font-family: Pretendard;
+    font-size: 24px;
+    font-weight: 600;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.75;
+    letter-spacing: -0.24px;
+    text-align: left;
+    color: #222;
+}
+
+.choice-font-color-title {
+    font-family: Pretendard;
+    font-size: 24px;
+    font-weight: 600;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.75;
+    letter-spacing: -0.24px;
+    text-align: left;
+    color: #222;
+}
+
+.theme-other-cat {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.mt-1 {
+    margin-top: 1rem;
+}
+
+.mt-2 {
+    margin-top: 1.2rem;
+}
+
+.theme-flex {
+    display: flex;
+}
+
+.theme-flex-center {
+    justify-content: center;
+    align-items: center;
+}
+
+.theme-content-center {
+    justify-content: center;
+    align-items: center;
+}
+
+.theme-cat-setting-header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.theme-cat-setting-body {
+    display: flex;
+    justify-content: space-between;
+}
+
+.theme-cat {
+    width: 100%;
+    border-radius: 24px;
+    background-color: #f5f5f5;
+}
+
+.theme-my-iuni-cat-name {
+    color: black;
+}
+
+@media screen and (min-width : 768px) {
+    .theme-container {
+        grid-template-columns: minmax(1fr, 1fr)
+    }
+}
+
+@media screen and (min-width : 800px) {
+    .theme-container {
+        grid-template-columns: 5fr 7fr;
+    }
+}

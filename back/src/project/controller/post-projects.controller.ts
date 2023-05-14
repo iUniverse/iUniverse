@@ -12,7 +12,6 @@ export class PostProjectController{
     @UsePipes(ValidationPipe)
     async create(@Body() project : CreateProjectIPInputDto) : Promise<CreateProjectIPOutputDto>{
         try{
-            console.log(project);
             return await this.createProjectsInboundPort.create(project);
         }
         catch(e){

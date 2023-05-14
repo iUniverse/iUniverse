@@ -1,11 +1,5 @@
 import { IsNotEmpty } from "class-validator";
 
-// export type UpdateProjectsInboundPortInputDto = {
-//     id : number;
-//     key : string;
-//     value : string;
-// }
-
 export class UpdateProjectIPInputDto {
     @IsNotEmpty()
     id : number;
@@ -15,14 +9,9 @@ export class UpdateProjectIPInputDto {
     value : string;
 }
 
-// export type UpdateProjectsInboundPortOutputDto = {
-//     result : boolean;
-// }
-
 export class UpdateProjectIPOutputDto {
     result : boolean;
 }
-
 
 export const UPDATE_PROJECTS_INBOUND_PORT = 'UPDATE_PROJECTS_INBOUND_PORT' as const;
 

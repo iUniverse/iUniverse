@@ -1,0 +1,63 @@
+{
+    "basic" :[ 
+        {"recent" : "#19007A"},
+        {"favorite":[
+            "#5C66FB",
+            "#3A45E6",
+            "#7E5FFC",
+            "#5914B2",
+            "#503FB1",
+            "#684ee8",
+            "#340090",
+            "#351673",
+            "#0a1a87",
+            "#6C4DB4",
+            "#834DB8",
+            "#560275"
+        ]},
+        {"recent_font" : "#3a45e6"},
+        {"banner_font" : "#fff"},
+        {"font" : "#fff"}
+    ],
+    "mono":[
+        {"recent":"#373737"},
+        {"favorite" : [
+            "#F5F5F5",
+            "#F5F5F5",
+            "#F5F5F5",
+            "#F5F5F5",
+            "#F5F5F5",
+            "#F5F5F5",
+            "#F5F5F5",
+            "#F5F5F5",
+            "#F5F5F5",
+            "#F5F5F5",
+            "#F5F5F5",
+            "#F5F5F5"
+        ]},
+        {"recent_font" : "#b2c6b4"},
+        {"banner_font" : "#fff"},
+        {"font" : "#222"}
+    ],
+    "cozy" : [
+        {"recent" : "#B2C6B4"},
+        {"favorite" : [
+            "#E7DFCA",
+            "#e8dabf",
+            "#ddcdb4",
+            "#D1C1A7",
+            "#E7E3DA",
+            "#E4DDCD",
+            "#dad4c8",
+            "#d6c9b6",
+            "#E0E1CF",
+            "#d7d8d0",
+            "#cfd1c6",
+            "#bcbfb8"
+        ]},
+        {"recent_font" : "#373737"},
+        {"banner_font" : "#fff"}, 
+        {"font" : "#222"}
+       
+    ]
+}

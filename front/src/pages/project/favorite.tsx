@@ -1,9 +1,57 @@
-import React, { useEffect, useState } from 'react';
-import {useRouter} from 'next/router';
+import React, { useEffect, useState, Dispatch, SetStateAction } from 'react';
+import { useRouter } from 'next/router';
+import { updateProject } from "../../api/project/project";
+interface Project {
+    id: number,
+    name: string,
+    description: string,
+    createDate: string,
+    dueDate: string,
+    startDate: string,
+    endDate: string,
+    isFavorite: boolean,
+    isPrivate: boolean,
+    processRate: number,
+    statusId: number,
+    typeId: number,
+    color: string
+}
 
-export default function Favorite(props:any){
-    return(
+interface Props {
+    projects: Project[]
+    favoriteBgColor : string[]
+    setFavoriteProjects: Dispatch<SetStateAction<Project[]>>
+    setProjects: Dispatch<SetStateAction<Project[]>>
+    favoriteFontColor : string
+}
+
+export default function Favorite(props: Props) {
+    console.log(props.projects);
+    /* 프로젝트 즐겨찾기 on / off */
+    async function updateFavorite(id: number) {
+        const obj = {
+            'key': 'isFavorite',
+            'value': JSON.stringify(false),
+            'id': id
+        }
+
+        const result = await updateProject(obj);
+        if (result.statusCode === 400) {
+            throw new Error('즐겨찾기 추가 도중 에러가 발생 했어요.');
+        } else {
+
+            props.setFavoriteProjects(prev => {
+                const i = prev.findIndex(p => p.id === id);
+                prev.splice(i, 1);
+                return [...prev];
+            });
+            
+        }
+    }
+
+    return (
         <>
+
             <div className="favorite">
                 <div className="favorite-btn-list">
                     <div className="favorite-btn">
@@ -16,28 +64,32 @@ export default function Favorite(props:any){
                     </div>
                 </div>
                 <div className="favorite-card-list">
-                    <div className="favorite-card card">
-                        <div className="card-header">
-                            <div className="favorite-d-day badge">
-                                <span>D-13</span>
-                            </div>
-                        </div>
-                        <div className="card-content">
-                            <div className="favorite-project-name">
-                                김망고의 감성 꾹꾹이 아지트
-                            </div>
-                        </div>
-                        <div className="card-footer">
-                            <div className="favorite-project-icon-list">
-                                <div className="favorite-project-icon">
-                                    <img src={"/img/project/heart.png"} />
+                    {
+                        props.projects.map((value, index) => (
+                            <div className="favorite-card card" key={`favorite_${value.id}`} style={{backgroundColor : `${props.favoriteBgColor[index]}`}}>
+                                <div className="card-header">
+                                    <div className="favorite-d-day badge" style={{color : `${props.favoriteFontColor}`}}>
+                                        <span>D-13</span>
+                                    </div>
                                 </div>
-                                <div className="favorite-project-icon">
-                                    <img src={"/img/project/mountain.png"} />
+                                <div className="card-content">
+                                    <div className="favorite-project-name" style={{color : `${props.favoriteFontColor}`}}>
+                                        {value.name}
+                                    </div>
+                                </div>
+                                <div className="card-footer">
+                                    <div className="favorite-project-icon-list">
+                                        <div className="favorite-project-icon" onClick={() => updateFavorite(value.id)}>
+                                            <img src={"/img/project/heart.png"} />
+                                        </div>
+                                        <div className="favorite-project-icon">
+                                            <img src={"/img/project/mountain.png"} />
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-                        </div> 
-                    </div>
+                        ))
+                    }
                 </div>
             </div>
         </>
