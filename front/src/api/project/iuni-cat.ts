@@ -24,7 +24,7 @@ export class IuniCatStyle {
         if(this._timePeriod !== 'dawn'){
             return `<path data-name="iuni-cat-right-eye-white" d="M31.882 35.59a5.3 5.3 0 1 1 5.3-5.3 5.3 5.3 0 0 1-5.3 5.3" style="fill:${color}"></path>`;
         }
-        
+                
         return `<path></path>`;
     }
 

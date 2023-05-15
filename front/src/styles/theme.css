@@ -15,6 +15,22 @@
     display: grid;
     width: 100%;
     grid-template-columns: 1fr 4fr;
+    padding: 23.5px;
+}
+
+.choice-theme-content-name {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: Pretendard;
+    font-size: 24px;
+    font-weight: 500;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.33;
+    letter-spacing: -0.24px;
+    text-align: left;
+    color: #fff;
 }
 
 .theme-setting-menu {
@@ -23,7 +39,6 @@
 
 .theme-setting-content {
     padding-top: 3rem;
-    border: 1px solid black;
 }
 
 
@@ -89,39 +104,38 @@
 }
 
 .choice-theme-content-list {
-    display : flex;
+    display: flex;
     align-items: center;
 }
 
 .choice-font-color-list {
-    display : flex;
+    display: flex;
     align-items: center;
 }
 
 
-.choice-theme-radio{
+.choice-theme-radio {
     width: 18px;
     height: 18px;
 }
 
-.choice-font-color-radio{
+.choice-font-color-radio {
     width: 18px;
     height: 18px;
 }
 
 .choice-theme-content {
-    display:block;
-    width : 100%;
+    display: block;
+    width: 100%;
     height: 107px;
     border-radius: 14px;
 }
 
 .choice-font-color-content {
-    display:block;
-    width : 100%;
+    display: block;
+    width: 100%;
     height: 64px;
     border-radius: 14px;
-    border: solid 2px #1120ff;    
 }
 
 /* .choice-font-content {
@@ -132,11 +146,15 @@
 } */
 
 .choice-theme-container {
-    margin-top: 3rem;
+    padding-top: 38px;
+}
+
+.preview-theme-container {
+    padding-top: 81px;
 }
 
 .choice-font-color-container {
-    margin-top: 3rem;
+    padding-top: 38px;
 }
 
 .choice-theme-title {
@@ -161,6 +179,12 @@
     letter-spacing: -0.24px;
     text-align: left;
     color: #222;
+}
+
+.preview-theme-content {
+    padding: 30px;
+    border-radius: 12px;
+    border: solid 1px #e5e5e5;
 }
 
 .theme-other-cat {
@@ -195,6 +219,42 @@
     justify-content: center;
     align-items: center;
 }
+
+.preview-banner {
+    display: flex;
+    gap: 15px;
+}
+
+.preview-widget-card {
+    min-width: 472px;
+    min-height: 230px;
+    width: 100%;
+    border-radius: 20px;
+    background-color: #f5f5f5;
+}
+
+.preview-widget-header {
+    min-height: 66px;
+    margin-left:19px;
+    margin-right:19px;
+}
+
+.preview-widget-body {
+    margin-left: 19px;
+    margin-right: 19px;
+    min-height: 65px;
+    border-radius: 14px;
+    background-color: #efefef;
+}
+
+.preview-widget-footer {
+    margin-top: 26px;
+    background-color: #efefef;
+    height:73px;
+    border-radius: 0px 0px 20px 20px;
+}
+
+
 
 .theme-cat-setting-body {
     display: flex;
