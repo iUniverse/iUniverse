@@ -159,7 +159,7 @@ export default function PreviewBanner() {
     return (
         <>
             <div className="preview-banner">
-                <div className="preview-banner-widget col-4">
+                <div className="preview-banner-widget">
                     <div className="preview-widget-card">
                         <div className="preview-widget-header row">
                             <div className="preview-iuni-cat col-2">
@@ -199,8 +199,10 @@ export default function PreviewBanner() {
                     </div>
                 </div>
 
-                <div className="preview-banner-recent-project col-8">
+                <div className="preview-banner-recent-project">
+                    <div className="preview-banner-recent-project-card">
 
+                    </div>
                 </div>
             </div>
         </>
