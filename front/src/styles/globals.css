@@ -279,28 +279,71 @@ a {
 .m-1{
   margin : 1rem;
 }
-.ml-1{
-  margin-left: 1rem;
+.ml-1r{
+  margin-left : 1rem;
 }
 
-.mr-1{
+.mr-1r{
   margin-right : 1rem;
 }
 
+.m-3r{
+  margin : 3rem;
+}
+
+.mt-1r{
+  margin : 1rem;
+}
+
+.mt-2r{
+  margin : 2rem;
+}
+
+.mt-3r{
+  margin : 3rem;
+}
+
+.mt-3{
+  margin-top : 0.3rem;
+}
+
+.mt-1 {
+  margin-top: 0.1rem;
+}
+
+.mt-2 {
+  margin-top: 0.2rem;
+}
+
+.ml-1{
+  margin-left: 0.1rem;
+}
+
+.mr-1{
+  margin-right : 0.1rem;
+}
+
 .ml-2{
-  margin-left: 2rem;
+  margin-left: 0.2rem;
 }
 
 .mr-2{
-  margin-right : 2rem;
+  margin-right : 0.2rem;
+}
+
+.ml-3r{
+  margin-left : 3rem;
+}
+.mr-3r{
+  margin-right : 3rem;
 }
 
 .ml-3{
-  margin-left: 3rem;
+  margin-left: 0.3rem;
 }
 
 .mr-3{
-  margin-right : 3rem;
+  margin-right : 0.3rem;
 }
 
 

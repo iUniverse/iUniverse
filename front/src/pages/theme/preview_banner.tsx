@@ -161,16 +161,17 @@ export default function PreviewBanner() {
             <div className="preview-banner">
                 <div className="preview-banner-widget">
                     <div className="preview-widget-card">
-                        <div className="preview-widget-header row">
+                        <div className="preview-widget-header row theme-flex-center">
                             <div className="preview-iuni-cat col-2">
                                 엄
                             </div>
-                            <div className="preview-widget-title col-6 row-column">
-                                <div className="preview-widget-title-skeleton">엄</div>
-                                <div className="preview-widget-title-skeleton">준</div>
+                            <div className="preview-widget-title col-6">
+                                <div className="preview-widget-title-first-skeleton"></div>
+
+                                <div className="preview-widget-title-second-skeleton"></div>
                             </div>
                             <div className="preview-widget-btn-list col-4">
-
+                                버튼
                             </div>
                         </div>
 
@@ -183,15 +184,17 @@ export default function PreviewBanner() {
                             </div>
                         </div>
 
-                        <div className="preview-widget-footer">
-                            <div className="preview-widget-profile">
-
-                            </div>
-                            <div className="preview-widget-alarm">
-                                <div className="preview-widget-alarm-title">
+                        <div className="preview-widget-footer row theme-flex-center">
+                            <div className="preview-widget-profile col-2 row theme-flex-center">
+                                <div style={{ width: '37px', height: '37px', borderRadius: '20px', opacity: '0.1', backgroundColor: '#575757' }}>
 
                                 </div>
-                                <div className="preview-widget-alarm-content">
+                            </div>
+                            <div className="preview-widget-alarm col-10">
+                                <div className="preview-widget-alarm-title">
+                                    알림 3개
+                                </div>
+                                <div className="preview-widget-alarm-content" style={{ width: '352px', height: '17px', borderRadius: '2px', backgroundColor: '#e5e5e5', marginTop: '3px' }}>
 
                                 </div>
                             </div>
@@ -201,7 +204,29 @@ export default function PreviewBanner() {
 
                 <div className="preview-banner-recent-project">
                     <div className="preview-banner-recent-project-card">
+                        <div className="preview-recent-project-badge-list row">
+                            <div className="preview-recent-project-badge mr-1r">
 
+                            </div>
+                        </div>
+                        <div className="preview-recent-project-title row theme-flex-center">
+                            최근 프로젝트
+                        </div>
+                        <div className="row theme-flex-center">
+                            <div className="preview-recent-project-first-skeleton">
+
+                            </div>
+                        </div>
+                        <div className="row theme-flex-center">
+                            <div className="preview-recent-project-second-skeleton">
+
+                            </div>
+                        </div>
+                        <div className="row preview-recent-project-btn-list" >
+                            <img src={"/img/theme/theme-favorite.webp"} style={{ width: '25px', height: '25px' }} />
+                            <img src={"/img/theme/theme-color-pick.webp"} style={{ width: '25px', height: '25px' }} />
+                            <img src={"/img/theme/theme-img-pick.webp"} style={{ width: '25px', height: '25px' }} />
+                        </div>
                     </div>
                 </div>
             </div>

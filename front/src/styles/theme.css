@@ -12,13 +12,13 @@
 
 
 .theme-setting-container {
-    display : grid;
-    width : 100%;
+    display: grid;
+    width: 100%;
 }
 
-@media screen and (min-width : 1800px) {
-    .theme-setting-container{
-        grid-template-columns: 360px 1460px;
+@media screen and (min-width : 1600px) {
+    .theme-setting-container {
+        grid-template-columns: 20vw auto;
     }
 }
 
@@ -43,7 +43,6 @@
     font-style: normal;
     letter-spacing: -0.24px;
     text-align: left;
-    color: #fff;
 }
 
 .theme-setting-menu {
@@ -115,22 +114,17 @@
     text-align: left;
     color: #222;
 }
-/* 
-.choice-theme-content-list {
-    display: flex;
-    align-items: center;
-} */
 
-.choice-theme-content-list{
-    display :grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr;
-    gap : 12px;
+.choice-theme-content-list {
+    display: grid;
+    grid-template-columns: 280px 280px 280px 280px;
+    gap: 12px;
 }
 
 .choice-font-color-list {
     display: grid;
-    grid-template-columns:  184px 184px;
-    gap : 12px;
+    grid-template-columns: 184px 184px;
+    gap: 12px;
 }
 
 
@@ -157,15 +151,13 @@
     border-radius: 14px;
 }
 
-/* .choice-font-content {
-    display : block;
-    width : 184px;
-    height : 64px;
-    border-radius: 14px;
-} */
-
 .choice-theme-container {
     padding-top: 38px;
+}
+
+.choice-theme-first-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(7vw, auto));
 }
 
 .preview-theme-container {
@@ -201,7 +193,7 @@
 }
 
 .preview-theme-content {
-    
+
     border-radius: 12px;
     border: solid 1px #e5e5e5;
 }
@@ -211,13 +203,7 @@
     flex-wrap: wrap;
 }
 
-.mt-1 {
-    margin-top: 1rem;
-}
 
-.mt-2 {
-    margin-top: 1.2rem;
-}
 
 .theme-flex {
     display: flex;
@@ -239,33 +225,99 @@
     align-items: center;
 }
 
+.preview-widget-title-first-skeleton {
+    width: 122px;
+    height: 14px;
+    border-radius: 2px;
+    background-color: #e5e5e5;
+}
+
+.preview-widget-title-second-skeleton {
+    width: 80px;
+    height: 14px;
+    border-radius: 2px;
+    background-color: #e5e5e5;
+    margin-top: 3px;
+}
+
 .preview-banner {
-    display:grid;
+    display: grid;
     grid-template-columns: 4fr 8fr;
     gap: 15px;
-    padding : 30px;
+    padding: 30px;
 }
 
-.preview-banner-recent-project-card{
-    min-height : 230px;
-    width : 100%;
+.preview-banner-recent-project-card {
+    min-height: 230px;
+    width: 100%;
     border-radius: 20px;
     background-color: #19008a;
+    display: grid;
+    grid-template-rows: repeat(5, 1fr);
 }
 
-.preview-favorite-project-list{
-    display : grid;
+.preview-recent-project-title {
+    opacity: 0.5;
+    font-family: Pretendard;
+    font-size: 18px;
+    font-weight: bold;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.44;
+    letter-spacing: normal;
+    text-align: left;
+    color: #fff;
+}
+
+.preview-recent-project-first-skeleton{
+    width: 24vw;
+    height: 34px;
+    opacity: 0.1;
+    border-radius: 8px;
+    background-color: #fff;
+}
+
+.preview-recent-project-btn-list{
+    flex-direction : row-reverse;
+    align-items: center;
+    margin-right : 1rem;
+}
+.preview-recent-project-second-skeleton{
+    width: 15vw;
+    height: 34px;
+    opacity: 0.1;
+    border-radius: 8px;
+    background-color: #fff;
+}
+
+.preview-recent-project-badge-list{
+    flex-direction : row-reverse;
+    
+}
+
+.preview-recent-project-badge{
+    width : 59px;
+    height : 24px;
+    border-radius: 13.5px;
+    background-color: #fff;
+    opacity: 0.1;
+    margin-top:0.7rem;
+}
+
+.preview-favorite-project-list {
+    display: grid;
     grid-template-columns: 3fr 3fr 3fr 3fr;
-    gap:15px;
-    padding : 30px;
+    gap: 15px;
+    padding: 30px;
 }
 
-.preview-favorite-project-card{
-    width : 100%;
-    height : 186px;
-    border-radius : 20px;
-    border : 1px solid black;
+.preview-favorite-project-card {
+    width: 100%;
+    height: 186px;
+    border-radius: 20px;
+    border: 1px solid black;
 }
+
 .preview-widget-card {
     min-width: 472px;
     min-height: 230px;
@@ -276,8 +328,8 @@
 
 .preview-widget-header {
     min-height: 66px;
-    margin-left:19px;
-    margin-right:19px;
+    margin-left: 19px;
+    margin-right: 19px;
 }
 
 .preview-widget-body {
@@ -291,7 +343,7 @@
 .preview-widget-footer {
     margin-top: 26px;
     background-color: #efefef;
-    height:73px;
+    height: 73px;
     border-radius: 0px 0px 20px 20px;
 }
 

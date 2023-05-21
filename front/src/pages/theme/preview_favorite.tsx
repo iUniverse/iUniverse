@@ -8,10 +8,10 @@ export default function PreviewFavorite() {
 
     /* 카드 컬러 바꾸기 */
     const handleCardColor = (position: number, color: string) => {
-     //test        
+     //test        sdsadas
     }
 
-
+    
     return (
         <>
             <div className="favorite-btn-list">

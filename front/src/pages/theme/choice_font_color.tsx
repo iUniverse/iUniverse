@@ -5,7 +5,7 @@ export default function ChoiceFontColor() {
                 <div className="choice-font-color-title">글자색 선택</div>
                 <div className="choice-font-color-list">
                     <div className="row-reverse theme-flex-center choice-font-color-content col-12" style={{ backgroundColor: '#222' }}>                        
-                        <label name="choice-font-theme" htmlFor="black-font">
+                        <label htmlFor="black-font" className="mt-2">
                             <div className="row theme-flex-center" style={{ color: 'white', marginLeft:'2px' }}>
                                 가 Aa
                             </div>
@@ -14,7 +14,7 @@ export default function ChoiceFontColor() {
                     </div>
 
                     <div className="row-reverse theme-flex-center choice-font-color-content col-12" style={{ backgroundColor: '#e5e5e5' }}>
-                        <label name="choice-font-theme" htmlFor="white-font">
+                        <label htmlFor="white-font" className="mt-2">
                             <div className="row theme-flex-center" style={{ color: 'black', marginLeft:'2px'}}>
                                 가 Aa
                             </div>
