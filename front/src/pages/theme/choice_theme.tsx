@@ -11,8 +11,11 @@ interface ThemeInfo {
 interface Props {
     setThemeId: Dispatch<SetStateAction<number>>
     setThemeColors : Dispatch<SetStateAction<string[]>>
+    setBannerBadgeColor : Dispatch<SetStateAction<string[]>>
+    setBannerTColor : Dispatch<SetStateAction<string>>
+    setFavoriteBadgeColor : Dispatch<SetStateAction<string[]>>
+    setFavoriteTColor : Dispatch<SetStateAction<string>>
     themeInfo: ThemeInfo[]
-    
 }
 
 
@@ -27,7 +30,13 @@ export default function ChoiceTheme(props: Props) {
             props.setThemeColors(() => []);
         } else {
             const theme_colors = await getTheme(theme.id);
+            console.log(theme_colors);
             props.setThemeColors(() => theme_colors.favoriteBColors);
+            props.setBannerBadgeColor(() => theme_colors.bannerBadgeColor);
+            props.setBannerTColor(() => theme_colors.bannerTColor);
+            props.setFavoriteBadgeColor(() => theme_colors.favoriteBadgeColor);
+            props.setFavoriteTColor(() => theme_colors.favoriteTColor);
+
         }
         
     };
