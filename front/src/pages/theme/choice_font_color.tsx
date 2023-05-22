@@ -1,4 +1,15 @@
-export default function ChoiceFontColor() {
+import { Dispatch, SetStateAction } from "react";
+
+interface Props {
+    setFontColor: Dispatch<SetStateAction<string>>
+}
+
+
+export default function ChoiceFontColor(props : Props) {
+    const handleFontColor = (color : string) => {
+        props.setFontColor(color);
+    }
+
     return (
         <>
             <div className="choice-font-color-container">
@@ -10,7 +21,7 @@ export default function ChoiceFontColor() {
                                 가 Aa
                             </div>
                         </label>
-                        <input type="radio" name="choice-font-theme" id="black-font" className="choice-font-color-radio" />
+                        <input type="radio" name="choice-font-theme" id="black-font" className="choice-font-color-radio" onClick={() => handleFontColor('white')} defaultChecked/>
                     </div>
 
                     <div className="row-reverse theme-flex-center choice-font-color-content col-12" style={{ backgroundColor: '#e5e5e5' }}>
@@ -19,7 +30,7 @@ export default function ChoiceFontColor() {
                                 가 Aa
                             </div>
                         </label>
-                        <input type="radio" name="choice-font-theme" id="white-font" className="choice-font-color-radio" />
+                        <input type="radio" name="choice-font-theme" id="white-font" className="choice-font-color-radio" onClick={() => handleFontColor('black')}/>
                     </div>
                 </div>
             </div>

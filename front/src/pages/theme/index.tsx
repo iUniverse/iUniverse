@@ -13,16 +13,20 @@ export interface ThemeInfo {
 }
 
 export default function Index() {
-    
     const [themeId, setThemeId] = useState(-1);
     const [fontColor, setFontColor] = useState('white');
     const [themeInfo, setThemeInfo] = useState<Array<ThemeInfo>>([]);
+
     const [themeColors, setThemeColors] = useState<Array<string>>([]);
+    const [bannerBadgeColor, setBannerBadgeColor] = useState<Array<string>>([]);
+    const [bannerTColor, setBannerTColor] = useState<string>('');
+    const [favoriteBadgeColor, setFavoriteBadgeColor] = useState<Array<string>>([]);
+    const [favoriteTColor, setFavoriteTColor] = useState<string>('');
 
     /* 테마 선택 박스 정보 */
     async function settingThemeSelectBox() {
         const my_theme_list = await loadMyThemeInfo(['name', 'id']);
-        console.log(my_theme_list);
+        
         for (const my_theme of my_theme_list) {
             setThemeInfo(prev => {
                 return [...prev, { 'id': my_theme.id, 'name': my_theme.name }]
@@ -48,11 +52,20 @@ export default function Index() {
                     <ChoiceTheme 
                         setThemeId={setThemeId}
                         setThemeColors = {setThemeColors}
+                        setBannerBadgeColor = {setBannerBadgeColor}
+                        setBannerTColor = {setBannerTColor}
+                        setFavoriteBadgeColor = {setFavoriteBadgeColor}
+                        setFavoriteTColor = {setFavoriteTColor}
                         themeInfo={themeInfo}
                     />
                     { themeId === 0 && <CustomChoiceTheme />}
-                    <ChoiceFontColor />
+                    <ChoiceFontColor 
+
+                        setFontColor = {setFontColor}
+                    />
                     <PreviewTheme 
+                        badgeColor = {favoriteBadgeColor}
+                        fontColor = {favoriteTColor}
                         themeColors={themeColors}
                     />
                 </div>

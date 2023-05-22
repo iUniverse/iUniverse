@@ -99,7 +99,6 @@ export default function PreviewBanner() {
     /* 테마 선택 박스 정보 */
     async function settingThemeSelectBox() {
         const my_theme_list = await loadMyThemeInfo(['name', 'id']);
-
         for (const my_theme of my_theme_list) {
             setThemeInfo(prev => {
                 return [...prev, { 'id': my_theme.id, 'name': my_theme.name }]
@@ -111,7 +110,6 @@ export default function PreviewBanner() {
     async function updateTheme(id: number) {
         //현재는 유저 정보가 없기에 업데이트문은 없음
         const theme = await getTheme(id);
-        console.log(theme);
         setFavoriteBColors(() => theme.favoriteBColors);
         setFavoriteBadgeColors(() => theme.favoriteBadgeColor);
         setFavoriteTColor(() => theme.favoriteTColor);
@@ -125,7 +123,6 @@ export default function PreviewBanner() {
     async function settingTheme(id: number) {
         //현재 설정한 나의 테마 정보 가져오기
         const theme = await getMyInitTheme();
-        console.log(theme);
         if (theme !== null) {
             setFavoriteBColors(() => theme.favoriteBColors);
             setFavoriteBadgeColors(() => theme.favoriteBadgeColor);
