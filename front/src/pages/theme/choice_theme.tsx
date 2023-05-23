@@ -1,8 +1,8 @@
-import { getTheme, loadMyThemeInfo } from 'api/theme/card-theme';
+import { getTheme, loadMyThemeInfo, themeInfo } from 'api/theme/card-theme';
 import React, { useEffect, useState, Dispatch, SetStateAction } from 'react';
 
 
-interface ThemeInfo {
+interface SelectTheme {
     id: number;
     name: string;
 }
@@ -11,34 +11,27 @@ interface ThemeInfo {
 interface Props {
     setThemeId: Dispatch<SetStateAction<number>>
     setThemeColors : Dispatch<SetStateAction<string[]>>
-    setBannerBadgeColor : Dispatch<SetStateAction<string[]>>
-    setBannerTColor : Dispatch<SetStateAction<string>>
-    setFavoriteBadgeColor : Dispatch<SetStateAction<string[]>>
-    setFavoriteTColor : Dispatch<SetStateAction<string>>
-    themeInfo: ThemeInfo[]
+    setfontColor : Dispatch<SetStateAction<string>>
+    setBannerColor : Dispatch<SetStateAction<string>>
+    themeInfo: SelectTheme[]
 }
-
 
 export default function ChoiceTheme(props: Props) {
     const CUSTOM_THEME = {
         id : 0,
         name : 'custom'
     }
-    const handleTheme = async (theme : ThemeInfo) => {
-        props.setThemeId(() => theme.id);
-        if(theme.id === 0){
-            props.setThemeColors(() => []);
-        } else {
-            const theme_colors = await getTheme(theme.id);
-            console.log(theme_colors);
-            props.setThemeColors(() => theme_colors.favoriteBColors);
-            props.setBannerBadgeColor(() => theme_colors.bannerBadgeColor);
-            props.setBannerTColor(() => theme_colors.bannerTColor);
-            props.setFavoriteBadgeColor(() => theme_colors.favoriteBadgeColor);
-            props.setFavoriteTColor(() => theme_colors.favoriteTColor);
 
-        }
-        
+    const handleTheme = (data : themeInfo) => {
+        props.setThemeColors(() => data.favoriteBColors);
+        props.setfontColor(() => data.fontColor);
+        props.setBannerColor(() => data.bannerBC);
+    }
+
+    const changeTheme = async (theme : SelectTheme) => {
+        props.setThemeId(() => theme.id);
+        const theme_colors : themeInfo | string = await getTheme(theme.id);
+        theme_colors === '' ? props.setThemeColors(() => []) : handleTheme(theme_colors);
     };
 
     return (
@@ -48,7 +41,7 @@ export default function ChoiceTheme(props: Props) {
                     {
                         props.themeInfo.map(val => (
                             <div className="row" key={val.id}>
-                                <input type="radio" name="choice-theme" id={val.name} className="choice-font-color-radio" onClick={() => handleTheme(val)} />
+                                <input type="radio" name="choice-theme" id={val.name} className="choice-font-color-radio" onClick={() => changeTheme(val)} />
                                 <label htmlFor={val.name} className="ml-2">
                                     {val.name}
                                 </label>
@@ -57,7 +50,7 @@ export default function ChoiceTheme(props: Props) {
                     }
 
                     <div className="row">
-                        <input type="radio" name="choice-theme" id="choice-custom-theme" className="choice-font-color-radio" onClick={() => handleTheme(CUSTOM_THEME)} />
+                        <input type="radio" name="choice-theme" id="choice-custom-theme" className="choice-font-color-radio" onClick={() => changeTheme(CUSTOM_THEME)} />
                         <label htmlFor="choice-custom-theme" className="ml-2">
                             커스텀테마
                         </label>

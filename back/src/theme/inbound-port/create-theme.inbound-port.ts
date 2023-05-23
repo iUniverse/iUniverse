@@ -7,21 +7,12 @@ export class CreateThemeIPInputDto{
     //즐겨찾기 배경화면 색상코드들
     @IsOptional()
     readonly favoriteBColors : string[];
-    //즐겨찾기 뱃지 컬러
-    @IsOptional()
-    readonly favoriteBadgeColor : string[];
     //즐겨찾기 글자 색상
     @IsOptional()
-    readonly favoriteTColor : string;
+    readonly fontColor : string;
     //배너 배경색
     @IsOptional()
     readonly bannerBC : string;
-    //배너 글자 색상
-    @IsOptional()
-    readonly bannerTColor : string;
-    //배너 뱃지 컬러
-    @IsOptional()
-    readonly bannerBadgeColor : string[];
     //유저 아이디
     @IsOptional()
     readonly userId : number;
@@ -32,16 +23,10 @@ export class CreateThemeIPOutputDto{
     name : string;
     //즐겨찾기 배경화면 색상코드들
     favoriteBColors : string[];
-    //즐겨찾기 뱃지 컬러
-    favoriteBadgeColor : string[];
     //즐겨찾기 글자 색상
-    favoriteTColor : string;
+    fontColor : string;
     //배너 배경색
     bannerBC : string;
-    //배너 글자 색상
-    bannerTColor : string;
-    //배너 뱃지 컬러
-    bannerBadgeColor : string[];
     //유저 아이디
     userId : number;
 }

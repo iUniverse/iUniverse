@@ -17,7 +17,6 @@ export class ThemeRepository extends Repository<Theme>{
         }
     }
 
-    
     async LoadMyTheme(param: number): Promise<LoadThemeOPOutputDto> {
         try {
             const result = await this.find({
@@ -25,7 +24,6 @@ export class ThemeRepository extends Repository<Theme>{
                     userId: param
                 }
             });
- 
             return { 'themeList': result }
         }
         catch (e) {
@@ -41,8 +39,9 @@ export class ThemeRepository extends Repository<Theme>{
                 where :{
                     userId : param.userId
                 }
-            }) 
-           
+            }); 
+
+            console.log(result);
             return result; 
         }
         catch(e){
@@ -51,12 +50,14 @@ export class ThemeRepository extends Repository<Theme>{
     }
     async FindTheme(param: FindThemeOPInputDto): Promise<Theme> {
         try {
-            return await this.findOne({
+            const result = await this.findOne({
                 where: {
                     id: param.id,
                     userId : param.userId
                 }
             });
+            
+            return result;
         }
         catch (e) {
             throw e;

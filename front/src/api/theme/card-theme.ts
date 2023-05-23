@@ -1,5 +1,76 @@
 const url = 'http://localhost:3500/iuni_theme';
 
+
+export function loadSkeleton() : object{
+    const skeleton_size = {
+        0 : {
+            'badge' : '60px',
+            'firstWidth' : '286px',
+            'secondWidth' : '159px' 
+        },
+        1 : {
+            'badge' : '60px',
+            'firstWidth' : '293px',
+            'secondWidth' : '230px'
+        },
+        2 : {
+            'firstWidth' : '277px',
+            'secondWidth' : '93px'
+        },
+        3 : {
+            'firstWidth' : '294px',
+            'secondWidth' : '93px'
+        },
+        4 : {
+            'badge' : '60px',
+            'firstWidth' : '297px',
+            'secondWidth' : '128px'
+        },
+        5 : {
+            'badge' : '60px',
+            'first-sekeleton' : 'test',
+            'firstWidth' : '297px',
+            'secondWidth' : '129px'
+        },
+        6 : {
+            'badge' : '60px',
+            'firstWidth' : '297px',
+            'secondWidth' : '129px'
+        },
+        7 : {
+            'firstWidth' : '297px',
+            'secondWidth' : '265px'
+        },
+        8 : {
+            'firstWidth' : '297px',
+            'secondWidth' : '40px'
+        },
+        9 : {
+            'firstWidth' : '297px',
+            'secondWidth' : '128px'
+        },
+        10 : {
+            'firstWidth' : '297px',
+            'secondWidth' : '265px'
+        },
+        11 : {
+            'firstWidth' : '297px',
+            'secondWidth' : '40px'
+        }
+    }
+
+    return skeleton_size;
+}
+
+export interface themeInfo {
+    'bannerBC' : string,
+    'favoriteBColors' : string[],
+    'fontColor' : string,
+    'id' : number,
+    'name' : string,
+    'userId' : number
+}
+
 /* 나의 테마 전체 불러오기 */
 export async function loadMyTheme() {
     const response = await fetch(url + '/', {
@@ -25,13 +96,16 @@ export async function loadMyThemeInfo(requireList : string[] | undefined){
         return result;
     }
 }
-export async function getTheme(id : number){
+export async function getTheme(id : number) : Promise<themeInfo | string>{
     const response = await fetch(url + `/themes/${id}`, {
         method: 'GET',
+        headers : {
+            Accept : 'application/json'
+        },
         cache: 'no-cache'
-    })
-
-    return response.json();
+    });    
+    const value = await response.text();
+    return value === '' ? value : JSON.parse(value);
 }
 
 /* 나의 기본 설정된 테마 불러오기 */
@@ -85,21 +159,6 @@ export async function checkInitTheme(themeName : string) : Promise<any> {
     }catch(e){
         throw(e);
     }
-    
-    // return new Promise(async resolve =>{
-    //     try{
-    //         console.log(themeName);
-    //         const response = await fetch(url + `/init/${themeName}`, {
-    //             method: 'GET',
-    //             cache: 'no-cache'
-    //         });
-    //         resolve(response.json());
-    //     }
-    //     catch(e){
-    //         throw(e);
-    //     }
-    // })
-    
 }
 
 /* 테마 업데이트 */

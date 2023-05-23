@@ -11,8 +11,7 @@ import BannerIuniCat from './banner_iuni_cat';
 
 interface Props {
     setFavoriteBColors: Dispatch<SetStateAction<string[]>>
-    setFavoriteBadgeColors: Dispatch<SetStateAction<string[]>>
-    setFavoriteTColor: string
+    setfontColor: string
 }
 
 type Day = {
@@ -31,8 +30,6 @@ export default function Banner(props: any) {
     const [isShow, setIsShow] = useState('no-show');
 
     const [bannerBC, setBannerBC] = useState<string>('');
-    const [bannerBadgeColor, setBannerBadgeColor] = useState<string[]>([]);
-    const [bannerTColor, setBannerTColor] = useState<string>('');
     const [currentThemeId, setCurrentThemeId] = useState<number>(0);
     const [themeInfo, setThemeInfo] = useState<Array<ThemeInfo>>([]);
 
@@ -108,11 +105,8 @@ export default function Banner(props: any) {
         const theme = await getTheme(id);
         console.log(theme);
         props.setFavoriteBColors(() => theme.favoriteBColors);
-        props.setFavoriteBadgeColors(() => theme.favoriteBadgeColor);
-        props.setFavoriteTColor(() => theme.favoriteTColor);
+        props.setfontColor(() => theme.fontColor);
         setBannerBC(() => theme.bannerBC);
-        setBannerBadgeColor(() => theme.bannerBadgeColor);
-        setBannerTColor(() => theme.bannerTColor);
         setCurrentThemeId(() => id);
     }
 
@@ -123,11 +117,8 @@ export default function Banner(props: any) {
         console.log(theme);
         if (theme !== null) {
             props.setFavoriteBColors(() => theme.favoriteBColors);
-            props.setFavoriteBadgeColors(() => theme.favoriteBadgeColor);
-            props.setFavoriteTColor(() => theme.favoriteTColor);
+            props.setfontColor(() => theme.fontColor);
             setBannerBC(() => theme.bannerBC);
-            setBannerBadgeColor(() => theme.bannerBadgeColor);
-            setBannerTColor(() => theme.bannerTColor);
             setCurrentThemeId(() => id);
         }
 
@@ -229,9 +220,9 @@ export default function Banner(props: any) {
                                 <div className="badge">D-13</div>
                             </div>
                             <div className="card-content row">
-                                <div className="recent-project-type col-12" style={{ color: `${bannerTColor}` }}>최근 프로젝트</div>
+                                <div className="recent-project-type col-12" style={{ color: `` }}>최근 프로젝트</div>
                                 <br />
-                                <div className="recent-project-name col-12" style={{ color: `${bannerTColor}` }}>진행되는 프로젝트가 없어요</div>
+                                <div className="recent-project-name col-12" style={{ color: `` }}>진행되는 프로젝트가 없어요</div>
                             </div>
                             <div className="recent-project-icon-list card-footer row ">
                                 <div className="recent-project-icon">

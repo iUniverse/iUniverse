@@ -10,8 +10,7 @@ import BannerIuniCat from '../project/banner_iuni_cat';
 
 interface Props {
     setFavoriteBColors: Dispatch<SetStateAction<string[]>>
-    setFavoriteBadgeColors: Dispatch<SetStateAction<string[]>>
-    setFavoriteTColor: string
+    setfontColor: string
 }
 
 type Day = {
@@ -31,16 +30,13 @@ export default function PreviewBanner() {
     const [isShow, setIsShow] = useState('no-show');
 
     const [bannerBC, setBannerBC] = useState<string>('');
-    const [bannerBadgeColor, setBannerBadgeColor] = useState<string[]>([]);
-    const [bannerTColor, setBannerTColor] = useState<string>('');
     const [currentThemeId, setCurrentThemeId] = useState<number>(0);
     const [themeInfo, setThemeInfo] = useState<Array<ThemeInfo>>([]);
 
     const [timePeriod, setTimePeriod] = useState<string>('');
 
     const [favoriteBColors, setFavoriteBColors] = useState<string[]>([]);
-    const [favoriteBadgeColor, setFavoriteBadgeColors] = useState<string[]>([]);
-    const [favoriteTColor, setFavoriteTColor] = useState<string>('');
+    const [fontColor, setfontColor] = useState<string>('');
 
     const day: Day = {
         0: '일요일',
@@ -111,11 +107,8 @@ export default function PreviewBanner() {
         //현재는 유저 정보가 없기에 업데이트문은 없음
         const theme = await getTheme(id);
         setFavoriteBColors(() => theme.favoriteBColors);
-        setFavoriteBadgeColors(() => theme.favoriteBadgeColor);
-        setFavoriteTColor(() => theme.favoriteTColor);
+        setfontColor(() => theme.fontColor);
         setBannerBC(() => theme.bannerBC);
-        setBannerBadgeColor(() => theme.bannerBadgeColor);
-        setBannerTColor(() => theme.bannerTColor);
         setCurrentThemeId(() => id);
     }
 
@@ -125,11 +118,8 @@ export default function PreviewBanner() {
         const theme = await getMyInitTheme();
         if (theme !== null) {
             setFavoriteBColors(() => theme.favoriteBColors);
-            setFavoriteBadgeColors(() => theme.favoriteBadgeColor);
-            setFavoriteTColor(() => theme.favoriteTColor);
+            setfontColor(() => theme.fontColor);
             setBannerBC(() => theme.bannerBC);
-            setBannerBadgeColor(() => theme.bannerBadgeColor);
-            setBannerTColor(() => theme.bannerTColor);
             setCurrentThemeId(() => id);
         }
     }

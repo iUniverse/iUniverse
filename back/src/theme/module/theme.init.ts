@@ -16,11 +16,8 @@ const basic_theme = {
         "#834DB8",
         "#560275"
     ],
-    favoriteBadgeColor : ["skyblue", "#fff"],
-    favoriteTColor : "#fff",
+    fontColor : "#fff",
     bannerBC : "#19007A",
-    bannerTColor : "#fff",
-    bannerBadgeColor : ["skyblue", "#fff"],
 }
 
 const mono_theme = {
@@ -39,11 +36,8 @@ const mono_theme = {
         "#F5F5F5",
         "#F5F5F5"
     ],
-    favoriteBadgeColor : ["skyblue", "#fff"],
-    favoriteTColor : "#222",
+    fontColor : "#222",
     bannerBC : "#373737",
-    bannerTColor : "#fff",
-    bannerBadgeColor : ["skyblue", "#fff"],
 }
 
 const cozy_theme = {
@@ -62,11 +56,8 @@ const cozy_theme = {
         "#cfd1c6",
         "#bcbfb8"
     ],
-    favoriteBadgeColor : ["skyblue", "#fff"],
-    favoriteTColor : "#222",
+    fontColor : "#222",
     bannerBC : "#B2C6B4",
-    bannerTColor : "#fff",
-    bannerBadgeColor : ["skyblue", "#fff"],
 }
 
 const init_theme = {
@@ -86,11 +77,8 @@ const init_theme = {
             "#834DB8",
             "#560275"
         ],
-        favoriteBadgeColor : ["skyblue", "#fff"],
-        favoriteTColor : "#fff",
+        fontColor : "#fff",
         bannerBC : "#19007A",
-        bannerTColor : "#fff",
-        bannerBadgeColor : ["skyblue", "#fff"],
     },
     '모노테마' : {
         name : "모노테마",
@@ -108,11 +96,8 @@ const init_theme = {
             "#F5F5F5",
             "#F5F5F5"
         ],
-        favoriteBadgeColor : ["skyblue", "#fff"],
-        favoriteTColor : "#222",
+        fontColor : "#222",
         bannerBC : "#373737",
-        bannerTColor : "#fff",
-        bannerBadgeColor : ["skyblue", "#fff"],
     },
     '코지테마' : {
         name : "코지테마",
@@ -130,11 +115,8 @@ const init_theme = {
             "#cfd1c6",
             "#bcbfb8"
         ],
-        favoriteBadgeColor : ["skyblue", "#fff"],
-        favoriteTColor : "#222",
+        fontColor : "#222",
         bannerBC : "#B2C6B4",
-        bannerTColor : "#fff",
-        bannerBadgeColor : ["skyblue", "#fff"],
     },
     '트로피컬테마' : {
         name : "트로피컬테마",
@@ -152,11 +134,8 @@ const init_theme = {
             "#b2d4ed",
             "#ffbc79"
         ],
-        favoriteBadgeColor : ["skyblue", "#fff"],
-        favoriteTColor : "#222",
+        fontColor : "#222",
         bannerBC : "linear-gradient(to bottom, #a8edea, #fed6e3)",
-        bannerTColor : "#fff",
-        bannerBadgeColor : ["skyblue", "#fff"],
     }
 }
 
@@ -167,11 +146,8 @@ export function getInitTheme(themeName : string){
     const result = new Theme();
     result.name = theme.name;
     result.favoriteBColors = theme.favoriteBColors;
-    result.favoriteBadgeColor = theme.favoriteBadgeColor;
-    result.favoriteTColor = theme.favoriteTColor;
+    result.fontColor = theme.fontColor;
     result.bannerBC = theme.bannerBC;
-    result.bannerTColor = theme.bannerTColor;
-    result.bannerBadgeColor = theme.bannerBadgeColor;
     console.log(result);
     return result;
 } 

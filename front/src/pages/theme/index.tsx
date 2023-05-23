@@ -14,26 +14,22 @@ export interface ThemeInfo {
 
 export default function Index() {
     const [themeId, setThemeId] = useState(-1);
-    const [fontColor, setFontColor] = useState('white');
+    const [fontColor, setFontColor] = useState<string>('');
     const [themeInfo, setThemeInfo] = useState<Array<ThemeInfo>>([]);
-
     const [themeColors, setThemeColors] = useState<Array<string>>([]);
-    const [bannerBadgeColor, setBannerBadgeColor] = useState<Array<string>>([]);
-    const [bannerTColor, setBannerTColor] = useState<string>('');
-    const [favoriteBadgeColor, setFavoriteBadgeColor] = useState<Array<string>>([]);
-    const [favoriteTColor, setFavoriteTColor] = useState<string>('');
+    const [bannerColor, setBannerColor] = useState<string>('');
 
     /* 테마 선택 박스 정보 */
-    async function settingThemeSelectBox() {
+    const settingThemeSelectBox = async () => {
         const my_theme_list = await loadMyThemeInfo(['name', 'id']);
-        
+
         for (const my_theme of my_theme_list) {
             setThemeInfo(prev => {
                 return [...prev, { 'id': my_theme.id, 'name': my_theme.name }]
             })
         }
     }
-
+    
     useEffect(() => {
         settingThemeSelectBox();
     }, []);
@@ -52,21 +48,19 @@ export default function Index() {
                     <ChoiceTheme 
                         setThemeId={setThemeId}
                         setThemeColors = {setThemeColors}
-                        setBannerBadgeColor = {setBannerBadgeColor}
-                        setBannerTColor = {setBannerTColor}
-                        setFavoriteBadgeColor = {setFavoriteBadgeColor}
-                        setFavoriteTColor = {setFavoriteTColor}
+                        setfontColor = {setFontColor}
+                        setBannerColor = {setBannerColor}
                         themeInfo={themeInfo}
                     />
                     { themeId === 0 && <CustomChoiceTheme />}
                     <ChoiceFontColor 
-
                         setFontColor = {setFontColor}
                     />
                     <PreviewTheme 
-                        badgeColor = {favoriteBadgeColor}
-                        fontColor = {favoriteTColor}
+                        fontColor = {fontColor}
                         themeColors={themeColors}
+                        setThemeColors={setThemeColors}
+                        bannerColor = {bannerColor}
                     />
                 </div>
             </div>

@@ -16,7 +16,6 @@ export class GetThemeController {
 
     @Get('/mytheme')
     async findMyTheme(@Param() param : FindThemeIPInputDto) : Promise<FindThemeIPOutputDto>{
-        console.log("엄?");
         return this.findThemeInboundPort.findMyTheme(param);
     }
 
