@@ -14,6 +14,7 @@ export interface ThemeInfo {
 
 export default function Index() {
     const [themeId, setThemeId] = useState(-1);
+    const [isCustom, setCustom] = useState(false);
     const [fontColor, setFontColor] = useState<string>('');
     const [themeInfo, setThemeInfo] = useState<Array<ThemeInfo>>([]);
     const [themeColors, setThemeColors] = useState<Array<string>>([]);
@@ -50,17 +51,29 @@ export default function Index() {
                         setThemeColors = {setThemeColors}
                         setfontColor = {setFontColor}
                         setBannerColor = {setBannerColor}
+                        setCustom = {setCustom}
                         themeInfo={themeInfo}
+                        
                     />
-                    { themeId === 0 && <CustomChoiceTheme />}
+                    { 
+                        isCustom === true && 
+                        <CustomChoiceTheme 
+                        setThemeId={setThemeId}
+                        setThemeColors = {setThemeColors}
+                        setfontColor = {setFontColor}
+                        setBannerColor = {setBannerColor}
+                        themeInfo={themeInfo}/>
+                    }
                     <ChoiceFontColor 
                         setFontColor = {setFontColor}
                     />
                     <PreviewTheme 
                         fontColor = {fontColor}
+                        themeId={themeId}
                         themeColors={themeColors}
                         setThemeColors={setThemeColors}
                         bannerColor = {bannerColor}
+                        isCustom = {isCustom}
                     />
                 </div>
             </div>

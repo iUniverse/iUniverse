@@ -104,9 +104,6 @@ export default function Banner(props: any) {
         //현재는 유저 정보가 없기에 업데이트문은 없음
         const theme = await getTheme(id);
         console.log(theme);
-        props.setFavoriteBColors(() => theme.favoriteBColors);
-        props.setfontColor(() => theme.fontColor);
-        setBannerBC(() => theme.bannerBC);
         setCurrentThemeId(() => id);
     }
 

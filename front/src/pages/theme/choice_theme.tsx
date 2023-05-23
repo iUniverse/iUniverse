@@ -1,11 +1,6 @@
-import { getTheme, loadMyThemeInfo, themeInfo } from 'api/theme/card-theme';
+import { SelectTheme, getTheme, loadMyThemeInfo, themeInfo } from 'api/theme/card-theme';
 import React, { useEffect, useState, Dispatch, SetStateAction } from 'react';
 
-
-interface SelectTheme {
-    id: number;
-    name: string;
-}
 
 
 interface Props {
@@ -13,6 +8,7 @@ interface Props {
     setThemeColors : Dispatch<SetStateAction<string[]>>
     setfontColor : Dispatch<SetStateAction<string>>
     setBannerColor : Dispatch<SetStateAction<string>>
+    setCustom : Dispatch<SetStateAction<boolean>>
     themeInfo: SelectTheme[]
 }
 
@@ -22,7 +18,7 @@ export default function ChoiceTheme(props: Props) {
         name : 'custom'
     }
 
-    const handleTheme = (data : themeInfo) => {
+    const handleTheme = (data : themeInfo | any) => {
         props.setThemeColors(() => data.favoriteBColors);
         props.setfontColor(() => data.fontColor);
         props.setBannerColor(() => data.bannerBC);
@@ -31,6 +27,7 @@ export default function ChoiceTheme(props: Props) {
     const changeTheme = async (theme : SelectTheme) => {
         props.setThemeId(() => theme.id);
         const theme_colors : themeInfo | string = await getTheme(theme.id);
+        theme.id === 0 ? props.setCustom(() => true) : props.setCustom(() => false);
         theme_colors === '' ? props.setThemeColors(() => []) : handleTheme(theme_colors);
     };
 

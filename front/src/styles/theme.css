@@ -203,7 +203,39 @@
     flex-wrap: wrap;
 }
 
-
+.row-reverse.col-12.theme-flex-center.basic{
+    color : #fff;
+    width : 100%;
+    height : 128px;
+    background: url('../../public/img/theme/background/theme-basic.webp');
+    background-size: cover;
+    background-repeat: no-repeat;
+    border-radius: 14px;
+}
+.row-reverse.col-12.theme-flex-center.mono{
+    color : #fff;
+    width : 100%;
+    height : 128px;
+    background : #222;
+    border-radius: 14px;
+}
+.row-reverse.col-12.theme-flex-center.cozy{
+    color : #222;
+    width : 100%;
+    height : 128px;
+    background : #ffebbc;
+    border-radius: 14px;
+}
+.row-reverse.col-12.theme-flex-center.tropical{
+    color : #222;
+    width : 100%;
+    height : 128px;
+    background : url('../../public/img/theme/background/theme-tropical.webp');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-color:#e5e5e5;
+    border-radius: 14px;
+}
 
 .theme-flex {
     display: flex;

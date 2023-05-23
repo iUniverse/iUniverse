@@ -62,6 +62,11 @@ export function loadSkeleton() : object{
     return skeleton_size;
 }
 
+export interface SelectTheme {
+    id: number;
+    name: string;
+}
+
 export interface themeInfo {
     'bannerBC' : string,
     'favoriteBColors' : string[],

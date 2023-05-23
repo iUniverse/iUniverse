@@ -5,9 +5,11 @@ import { SketchPicker,ChromePicker } from 'react-color';
 
 interface Props {
     themeColors: string[];
+    themeId : number;
     fontColor : string;
     bannerColor : string;
     setThemeColors : Dispatch<SetStateAction<string[]>>;
+    isCustom : boolean;
 }
 
 type SKELETON_INFO = {
@@ -17,18 +19,20 @@ type SKELETON_INFO = {
 export default function PreviewTheme(props: Props) {
     const SKELETON_INFO : any = loadSkeleton();
     const themeCardRefs = useRef<any>([]);
-    const [showColorPickers, setShowColorPickers] = useState<Array<boolean>>([
+    const [showColorPicker, setShowColorPicker] = useState<Array<boolean>>([
         false,false,false,false,false,false,false,false,false,false,false,false,
     ]);
     const [currentColor, setCurrentColor] = useState<string>('#fff');
     const [currentIndex, setCurrentIndex] = useState<number>(-1);
 
-    const handleThemeColor = (color : any) => {
-        setCurrentColor(() => color.hex);
+    /* ColorPicker에서 색상을 선택할 시 테마 카드 색상 변경 */
+    const handleThemeColor = (color : any) => {;
+        handleCurrentColor(color.hex);
+
         props.setThemeColors(prev => {
             prev[currentIndex] = color.hex;
             return [...prev];
-        })
+        });
     }
 
     /*
@@ -37,16 +41,35 @@ export default function PreviewTheme(props: Props) {
     -1 : 배너
     0 ~ 11 : 카드
     */
-    const renderColorPicker = (index : number, val : string) => {
-        setCurrentColor(() => val);
-        setShowColorPickers(prev => {
+    const renderColorPicker = (index : number, val : string) => {    
+        if(props.isCustom === false){
+            return false;
+        }    
+
+        handleCurrentColor(val);
+        handleShowColorPicker(index);
+        index === currentIndex ? handleCurrentIndex(-1) : handleCurrentIndex(index);
+    }
+
+    /* colorPicker 생성될 위치 번호*/
+    const handleShowColorPicker = (index : number) => {
+        setShowColorPicker(prev => {
             if(index !== currentIndex){
                 prev[currentIndex] = !prev[currentIndex];
             }
+
             prev[index] = !prev[index];
             return [...prev]; 
-        })
+        });
+    }
 
+    /* 현재 컬러 */
+    const handleCurrentColor = (val : string) => {
+        setCurrentColor(() => val);
+    }
+
+    /* 현재 활성화된 위치 번호 */
+    const handleCurrentIndex = (index : number) => {
         setCurrentIndex(() => index);
     }
 
@@ -85,11 +108,11 @@ export default function PreviewTheme(props: Props) {
                                         </div>
                                         <div className="col-6 row preview-project-right-btn-list">
                                             <img src={"/img/theme/theme-img-pick.webp"} style={{ width: '25px', height: '25px', marginRight:'19px' }} />
-                                            <img src={"/img/theme/theme-color-pick.webp"} style={{ width: '25px', height: '25px', cursor:'pointer' }} onClick={() => renderColorPicker(index, val)}/>
+                                            <img src={currentIndex === index ? "/img/theme/theme-active-color-pick.webp" : "/img/theme/theme-color-pick.webp"} style={{ width: '25px', height: '25px', cursor:'pointer' }} onClick={() => renderColorPicker(index, val)}/>
                                         </div>
                                     </div>
                                     {
-                                        showColorPickers[index] === true && 
+                                        showColorPicker[index] === true && 
                                         <div style={{background : '#fff', position:'absolute', top:'90%', left:'20%', zIndex:'9999'}}>
                                             <ChromePicker 
                                                 color={currentColor}
