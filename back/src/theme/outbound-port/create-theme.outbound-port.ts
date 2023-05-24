@@ -1,12 +1,12 @@
 export type CreateThemeOPInputDto = {
     //테마명
     readonly name : string;
+    //테마 다른 이름
+    readonly otherName : string;
     //즐겨찾기 배경화면 색상코드들
-    readonly favoriteBColors : string[];
+    readonly colors : string[];
     //즐겨찾기 글자 색상
     readonly fontColor : string;
-    //배너 배경색
-    readonly bannerBC : string;
     //유저 아이디
     readonly userId : number;
 }
@@ -14,12 +14,12 @@ export type CreateThemeOPInputDto = {
 export type CreateThemeOPOutputDto = {
     //테마명
     name : string;
+    //다른 테마명
+    otherName : string;
     //즐겨찾기 배경화면 색상코드들
-    favoriteBColors : string[];
+    colors : string[];
     //즐겨찾기 글자 색상
     fontColor : string;
-    //배너 배경색
-    bannerBC : string;
     //유저 아이디
     userId : number;
 }

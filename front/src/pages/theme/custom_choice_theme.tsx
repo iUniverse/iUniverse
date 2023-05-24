@@ -7,14 +7,12 @@ interface Props {
     setThemeId: Dispatch<SetStateAction<number>>
     setThemeColors : Dispatch<SetStateAction<string[]>>
     setfontColor : Dispatch<SetStateAction<string>>
-    setBannerColor : Dispatch<SetStateAction<string>>
 }
 
 type init_theme_info = {
     [key : string] : string;
 }
 export default function CustomChoiceTheme(props: Props) {
-
     const INIT_THEME_INFO : init_theme_info = {
         '기본테마': 'basic',
         '모노테마': 'mono',
@@ -23,10 +21,10 @@ export default function CustomChoiceTheme(props: Props) {
     }
 
     const handleTheme = (data : themeInfo | any) => {
-        props.setThemeColors(() => data.favoriteBColors);
+        props.setThemeColors(() => data.colors);
         props.setfontColor(() => data.fontColor);
-        props.setBannerColor(() => data.bannerBC);
     }
+
 
     const changeTheme = async (theme : SelectTheme) => {
         props.setThemeId(() => theme.id);

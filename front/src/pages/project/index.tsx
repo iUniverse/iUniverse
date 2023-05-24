@@ -26,7 +26,7 @@ export interface Project{
 export default function Index(props : any) {
     const [favoriteProjects, setFavoriteProjects] = useState<Array<Project>>([]);
     const [projects, setProjects] = useState<Array<Project>>([]);
-    const [favoriteBColors, setFavoriteBColors] = useState<string[]>([]);
+    const [colors, setcolors] = useState<string[]>([]);
     const [fontColor, setfontColor] = useState<string>('');
     
     const router = useRouter();
@@ -46,7 +46,7 @@ export default function Index(props : any) {
         <>
             <div className="project-container">
                 <Banner 
-                    setFavoriteBColors = {setFavoriteBColors}
+                    setcolors = {setcolors}
                     setfontColor = {setfontColor}
                 />
                 {
@@ -56,7 +56,7 @@ export default function Index(props : any) {
                     setProjects = {setProjects}
                     setFavoriteProjects = {setFavoriteProjects}
                     favoriteFontColor = {fontColor}
-                    favoriteBgColor = {favoriteBColors}
+                    favoriteBgColor = {colors}
                     />
                 }
                 

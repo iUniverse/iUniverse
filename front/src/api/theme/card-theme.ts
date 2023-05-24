@@ -68,8 +68,7 @@ export interface SelectTheme {
 }
 
 export interface themeInfo {
-    'bannerBC' : string,
-    'favoriteBColors' : string[],
+    'colors' : string[],
     'fontColor' : string,
     'id' : number,
     'name' : string,

@@ -18,8 +18,7 @@ export default function Index() {
     const [fontColor, setFontColor] = useState<string>('');
     const [themeInfo, setThemeInfo] = useState<Array<ThemeInfo>>([]);
     const [themeColors, setThemeColors] = useState<Array<string>>([]);
-    const [bannerColor, setBannerColor] = useState<string>('');
-
+    
     /* 테마 선택 박스 정보 */
     const settingThemeSelectBox = async () => {
         const my_theme_list = await loadMyThemeInfo(['name', 'id']);
@@ -50,7 +49,6 @@ export default function Index() {
                         setThemeId={setThemeId}
                         setThemeColors = {setThemeColors}
                         setfontColor = {setFontColor}
-                        setBannerColor = {setBannerColor}
                         setCustom = {setCustom}
                         themeInfo={themeInfo}
                         
@@ -61,7 +59,6 @@ export default function Index() {
                         setThemeId={setThemeId}
                         setThemeColors = {setThemeColors}
                         setfontColor = {setFontColor}
-                        setBannerColor = {setBannerColor}
                         themeInfo={themeInfo}/>
                     }
                     <ChoiceFontColor 
@@ -72,7 +69,6 @@ export default function Index() {
                         themeId={themeId}
                         themeColors={themeColors}
                         setThemeColors={setThemeColors}
-                        bannerColor = {bannerColor}
                         isCustom = {isCustom}
                     />
                 </div>

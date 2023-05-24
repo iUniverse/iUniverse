@@ -10,7 +10,7 @@ import BannerIuniCat from './banner_iuni_cat';
 
 
 interface Props {
-    setFavoriteBColors: Dispatch<SetStateAction<string[]>>
+    setcolors: Dispatch<SetStateAction<string[]>>
     setfontColor: string
 }
 
@@ -29,7 +29,6 @@ export default function Banner(props: any) {
     const [timeDeco, setTimeDeco] = useState('');
     const [isShow, setIsShow] = useState('no-show');
 
-    const [bannerBC, setBannerBC] = useState<string>('');
     const [currentThemeId, setCurrentThemeId] = useState<number>(0);
     const [themeInfo, setThemeInfo] = useState<Array<ThemeInfo>>([]);
 
@@ -113,9 +112,8 @@ export default function Banner(props: any) {
         const theme = await getMyInitTheme();
         console.log(theme);
         if (theme !== null) {
-            props.setFavoriteBColors(() => theme.favoriteBColors);
+            props.setcolors(() => theme.colors);
             props.setfontColor(() => theme.fontColor);
-            setBannerBC(() => theme.bannerBC);
             setCurrentThemeId(() => id);
         }
 
@@ -212,7 +210,7 @@ export default function Banner(props: any) {
                     </div>
 
                     <div className="banner-recent-project">
-                        <div className="recent-project-card card p-1" style={{ background: `${bannerBC}` }}>
+                        <div className="recent-project-card card p-1" style={{ background: `` }}>
                             <div className="recent-project-d-day card-header row">
                                 <div className="badge">D-13</div>
                             </div>

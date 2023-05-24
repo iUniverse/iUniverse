@@ -8,11 +8,6 @@ import { getMyInitTheme, getTheme, loadMyThemeInfo } from 'api/theme/card-theme'
 import BannerIuniCat from '../project/banner_iuni_cat';
 
 
-interface Props {
-    setFavoriteBColors: Dispatch<SetStateAction<string[]>>
-    setfontColor: string
-}
-
 type Day = {
     [key: number]: string
 }
@@ -22,21 +17,14 @@ export interface ThemeInfo {
     name: string;
 }
 
-export default function PreviewBanner() {
+export default function PreviewBanner(props : Props) {
     const [today, setToday] = useState('');
     const [currentDay, setCurrentDay] = useState('');
     const [time, setTime] = useState('');
     const [timeDeco, setTimeDeco] = useState('');
     const [isShow, setIsShow] = useState('no-show');
-
-    const [bannerBC, setBannerBC] = useState<string>('');
-    const [currentThemeId, setCurrentThemeId] = useState<number>(0);
-    const [themeInfo, setThemeInfo] = useState<Array<ThemeInfo>>([]);
-
     const [timePeriod, setTimePeriod] = useState<string>('');
 
-    const [favoriteBColors, setFavoriteBColors] = useState<string[]>([]);
-    const [fontColor, setfontColor] = useState<string>('');
 
     const day: Day = {
         0: '일요일',
@@ -109,23 +97,6 @@ export default function PreviewBanner() {
         setCurrentThemeId(() => id);
     }
 
-    /* 기본 테마 설정 */
-    async function settingTheme(id: number) {
-        //현재 설정한 나의 테마 정보 가져오기
-        const theme = await getMyInitTheme();
-        if (theme !== null) {
-            setFavoriteBColors(() => theme.favoriteBColors);
-            setfontColor(() => theme.fontColor);
-            setBannerBC(() => theme.bannerBC);
-            setCurrentThemeId(() => id);
-        }
-    }
-    const router = useRouter();
-    /* 테마 관리하기 */
-    function managementTheme() {
-
-        router.push('/theme');
-    }
 
     useInterval(() => {
         getTime();
@@ -134,16 +105,12 @@ export default function PreviewBanner() {
 
     useEffect(() => {
         getToday();
-        //getIuniCat();
-        settingTheme(0);
-        settingThemeSelectBox();
 
     }, []);
 
     return (
         <>
-            <div className="preview-banner">
-                <div className="preview-banner-widget">
+            <div className="preview-banner-widget">
                     <div className="preview-widget-card">
                         <div className="preview-widget-header row theme-flex-center">
                             <div className="preview-iuni-cat col-2">
@@ -185,35 +152,6 @@ export default function PreviewBanner() {
                         </div>
                     </div>
                 </div>
-
-                <div className="preview-banner-recent-project">
-                    <div className="preview-banner-recent-project-card">
-                        <div className="preview-recent-project-badge-list row">
-                            <div className="preview-recent-project-badge mr-1r">
-
-                            </div>
-                        </div>
-                        <div className="preview-recent-project-title row theme-flex-center">
-                            최근 프로젝트
-                        </div>
-                        <div className="row theme-flex-center">
-                            <div className="preview-recent-project-first-skeleton">
-
-                            </div>
-                        </div>
-                        <div className="row theme-flex-center">
-                            <div className="preview-recent-project-second-skeleton">
-
-                            </div>
-                        </div>
-                        <div className="row preview-recent-project-btn-list" >
-                            <img src={"/img/theme/theme-favorite.webp"} style={{ width: '25px', height: '25px' }} />
-                            <img src={"/img/theme/theme-color-pick.webp"} style={{ width: '25px', height: '25px' }} />
-                            <img src={"/img/theme/theme-img-pick.webp"} style={{ width: '25px', height: '25px' }} />
-                        </div>
-                    </div>
-                </div>
-            </div>
         </>
     )
 }
