@@ -15,10 +15,13 @@ export interface ThemeInfo {
 export default function Index() {
     const [themeId, setThemeId] = useState(-1);
     const [isCustom, setCustom] = useState(false);
-    const [fontColor, setFontColor] = useState<string>('');
+    const [fontColor, setFontColor] = useState<string>('#fff');
     const [themeInfo, setThemeInfo] = useState<Array<ThemeInfo>>([]);
     const [themeColors, setThemeColors] = useState<Array<string>>([]);
     
+    const [imgPickImg, setImgPickImg] = useState<string>("/img/theme/theme-img-pick.webp");
+    const [favoriteImg, setFavoriteImg] = useState<string>("/img/theme/theme-favorite.webp");
+
     /* 테마 선택 박스 정보 */
     const settingThemeSelectBox = async () => {
         const my_theme_list = await loadMyThemeInfo(['name', 'id']);
@@ -63,10 +66,14 @@ export default function Index() {
                     }
                     <ChoiceFontColor 
                         setFontColor = {setFontColor}
+                        setImgPickImg = {setImgPickImg}
+                        setFavoriteImg = {setFavoriteImg}
                     />
                     <PreviewTheme 
                         fontColor = {fontColor}
                         themeId={themeId}
+                        imgPickImg={imgPickImg}
+                        favoriteImg={favoriteImg}
                         themeColors={themeColors}
                         setThemeColors={setThemeColors}
                         isCustom = {isCustom}
