@@ -10,6 +10,16 @@ import { useEffect } from 'react';
 import { checkInitTheme, createInitTheme } from 'api/theme/card-theme';
 import { checkInitCatStyle, createInitCatStyle } from 'api/theme/iuni-cat-theme';
 
+import React from 'react';
+import {
+  RecoilRoot,
+  atom,
+  selector,
+  useRecoilState,
+  useRecoilValue,
+} from 'recoil';
+
+
 export default function App({ Component, pageProps }: AppProps) {
   function createInit(theme_name_list: string[]): Promise<boolean> {
     return new Promise(resolve => {
@@ -81,7 +91,10 @@ export default function App({ Component, pageProps }: AppProps) {
   }, []);
   return (
     <IUniLayout>
-      <Component {...pageProps} />
+      <RecoilRoot>
+        <Component {...pageProps} />
+      </RecoilRoot>
     </IUniLayout>
+    
   )
 }

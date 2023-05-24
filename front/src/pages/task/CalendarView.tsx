@@ -12,7 +12,6 @@ export default function CalendarView(props:any){ //프로젝트 정보 가져올
                 <div className={styles.setting__bar}>달력위에 필터, 날짜 등 설정하는 부분</div>
                 <Calendar></Calendar>
            </div>
-
         </>
     )
 }
@@ -31,12 +30,9 @@ type calendar = {
 
 class CalendarInfo {
 
-    //년도가 바뀔때마다 윤년 계산해야하니까 set year(){} 만들자. 이 안에는 isChangeYear을 true로 바꾸는 부분 추가해야함!!!!!
-
     private today: todayInfo;
     private calendar : calendar;
     private lastDateList = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
-    private isChangeYear = false;
 
     constructor (date?: Date){   
         this.today = this.getTodayInfo(date);
@@ -45,16 +41,6 @@ class CalendarInfo {
         this.calendar = this.getCalendarInfo();
     }
     
-    setLastDateList(){
-        const year = this.today.year;
-        
-        //윤년 확인
-        if ((year % 4 == 0 && year % 100 != 0) || year % 400 == 0 ) this.lastDateList[1] = 29;
-        else this.lastDateList[1] = 28;
-
-        this.isChangeYear = false;
-    }
-
     getTodayInfo(date?: Date){
         let newDate;
         if (date === undefined) newDate = new Date(); 
@@ -67,6 +53,15 @@ class CalendarInfo {
         }
 
         return today;
+    }
+
+    setLastDateList(){
+        const year = this.today.year;
+        
+        //윤년 확인
+        if ((year % 4 == 0 && year % 100 != 0) || year % 400 == 0 ) this.lastDateList[1] = 29;
+        else this.lastDateList[1] = 28;
+
     }
 
     getCalendarInfo(){
@@ -97,7 +92,6 @@ class CalendarInfo {
         this.setLastDateList();
         this.calendar = this.getCalendarInfo();
     }
-
 }
 
 const taskInfo = [
