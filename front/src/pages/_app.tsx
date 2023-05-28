@@ -3,12 +3,14 @@ import 'styles/layout.css'
 import 'styles/card.css'
 import 'styles/project.css';
 import 'styles/theme.css';
+import 'styles/modal.css';
 
 import type { AppProps } from 'next/app'
 import IUniLayout from './layout/layout'
 import { useEffect } from 'react';
 import { checkInitTheme, createInitTheme } from 'api/theme/card-theme';
 import { checkInitCatStyle, createInitCatStyle } from 'api/theme/iuni-cat-theme';
+import Modal from 'react-modal';
 
 export default function App({ Component, pageProps }: AppProps) {
   function createInit(theme_name_list: string[]): Promise<boolean> {
@@ -80,8 +82,10 @@ export default function App({ Component, pageProps }: AppProps) {
       });
   }, []);
   return (
+
     <IUniLayout>
       <Component {...pageProps} />
     </IUniLayout>
   )
 }
+

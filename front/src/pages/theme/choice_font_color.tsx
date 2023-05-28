@@ -20,8 +20,6 @@ export default function ChoiceFontColor(props : Props) {
         props.setFontColor(color);
     }
 
-      
-    
     return (
         <>
             <div className="choice-font-color-container">

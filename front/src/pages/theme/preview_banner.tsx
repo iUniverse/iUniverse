@@ -17,7 +17,7 @@ export interface ThemeInfo {
     name: string;
 }
 
-export default function PreviewBanner(props : Props) {
+export default function PreviewBanner(props: Props) {
     const [today, setToday] = useState('');
     const [currentDay, setCurrentDay] = useState('');
     const [time, setTime] = useState('');
@@ -111,47 +111,55 @@ export default function PreviewBanner(props : Props) {
     return (
         <>
             <div className="preview-banner-widget">
-                    <div className="preview-widget-card">
-                        <div className="preview-widget-header row theme-flex-center">
-                            <div className="preview-iuni-cat col-2">
-                                엄
-                            </div>
-                            <div className="preview-widget-title col-6">
-                                <div className="preview-widget-title-first-skeleton"></div>
+                <div className="preview-widget-card">
+                    <div className="preview-widget-header row theme-flex-center">
+                        <div className="preview-iuni-cat col-2">
+                            엄
+                        </div>
+                        <div className="preview-widget-title col-6">
+                            <div className="preview-widget-title-first-skeleton"></div>
 
-                                <div className="preview-widget-title-second-skeleton"></div>
-                            </div>
-                            <div className="preview-widget-btn-list col-4">
-                                버튼
-                            </div>
+                            <div className="preview-widget-title-second-skeleton"></div>
+                        </div>
+                        <div className="preview-widget-btn-list col-4 row" style={{justifyContent:'right'}}>
+                            <img src={"/img/theme/theme-color-pick-black.webp"} style={{width:'25px', height : '25px'}}></img>
+                        </div>
+                    </div>
+
+                    <div className="preview-widget-body row">
+                        <div className="preview-widget-date row">
+                            <div>2030.3.3.</div>
+                            <div>월요일</div>
                         </div>
 
-                        <div className="preview-widget-body">
-                            <div className="preview-widget-date">
-
-                            </div>
-                            <div className="preview-widget-time">
-
-                            </div>
+                        <div className="preview-widget-time row">
+                            <div>AM</div>
+                            <div>04:24:31</div>
                         </div>
+                    </div>
 
-                        <div className="preview-widget-footer row theme-flex-center">
+                    <div className="preview-widget-footer row theme-flex-center">
+                        <div className="row w-100 theme-flex-center" style={{marginLeft:'19px', marginRight:'19px'}}>
                             <div className="preview-widget-profile col-2 row theme-flex-center">
                                 <div style={{ width: '37px', height: '37px', borderRadius: '20px', opacity: '0.1', backgroundColor: '#575757' }}>
 
                                 </div>
                             </div>
-                            <div className="preview-widget-alarm col-10">
+                            <div className="preview-widget-alarm col-8">
                                 <div className="preview-widget-alarm-title">
                                     알림 3개
                                 </div>
-                                <div className="preview-widget-alarm-content" style={{ width: '352px', height: '17px', borderRadius: '2px', backgroundColor: '#e5e5e5', marginTop: '3px' }}>
+                                <div className="preview-widget-alarm-content" style={{ width: '100%', height: '17px', borderRadius: '2px', backgroundColor: '#e5e5e5', marginTop: '3px' }}>
 
                                 </div>
+                            </div>
+                            <div className="col-2">
+
                             </div>
                         </div>
                     </div>
                 </div>
+            </div>
         </>
     )
 }

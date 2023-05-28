@@ -5,7 +5,8 @@ import PreviewTheme from './preview_theme';
 import SubSideMenu from './sub_side_menu';
 import ChoiceTheme from './choice_theme';
 import { loadMyThemeInfo } from 'api/theme/card-theme';
-
+import Modal from 'react-modal';
+import IuniAlert from 'pages/layout/iuniAlert';
 
 export interface ThemeInfo {
     id: number;
@@ -18,9 +19,11 @@ export default function Index() {
     const [fontColor, setFontColor] = useState<string>('#fff');
     const [themeInfo, setThemeInfo] = useState<Array<ThemeInfo>>([]);
     const [themeColors, setThemeColors] = useState<Array<string>>([]);
-    
+
     const [imgPickImg, setImgPickImg] = useState<string>("/img/theme/theme-img-pick.webp");
     const [favoriteImg, setFavoriteImg] = useState<string>("/img/theme/theme-favorite.webp");
+
+    const [modalState, setModalState] = useState<boolean>(false);
 
     /* 테마 선택 박스 정보 */
     const settingThemeSelectBox = async () => {
@@ -32,7 +35,31 @@ export default function Index() {
             })
         }
     }
+
+    const handleModal = (val : boolean) :void => {
+        setModalState(() => val);
+    }
     
+
+    const customModalStyle = {
+        overlay: {
+            background: 'none'
+        },
+        content: {
+            top: '50%',
+            left: '50%',
+            right: 'auto',
+            bottom: 'auto',
+            marginRight: '-50%',
+            width: '480px',
+            height: '300px',
+            borderRadius: '24px',
+            transform: 'translate(-50%, -50%)',
+            boxShadow: '0 0 12px 0 rgba(34, 34, 34, 0.18)',
+            overflow: 'hidden'
+        }
+    }
+
     useEffect(() => {
         settingThemeSelectBox();
     }, []);
@@ -46,38 +73,49 @@ export default function Index() {
                 <div className="theme-setting-content ml-1r mr-1r mt-3r">
                     <div className="theme-setting-content-title">
                         <span>테마 설정</span>
-                        <div className="theme-setting-save-btn">저장</div>
+                        <div className="theme-setting-save-btn" onClick={() => handleModal(true)}>저장</div>
                     </div>
-                    <ChoiceTheme 
+
+                    <ChoiceTheme
                         setThemeId={setThemeId}
-                        setThemeColors = {setThemeColors}
-                        setfontColor = {setFontColor}
-                        setCustom = {setCustom}
+                        setThemeColors={setThemeColors}
+                        setfontColor={setFontColor}
+                        setCustom={setCustom}
                         themeInfo={themeInfo}
-                        
+
                     />
-                    { 
-                        isCustom === true && 
-                        <CustomChoiceTheme 
-                        setThemeId={setThemeId}
-                        setThemeColors = {setThemeColors}
-                        setfontColor = {setFontColor}
-                        themeInfo={themeInfo}/>
+                    {
+                        isCustom === true &&
+                        <CustomChoiceTheme
+                            setThemeId={setThemeId}
+                            setThemeColors={setThemeColors}
+                            setfontColor={setFontColor}
+                            themeInfo={themeInfo} />
                     }
-                    <ChoiceFontColor 
-                        setFontColor = {setFontColor}
-                        setImgPickImg = {setImgPickImg}
-                        setFavoriteImg = {setFavoriteImg}
+                    <ChoiceFontColor
+                        setFontColor={setFontColor}
+                        setImgPickImg={setImgPickImg}
+                        setFavoriteImg={setFavoriteImg}
                     />
-                    <PreviewTheme 
-                        fontColor = {fontColor}
+                    <PreviewTheme
+                        fontColor={fontColor}
                         themeId={themeId}
                         imgPickImg={imgPickImg}
                         favoriteImg={favoriteImg}
                         themeColors={themeColors}
                         setThemeColors={setThemeColors}
-                        isCustom = {isCustom}
+                        isCustom={isCustom}
                     />
+                    <Modal
+                         isOpen={modalState}
+                         style={customModalStyle}
+                         ariaHideApp={false}
+                    >    
+                        <IuniAlert 
+                            setModalState={setModalState}
+                        />
+                    </Modal>
+                    
                 </div>
             </div>
         </>
