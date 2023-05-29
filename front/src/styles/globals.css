@@ -381,3 +381,17 @@ a {
   margin-right:2rem;
   display:grid
 }
+
+select::ms-expand{
+  display:none;
+}
+.iuni-select-box{
+  padding : 10px;
+  width : 90%;
+  height : 48px;
+  background : url('../../public/img/layout/select-box-dropdown.webp') no-repeat 98% 50%;
+  background-size: 24px 24px;
+  appearance: none;
+  -webkit-appearance : none;
+  -moz-appearance: none;
+}

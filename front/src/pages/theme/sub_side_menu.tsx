@@ -47,6 +47,8 @@ export default function SubSideMenu() {
         
     }
 
+    //보여지는 넓이에 따라 보여줘야 하는 div도 달라야됨
+     
     useEffect(() => {
         handleLoadSetting('theme');
     }, []);
@@ -58,6 +60,12 @@ export default function SubSideMenu() {
                     <div className={unactive_class_name} onClick={() => handleLoadSetting('profile')} ref={profile}>내 정보 변경</div>
                     <div className={unactive_class_name} onClick={() => handleLoadSetting('theme')} ref={theme}>테마 설정</div>
                     <div className={unactive_class_name} onClick={() => handleLoadSetting('character')} ref={character}>캐릭터 설정</div>
+                    
+                    <select className="iuni-select-box">
+                        <option>내 정보 변경</option>
+                        <option>테마 변경</option>
+                        <option>캐릭터 설정</option>
+                    </select>
                 </div>
             </div>
         </>
