@@ -1,6 +1,5 @@
 import { atom, selector } from "recoil";
 
-
 //today는 변하는 값이 아님. atom 사용할 필요 X
 type todayInfo = {
     year: number,
@@ -37,13 +36,8 @@ export const calendarInfoState = selector({
         const range = get(calendarRangeState);
 
         const startDay = new Date(range.getFullYear(), range.getMonth(), 1).getDay();
-        const lastDate = GetLastDateList(range)[range.getMonth()];
-        const weekCount = Math.ceil((startDay + lastDate)/7);
-        
-        return {
-            startDay: startDay,
-            lastDate: lastDate,
-            weekCount: weekCount
-        }
+        let firstDate = new Date(range.getFullYear(), range.getMonth(), 1-startDay);
+ 
+        return firstDate;
     }
 })
