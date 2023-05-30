@@ -7,6 +7,7 @@ import ChoiceTheme from './choice_theme';
 import { loadMyThemeInfo } from 'api/theme/card-theme';
 import Modal from 'react-modal';
 import IuniAlert from 'pages/layout/iuniAlert';
+import { throttle } from 'lodash';
 
 export interface ThemeInfo {
     id: number;
@@ -25,6 +26,9 @@ export default function Index() {
 
     const [modalState, setModalState] = useState<boolean>(false);
 
+    //default, middle, small
+    const [currentSize, setCurrentSize] = useState<string>('big');
+
     /* 테마 선택 박스 정보 */
     const settingThemeSelectBox = async () => {
         const my_theme_list = await loadMyThemeInfo(['name', 'id']);
@@ -40,6 +44,27 @@ export default function Index() {
         setModalState(() => val);
     }
     
+
+    const resizeObserver = throttle(() => {
+        const current_inner_width = window.innerWidth;
+
+        if(current_inner_width <= 768){
+            setCurrentSize(() => 'small')
+        } else {
+            setCurrentSize(() => 'big');
+        }
+   }, 1000);
+
+
+   useEffect(() => {
+       window.addEventListener('resize', resizeObserver);
+       return (() => {
+           //clean up
+           window.removeEventListener("resize", resizeObserver);
+       })
+   });
+
+
 
     const customModalStyle = {
         overlay: {
@@ -68,7 +93,7 @@ export default function Index() {
         <>
             <div className="theme-setting-container">
                 <div className="theme-setting-menu">
-                    <SubSideMenu />
+                    <SubSideMenu currentSize={currentSize}/>
                 </div>
                 <div className="theme-setting-content ml-1r mr-1r mt-3r">
                     <div className="theme-setting-content-title">
@@ -82,7 +107,7 @@ export default function Index() {
                         setfontColor={setFontColor}
                         setCustom={setCustom}
                         themeInfo={themeInfo}
-
+                        currentSize={currentSize}
                     />
                     {
                         isCustom === true &&

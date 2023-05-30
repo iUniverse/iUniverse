@@ -9,6 +9,7 @@ interface Props {
     setfontColor: Dispatch<SetStateAction<string>>
     setCustom: Dispatch<SetStateAction<boolean>>
     themeInfo: SelectTheme[]
+    currentSize: string
 }
 
 export default function ChoiceTheme(props: Props) {
@@ -29,28 +30,39 @@ export default function ChoiceTheme(props: Props) {
         theme_colors === '' ? props.setThemeColors(() => []) : handleTheme(theme_colors);
     };
 
+    
     return (
         <>
+            {
+                props.currentSize !== 'small' ?
+                    <div className="choice-theme-first-list">
+                        {
+                            props.themeInfo.map(val => (
+                                <div className="row" key={val.id}>
+                                    <input type="radio" name="choice-theme" id={val.name} className="choice-font-color-radio" onClick={() => changeTheme(val)} />
+                                    <label htmlFor={val.name} className="ml-2">
+                                        {val.name}
+                                    </label>
+                                </div>
+                            ))
+                        }
 
-            <div className="choice-theme-first-list">
-                {
-                    props.themeInfo.map(val => (
-                        <div className="row" key={val.id}>
-                            <input type="radio" name="choice-theme" id={val.name} className="choice-font-color-radio" onClick={() => changeTheme(val)} />
-                            <label htmlFor={val.name} className="ml-2">
-                                {val.name}
+                        <div className="row">
+                            <input type="radio" name="choice-theme" id="choice-custom-theme" className="choice-font-color-radio" onClick={() => changeTheme(CUSTOM_THEME)} />
+                            <label htmlFor="choice-custom-theme" className="ml-2">
+                                커스텀테마
                             </label>
                         </div>
-                    ))
-                }
-
-                <div className="row">
-                    <input type="radio" name="choice-theme" id="choice-custom-theme" className="choice-font-color-radio" onClick={() => changeTheme(CUSTOM_THEME)} />
-                    <label htmlFor="choice-custom-theme" className="ml-2">
-                        커스텀테마
-                    </label>
-                </div>
-            </div>
+                    </div>
+                    :
+                    <select className="iuni-select-box">
+                        {
+                            props.themeInfo.map(val => (
+                                <option key={val.id} onClick={() => changeTheme(val)}>{val.name}</option>
+                            ))
+                        }
+                    </select>
+            }
         </>
     )
 }
