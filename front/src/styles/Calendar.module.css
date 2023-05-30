@@ -10,7 +10,14 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    gap: 100px;
     width: 100%;
-    height: 32px;
+    height: 50px;
+    padding: 0 300px;
+    box-sizing: border-box;
     background-color: cornflowerblue;
+}
+.setting__bar > button {
+    height: 80%; 
+    width: 50px;
 }
