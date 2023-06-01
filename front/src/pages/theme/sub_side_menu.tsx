@@ -3,10 +3,10 @@ import React, { useEffect, useRef, useState } from 'react';
 
 
 interface Props {
-    currentSize : string;
+    currentSize: string;
 }
 
-export default function SubSideMenu(props : Props) {
+export default function SubSideMenu(props: Props) {
     const profile = useRef<HTMLDivElement>(null);
     const theme = useRef<HTMLDivElement>(null);
     const character = useRef<HTMLDivElement>(null);
@@ -60,27 +60,30 @@ export default function SubSideMenu(props : Props) {
 
     return (
         <>
-            <div className="m-3r">
-                <div className="sub-side-menu-title">설정</div>
-                <div className="sub-side-menu-list">
-                    {
-                        props.currentSize !== 'small' ?
-                            <>
+            {
+                props.currentSize === 'small' ?
+                    <>
+                        <div className="sub-side-menu-title">설정</div>
+                        <div className="sub-side-menu-list">
+                            <select className="iuni-select-box">
+                                <option>내 정보 변경</option>
+                                <option>테마 변경</option>
+                                <option>캐릭터 설정</option>
+                            </select>
+                        </div>
+                    </>
+                    :
+                    <>
+                        <div className="m-3r">
+                            <div className="sub-side-menu-title">설정</div>
+                            <div className="sub-side-menu-list">
                                 <div className={unactive_class_name} onClick={() => handleLoadSetting('profile')} ref={profile}>내 정보 변경</div>
                                 <div className={unactive_class_name} onClick={() => handleLoadSetting('theme')} ref={theme}>테마 설정</div>
                                 <div className={unactive_class_name} onClick={() => handleLoadSetting('character')} ref={character}>캐릭터 설정</div>
-                            </>
-                            :
-                            <>
-                                <select className="iuni-select-box">
-                                    <option>내 정보 변경</option>
-                                    <option>테마 변경</option>
-                                    <option>캐릭터 설정</option>
-                                </select>
-                            </>
-                    }
-                </div>
-            </div>
+                            </div>
+                        </div>
+                    </>
+            }
         </>
     )
 }

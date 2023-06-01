@@ -44,17 +44,19 @@ export default function Index() {
         setModalState(() => val);
     }
     
-
     const resizeObserver = throttle(() => {
         const current_inner_width = window.innerWidth;
-
+        console.log(current_inner_width);
         if(current_inner_width <= 768){
-            setCurrentSize(() => 'small')
-        } else {
+            setCurrentSize(() => 'small');
+        } 
+        else if(current_inner_width <= 1024){
+            setCurrentSize(() => 'middle');
+        }
+        else {
             setCurrentSize(() => 'big');
         }
-   }, 1000);
-
+    }, 1000);
 
    useEffect(() => {
        window.addEventListener('resize', resizeObserver);
@@ -63,8 +65,6 @@ export default function Index() {
            window.removeEventListener("resize", resizeObserver);
        })
    });
-
-
 
     const customModalStyle = {
         overlay: {
@@ -87,15 +87,19 @@ export default function Index() {
 
     useEffect(() => {
         settingThemeSelectBox();
+        resizeObserver();
+        
     }, []);
-
+    useEffect(() => {
+        resizeObserver();
+    }, [themeId])
     return (
         <>
             <div className="theme-setting-container">
                 <div className="theme-setting-menu">
                     <SubSideMenu currentSize={currentSize}/>
                 </div>
-                <div className="theme-setting-content ml-1r mr-1r mt-3r">
+                <div className="theme-setting-content mt-3r">
                     <div className="theme-setting-content-title">
                         <span>테마 설정</span>
                         <div className="theme-setting-save-btn" onClick={() => handleModal(true)}>저장</div>

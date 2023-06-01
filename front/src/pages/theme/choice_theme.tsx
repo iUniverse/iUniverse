@@ -1,5 +1,5 @@
 import { SelectTheme, getTheme, loadMyThemeInfo, themeInfo } from 'api/theme/card-theme';
-import React, { useEffect, useState, Dispatch, SetStateAction } from 'react';
+import React, { useEffect, useState, Dispatch, SetStateAction, useRef } from 'react';
 
 
 
@@ -13,6 +13,7 @@ interface Props {
 }
 
 export default function ChoiceTheme(props: Props) {
+    const [activeThemeId, setActiveThemeId] = useState<number>(-1);
     const CUSTOM_THEME = {
         id: 0,
         name: 'custom'
@@ -24,13 +25,31 @@ export default function ChoiceTheme(props: Props) {
     }
 
     const changeTheme = async (theme: SelectTheme) => {
-        props.setThemeId(() => theme.id);
-        const theme_colors: themeInfo | string = await getTheme(theme.id);
-        theme.id === 0 ? props.setCustom(() => true) : props.setCustom(() => false);
-        theme_colors === '' ? props.setThemeColors(() => []) : handleTheme(theme_colors);
+        if (props.currentSize === 'small') {
+            props.setThemeId(() => theme.id);
+            const theme_colors: themeInfo | string = await getTheme(theme.id);
+            theme.id === 0 ? props.setCustom(() => true) : props.setCustom(() => false);
+            theme_colors === '' ? props.setThemeColors(() => []) : handleTheme(theme_colors);
+
+            if(activeThemeId !== -1){
+                selectThemeRef.current[activeThemeId].style.background = '#fff';    
+            }
+            
+            selectThemeRef.current[theme.id].style.background = 'rgb(0, 225, 90, 0.1)';
+            setActiveThemeId(() => theme.id);
+            
+            
+        } else {
+            props.setThemeId(() => theme.id);
+            const theme_colors: themeInfo | string = await getTheme(theme.id);
+            theme.id === 0 ? props.setCustom(() => true) : props.setCustom(() => false);
+            theme_colors === '' ? props.setThemeColors(() => []) : handleTheme(theme_colors);
+        }
+
     };
 
-    
+    /* 선택된 테마 */
+    const selectThemeRef = useRef<any>([]);
     return (
         <>
             {
@@ -55,13 +74,21 @@ export default function ChoiceTheme(props: Props) {
                         </div>
                     </div>
                     :
-                    <select className="iuni-select-box">
+                    <>
                         {
-                            props.themeInfo.map(val => (
-                                <option key={val.id} onClick={() => changeTheme(val)}>{val.name}</option>
+                            props.themeInfo.map((val, index) => (
+                                <label className="small-choice-theme row" 
+                                    style={{ height: '48px', alignContent: 'center' }} 
+                                    htmlFor={val.name} 
+                                    key={val.id}
+                                    ref = {(el) => (selectThemeRef.current[val.id] = el)}
+                                    onClick={() => changeTheme(val)}>
+                                    <input type="radio" name="theme" id={val.name} className="" style={{ width: '20px', height: '20px' }} />
+                                    <p className="ml-3">{val.name}</p>
+                                </label>
                             ))
                         }
-                    </select>
+                    </>
             }
         </>
     )
