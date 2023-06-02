@@ -95,11 +95,7 @@ export default function Index() {
         resizeObserver();
     }, [themeId]);
 
-    const test = [
-        {'id' : 0, 'name' : '내 정보 변경'},
-        {'id' : 1, 'name' : '테마 설정'},
-        {'id' : 2, 'name' : '캐릭터 설정'},
-    ];
+
 
     return (
         <>
@@ -107,12 +103,7 @@ export default function Index() {
                 <div className="theme-setting-menu">
                     <SubSideMenu currentSize={currentSize} />
                 </div>
-                <div>
-                    <IuniSelect 
-                        optionList={test}
-                        defaultChecked={test[0].id}
-                    />
-                </div>
+
                 <div className="theme-setting-content mt-3r">
                     <div className="theme-setting-content-title">
                         {

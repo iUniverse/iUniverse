@@ -1,3 +1,4 @@
+import IuniSelect from 'pages/layout/iuniSelect';
 import React, { useEffect, useRef, useState } from 'react';
 
 
@@ -57,20 +58,20 @@ export default function SubSideMenu(props: Props) {
     useEffect(() => {
         handleLoadSetting('theme');
     }, []);
-
+    const test = [
+        {'id' : 0, 'name' : '내 정보 변경'},
+        {'id' : 1, 'name' : '테마 설정'},
+        {'id' : 2, 'name' : '캐릭터 설정'},
+    ];
     return (
         <>
             {
                 props.currentSize === 'small' ?
                     <>
                         <div className="sub-side-menu-title">설정</div>
-                        <div className="sub-side-menu-list">
-                            <select className="iuni-select-box">
-                                <option>내 정보 변경</option>
-                                <option>테마 변경</option>
-                                <option>캐릭터 설정</option>
-                            </select>
-                        </div>
+                        <IuniSelect 
+                            optionList={test}
+                            defaultChecked={test[0].id} />
                     </>
                     :
                     <>
@@ -82,6 +83,7 @@ export default function SubSideMenu(props: Props) {
                                 <div className={unactive_class_name} onClick={() => handleLoadSetting('character')} ref={character}>캐릭터 설정</div>
                             </div>
                         </div>
+                         
                     </>
             }
         </>

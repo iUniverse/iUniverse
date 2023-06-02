@@ -11,22 +11,20 @@ export default function IuniSelect(props: Props) {
     /* 옵션 ref */
     const optionRef = useRef<any>([]);
     const [optionListState, setOptionListState] = useState<boolean>(false);
+
+    /* 옵션 리스트 펼치기 / 접기 */
     const toggleOptionList = () => setOptionListState(() => !optionListState);
+    /* 옵션값 클릭 */
     const handleOption = (val: any) => {
         setSelectVal(() => val);
+        setOptionListState(() => !optionListState);
     }
+
     return (
         <>
-            <div className="iuni-select-box" onClick={() => toggleOptionList()}>
-                <p>
-                    <>
-                        {
-                            selectVal.name
-                        }
-                    </>
-                </p>
+            <div className={optionListState === true ? "iuni-select-box active" : "iuni-select-box"} onClick={() => toggleOptionList()}>
+                <p>{selectVal.name}</p>
             </div>
-
             {
                 optionListState === true &&
                 <div className="iuni-select-option-list">
