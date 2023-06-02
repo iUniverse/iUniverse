@@ -31,22 +31,20 @@ export default function ChoiceTheme(props: Props) {
             theme.id === 0 ? props.setCustom(() => true) : props.setCustom(() => false);
             theme_colors === '' ? props.setThemeColors(() => []) : handleTheme(theme_colors);
 
-            if(activeThemeId !== -1){
-                selectThemeRef.current[activeThemeId].style.background = '#fff';    
+            if (activeThemeId !== -1) {
+                selectThemeRef.current[activeThemeId].style.background = '#fff';
             }
-            
             selectThemeRef.current[theme.id].style.background = 'rgb(0, 225, 90, 0.1)';
             setActiveThemeId(() => theme.id);
-            
-            
         } else {
             props.setThemeId(() => theme.id);
             const theme_colors: themeInfo | string = await getTheme(theme.id);
             theme.id === 0 ? props.setCustom(() => true) : props.setCustom(() => false);
             theme_colors === '' ? props.setThemeColors(() => []) : handleTheme(theme_colors);
         }
-
     };
+
+    
 
     /* 선택된 테마 */
     const selectThemeRef = useRef<any>([]);
@@ -77,17 +75,25 @@ export default function ChoiceTheme(props: Props) {
                     <>
                         {
                             props.themeInfo.map((val, index) => (
-                                <label className="small-choice-theme row" 
-                                    style={{ height: '48px', alignContent: 'center' }} 
-                                    htmlFor={val.name} 
+                                <label className="small-choice-theme row"
+                                    style={{ height: '48px', alignContent: 'center' }}
+                                    htmlFor={val.name}
                                     key={val.id}
-                                    ref = {(el) => (selectThemeRef.current[val.id] = el)}
+                                    ref={(el) => (selectThemeRef.current[val.id] = el)}
                                     onClick={() => changeTheme(val)}>
                                     <input type="radio" name="theme" id={val.name} className="" style={{ width: '20px', height: '20px' }} />
                                     <p className="ml-3">{val.name}</p>
                                 </label>
                             ))
                         }
+                        <label className="small-choice-theme row"
+                            style={{ height: '48px', alignContent: 'center' }}
+                            htmlFor='CUSTOM_THEME'
+                            ref={(el) => (selectThemeRef.current[0] = el)}
+                            onClick={() => changeTheme(CUSTOM_THEME)}>
+                            <input type="radio" name="theme" id='CUSTOM_THEME' className="" style={{ width: '20px', height: '20px' }} />
+                            <p className="ml-3">커스텀 테마</p>
+                        </label>
                     </>
             }
         </>

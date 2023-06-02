@@ -40,17 +40,17 @@ export default function Index() {
         }
     }
 
-    const handleModal = (val : boolean) :void => {
+    const handleModal = (val: boolean): void => {
         setModalState(() => val);
     }
-    
+
     const resizeObserver = throttle(() => {
         const current_inner_width = window.innerWidth;
         console.log(current_inner_width);
-        if(current_inner_width <= 768){
+        if (current_inner_width <= 768) {
             setCurrentSize(() => 'small');
-        } 
-        else if(current_inner_width <= 1024){
+        }
+        else if (current_inner_width <= 1024) {
             setCurrentSize(() => 'middle');
         }
         else {
@@ -58,13 +58,13 @@ export default function Index() {
         }
     }, 1000);
 
-   useEffect(() => {
-       window.addEventListener('resize', resizeObserver);
-       return (() => {
-           //clean up
-           window.removeEventListener("resize", resizeObserver);
-       })
-   });
+    useEffect(() => {
+        window.addEventListener('resize', resizeObserver);
+        return (() => {
+            //clean up
+            window.removeEventListener("resize", resizeObserver);
+        })
+    });
 
     const customModalStyle = {
         overlay: {
@@ -88,7 +88,7 @@ export default function Index() {
     useEffect(() => {
         settingThemeSelectBox();
         resizeObserver();
-        
+
     }, []);
     useEffect(() => {
         resizeObserver();
@@ -97,12 +97,21 @@ export default function Index() {
         <>
             <div className="theme-setting-container">
                 <div className="theme-setting-menu">
-                    <SubSideMenu currentSize={currentSize}/>
+                    <SubSideMenu currentSize={currentSize} />
                 </div>
                 <div className="theme-setting-content mt-3r">
                     <div className="theme-setting-content-title">
-                        <span>테마 설정</span>
-                        <div className="theme-setting-save-btn" onClick={() => handleModal(true)}>저장</div>
+                        {
+                            currentSize !== 'small' ?
+                                <>
+                                    <span className='default-title'>테마 설정</span>
+                                    <div className="theme-setting-save-btn w-5" onClick={() => handleModal(true)}>저장</div>
+                                </>
+                                :
+                                <>
+                                    <span className='small-title'>테마 설정</span>
+                                </>
+                        }
                     </div>
 
                     <ChoiceTheme
@@ -119,12 +128,15 @@ export default function Index() {
                             setThemeId={setThemeId}
                             setThemeColors={setThemeColors}
                             setfontColor={setFontColor}
-                            themeInfo={themeInfo} />
+                            themeInfo={themeInfo}
+                            currentSize={currentSize}
+                        />
                     }
                     <ChoiceFontColor
                         setFontColor={setFontColor}
                         setImgPickImg={setImgPickImg}
                         setFavoriteImg={setFavoriteImg}
+                        currentSize={currentSize}
                     />
                     <PreviewTheme
                         fontColor={fontColor}
@@ -134,17 +146,22 @@ export default function Index() {
                         themeColors={themeColors}
                         setThemeColors={setThemeColors}
                         isCustom={isCustom}
+                        currentSize={currentSize}
                     />
                     <Modal
-                         isOpen={modalState}
-                         style={customModalStyle}
-                         ariaHideApp={false}
-                    >    
-                        <IuniAlert 
+                        isOpen={modalState}
+                        style={customModalStyle}
+                        ariaHideApp={false}
+                    >
+                        <IuniAlert
                             setModalState={setModalState}
+                            currentSize={currentSize}
                         />
                     </Modal>
-                    
+                    {
+                        currentSize === 'small' &&
+                        <div className="theme-setting-save-btn mt-2r w-100" onClick={() => handleModal(true)}>저장</div>
+                    }
                 </div>
             </div>
         </>

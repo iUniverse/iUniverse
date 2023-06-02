@@ -3,6 +3,7 @@ import Modal from 'react-modal';
 
 interface Props {
     setModalState : Dispatch<SetStateAction<boolean>>
+    currentSize : string
 }
 export default function IuniAlert(props: Props) {
     return (

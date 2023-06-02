@@ -7,6 +7,7 @@ interface Props {
     setThemeId: Dispatch<SetStateAction<number>>
     setThemeColors : Dispatch<SetStateAction<string[]>>
     setfontColor : Dispatch<SetStateAction<string>>
+    currentSize : string
 }
 
 type init_theme_info = {
@@ -34,6 +35,7 @@ export default function CustomChoiceTheme(props: Props) {
 
     return (
         <>
+        
             <div className="choice-theme-container">
                 <div className="choice-theme-title">테마 선택</div>
                 <div className="choice-theme-content-list">

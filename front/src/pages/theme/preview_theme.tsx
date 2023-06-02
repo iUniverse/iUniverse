@@ -11,6 +11,7 @@ interface Props {
     isCustom: boolean;
     imgPickImg: string;
     favoriteImg: string;
+    currentSize : string;
 }
 
 type SKELETON_INFO = {
