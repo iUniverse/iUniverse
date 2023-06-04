@@ -75,7 +75,7 @@ export default function SubSideMenu(props: Props) {
                     </>
                     :
                     <>
-                        <div className="m-3r">
+                        <div className="m-2r">
                             <div className="sub-side-menu-title">설정</div>
                             <div className="sub-side-menu-list">
                                 <div className={unactive_class_name} onClick={() => handleLoadSetting('profile')} ref={profile}>내 정보 변경</div>

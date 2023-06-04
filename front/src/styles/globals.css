@@ -216,6 +216,10 @@ a {
   width: 5%;
 }
 
+.w-7{
+  width : 7%;
+}
+
 .w-10 {
   width: 10%;
 }
@@ -471,9 +475,6 @@ select::ms-expand {
   -ms-user-select:none;
 }
 
-
-
-
 .iuni-select-box>p{
   outline:none;
   margin-left : 1rem;
@@ -521,4 +522,40 @@ select::ms-expand {
 .iuni-select-option>p{
   outline:none;
   margin-left : 1rem;
+}
+
+
+/* 버튼 모음 */
+/* 기본 버튼 */
+.btn-default{
+  min-width : 104px;
+}
+
+.btn-default:hover{
+
+}
+
+/* 저장 버튼 */
+.btn-save {
+  display : flex;
+  justify-content: center;
+  align-items: center;
+  min-width : 104px;
+  height : 48px;
+  color : #fff;
+  background-color: #1120ff;
+  border-radius: 8px;
+  cursor : pointer;
+}
+
+.btn-save:hover {
+  background-color: #0a1399;
+}
+
+/* 취소 버튼 */
+.btn-cancle {
+  min-width : 104px;
+}
+.btn-cancle : hover{
+
 }

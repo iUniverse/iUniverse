@@ -161,8 +161,27 @@ export async function checkInitTheme(themeName : string) : Promise<any> {
 }
 
 /* 테마 업데이트 */
-export async function updateTheme() {
-
+export async function updateTheme(updateCardTheme : {id :number, key : string, value : any}) : Promise<any>{
+    try{
+        const response = await fetch(url, {
+            method : 'PATCH',
+            cache : 'no-cache',
+            headers : {
+                'Content-Type': 'application/x-www-form-urlencoded'
+            },
+            body : new URLSearchParams({
+                id : JSON.stringify(updateCardTheme.id),
+                key : JSON.stringify(updateCardTheme.key),
+                value : JSON.stringify(updateCardTheme.value)
+            })
+        });
+        console.log(response);
+        return response.json();
+    }
+    catch(e){
+        console.log(e);
+        throw(e);
+    }
 }
 
 /* 테마 삭제 */

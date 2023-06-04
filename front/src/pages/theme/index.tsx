@@ -4,7 +4,7 @@ import ChoiceFontColor from './choice_font_color';
 import PreviewTheme from './preview_theme';
 import SubSideMenu from './sub_side_menu';
 import ChoiceTheme from './choice_theme';
-import { loadMyThemeInfo } from 'api/theme/card-theme';
+import { loadMyThemeInfo, updateTheme } from 'api/theme/card-theme';
 import Modal from 'react-modal';
 import IuniAlert from 'pages/layout/iuniAlert';
 import { throttle } from 'lodash';
@@ -27,6 +27,8 @@ export default function Index() {
 
     const [modalState, setModalState] = useState<boolean>(false);
 
+    /* alert 창 : 승인 : true, 거절 : false */
+    const [iuniAlertVal, setIuniAlertVal] = useState<boolean>(false);
     //default, middle, small
     const [currentSize, setCurrentSize] = useState<string>('big');
 
@@ -42,6 +44,7 @@ export default function Index() {
     }
 
     const handleModal = (val: boolean): void => {
+        setIuniAlertVal(() => false);
         setModalState(() => val);
     }
 
@@ -59,6 +62,20 @@ export default function Index() {
         }
     }, 1000);
 
+    /* ---- useEffect start----  */
+    useEffect(() => {
+        console.log(iuniAlertVal);
+        if(iuniAlertVal === true){
+            const update_data = {
+                'id' : themeId,  
+                'key' : 'colors',
+                'value' : themeColors
+            }
+            /* 테마 정보 업데이트 */            
+            updateTheme(update_data);
+        }
+    },[iuniAlertVal]);
+
     useEffect(() => {
         window.addEventListener('resize', resizeObserver);
         return (() => {
@@ -66,7 +83,8 @@ export default function Index() {
             window.removeEventListener("resize", resizeObserver);
         })
     });
-
+    /* ---- useEffect end----  */
+    
     const customModalStyle = {
         overlay: {
             background: 'none'
@@ -100,17 +118,17 @@ export default function Index() {
     return (
         <>
             <div className="theme-setting-container">
-                <div className="theme-setting-menu">
+                <div className="theme-setting-menu m-1">
                     <SubSideMenu currentSize={currentSize} />
                 </div>
 
-                <div className="theme-setting-content mt-3r">
+                <div className="theme-setting-content m-1 mt-3r">
                     <div className="theme-setting-content-title">
                         {
-                            currentSize !== 'small' ?
+                            currentSize === 'big' ?
                                 <>
                                     <span className='default-title'>테마 설정</span>
-                                    <div className="theme-setting-save-btn w-5" onClick={() => handleModal(true)}>저장</div>
+                                    <div className="btn-save w-7" onClick={() => handleModal(true)}>저장</div>
                                 </>
                                 :
                                 <>
@@ -156,16 +174,17 @@ export default function Index() {
                     <Modal
                         isOpen={modalState}
                         style={customModalStyle}
-                        ariaHideApp={false}
-                    >
+                        ariaHideApp={false}>
+
                         <IuniAlert
                             setModalState={setModalState}
                             currentSize={currentSize}
+                            setIuniAlertVal={setIuniAlertVal}
                         />
                     </Modal>
                     {
                         currentSize === 'small' &&
-                        <div className="theme-setting-save-btn mt-2r w-100" onClick={() => handleModal(true)}>저장</div>
+                        <div className="btn-save mt-2r w-100" onClick={() => handleModal(true)}>저장</div>
                     }
                 </div>
             </div>

@@ -3,9 +3,16 @@ import Modal from 'react-modal';
 
 interface Props {
     setModalState : Dispatch<SetStateAction<boolean>>
+    setIuniAlertVal : Dispatch<SetStateAction<boolean>>
     currentSize : string
 }
+
 export default function IuniAlert(props: Props) {
+    const returnValue = (val : boolean) => {
+        props.setModalState(() => false);
+        props.setIuniAlertVal(() => val);
+    }
+
     return (
         <>
             <div className="m-1">
@@ -24,12 +31,12 @@ export default function IuniAlert(props: Props) {
 
                     <div className="modal-btn-list">
                         <button className="modal-cancle-btn"
-                            onClick={() => props.setModalState(false)}>
+                            onClick={() => returnValue(false)}>
                             취소
                         </button>
                         <button className="modal-submit-btn"
-                            onClick={() => props.setModalState(false)}>
-                            나가기
+                            onClick={() => returnValue(true)}>
+                            확인
                         </button>
                     </div>
                 </div>

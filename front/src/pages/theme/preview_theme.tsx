@@ -69,7 +69,6 @@ export default function PreviewTheme(props: Props) {
                 setShowBannerColorPicker(() => false);
             }
         }
-
     }
 
     /* 배너 쪽 colorPicker ON/OFF */

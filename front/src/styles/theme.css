@@ -52,6 +52,7 @@
     padding: 0;
 }
 
+
 .theme-setting-content {
     padding-top: 0;
 }
@@ -106,6 +107,7 @@
     color: #fff;
     background-color: #1120ff;
 }
+
 
 .theme-setting-content-title>.default-title {
     font-family: Pretendard;
@@ -186,12 +188,21 @@
     width: 100%;
     height: 64px;
     border-radius: 14px;
+    
 }
 
+.choice-font-color-content:hover{
+    border: solid 2px #1120ff;
+}
+
+.choice-theme-container{
+    margin-top : 3.84vh;
+}
 
 .choice-theme-first-list {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(7vw, auto));
+    margin-top : 2.77vh;
 }
 
 .small-choice-theme {

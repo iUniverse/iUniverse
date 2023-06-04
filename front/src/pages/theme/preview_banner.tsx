@@ -139,7 +139,7 @@ export default function PreviewBanner(props: Props) {
                     </div>
 
                     <div className="preview-widget-footer row theme-flex-center">
-                        <div className="row w-100 theme-flex-center" style={{marginLeft:'19px', marginRight:'19px'}}>
+                        <div className="row w-100 theme-flex-center">
                             <div className="preview-widget-profile col-2 row theme-flex-center">
                                 <div style={{ width: '37px', height: '37px', borderRadius: '20px', opacity: '0.1', backgroundColor: '#575757' }}>
 
