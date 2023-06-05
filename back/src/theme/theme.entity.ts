@@ -1,5 +1,6 @@
 import { Column, CreateDateColumn, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 import { Task } from '../task/task.entity';
+import { ProjectTheme } from "src/project-theme-map/project-theme.entity";
 
 @Entity()
 export class Theme{
@@ -20,5 +21,11 @@ export class Theme{
     //유저 아이디
     @Column()
     userId : number;
+
+    @OneToMany(
+        (type) => ProjectTheme,
+        (projectTheme) => projectTheme.theme
+    )
+    projectTheme! : ProjectTheme[];
 }
 

@@ -151,13 +151,13 @@ export default function MyProject(props: Props) {
                                 <div className="col-12 row-column theme-content-center">
                                     <div className="w-auto">
                                         <img src={"/img/project/empty-project.webp"}
-                                            style={{ width: '320px', height: '195px' }} />
+                                            style={{ width: '16.6667vw', height: '10.1563vw' }} />
                                     </div>
 
-                                    <div className="w-auto mt-2"  style={{width:'215px'}}>
+                                    <div className="w-auto mt-1r"  style={{width:'11.1979vw'}} onClick={() => create()}>
                                         <div className="p-0-5 project-empty-create-btn">
                                             <img src={"/img/project/btn-add-blue.webp"}
-                                                style={{ width: '23.9px', height: '23.9px', marginRight : '3%' }} />
+                                                style={{ width: '1.2448vw', height: '1.2448vw', marginRight : '3%' }} />
                                             <span>
                                                 새로운 프로젝트 만들기
                                             </span>
