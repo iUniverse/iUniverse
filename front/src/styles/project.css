@@ -6,13 +6,15 @@
 .badge {
     width: 60px;
     height: 30px;
-    background-color: skyblue;
     border-radius: 100px;
     display: flex;
     justify-content: center;
     align-items: center;
+  
 }
-
+.badge::before{
+    opacity: 0.1;
+}
 .badge>span {
     font-family: Pretendard;
     font-size: 18px;
@@ -66,7 +68,7 @@
 .widget {
     display: grid;
     grid-template-rows: 1fr 1.5fr 1.3fr;
-    color: #222;
+    color: #222222;
 }
 
 
@@ -171,7 +173,7 @@
 .widget-date-time>div:nth-child(2) {
     font-size: 44px;
     font-weight: 300;
-    color: #222;
+    color: #222222;
 }
 
 
@@ -284,7 +286,7 @@
     line-height: 1.42;
     letter-spacing: normal;
     text-align: left;
-    color: #222;
+    color: #222222;
 }
 
 .favorite-btn-icon {
@@ -396,7 +398,7 @@
     line-height: 1.42;
     letter-spacing: normal;
     text-align: left;
-    color: #222;
+    color: #222222;
 }
 
 .project-btn-icon {
@@ -457,7 +459,7 @@
     line-height: 0.78;
     letter-spacing: -0.18px;
     text-align: left;
-    color: #222;
+    color: #222222;
     background-color : #e6e8ff;
     cursor: pointer;
     border-radius: 8px;
@@ -541,7 +543,7 @@
     line-height: 1.33;
     letter-spacing: -0.36px;
     text-align: left;
-    color: #222;
+    color: #222222;
 }
 
 .project-icon-list {

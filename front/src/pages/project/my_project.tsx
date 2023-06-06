@@ -1,6 +1,8 @@
 import React, { useEffect, useState, Dispatch, SetStateAction } from 'react';
 import { useRouter } from 'next/router';
 import { createProject, updateProject } from '../../api/project/project';
+import { loadMyTheme } from 'api/theme/card-theme';
+import { createProjectTheme } from 'api/project-theme-map/project-theme-map';
 
 interface Project {
     id: number,
@@ -30,12 +32,27 @@ export default function MyProject(props: Props) {
         console.log('moveTaskPage!!');
     }
 
+
     /* 프로젝트 생성 */
     async function create() {
         const result = await createProject('무제');
         if (result.statusCode === 400)
-            throw new Error('프로젝트 생성도중 에러가 발생 했어요.')
-        props.setProjects(prev => [result, ...prev])
+            throw new Error('프로젝트 생성도중 에러가 발생 했어요.');
+            props.setProjects(prev => [result, ...prev]);
+        const my_theme_list = await loadMyTheme();
+        console.log(my_theme_list);
+        my_theme_list.themeList.map((theme : any) => {
+            
+            createProjectTheme({
+                'projectId' : result.id,
+                'themeId' : theme.id,
+                'userId' : 0,
+                'isUse' : theme.otherName === 'basic' ? true : false
+            });
+        });
+
+        
+        
     }
 
     function checkFavoriteCount() {

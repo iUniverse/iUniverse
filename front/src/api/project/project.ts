@@ -8,11 +8,13 @@ export async function createProject(name:string){
             method : 'POST',
             cache : 'no-cache',
             headers: {
-                'Content-Type': 'application/x-www-form-urlencoded'
+                'Accept' : 'application/json',
+                'Content-Type' : 'application/json'
             },
-            body: new URLSearchParams({
-                name :  name,
-                description : 'test'
+            body : JSON.stringify({
+                name : name,
+                description : '무제',
+                creatorId : 0
             })
         })
         return response.json();

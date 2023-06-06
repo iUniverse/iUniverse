@@ -1,10 +1,10 @@
 import { Body, Controller, Inject, Post, UsePipes, ValidationPipe } from "@nestjs/common";
-import { CreateProjectThemeIPInputDto, CreateProjectThemeInboundPort } from "../inbound-port/create-project-theme.inbound-port";
+import { CREATE_PROJECT_THEME_INBOUND_PORT, CreateProjectThemeIPInputDto, CreateProjectThemeInboundPort } from "../inbound-port/create-project-theme.inbound-port";
 
 @Controller('iuni_project_theme')
-export class PorstProjectThemeController{
+export class PostProjectThemeController{
     constructor(
-        @Inject()
+        @Inject(CREATE_PROJECT_THEME_INBOUND_PORT)
         private readonly createProjectThemeInboundPort : CreateProjectThemeInboundPort
     ){};
 
@@ -14,7 +14,7 @@ export class PorstProjectThemeController{
         try{
             return await this.createProjectThemeInboundPort.create(projectThemeMap);
         }
-        catch(e){
+        catch(e){         
             console.log(e);
             throw Error(e);
         }

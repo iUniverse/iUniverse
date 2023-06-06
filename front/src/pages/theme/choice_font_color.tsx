@@ -34,7 +34,7 @@ export default function ChoiceFontColor(props: Props) {
                 </div>
                 <>
                     <div className="choice-font-color-list mt-3">
-                        <div className="row-reverse theme-flex-center choice-font-color-content col-12" style={{ backgroundColor: '#222' }} onClick={() => handleFontColor('white')}>
+                        <div className="row-reverse theme-flex-center choice-font-color-content col-12" style={{ backgroundColor: '#222222' }} onClick={() => handleFontColor('white')}>
                             <label htmlFor="white-font" className="mt-2">
                                 <div className="row theme-flex-center" style={{ color: 'white', marginLeft: '2px' }}>
                                     가 Aa

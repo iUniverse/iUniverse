@@ -49,6 +49,20 @@ export default function Favorite(props: Props) {
         }
     }
 
+
+    function hexToRgb(hex: string, alpha:number) {
+        console.log(hex);
+        let r = parseInt(hex.slice(1, 3), 16),
+          g = parseInt(hex.slice(3, 5), 16),
+          b = parseInt(hex.slice(5, 7), 16);
+      
+        if (0 <= alpha && alpha <= 1) {
+          return `rgba(${r}, ${g}, ${b}, ${alpha})`
+        } else {
+          return `rgb(${r}, ${g}, ${b})`
+        }
+      }
+      
     return (
         <>
 
@@ -66,10 +80,10 @@ export default function Favorite(props: Props) {
                 <div className="favorite-card-list">
                     {
                         props.projects.map((value, index) => (
-                            <div className="favorite-card card" key={`favorite_${value.id}`} style={{backgroundColor : `${props.favoriteBgColor[index]}`}}>
+                            <div className="favorite-card card" key={`favorite_${index}`} style={{background : `${props.favoriteBgColor[index]}`}}>
                                 <div className="card-header">
-                                    <div className="favorite-d-day badge" style={{color : `${props.favoriteFontColor}`}}>
-                                        <span>D-13</span>
+                                    <div className="favorite-d-day badge" style={{background:`${hexToRgb(props.favoriteFontColor, 0.1)}`}}>
+                                        <p style={{color : `${props.favoriteFontColor}`}}>D-13</p>
                                     </div>
                                 </div>
                                 <div className="card-content">

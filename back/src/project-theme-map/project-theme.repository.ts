@@ -1,11 +1,12 @@
 import { CustomRepository } from "src/typeorm-ex.decorator";
 import { Repository } from "typeorm";
-import { ProjectTheme } from "./project-theme.entity";
+import { ProjectThemeMap } from "./project-theme.entity";
 import { CreateProjectThemeDto } from "./dto/create-project-theme.dto";
 
-@CustomRepository(ProjectTheme)
-export class ProjectThemeRepository extends Repository<ProjectTheme>{
-    async CreateProjectTheme(param : CreateProjectThemeDto) : Promise<ProjectTheme>{
+@CustomRepository(ProjectThemeMap)
+export class ProjectThemeRepository extends Repository<ProjectThemeMap>{
+    async CreateProjectTheme(param : CreateProjectThemeDto) : Promise<ProjectThemeMap>{
+        
         const result = await this.save(param);
         return result;
     }

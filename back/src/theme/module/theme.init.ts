@@ -39,7 +39,7 @@ const mono_theme = {
         "#F5F5F5",
         "#F5F5F5"
     ],
-    fontColor : "#222",
+    fontColor : "#222222",
 }
 
 const cozy_theme = {
@@ -60,7 +60,7 @@ const cozy_theme = {
         "#cfd1c6",
         "#bcbfb8"
     ],
-    fontColor : "#222",
+    fontColor : "#222222",
 }
 
 const init_theme = {
@@ -102,7 +102,7 @@ const init_theme = {
             "#F5F5F5",
             "#F5F5F5"
         ],
-        fontColor : "#222",
+        fontColor : "#222222",
     },
     '코지테마' : {
         name : "코지테마",
@@ -122,7 +122,7 @@ const init_theme = {
             "#cfd1c6",
             "#bcbfb8"
         ],
-        fontColor : "#222",
+        fontColor : "#222222",
     },
     '트로피컬테마' : {
         name : "트로피컬테마",
@@ -142,7 +142,7 @@ const init_theme = {
             "#b2d4ed",
             "#ffbc79"
         ],
-        fontColor : "#222",
+        fontColor : "#222222",
     }
 }
 

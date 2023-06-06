@@ -11,6 +11,7 @@ export default function IuniAlert(props: Props) {
     const returnValue = (val : boolean) => {
         props.setModalState(() => false);
         props.setIuniAlertVal(() => val);
+        
     }
 
     return (

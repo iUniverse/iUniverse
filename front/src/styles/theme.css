@@ -67,7 +67,7 @@
     line-height: 0.78;
     letter-spacing: -0.18px;
     text-align: left;
-    color: #222;
+    color: #222222;
     cursor: pointer;
 }
 
@@ -88,7 +88,7 @@
     line-height: 1.75;
     letter-spacing: -0.24px;
     text-align: left;
-    color: #222;
+    color: #222222;
 }
 
 .theme-setting-content-title {
@@ -118,7 +118,7 @@
     line-height: 1.17;
     letter-spacing: -0.36px;
     text-align: left;
-    color: #222;
+    color: #222222;
 }
 
 .theme-setting-content-title>.small-title {
@@ -130,7 +130,7 @@
     line-height: 1.25;
     letter-spacing: -0.24px;
     text-align: left;
-    color: #222;
+    color: #222222;
 }
 
 .choice-theme-content-list {
@@ -213,7 +213,7 @@
     font-style: normal;
     letter-spacing: -0.18px;
     text-align: left;
-    color: #222;
+    color: #222222;
 }
 
 .preview-theme-container {
@@ -233,7 +233,7 @@
     line-height: 1.75;
     letter-spacing: -0.24px;
     text-align: left;
-    color: #222;
+    color: #222222;
 }
 
 .choice-font-color-title {
@@ -245,7 +245,7 @@
     line-height: 1.75;
     letter-spacing: -0.24px;
     text-align: left;
-    color: #222;
+    color: #222222;
 }
 
 .choice-font-color-title>.small-title {
@@ -256,7 +256,7 @@
     font-style: normal;
     letter-spacing: -0.18px;
     text-align: left;
-    color: #222;
+    color: #222222;
 }
 
 .choice-font-color-title>.default-title {
@@ -268,7 +268,7 @@
     line-height: 1.75;
     letter-spacing: -0.24px;
     text-align: left;
-    color: #222;
+    color: #222222;
 }
 
 .preview-theme-content {
@@ -295,12 +295,12 @@
     color: #fff;
     width: 100%;
     height: 128px;
-    background: #222;
+    background: #222222;
     border-radius: 14px;
 }
 
 .row-reverse.col-12.theme-flex-center.cozy {
-    color: #222;
+    color: #222222;
     width: 100%;
     height: 128px;
     background: #ffebbc;
@@ -308,7 +308,7 @@
 }
 
 .row-reverse.col-12.theme-flex-center.tropical {
-    color: #222;
+    color: #222222;
     width: 100%;
     height: 128px;
     background: url('../../public/img/theme/background/theme-tropical.webp');
@@ -455,7 +455,7 @@
     line-height: 1.44;
     letter-spacing: normal;
     text-align: left;
-    color: #222;
+    color: #222222;
 
 } */
 
@@ -598,7 +598,7 @@
     line-height: normal;
     letter-spacing: normal;
     text-align: left;
-    color: #222;
+    color: #222222;
 }
 
 .preview-widget-footer {

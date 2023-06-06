@@ -17,6 +17,7 @@ export class CreateProjectIPInputDto {
     readonly name : string;
     @IsNotEmpty()
     readonly description : string;
+    readonly creatorId : number;
 }
 
 export class CreateProjectIPOutputDto {

@@ -13,6 +13,7 @@ export class ThemeRepository extends Repository<Theme>{
     /* 테마 생성하기 */
     async CreateTheme(CreateThemeDto: CreateThemeDto): Promise<Theme> {
         try {
+            console.log("어어???");
             return await this.save(CreateThemeDto);
         }
         catch (e) {

@@ -10,6 +10,7 @@ export class CreateProjectThemeService implements CreateProjectThemeInboundPort{
 
     @UsePipes(ValidationPipe)
     async create(@Body() param : CreateProjectThemeIPInputDto) : Promise<CreateProjectThemeIPOutputDto>{
+        console.log("엄??????");
         return this.createProjectThemeOutboundPort.create(param);
     }
 }

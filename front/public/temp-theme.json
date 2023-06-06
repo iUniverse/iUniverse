@@ -37,7 +37,7 @@
         ]},
         {"recent_font" : "#b2c6b4"},
         {"banner_font" : "#fff"},
-        {"font" : "#222"}
+        {"font" : "#222222"}
     ],
     "cozy" : [
         {"recent" : "#B2C6B4"},
@@ -57,7 +57,7 @@
         ]},
         {"recent_font" : "#373737"},
         {"banner_font" : "#fff"}, 
-        {"font" : "#222"}
+        {"font" : "#222222"}
        
     ]
 }

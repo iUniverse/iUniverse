@@ -464,7 +464,7 @@ select::ms-expand {
   font-stretch: normal;
   font-style: normal;
   letter-spacing: -0.18px;
-  color: #222;
+  color: #222222;
   background: url('../../public/img/layout/select-box-dropdown.webp') no-repeat 99% 50%;
   background-size: 24px 24px;
   cursor :pointer;
@@ -505,7 +505,7 @@ select::ms-expand {
   line-height: 0.78;
   letter-spacing: -0.18px;
   text-align: left;
-  color: #222;
+  color: #222222;
   cursor: pointer;
   outline:none;
   -webkit-user-select: none;

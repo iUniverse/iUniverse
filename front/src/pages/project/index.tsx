@@ -48,6 +48,8 @@ export default function Index(props : any) {
             <div className="project-container">
                 <Banner 
                     setcolors = {setcolors}
+                    bannerColor = {colors[0]}
+                    fontColor = {fontColor}
                     setfontColor = {setfontColor}
                 />
                 {

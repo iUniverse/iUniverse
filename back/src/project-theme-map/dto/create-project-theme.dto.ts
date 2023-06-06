@@ -5,4 +5,8 @@ export class CreateProjectThemeDto{
 
     @IsNotEmpty()
     themeId : number;
+
+    isUse : boolean;
+
+    userId : number;
 }

@@ -76,6 +76,7 @@ export async function loadMyTheme() {
         method: 'GET',
         cache: 'no-cache'
     })
+    
     return response.json();
 }
 
@@ -122,7 +123,6 @@ export async function getMyInitTheme() {
         console.log(e);
         return null;
     }
-    
 }
 
 export async function createInitTheme(themeName : string) : Promise<boolean> {
