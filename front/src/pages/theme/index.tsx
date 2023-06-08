@@ -50,7 +50,6 @@ export default function Index() {
 
     const resizeObserver = throttle(() => {
         const current_inner_width = window.innerWidth;
-        console.log(current_inner_width);
         if (current_inner_width <= 768) {
             setCurrentSize(() => 'small');
         }

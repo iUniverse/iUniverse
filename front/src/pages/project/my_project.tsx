@@ -1,5 +1,5 @@
 import React, { useEffect, useState, Dispatch, SetStateAction } from 'react';
-import { useRouter } from 'next/router';
+import router, { useRouter } from 'next/router';
 import { createProject, updateProject } from '../../api/project/project';
 import { loadMyTheme } from 'api/theme/card-theme';
 import { createProjectTheme } from 'api/project-theme-map/project-theme-map';
@@ -30,9 +30,9 @@ interface Props {
 export default function MyProject(props: Props) {
     function moveTaskPage() {
         console.log('moveTaskPage!!');
+        router.push('/task');
     }
-
-
+    
     /* 프로젝트 생성 */
     async function create() {
         const result = await createProject('무제');
