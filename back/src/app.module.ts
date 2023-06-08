@@ -8,15 +8,21 @@ import { TaskModule } from './task/task.module';
 import { ThemeModule } from './theme/theme.module';
 import { IuniCatModule } from './iunicat/iunicat.module';
 import { ProjectThemeModule } from './project-theme-map/project-theme.module';
+import { BoardsModule } from './boards/boards.module';
+import { SignUpModule } from './signUp/signUp.module';
+import { ValidateAccountModule } from './validateAccount/validateAccount.module';
 
 @Module({
   imports: [
-    TypeOrmModule.forRoot(typeORMConfig), 
-    ProjectModule, 
-    TaskModule, 
+    TypeOrmModule.forRoot(typeORMConfig),
+    ProjectModule,
+    TaskModule,
     IuniCatModule,
     ThemeModule,
-    ProjectThemeModule
+    ProjectThemeModule,
+    BoardsModule,
+    SignUpModule,
+    ValidateAccountModule
   ],
   controllers: [AppController],
   providers: [AppService]

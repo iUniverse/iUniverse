@@ -1,0 +1,68 @@
+:root{
+    /* region color */
+    --prim-d-100:#000;
+    --prim-d-90:#020319;
+    --prim-d-80:#030633;
+    --prim-d-70:#050a4c;
+    --prim-d-60:#070d66;
+    --prim-d-50:#08107f;
+    --prim-d-40:#0a1399;
+    --prim-d-30:#0e1acc;
+    --prim-d-20:#0e1acc;
+    --prim-d-10:#0f1de5;
+    --prim-d-05:#f2f3ff;
+
+    --prim-100:#1120FF;
+
+    --prim-l-90:#2835FF;
+    --prim-l-80:#404cff;
+    --prim-l-70:#5762ff;
+    --prim-l-60:#7079ff;
+    --prim-l-50:#878fff;
+    --prim-l-40:#9fa5ff;
+    --prim-l-30:#b7bbff;
+    --prim-l-20:#cfd2ff;
+    --prim-l-10:#e6e8ff;
+    --prim-l-05:#f2f3ff;
+
+    --mono-100:#222;
+    --mono-90:#373737;
+    --mono-80:#4e4e4e;
+    --mono-70:#636363;
+    --mono-60:#7a7a7a;
+    --mono-50:#909090;
+    --mono-40:#a6a6a6;
+    --mono-30:#bcbcbc;
+    --mono-20:#d2d2d2;
+    --mono-10:#e5e5e5;
+    --mono-5:#f5f5f5;
+    --mono-0:#ffffff;
+
+    --w-red:#FF0062;
+    --s-col:#00FFBE;
+    /* endregion color */
+    /* region spacing */
+    --spc-2:2px;
+    --spc-4:4px;
+    --spc-8:8px;
+    --spc-12:12px;
+    --spc-16:16px;
+    --spc-20:20px;
+    --spc-24:24px;
+    --spc-32:32px;
+    --spc-40:40px;
+    --spc-48:48px;
+    --spc-56:56px;
+    /* endregion spacing*/
+}
+* {font-family:Pretendard;}
+.t_1 {font-size:54px;font-weight:600;font-stretch:normal;font-style:normal;line-height:1.11;letter-spacing:-0.54px;color:var(--mono-100);}
+.t_2 {font-size:36px;font-weight:600;font-stretch:normal;font-style:normal;line-height:1.17;letter-spacing:-0.36px;color:var(--mono-100);}
+.t_3 {font-size:24px;font-weight:bold;font-stretch:normal;font-style:normal;line-height:1.33;letter-spacing:-0.24px;color:var(--mono-100);}
+
+.s_1 {font-size:44px;font-weight:300;font-stretch:normal;font-style:normal;line-height:1.18;letter-spacing:normal;color:var(--mono-60);}
+.s_2 {font-size:36px;font-weight:300;font-stretch:normal;font-style:normal;line-height:1.17;letter-spacing:normal;color:var(--mono-60);}
+
+.b_1{font-size:24px;font-weight:normal;font-stretch:normal;font-style:normal;line-height:1.33;letter-spacing:-0.24px;color:var(--mono-100);}
+.b_2{font-size:18px;font-weight:normal;font-stretch:normal;font-style:normal;line-height:1.33;letter-spacing:-0.18px;color:var(--mono-100);}
+.b_3{font-size:12px;font-weight:normal;font-stretch:normal;font-style:normal;line-height:2;letter-spacing:-0.12px;color:var(--mono-100);}

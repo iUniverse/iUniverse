@@ -1,0 +1,4 @@
+.round_button{display:flex;gap:var(--spc-8);align-items:center;justify-content:center;border-radius:24px;cursor:pointer;padding-top:var(--spc-8);padding-bottom:var(--spc-8);width:100%;}
+.round_button span{display:inline-flex;justify-content:center;align-items:center;height:32px;font-size:18px;font-weight:500;font-stretch:normal;font-style:normal;line-height:0.78;letter-spacing:-0.18px;}
+.btn_img{width:32px;height:32px;object-fit:contain;object-position:center;}
+.none{display:none;}
