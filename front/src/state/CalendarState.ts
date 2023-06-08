@@ -1,4 +1,4 @@
-import { atom, selector } from "recoil";
+import { atom, atomFamily, selector } from "recoil";
 
 //today는 변하는 값이 아님. atom 사용할 필요 X
 type todayInfo = {
@@ -24,13 +24,13 @@ function GetLastDateList(date: Date): number[]{
     return lastDateList;
 }
 
-export const calendarRangeState = atom({
+export const calendarRangeState = atom<Date>({
     key: 'calendarRangeState',
     default: new Date()
 })
 
 //표시할 캘린더의 정보임. 달의 시작 요일, 달을 표시할 줄의 개수, 달의 마지막 날짜
-export const calendarInfoState = selector({
+export const calendarInfoState = selector<Date>({
     key: 'calendarInfo',
     get: ({get})=>{
         const range = get(calendarRangeState);
@@ -41,3 +41,16 @@ export const calendarInfoState = selector({
         return firstDate;
     }
 })
+
+//실패!!
+export const calendarCellState = atomFamily<number[], Date>({
+    key: 'calendarCell',
+    default: ((date)=>{
+        const calendarCellItem = [0, 0, 0, 0];
+        return calendarCellItem;
+    })
+})
+
+
+//일단 순서 신경안쓰고 태스크들 다 표시한 후 (=마운트 후) 태스크 리스트를 재배치 해볼까??
+//useEffect써서! 며칠부터 며칠 사이의 태스크 리스트를 재배치 한다는 함수를 만들어야 할듯.
