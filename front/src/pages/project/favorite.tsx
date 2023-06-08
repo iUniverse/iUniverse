@@ -1,5 +1,5 @@
 import React, { useEffect, useState, Dispatch, SetStateAction } from 'react';
-import { useRouter } from 'next/router';
+import router, { useRouter } from 'next/router';
 import { updateProject } from "../../api/project/project";
 interface Project {
     id: number,
@@ -27,6 +27,11 @@ interface Props {
 
 export default function Favorite(props: Props) {
     console.log(props.projects);
+
+    function moveTaskPage(id: number) {
+        console.log('moveTaskPage!!');
+        router.push(`/task`);
+    }
     /* 프로젝트 즐겨찾기 on / off */
     async function updateFavorite(id: number) {
         const obj = {
@@ -80,7 +85,10 @@ export default function Favorite(props: Props) {
                 <div className="favorite-card-list">
                     {
                         props.projects.map((value, index) => (
-                            <div className="favorite-card card" key={`favorite_${index}`} style={{background : `${props.favoriteBgColor[index]}`}}>
+                            <div className="favorite-card card" 
+                                onClick={() => moveTaskPage(value.id)} 
+                                key={`favorite_${index}`} 
+                                style={{background : `${props.favoriteBgColor[index]}`}}>
                                 <div className="card-header">
                                     <div className="favorite-d-day badge" style={{background:`${hexToRgb(props.favoriteFontColor, 0.1)}`}}>
                                         <p style={{color : `${props.favoriteFontColor}`}}>D-13</p>

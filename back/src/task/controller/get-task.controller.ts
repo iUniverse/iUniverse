@@ -7,7 +7,7 @@ export class GetTaskController {
         @Inject(LOAD_TASK_INBOUND_PORT)
         private readonly loadTaskInboundPort: LoadTaskInboundPort
     ){}
-
+    
     @Get('/')
     async load():Promise<LoadTaskInboundPortOutputDto>{
         return this.loadTaskInboundPort.load()

@@ -63,7 +63,11 @@ export default function Task({ }: any) { //태스크 정보를 가지고 올 예
                                 프로젝트 > 내 프로젝트 > 그림그리기 프로젝트
                             </div>
                             <div className="active-project-description">
-                                불쾌한 골짜기 극복하기<br/>극복극복
+                                불쾌한 골짜기 극복하기
+                                <br/>
+                                극복극복
+                                <br/>
+                                대유쾌 골짜기
                             </div>
                             <div className="active-project-other">
                                 <p className="project-during-date">D-13</p>
