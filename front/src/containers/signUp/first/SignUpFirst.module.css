@@ -1,0 +1,19 @@
+article.logo{margin-bottom:126px;}
+
+article.step{margin-bottom:126px;}
+
+article.text{display:flex;flex-direction:column;margin-bottom:20px;}
+article.text span.space{margin-bottom:12px;}
+
+article.social{display:flex;gap:10px;margin-bottom:24px;}
+article.social.column{flex-direction:column;}
+
+article.sign_up{margin-bottom:31px;}
+article.sign_up div.division{height:0px; border:0.5px solid var(--mono-10);position:relative;width:100%;}
+article.sign_up div.division span.text{height:12px;font-size:12px;padding:0px 16.5px;line-height:1.1;background-color:var(--mono-0);color:var(--mono-40);position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);}
+article.sign_up .space_top{margin-bottom:52px;}
+
+
+article.login{display:flex;justify-content:center;align-items:center;gap:var(--spc-8);}
+article.login span{}
+article.login a{color:var(--prim-l-50);}
