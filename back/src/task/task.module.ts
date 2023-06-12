@@ -24,6 +24,7 @@ import { TaskRepository } from './task.repository';
 
 @Module({
   imports: [TypeOrmExModule.forCustomRepository([TaskRepository])],
+  controllers: [GetTaskController, PostTaskController, DeleteTaskController, UpdateTaskController],
   providers: [
     {
       provide: LOAD_TASK_INBOUND_PORT,
@@ -58,7 +59,6 @@ import { TaskRepository } from './task.repository';
       useClass: UpdateTaskRepository
     }
   ],
-  controllers: [GetTaskController, PostTaskController, DeleteTaskController, UpdateTaskController]
 })
 export class TaskModule {}
 

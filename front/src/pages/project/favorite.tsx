@@ -1,4 +1,4 @@
-import React, { useEffect, useState, Dispatch, SetStateAction } from 'react';
+import React, { useEffect, useState, Dispatch, SetStateAction, MouseEvent } from 'react';
 import router, { useRouter } from 'next/router';
 import { updateProject } from "../../api/project/project";
 interface Project {
@@ -33,7 +33,9 @@ export default function Favorite(props: Props) {
         router.push(`/task?iuni_project=${id}&p_category=favorite`);
     }
     /* 프로젝트 즐겨찾기 on / off */
-    async function updateFavorite(id: number) {
+    async function updateFavorite(e : MouseEvent<HTMLDivElement>,id: number) {
+        e.stopPropagation();
+    
         const obj = {
             'key': 'isFavorite',
             'value': JSON.stringify(false),
@@ -87,7 +89,7 @@ export default function Favorite(props: Props) {
                         props.projects.map((value, index) => (
                             <div className="favorite-card card" 
                                 onClick={() => moveTaskPage(value.id)} 
-                                key={`favorite_${index}`} 
+                                key={`favorite_${value.id}`} 
                                 style={{background : `${props.favoriteBgColor[index]}`}}>
                                 <div className="card-header">
                                     <div className="favorite-d-day badge" style={{background:`${hexToRgb(props.favoriteFontColor, 0.1)}`}}>
@@ -101,7 +103,7 @@ export default function Favorite(props: Props) {
                                 </div>
                                 <div className="card-footer">
                                     <div className="favorite-project-icon-list">
-                                        <div className="favorite-project-icon" onClick={() => updateFavorite(value.id)}>
+                                        <div className="favorite-project-icon" onClick={(e : MouseEvent<HTMLDivElement>) => updateFavorite(e, value.id)}>
                                             <img src={"/img/project/heart.png"} />
                                         </div>
                                         <div className="favorite-project-icon">

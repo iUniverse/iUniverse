@@ -18,3 +18,7 @@ export class FindTaskDto {
     readonly creatorId?: number;
     readonly projectId?: number;
 }
+
+export class LoadTaskDto {
+    id : number;
+}

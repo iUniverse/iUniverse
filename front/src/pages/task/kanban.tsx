@@ -20,13 +20,13 @@ interface Task {
 interface Props {
     projectId: number;
     tasks: Task[];
-    setCurrentTaskContent:Dispatch<SetStateAction<Task[]>>
+    setCurrentTaskContent: Dispatch<SetStateAction<Task[]>>
 }
 
 export default function Kanban(props: Props) {
     const addTask = async () => {
         const result = await create(props.projectId, '새로운 태스크');
-        props.setCurrentTaskContent(prev => [ result, ...prev]);
+        props.setCurrentTaskContent(prev => [result, ...prev]);
     }
 
     return (
@@ -36,12 +36,15 @@ export default function Kanban(props: Props) {
                     <div className="kanban-task-category">
                         할 일
                     </div>
-                    <div className="kanban-task-count ml-3">
-                        {
-                            props.tasks.length > 0 &&
-                            <p>{props.tasks.length}</p>
-                        }
-                    </div>
+                    {
+                        props.tasks.length > 0 &&
+                        <>
+                            <div className="kanban-task-count ml-3">
+                                <p>{props.tasks.length}</p>
+                            </div>
+                        </>
+                    }
+
 
                     <div className="kanban-task-add-btn" onClick={() => addTask()}>
                         <img src="img/task/add-btn-default.webp" style={{ width: '1.25vw', height: '1.25vw' }} />

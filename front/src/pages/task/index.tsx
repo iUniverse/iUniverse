@@ -39,8 +39,8 @@ export default function Task({ }: any) { //태스크 정보를 가지고 올 예
     }
     /* 테스크 목록 불러오기 */
     const loadTaskByProjectId = async (projectId : number) => {
+        console.log(projectId);
         const tasks = await loadByProjectId(projectId);
-        console.log(tasks);
         setCurrentTaskContent(() => [...tasks]);
     }
 
@@ -54,6 +54,7 @@ export default function Task({ }: any) { //태스크 정보를 가지고 올 예
     //     console.log(projects);
     // }
 
+    
     useEffect(() => {
         const initProject = async () => {
             const return_value = await getCurrentProject();
@@ -81,7 +82,7 @@ export default function Task({ }: any) { //태스크 정보를 가지고 올 예
                     </div>
                     <div className="recent-project-list">
                         <p className="side-menu-title">최근</p>
-                        <div className="side-menu-project-name" onClick={() => loadTask()}>
+                        <div className="side-menu-project-name">
                             그림그리기 프로젝트
                         </div>
                     </div>
@@ -89,7 +90,7 @@ export default function Task({ }: any) { //태스크 정보를 가지고 올 예
                         <p className="side-menu-title">즐겨찾기</p>
                         {
                             favoriteProjects?.map((val: any) => (
-                                <div key={`favorite_projects_${val.id}`} className="side-menu-project-name" onClick={() => loadTask()}>
+                                <div key={`favorite_projects_${val.id}`} className="side-menu-project-name" onClick={() => loadTaskByProjectId(val.id)}>
                                     <div className="col-11">{val.name}</div>
                                     <img src='/img/task/favorite_active.webp'
                                         style={{ width: '1.19vw', height: '1.19vw' }}
@@ -103,7 +104,7 @@ export default function Task({ }: any) { //태스크 정보를 가지고 올 예
                         <p className="side-menu-title">내 프로젝트</p>
                         {
                             myProjects?.map((val: any) => (
-                                <div key={`my_projects_${val.id}`} className="side-menu-project-name" onClick={() => loadTask()}>
+                                <div key={`my_projects_${val.id}`} className="side-menu-project-name" onClick={() => loadTaskByProjectId(val.id)}>
                                     <div className="col-11">{val.name}</div>
 
                                     <img src={val.isFavorite === true ? `/img/task/favorite_active.webp` : `/img/task/favorite.webp`}

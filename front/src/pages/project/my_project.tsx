@@ -1,4 +1,4 @@
-import React, { useEffect, useState, Dispatch, SetStateAction } from 'react';
+import React, { useEffect, useState, Dispatch, SetStateAction, MouseEvent } from 'react';
 import router, { useRouter } from 'next/router';
 import { createProject, updateProject } from '../../api/project/project';
 import { loadMyTheme } from 'api/theme/card-theme';
@@ -28,9 +28,9 @@ interface Props {
 }
 
 export default function MyProject(props: Props) {
-    function moveTaskPage() {
+    function moveTaskPage(id : number) {
         console.log('moveTaskPage!!');
-        router.push('/task');
+        router.push(`/task?iuni_project=${id}&p_category=my_project`);
     }
     
     /* 프로젝트 생성 */
@@ -63,7 +63,9 @@ export default function MyProject(props: Props) {
         }
     }
     /* 즐겨찾기 프로젝트로 수정 */
-    async function updateFavorite(id: number, type: boolean) {
+    async function updateFavorite(e:MouseEvent<HTMLElement>,id: number, type: boolean) {
+        e.stopPropagation();
+
         const obj = {
             'key': 'isFavorite',
             'value': JSON.stringify(type),
@@ -137,7 +139,7 @@ export default function MyProject(props: Props) {
                         <div className="project-card-list">
                             {
                                 props.projects.map((value, index) => (
-                                    <div className="project-card no-content-card" key={value.id} onClick={() => moveTaskPage()}>
+                                    <div className="project-card no-content-card" key={value.id} onClick={() => moveTaskPage(value.id)}>
                                         <div className="project-name">
                                             {value.name}
                                         </div>
@@ -145,10 +147,10 @@ export default function MyProject(props: Props) {
                                             <div className="favorite-project-icon-list">
                                                 {
                                                     value.isFavorite === false ?
-                                                        <div className="favorite-project-icon" onClick={() => updateFavorite(value.id, true)}>
+                                                        <div className="favorite-project-icon" onClick={(e : MouseEvent<HTMLElement>) => updateFavorite(e, value.id, true)}>
                                                             <img src={"/img/project/project_heart.png"} />
                                                         </div> :
-                                                        <div className="favorite-project-icon" onClick={() => updateFavorite(value.id, false)}>
+                                                        <div className="favorite-project-icon" onClick={(e : MouseEvent<HTMLElement>) => updateFavorite(e, value.id, false)}>
                                                             <img src={"/img/project/heart.png"} />
                                                         </div>
                                                 }
