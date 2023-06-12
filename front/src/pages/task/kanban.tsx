@@ -1,6 +1,32 @@
-export default function Kanban() {
-    const addTask = () => {
-        console.log('task 추가용');
+import { create } from "api/task/task";
+import { Dispatch, SetStateAction } from "react";
+
+interface Task {
+    id: number;
+    completionDate: string;
+    createDate: string;
+    creatorId: number | null;
+    description: string | null;
+    dueDate: string | null;
+    name: string | null;
+    parentTaskId: number | null;
+    projectId: number;
+    score: number | null;
+    startDate: string | null;
+    statusId: number | null;
+    typeId: number | null;
+}
+
+interface Props {
+    projectId: number;
+    tasks: Task[];
+    setCurrentTaskContent:Dispatch<SetStateAction<Task[]>>
+}
+
+export default function Kanban(props: Props) {
+    const addTask = async () => {
+        const result = await create(props.projectId, '새로운 태스크');
+        props.setCurrentTaskContent(prev => [ result, ...prev]);
     }
 
     return (
@@ -11,7 +37,10 @@ export default function Kanban() {
                         할 일
                     </div>
                     <div className="kanban-task-count ml-3">
-                        <p>3</p>
+                        {
+                            props.tasks.length > 0 &&
+                            <p>{props.tasks.length}</p>
+                        }
                     </div>
 
                     <div className="kanban-task-add-btn" onClick={() => addTask()}>
@@ -19,22 +48,28 @@ export default function Kanban() {
                     </div>
                 </div>
                 <div className="kanban-board-body">
-                    <div className="kanban-card">
-                        <div className="kanban-card-header">
-                            포트폴리오
-                        </div>
-                        <div className="kanban-card-body">
-                            <div className="kanban-card-body-content col-12">
-                                2013년 부터 시작된  SDC
-                            </div>
-                            <div className="kanban-card-body-status">
-                                할 일
-                            </div>
-                        </div>
-                        <div className="kanban-card-footer">
-                            프로필 들어감요
-                        </div>
-                    </div>
+                    {
+                        props.tasks.map((val, index) => (
+                            <>
+                                <div className="kanban-card col-12" key={`task_${val.id}`}>
+                                    <div className="kanban-card-header">
+                                        {val.name}
+                                    </div>
+                                    <div className="kanban-card-body">
+                                        <div className="kanban-card-body-content col-12">
+                                            {val.description}
+                                        </div>
+                                        <div className="kanban-card-body-status">
+                                            {val.statusId}
+                                        </div>
+                                    </div>
+                                    <div className="kanban-card-footer">
+                                        프로필 들어감요
+                                    </div>
+                                </div>
+                            </>
+                        ))
+                    }
                 </div>
             </div>
 

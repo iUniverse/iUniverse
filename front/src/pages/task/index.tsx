@@ -2,6 +2,7 @@ import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import CalendarView from "./CalendarView";
 import { getProject, loadProject } from "api/project/project";
 import Kanban from "./kanban";
+import { loadByProjectId } from "api/task/task";
 
 interface ProjectCategory {
     [key: string]: string
@@ -18,9 +19,9 @@ export default function Task({ }: any) { //태스크 정보를 가지고 올 예
         'my_project': '내 프로젝트',
         'un_known': '알 수 없음'
     }
-
+    
     /* 현재 활성화된 테스크 */
-    const [currentTaskContent, setCurrentTaskContent] = useState<string>();
+    const [currentTaskContent, setCurrentTaskContent] = useState<any>([]);
     /* 현재 활성화된  프로젝트 */
     const [currentProject, setCurrentProject] = useState<any>();
     const [myProjects, setMyProjects] = useState<any>();
@@ -37,8 +38,10 @@ export default function Task({ }: any) { //태스크 정보를 가지고 올 예
         console.log("ㅋㅋㅋㅋㅋ");
     }
     /* 테스크 목록 불러오기 */
-    const loadTask = () => {
-
+    const loadTaskByProjectId = async (projectId : number) => {
+        const tasks = await loadByProjectId(projectId);
+        console.log(tasks);
+        setCurrentTaskContent(() => [...tasks]);
     }
 
     /* 테스크 컨텐츠 불러오기 */
@@ -46,16 +49,16 @@ export default function Task({ }: any) { //태스크 정보를 가지고 올 예
         setCurrentTaskContent(() => type);
     }
 
-    const loadMyProject = async () => {
-        const projects = await loadProject();
-        console.log(projects);
-    }
+    // const loadMyProject = async () => {
+    //     const projects = await loadProject();
+    //     console.log(projects);
+    // }
 
     useEffect(() => {
         const initProject = async () => {
             const return_value = await getCurrentProject();
-            console.log(return_value);
             setCurrentProject(() => return_value);
+            loadTaskByProjectId(return_value.id);    
         }
         initProject();
 
@@ -66,6 +69,7 @@ export default function Task({ }: any) { //태스크 정보를 가지고 올 예
         }
 
         loadMyProject();
+        
     }, [])
 
     return (
@@ -156,7 +160,10 @@ export default function Task({ }: any) { //태스크 정보를 가지고 올 예
                             }
                         </div>
                         <div className="task-view-content">
-                            <Kanban />
+                            <Kanban projectId={currentProject?.id}
+                                tasks={currentTaskContent}
+                                setCurrentTaskContent={setCurrentTaskContent}
+                            />
                         </div>
                     </div>
                 </div>

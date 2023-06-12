@@ -22,4 +22,6 @@ export async function loadByProjectId(projectId: number){
         method : 'GET',
         cache : 'no-cache'
     })
+
+    return response.json();
 }
