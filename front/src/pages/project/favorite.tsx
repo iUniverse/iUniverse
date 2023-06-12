@@ -30,7 +30,7 @@ export default function Favorite(props: Props) {
 
     function moveTaskPage(id: number) {
         console.log('moveTaskPage!!');
-        router.push(`/task`);
+        router.push(`/task?iuni_project=${id}&p_category=favorite`);
     }
     /* 프로젝트 즐겨찾기 on / off */
     async function updateFavorite(id: number) {

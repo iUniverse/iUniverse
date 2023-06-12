@@ -1,6 +1,11 @@
-import { useRef, useState } from "react";
+import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import CalendarView from "./CalendarView";
+import { getProject, loadProject } from "api/project/project";
+import Kanban from "./kanban";
 
+interface ProjectCategory {
+    [key: string]: string
+}
 export default function Task({ }: any) { //태스크 정보를 가지고 올 예정
     const TASK_TYPE = [
         { 'title': 'board', 'name': '보드' },
@@ -8,33 +13,61 @@ export default function Task({ }: any) { //태스크 정보를 가지고 올 예
         { 'title': 'calendar', 'name': '캘린더' },
     ] as const;
 
+    const PROJECT_CATEGORY: ProjectCategory = {
+        'favorite': '즐겨찾기',
+        'my_project': '내 프로젝트',
+        'un_known': '알 수 없음'
+    }
+
     /* 현재 활성화된 테스크 */
     const [currentTaskContent, setCurrentTaskContent] = useState<string>();
     /* 현재 활성화된  프로젝트 */
     const [currentProject, setCurrentProject] = useState<any>();
+    const [myProjects, setMyProjects] = useState<any>();
+    const [favoriteProjects, setFavoriteProjects] = useState<any>();
+    const [projectCategory, setProjectCategory] = useState<string | undefined>();
 
+    const getCurrentProject = async () => {
+        const params = new URLSearchParams(location.search);
+        setProjectCategory(() => params.get('p_category') === null ? 'un_known' : params.get('p_category')?.toString());
+        return await getProject(Number(params.get('iuni_project')));
+    }
+
+    const handleIsFavorite = () => {
+        console.log("ㅋㅋㅋㅋㅋ");
+    }
     /* 테스크 목록 불러오기 */
     const loadTask = () => {
 
     }
 
     /* 테스크 컨텐츠 불러오기 */
-    const loadTaskContent = (type: string, index : number) => {        
+    const loadTaskContent = (type: string, index: number) => {
         setCurrentTaskContent(() => type);
     }
 
-    /* 테스크 생성 */
-    function createTask() {
-
+    const loadMyProject = async () => {
+        const projects = await loadProject();
+        console.log(projects);
     }
 
-    function updateTask() {
+    useEffect(() => {
+        const initProject = async () => {
+            const return_value = await getCurrentProject();
+            console.log(return_value);
+            setCurrentProject(() => return_value);
+        }
+        initProject();
 
-    }
+        const loadMyProject = async () => {
+            const return_value = await loadProject();
+            setMyProjects(() => [...return_value.normal_projects]);
+            setFavoriteProjects(() => [...return_value.favorite_projects]);
+        }
 
-    function removeTask() {
+        loadMyProject();
+    }, [])
 
-    }
     return (
         <>
             <div className="task-container">
@@ -50,9 +83,32 @@ export default function Task({ }: any) { //태스크 정보를 가지고 올 예
                     </div>
                     <div className="favorite-project-list">
                         <p className="side-menu-title">즐겨찾기</p>
+                        {
+                            favoriteProjects?.map((val: any) => (
+                                <div key={`favorite_projects_${val.id}`} className="side-menu-project-name" onClick={() => loadTask()}>
+                                    <div className="col-11">{val.name}</div>
+                                    <img src='/img/task/favorite_active.webp'
+                                        style={{ width: '1.19vw', height: '1.19vw' }}
+                                        onClick={() => handleIsFavorite()}
+                                    />
+                                </div>
+                            ))
+                        }
                     </div>
                     <div className="my-project-list">
                         <p className="side-menu-title">내 프로젝트</p>
+                        {
+                            myProjects?.map((val: any) => (
+                                <div key={`my_projects_${val.id}`} className="side-menu-project-name" onClick={() => loadTask()}>
+                                    <div className="col-11">{val.name}</div>
+
+                                    <img src={val.isFavorite === true ? `/img/task/favorite_active.webp` : `/img/task/favorite.webp`}
+                                        style={{ width: '1.19vw', height: '1.19vw' }}
+                                        onClick={() => handleIsFavorite()}
+                                    />
+                                </div>
+                            ))
+                        }
                     </div>
                 </div>
 
@@ -60,38 +116,47 @@ export default function Task({ }: any) { //태스크 정보를 가지고 올 예
                     <div className="task-view-header">
                         <div className="active-project-banner">
                             <div className="active-project-bread">
-                                프로젝트 > 내 프로젝트 > 그림그리기 프로젝트
+                                프로젝트 > {projectCategory === undefined ? '알 수 없음' : PROJECT_CATEGORY[projectCategory]} > {currentProject?.name}
                             </div>
                             <div className="active-project-description">
-                                불쾌한 골짜기 극복하기
-                                <br/>
-                                극복극복
-                                <br/>
-                                대유쾌 골짜기
+                                {currentProject?.name}
                             </div>
                             <div className="active-project-other">
-                                <p className="project-during-date">D-13</p>
-                                <p className="ml-1r project-remain-title">프로젝트 기간</p>
-                                <p className="ml-3 project-during-date">2022.10.1</p>
-                                <p className="ml-3 project-during-date">~</p>
-                                <p className="ml-3 project-during-date">2022.11.3</p>
+                                {
+                                    currentProject?.startDate === null || currentProject?.endDate === null ?
+                                        <>
+                                            <p className="project-during-date">프로젝트 기간이 설정 안되있어요.</p>
+                                            <p className="project-during-date">프로젝트 기간 설정하기</p>
+                                        </>
+                                        :
+                                        <>
+                                            <p className="project-during-date">D-13</p>
+                                            <p className="ml-1r project-remain-title">프로젝트 기간</p>
+                                            <p className="ml-3 project-during-date">2022.10.1</p>
+                                            <p className="ml-3 project-during-date">~</p>
+                                            <p className="ml-3 project-during-date">2022.11.3</p>
+                                        </>
+                                }
                             </div>
                         </div>
                     </div>
 
-                    <div className="task-view-content">
+                    <div className="task-view-body">
                         <div className="task-view-tab">
                             {
                                 TASK_TYPE.map((val, index) => (
                                     <>
-                                        <div className={currentTaskContent === val.title ? "task-view-tab-title active" : "task-view-tab-title"} 
-                                            key={val.title} 
+                                        <div className={currentTaskContent === val.title ? "task-view-tab-title active" : "task-view-tab-title"}
+                                            key={val.title}
                                             onClick={() => loadTaskContent(`${val.title}`, index)}>
                                             {val.name}
                                         </div>
                                     </>
                                 ))
                             }
+                        </div>
+                        <div className="task-view-content">
+                            <Kanban />
                         </div>
                     </div>
                 </div>
