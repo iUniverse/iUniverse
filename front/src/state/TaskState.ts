@@ -17,28 +17,6 @@ export interface TaskItem {
     projectId?: number;
 }
 
-const taskInfo = [
-    {
-        id: 1,
-        name: '태스크1111',
-        startDate: new Date('2023-06-12'),
-        deuDate: new Date('2023-06-22'),
-        createDate: new Date('2023-06-11')
-    },
-    {
-        id: 2,
-        name: '태스크22222',
-        startDate: new Date('2023-05-17'),
-        deuDate: new Date('2023-06-20'),
-        createDate: new Date('2023-04-16')
-    },
-    {
-        id: 3,
-        name: '태스크3333',
-        createDate: new Date('2023-06-25')
-    },
-]
-
 const taskInfo2:TaskItem[] = [
     {
         id: 1,
@@ -96,3 +74,35 @@ export const isSameDate = (date1:Date, date2:Date) : boolean =>{
     && date1.getMonth() === date2.getMonth()
     && date1.getDate() === date2.getDate();
 }
+
+
+
+
+// [{
+//     "name": "태스크1111",
+//     "createDate": "2023-06-01 11:35:20.410112",
+//     "startDate": "2023-06-11",
+//     "dueDate": "2023-06-22"
+// },
+// {
+//     "name": "태스크22222",
+//     "createDate":"2023-06-16"
+// },
+// {
+//     "name": "태스크3333",
+//     "createDate": "2023-06-25",
+//     "startDate": "2023-06-14",
+//     "dueDate": "2023-07-01"
+// },
+// {
+//     "name": "태스크4444",
+//     "createDate": "2023-06-25"
+// },
+// {
+//     "name": "태스크5555",
+//     "createDate": "2023-06-25"
+// },
+// {
+//     "name": "태스크6666",
+//     "createDate":"2023-06-25"
+// }]
