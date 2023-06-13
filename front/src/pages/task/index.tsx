@@ -47,7 +47,7 @@ export default function Task({ }: any) { //태스크 정보를 가지고 올 예
     const loadTaskContent = (type: string, index: number) => {
         setCurrentTaskContent(() => type);
     }
-
+    
     /* 테스크 목록 불러오기 */
     const loadTaskByProjectId = async (projectId: number) => {
         const tasks = await loadByProjectId(projectId);
