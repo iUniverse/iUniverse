@@ -37,7 +37,7 @@ export default function Task({ }: any) { //태스크 정보를 가지고 올 예
         return await getProject(Number(params.get('iuni_project')));
     }
 
-    const handleProjectTitle = (e: MouseEvent<HTMLDivElement>, type : boolean | undefined) => {
+    const handleProjectTitle = (e: MouseEvent<HTMLDivElement>, type: boolean | undefined) => {
         e.stopPropagation();
         type === undefined ? setEditProjectTitle(() => !editProjectTitle) : setEditProjectTitle(() => type);
     }
@@ -55,24 +55,24 @@ export default function Task({ }: any) { //태스크 정보를 가지고 올 예
     }
 
     const updateProjectTitle = async () => {
-        if(currentProject === undefined) return;
+        if (currentProject === undefined) return;
 
-        const editTitle : string = projectTitle.current.value;
+        const editTitle: string = projectTitle.current.value;
         const result = await updateProject({
-            'id' : currentProject.id,
-            'key' : 'name',
-            'value' : editTitle
+            'id': currentProject.id,
+            'key': 'name',
+            'value': editTitle
         });
-        if(result.result === true){
-            setCurrentProject((prev : any) => {
-                return {...prev, 'name' : editTitle};
+        if (result.result === true) {
+            setCurrentProject((prev: any) => {
+                return { ...prev, 'name': editTitle };
             });
         }
-        
+
     }
 
-    const handlerTest = (e : any) => {
-        if(e.key === 'Enter'){
+    const handlerTest = (e: any) => {
+        if (e.key === 'Enter') {
             updateProjectTitle();
             setEditProjectTitle(() => false);
         }
@@ -91,7 +91,7 @@ export default function Task({ }: any) { //태스크 정보를 가지고 올 예
         }
         loadMyProject();
     }, [])
-    
+
     return (
         <>
             <div className="task-container">
@@ -99,35 +99,42 @@ export default function Task({ }: any) { //태스크 정보를 가지고 올 예
                     projects={projects}
                     loadTaskByProjectId={loadTaskByProjectId}
                     setCurrentProject={setCurrentProject}
-                    currentProject = {currentProject}
+                    currentProject={currentProject}
                 />
 
                 <div className="task-view-list">
                     <div className="task-view-header"
-                        onClick={(e : MouseEvent<HTMLDivElement>) => handleProjectTitle(e, false)}>
+                        onClick={(e: MouseEvent<HTMLDivElement>) => handleProjectTitle(e, false)}>
                         <div className="active-project-banner">
                             <div className="active-project-bread">
                                 프로젝트 > {projectCategory === undefined ? '알 수 없음' : PROJECT_CATEGORY[projectCategory]} > {currentProject?.name}
                             </div>
                             {
                                 editProjectTitle === false ?
-                                    <div className="active-project-title" onClick={(e : MouseEvent<HTMLDivElement>) => handleProjectTitle(e, true)}>
+                                    <div className="active-project-title" onClick={(e: MouseEvent<HTMLDivElement>) => handleProjectTitle(e, true)}>
                                         {currentProject?.name}
                                     </div>
                                     :
-                                    <input type="text" defaultValue={currentProject?.name}  
-                                        style={{borderRadius:'12px'}}
+                                    <input type="text" defaultValue={currentProject?.name}
+                                        style={{ borderRadius: '12px' }}
                                         ref={(el) => projectTitle.current = el}
-                                        onClick={(e : MouseEvent<HTMLDivElement>) => handleProjectTitle(e, true)}
-                                        onKeyUp={handlerTest}/>
+                                        onClick={(e: MouseEvent<HTMLDivElement>) => handleProjectTitle(e, true)}
+                                        onKeyUp={handlerTest} />
                             }
-
+                            <div className="active-project-member">
+                                <div className="project-member-add">
+                                    <img src='/img/task/project-member-add.webp' style={{ width: '18px', height: '18px' }} />
+                                    멤버추가
+                                </div>
+                            </div>
                             <div className="active-project-other">
                                 {
                                     currentProject?.startDate === null || currentProject?.endDate === null ?
                                         <>
-                                            <p className="project-during-date">프로젝트 기간이 설정 안되있어요.</p>
-                                            <p className="project-during-date">프로젝트 기간 설정하기</p>
+                                            <div className="add-project-date">
+                                                <img src='/img/task/project-date-add.webp' style={{ width: '18px', height: '18px' }} />
+                                                <p style={{ marginTop: '3px' }}>프로젝트 기간 설정</p>
+                                            </div>
                                         </>
                                         :
                                         <>
@@ -147,9 +154,9 @@ export default function Task({ }: any) { //태스크 정보를 가지고 올 예
                             {
                                 TASK_TYPE.map((val, index) => (
                                     <div className={currentTaskContent === val.title ? "task-view-tab-title active" : "task-view-tab-title"}
-                                            key={`task_Type_${val.title}_${index}`}
-                                            onClick={() => loadTaskContent(`${val.title}`, index)}>
-                                            {val.name}
+                                        key={`task_Type_${val.title}_${index}`}
+                                        onClick={() => loadTaskContent(`${val.title}`, index)}>
+                                        {val.name}
                                     </div>
                                 ))
                             }

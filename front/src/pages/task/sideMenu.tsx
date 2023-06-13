@@ -81,7 +81,7 @@ export default function SideMenu(props: Props) {
     }
 
     useEffect(() => {
-        setMyProjects((prev: Project[] | undefined) => {
+        setMyProjects((prev) => {
             if (prev !== undefined) {
                 const project = prev.find(z => z.id === props.currentProject.id);
                 if (project !== undefined) {

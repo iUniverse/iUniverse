@@ -1,5 +1,5 @@
 import { create } from "api/task/task";
-import { Dispatch, SetStateAction } from "react";
+import { Dispatch, SetStateAction, useRef } from "react";
 
 interface Task {
     id: number;
@@ -20,13 +20,17 @@ interface Task {
 interface Props {
     projectId: number;
     tasks: Task[];
-    setCurrentTaskContent: Dispatch<SetStateAction<PrArray<Task>>>
+    setCurrentTaskContent: Dispatch<SetStateAction<Array<Task>>>
 }
 
 export default function Kanban(props: Props) {
     const addTask = async () => {
         const result = await create(props.projectId, '새로운 태스크');
         props.setCurrentTaskContent(prev => [result, ...prev]);
+    }
+    const addBtnList = useRef<any>([]);
+    const handleAddBtn = (type : string) => {
+        addBtnList.current[0].value = type;
     }
 
     return (
@@ -45,8 +49,13 @@ export default function Kanban(props: Props) {
                         </>
                     }
 
-                    <div className="kanban-task-add-btn" onClick={() => addTask()}>
-                        <img src="img/task/add-btn-default.webp" style={{ width: '1.25vw', height: '1.25vw' }} />
+                    <div className="kanban-task-add-btn" 
+                        onMouseEnter={() => handleAddBtn('hover')}
+                        onMouseLeave={() => handleAddBtn('default')}
+                        ref={(el) => addBtnList.current[0] = el}
+                        onClick={() => addTask()}>
+                            <img src="img/task/add-btn-default.webp" style={{ width: '1.25vw', height: '1.25vw' }} />
+                            
                     </div>
                 </div>
                 <div className="kanban-board-body">
