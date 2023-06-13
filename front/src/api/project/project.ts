@@ -54,13 +54,10 @@ export async function updateProject(obj : {id: number, key : string, value : str
             method : 'PATCH',
             cache : 'no-cache',
             headers : {
-                'Content-Type': 'application/x-www-form-urlencoded'
+                'Accept' : 'application/json',
+                'Content-Type' : 'application/json'
             },
-            body : new URLSearchParams({
-                id : obj.id.toString(),
-                key : obj.key,
-                value : obj.value
-            })
+            body : JSON.stringify(obj)
         })
         return response.json();
     }

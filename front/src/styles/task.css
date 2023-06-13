@@ -101,7 +101,7 @@
     color: #222222;
 }
 
-.active-project-description {
+.active-project-title {
     font-family: Pretendard;
     font-size: 30px;
     font-weight: 600;
@@ -111,6 +111,7 @@
     letter-spacing: -0.3px;
     text-align: left;
     color: #222222;
+    cursor: pointer;
 }
 
 .task-view-tab {}

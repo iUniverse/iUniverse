@@ -28,8 +28,9 @@ export class ProjectRepository extends Repository<Project> {
 
     async UpdateProject(param : UpdateProjectsOutboundPortInputDto) : Promise<boolean>{
         const obj : object = {};
-        obj[param.key] = JSON.parse(param.value);
         console.log(param);
+        obj[param.key] = param.value;
+        
         const result =  await this.createQueryBuilder()
                         .update(Project)
                         .set(obj)

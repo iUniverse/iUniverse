@@ -11,7 +11,6 @@ export class GetTaskController {
     @Get('/:id')
     async load(@Param() param: LoadTaskIPInputDto): Promise<LoadTaskInboundPortOutputDto> {
         try {
-            console.log("애아니;ㅓ미나ㅓㅇ림나?");
             console.log(param);
             return this.loadTaskInboundPort.load(param);
         }

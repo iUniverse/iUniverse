@@ -1,12 +1,15 @@
-import { useEffect, useLayoutEffect, useRef, useState } from "react";
+import { useEffect, useLayoutEffect, useRef, useState, MouseEvent } from "react";
 import CalendarView from "./CalendarView";
-import { getProject, loadProject } from "api/project/project";
+import { getProject, loadProject, updateProject } from "api/project/project";
 import Kanban from "./kanban";
 import { loadByProjectId } from "api/task/task";
+import SideMenu from "./sideMenu";
+import { Project } from "pages/project";
 
 interface ProjectCategory {
     [key: string]: string
 }
+
 export default function Task({ }: any) { //태스크 정보를 가지고 올 예정
     const TASK_TYPE = [
         { 'title': 'board', 'name': '보드' },
@@ -19,113 +22,106 @@ export default function Task({ }: any) { //태스크 정보를 가지고 올 예
         'my_project': '내 프로젝트',
         'un_known': '알 수 없음'
     }
-    
+
     /* 현재 활성화된 테스크 */
     const [currentTaskContent, setCurrentTaskContent] = useState<any>([]);
     /* 현재 활성화된  프로젝트 */
     const [currentProject, setCurrentProject] = useState<any>();
-    const [myProjects, setMyProjects] = useState<any>();
-    const [favoriteProjects, setFavoriteProjects] = useState<any>();
+    const [projects, setProjects] = useState<any>();
     const [projectCategory, setProjectCategory] = useState<string | undefined>();
 
+    const [editProjectTitle, setEditProjectTitle] = useState<boolean>(false);
     const getCurrentProject = async () => {
         const params = new URLSearchParams(location.search);
         setProjectCategory(() => params.get('p_category') === null ? 'un_known' : params.get('p_category')?.toString());
         return await getProject(Number(params.get('iuni_project')));
     }
 
-    const handleIsFavorite = () => {
-        console.log("ㅋㅋㅋㅋㅋ");
-    }
-    /* 테스크 목록 불러오기 */
-    const loadTaskByProjectId = async (projectId : number) => {
-        console.log(projectId);
-        const tasks = await loadByProjectId(projectId);
-        setCurrentTaskContent(() => [...tasks]);
+    const handleProjectTitle = (e: MouseEvent<HTMLDivElement>, type : boolean | undefined) => {
+        e.stopPropagation();
+        type === undefined ? setEditProjectTitle(() => !editProjectTitle) : setEditProjectTitle(() => type);
     }
 
+    const projectTitle = useRef<any>();
     /* 테스크 컨텐츠 불러오기 */
     const loadTaskContent = (type: string, index: number) => {
         setCurrentTaskContent(() => type);
     }
 
-    // const loadMyProject = async () => {
-    //     const projects = await loadProject();
-    //     console.log(projects);
-    // }
+    /* 테스크 목록 불러오기 */
+    const loadTaskByProjectId = async (projectId: number) => {
+        const tasks = await loadByProjectId(projectId);
+        setCurrentTaskContent(() => [...tasks]);
+    }
 
-    
+    const updateProjectTitle = async () => {
+        if(currentProject === undefined) return;
+
+        const editTitle : string = projectTitle.current.value;
+        const result = await updateProject({
+            'id' : currentProject.id,
+            'key' : 'name',
+            'value' : editTitle
+        });
+        if(result.result === true){
+            setCurrentProject((prev : any) => {
+                return {...prev, 'name' : editTitle};
+            });
+        }
+        
+    }
+
+    const handlerTest = (e : any) => {
+        if(e.key === 'Enter'){
+            updateProjectTitle();
+            setEditProjectTitle(() => false);
+        }
+    }
     useEffect(() => {
         const initProject = async () => {
             const return_value = await getCurrentProject();
             setCurrentProject(() => return_value);
-            loadTaskByProjectId(return_value.id);    
+            loadTaskByProjectId(return_value.id);
         }
         initProject();
 
         const loadMyProject = async () => {
             const return_value = await loadProject();
-            setMyProjects(() => [...return_value.normal_projects]);
-            setFavoriteProjects(() => [...return_value.favorite_projects]);
+            setProjects(() => return_value);
         }
-
         loadMyProject();
-        
     }, [])
-
+    
     return (
         <>
             <div className="task-container">
-                <div className="task-side-menu">
-                    <div className="task-search-box">
-                        <input type="text" className="task-search" placeholder="프로젝트를 찾아보세요." />
-                    </div>
-                    <div className="recent-project-list">
-                        <p className="side-menu-title">최근</p>
-                        <div className="side-menu-project-name">
-                            그림그리기 프로젝트
-                        </div>
-                    </div>
-                    <div className="favorite-project-list">
-                        <p className="side-menu-title">즐겨찾기</p>
-                        {
-                            favoriteProjects?.map((val: any) => (
-                                <div key={`favorite_projects_${val.id}`} className="side-menu-project-name" onClick={() => loadTaskByProjectId(val.id)}>
-                                    <div className="col-11">{val.name}</div>
-                                    <img src='/img/task/favorite_active.webp'
-                                        style={{ width: '1.19vw', height: '1.19vw' }}
-                                        onClick={() => handleIsFavorite()}
-                                    />
-                                </div>
-                            ))
-                        }
-                    </div>
-                    <div className="my-project-list">
-                        <p className="side-menu-title">내 프로젝트</p>
-                        {
-                            myProjects?.map((val: any) => (
-                                <div key={`my_projects_${val.id}`} className="side-menu-project-name" onClick={() => loadTaskByProjectId(val.id)}>
-                                    <div className="col-11">{val.name}</div>
-
-                                    <img src={val.isFavorite === true ? `/img/task/favorite_active.webp` : `/img/task/favorite.webp`}
-                                        style={{ width: '1.19vw', height: '1.19vw' }}
-                                        onClick={() => handleIsFavorite()}
-                                    />
-                                </div>
-                            ))
-                        }
-                    </div>
-                </div>
+                <SideMenu
+                    projects={projects}
+                    loadTaskByProjectId={loadTaskByProjectId}
+                    setCurrentProject={setCurrentProject}
+                    currentProject = {currentProject}
+                />
 
                 <div className="task-view-list">
-                    <div className="task-view-header">
+                    <div className="task-view-header"
+                        onClick={(e : MouseEvent<HTMLDivElement>) => handleProjectTitle(e, false)}>
                         <div className="active-project-banner">
                             <div className="active-project-bread">
                                 프로젝트 > {projectCategory === undefined ? '알 수 없음' : PROJECT_CATEGORY[projectCategory]} > {currentProject?.name}
                             </div>
-                            <div className="active-project-description">
-                                {currentProject?.name}
-                            </div>
+                            {
+                                editProjectTitle === false ?
+                                    <div className="active-project-title" onClick={(e : MouseEvent<HTMLDivElement>) => handleProjectTitle(e, true)}>
+                                        {currentProject?.name}
+                                    </div>
+                                    :
+                                    <input type="text" defaultValue={currentProject?.name}  
+                                        style={{borderRadius:'12px'}}
+                                        ref={(el) => projectTitle.current = el}
+                                        onClick={(e : MouseEvent<HTMLDivElement>) => handleProjectTitle(e, true)}
+                                        onKeyUp={handlerTest}/>
+                            }
+
                             <div className="active-project-other">
                                 {
                                     currentProject?.startDate === null || currentProject?.endDate === null ?
@@ -150,13 +146,11 @@ export default function Task({ }: any) { //태스크 정보를 가지고 올 예
                         <div className="task-view-tab">
                             {
                                 TASK_TYPE.map((val, index) => (
-                                    <>
-                                        <div className={currentTaskContent === val.title ? "task-view-tab-title active" : "task-view-tab-title"}
-                                            key={val.title}
+                                    <div className={currentTaskContent === val.title ? "task-view-tab-title active" : "task-view-tab-title"}
+                                            key={`task_Type_${val.title}_${index}`}
                                             onClick={() => loadTaskContent(`${val.title}`, index)}>
                                             {val.name}
-                                        </div>
-                                    </>
+                                    </div>
                                 ))
                             }
                         </div>

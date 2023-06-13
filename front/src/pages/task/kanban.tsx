@@ -20,7 +20,7 @@ interface Task {
 interface Props {
     projectId: number;
     tasks: Task[];
-    setCurrentTaskContent: Dispatch<SetStateAction<Task[]>>
+    setCurrentTaskContent: Dispatch<SetStateAction<PrArray<Task>>>
 }
 
 export default function Kanban(props: Props) {
@@ -45,7 +45,6 @@ export default function Kanban(props: Props) {
                         </>
                     }
 
-
                     <div className="kanban-task-add-btn" onClick={() => addTask()}>
                         <img src="img/task/add-btn-default.webp" style={{ width: '1.25vw', height: '1.25vw' }} />
                     </div>
@@ -53,24 +52,22 @@ export default function Kanban(props: Props) {
                 <div className="kanban-board-body">
                     {
                         props.tasks.map((val, index) => (
-                            <>
-                                <div className="kanban-card col-12" key={`task_${val.id}`}>
-                                    <div className="kanban-card-header">
-                                        {val.name}
+                            <div className="kanban-card col-12" key={`task_${val.id}_${index}`}>
+                                <div className="kanban-card-header">
+                                    {val.name}
+                                </div>
+                                <div className="kanban-card-body">
+                                    <div className="kanban-card-body-content col-12">
+                                        {val.description}
                                     </div>
-                                    <div className="kanban-card-body">
-                                        <div className="kanban-card-body-content col-12">
-                                            {val.description}
-                                        </div>
-                                        <div className="kanban-card-body-status">
-                                            {val.statusId}
-                                        </div>
-                                    </div>
-                                    <div className="kanban-card-footer">
-                                        프로필 들어감요
+                                    <div className="kanban-card-body-status">
+                                        {val.statusId}
                                     </div>
                                 </div>
-                            </>
+                                <div className="kanban-card-footer">
+                                    프로필 들어감요
+                                </div>
+                            </div>
                         ))
                     }
                 </div>
