@@ -1,5 +1,5 @@
-import React, { useEffect, useState, Dispatch, SetStateAction } from 'react';
-import { useRouter } from 'next/router';
+import React, { useEffect, useState, Dispatch, SetStateAction, MouseEvent } from 'react';
+import router, { useRouter } from 'next/router';
 import { updateProject } from "../../api/project/project";
 interface Project {
     id: number,
@@ -27,8 +27,15 @@ interface Props {
 
 export default function Favorite(props: Props) {
     console.log(props.projects);
+
+    function moveTaskPage(id: number) {
+        console.log('moveTaskPage!!');
+        router.push(`/task?iuni_project=${id}&p_category=favorite`);
+    }
     /* 프로젝트 즐겨찾기 on / off */
-    async function updateFavorite(id: number) {
+    async function updateFavorite(e : MouseEvent<HTMLDivElement>,id: number) {
+        e.stopPropagation();
+    
         const obj = {
             'key': 'isFavorite',
             'value': JSON.stringify(false),
@@ -49,6 +56,20 @@ export default function Favorite(props: Props) {
         }
     }
 
+
+    function hexToRgb(hex: string, alpha:number) {
+        console.log(hex);
+        let r = parseInt(hex.slice(1, 3), 16),
+          g = parseInt(hex.slice(3, 5), 16),
+          b = parseInt(hex.slice(5, 7), 16);
+      
+        if (0 <= alpha && alpha <= 1) {
+          return `rgba(${r}, ${g}, ${b}, ${alpha})`
+        } else {
+          return `rgb(${r}, ${g}, ${b})`
+        }
+      }
+      
     return (
         <>
 
@@ -66,10 +87,13 @@ export default function Favorite(props: Props) {
                 <div className="favorite-card-list">
                     {
                         props.projects.map((value, index) => (
-                            <div className="favorite-card card" key={`favorite_${value.id}`} style={{backgroundColor : `${props.favoriteBgColor[index]}`}}>
+                            <div className="favorite-card card" 
+                                onClick={() => moveTaskPage(value.id)} 
+                                key={`favorite_${value.id}`} 
+                                style={{background : `${props.favoriteBgColor[index]}`}}>
                                 <div className="card-header">
-                                    <div className="favorite-d-day badge" style={{color : `${props.favoriteFontColor}`}}>
-                                        <span>D-13</span>
+                                    <div className="favorite-d-day badge" style={{background:`${hexToRgb(props.favoriteFontColor, 0.1)}`}}>
+                                        <p style={{color : `${props.favoriteFontColor}`}}>D-13</p>
                                     </div>
                                 </div>
                                 <div className="card-content">
@@ -79,7 +103,7 @@ export default function Favorite(props: Props) {
                                 </div>
                                 <div className="card-footer">
                                     <div className="favorite-project-icon-list">
-                                        <div className="favorite-project-icon" onClick={() => updateFavorite(value.id)}>
+                                        <div className="favorite-project-icon" onClick={(e : MouseEvent<HTMLDivElement>) => updateFavorite(e, value.id)}>
                                             <img src={"/img/project/heart.png"} />
                                         </div>
                                         <div className="favorite-project-icon">

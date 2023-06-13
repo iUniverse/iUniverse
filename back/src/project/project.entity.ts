@@ -2,6 +2,7 @@
 import { Column, CreateDateColumn, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 
 import { Task } from '../task/task.entity';
+import { ProjectThemeMap } from "src/project-theme-map/project-theme.entity";
 
 @Entity()
 export class Project{
@@ -55,4 +56,10 @@ export class Project{
         (task) => task.project
     )
     tasks! : Task[];
+
+    @OneToMany(
+        (type) => ProjectThemeMap,
+        (projectTheme) => projectTheme.project   
+    )
+    projectThemeMap! : ProjectThemeMap[];
 }

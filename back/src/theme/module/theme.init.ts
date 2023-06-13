@@ -2,7 +2,9 @@ import { Theme } from "../theme.entity";
 
 const basic_theme = {
     name : "기본테마",
-    favoriteBColors : [
+    otherName : 'basic',
+    colors : [
+        "#19007A",
         "#5C66FB",
         "#3A45E6",
         "#7E5FFC",
@@ -17,12 +19,13 @@ const basic_theme = {
         "#560275"
     ],
     fontColor : "#fff",
-    bannerBC : "#19007A",
 }
 
 const mono_theme = {
     name : "모노테마",
-    favoriteBColors : [
+    otherName : "mono",
+    colors : [
+        "#373737",
         "#F5F5F5",
         "#F5F5F5",
         "#F5F5F5",
@@ -36,13 +39,14 @@ const mono_theme = {
         "#F5F5F5",
         "#F5F5F5"
     ],
-    fontColor : "#222",
-    bannerBC : "#373737",
+    fontColor : "#222222",
 }
 
 const cozy_theme = {
     name : "코지테마",
-    favoriteBColors : [
+    otherName : 'cozy',
+    colors : [
+        "#B2C6B4",
         "#E7DFCA",
         "#e8dabf",
         "#ddcdb4",
@@ -56,14 +60,15 @@ const cozy_theme = {
         "#cfd1c6",
         "#bcbfb8"
     ],
-    fontColor : "#222",
-    bannerBC : "#B2C6B4",
+    fontColor : "#222222",
 }
 
 const init_theme = {
     '기본테마' : {
         name : "기본테마",
-        favoriteBColors : [
+        otherName : 'basic',
+        colors : [
+            "#19007A",
             "#5C66FB",
             "#3A45E6",
             "#7E5FFC",
@@ -78,11 +83,12 @@ const init_theme = {
             "#560275"
         ],
         fontColor : "#fff",
-        bannerBC : "#19007A",
     },
     '모노테마' : {
         name : "모노테마",
-        favoriteBColors : [
+        otherName : 'mono',
+        colors : [
+            "#373737",
             "#F5F5F5",
             "#F5F5F5",
             "#F5F5F5",
@@ -96,12 +102,13 @@ const init_theme = {
             "#F5F5F5",
             "#F5F5F5"
         ],
-        fontColor : "#222",
-        bannerBC : "#373737",
+        fontColor : "#222222",
     },
     '코지테마' : {
         name : "코지테마",
-        favoriteBColors : [
+        otherName : 'cozy',
+        colors : [
+            "#B2C6B4",
             "#E7DFCA",
             "#e8dabf",
             "#ddcdb4",
@@ -115,12 +122,13 @@ const init_theme = {
             "#cfd1c6",
             "#bcbfb8"
         ],
-        fontColor : "#222",
-        bannerBC : "#B2C6B4",
+        fontColor : "#222222",
     },
     '트로피컬테마' : {
         name : "트로피컬테마",
-        favoriteBColors : [
+        otherName : 'tropical',
+        colors : [
+            "linear-gradient(to bottom, #a8edea, #fed6e3)",
             "#b2e4ed",
             "#feec83",
             "#f5bade",
@@ -134,8 +142,7 @@ const init_theme = {
             "#b2d4ed",
             "#ffbc79"
         ],
-        fontColor : "#222",
-        bannerBC : "linear-gradient(to bottom, #a8edea, #fed6e3)",
+        fontColor : "#222222",
     }
 }
 
@@ -145,9 +152,9 @@ export function getInitTheme(themeName : string){
 
     const result = new Theme();
     result.name = theme.name;
-    result.favoriteBColors = theme.favoriteBColors;
+    result.colors = theme.colors;
     result.fontColor = theme.fontColor;
-    result.bannerBC = theme.bannerBC;
+    result.otherName = theme.otherName;
     console.log(result);
     return result;
 } 

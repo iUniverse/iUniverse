@@ -15,7 +15,7 @@ import { FindProjectService } from './service/find-project.service';
 import { FIND_PROJECT_OUTBOUND_PORT } from './outbound-port/find-projects.outbound-ports';
 import { FindProjectRepository } from './outbound-adapter/find-project.repository';
 import { FIND_PROJECT_INBOUND_PORT } from './inbound-port/find-projects.inbound-port';
-import { PutProjectController } from './controller/put-projects.controller';
+import { PatchProjectController } from './controller/patch-projects.controller';
 import { UPDATE_PROJECTS_INBOUND_PORT } from './inbound-port/update-projects.inbound-port';
 import { UpdateProjectsService } from './service/update-project.service';
 import { UPDATE_PROJECTS_OUTBOUND_PORT } from './outbound-port/update-projects.outbound-port';
@@ -29,7 +29,7 @@ import { REMOVE_PROJECT_OUTBOUND_PORT } from './outbound-port/remove-projects.ou
     imports : [
         TypeOrmExModule.forCustomRepository([ProjectRepository])
     ],
-    controllers : [PostProjectController, GetProjectController, PutProjectController],
+    controllers : [PostProjectController, GetProjectController, PatchProjectController],
     providers : [
         {
             //inbound

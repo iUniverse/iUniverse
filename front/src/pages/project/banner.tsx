@@ -10,8 +10,10 @@ import BannerIuniCat from './banner_iuni_cat';
 
 
 interface Props {
-    setFavoriteBColors: Dispatch<SetStateAction<string[]>>
-    setfontColor: string
+    setcolors: Dispatch<SetStateAction<string[]>>
+    setfontColor: Dispatch<SetStateAction<string>>
+    bannerColor : string;
+    fontColor : string;
 }
 
 type Day = {
@@ -29,7 +31,6 @@ export default function Banner(props: any) {
     const [timeDeco, setTimeDeco] = useState('');
     const [isShow, setIsShow] = useState('no-show');
 
-    const [bannerBC, setBannerBC] = useState<string>('');
     const [currentThemeId, setCurrentThemeId] = useState<number>(0);
     const [themeInfo, setThemeInfo] = useState<Array<ThemeInfo>>([]);
 
@@ -104,6 +105,9 @@ export default function Banner(props: any) {
         //현재는 유저 정보가 없기에 업데이트문은 없음
         const theme = await getTheme(id);
         console.log(theme);
+        props.setcolors(() => theme.colors);
+        props.setfontColor(() => theme.fontColor);
+
         setCurrentThemeId(() => id);
     }
 
@@ -113,9 +117,8 @@ export default function Banner(props: any) {
         const theme = await getMyInitTheme();
         console.log(theme);
         if (theme !== null) {
-            props.setFavoriteBColors(() => theme.favoriteBColors);
+            props.setcolors(() => theme.colors);
             props.setfontColor(() => theme.fontColor);
-            setBannerBC(() => theme.bannerBC);
             setCurrentThemeId(() => id);
         }
 
@@ -212,14 +215,14 @@ export default function Banner(props: any) {
                     </div>
 
                     <div className="banner-recent-project">
-                        <div className="recent-project-card card p-1" style={{ background: `${bannerBC}` }}>
+                        <div className="recent-project-card card p-1" style={{ background: `${props.bannerColor}` }}>
                             <div className="recent-project-d-day card-header row">
                                 <div className="badge">D-13</div>
                             </div>
                             <div className="card-content row">
-                                <div className="recent-project-type col-12" style={{ color: `` }}>최근 프로젝트</div>
+                                <div className="recent-project-type col-12" style={{ color: `${props.fontColor}` }}>최근 프로젝트</div>
                                 <br />
-                                <div className="recent-project-name col-12" style={{ color: `` }}>진행되는 프로젝트가 없어요</div>
+                                <div className="recent-project-name col-12" style={{ color: `${props.fontColor}` }}>진행되는 프로젝트가 없어요</div>
                             </div>
                             <div className="recent-project-icon-list card-footer row ">
                                 <div className="recent-project-icon">

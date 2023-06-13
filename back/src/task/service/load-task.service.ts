@@ -1,6 +1,6 @@
 import { Inject } from '@nestjs/common';
 import { LoadTaskInboundPort, LoadTaskInboundPortOutputDto } from '../inbound-port/load-task.inbound-port';
-import { LoadTaskOutboundPort, LOAD_TASK_OUTBOUND_PORT } from '../outbound-port/load-task.outbound-port';
+import { LoadTaskOutboundPort, LOAD_TASK_OUTBOUND_PORT, LoadTaskOPInputDto } from '../outbound-port/load-task.outbound-port';
 
 export class LoadTaskService implements LoadTaskInboundPort {
     constructor(
@@ -8,7 +8,7 @@ export class LoadTaskService implements LoadTaskInboundPort {
         private readonly loadTaskOutboundPort: LoadTaskOutboundPort
     ){}
 
-    async load(): Promise<LoadTaskInboundPortOutputDto>{
-        return this.loadTaskOutboundPort.load();
+    async load(param : LoadTaskOPInputDto): Promise<LoadTaskInboundPortOutputDto>{
+        return this.loadTaskOutboundPort.load(param);
     }
 }

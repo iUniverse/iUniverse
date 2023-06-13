@@ -3,12 +3,15 @@ import 'styles/layout.css'
 import 'styles/card.css'
 import 'styles/project.css';
 import 'styles/theme.css';
+import 'styles/modal.css';
+import 'styles/task.css';
 
 import type { AppProps } from 'next/app'
 import IUniLayout from './layout/layout'
 import { useEffect } from 'react';
 import { checkInitTheme, createInitTheme } from 'api/theme/card-theme';
 import { checkInitCatStyle, createInitCatStyle } from 'api/theme/iuni-cat-theme';
+import Modal from 'react-modal';
 
 import React from 'react';
 import {
@@ -90,6 +93,7 @@ export default function App({ Component, pageProps }: AppProps) {
       });
   }, []);
   return (
+
     <IUniLayout>
       <RecoilRoot>
         <Component {...pageProps} />
@@ -98,3 +102,4 @@ export default function App({ Component, pageProps }: AppProps) {
     
   )
 }
+

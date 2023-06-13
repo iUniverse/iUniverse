@@ -4,15 +4,14 @@ export class CreateThemeIPInputDto{
     //테마명
     @IsNotEmpty()
     readonly name : string;
+    @IsOptional()
+    readonly otherName : string;
     //즐겨찾기 배경화면 색상코드들
     @IsOptional()
-    readonly favoriteBColors : string[];
+    readonly colors : string[];
     //즐겨찾기 글자 색상
     @IsOptional()
     readonly fontColor : string;
-    //배너 배경색
-    @IsOptional()
-    readonly bannerBC : string;
     //유저 아이디
     @IsOptional()
     readonly userId : number;
@@ -21,12 +20,12 @@ export class CreateThemeIPInputDto{
 export class CreateThemeIPOutputDto{
     //테마명
     name : string;
+    //테마 다른 이름명
+    otherName : string;
     //즐겨찾기 배경화면 색상코드들
-    favoriteBColors : string[];
+    colors : string[];
     //즐겨찾기 글자 색상
     fontColor : string;
-    //배너 배경색
-    bannerBC : string;
     //유저 아이디
     userId : number;
 }

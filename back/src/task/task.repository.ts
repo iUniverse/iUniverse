@@ -3,12 +3,15 @@ import { Repository } from "typeorm";
 import { CreateTaskDto } from "./dto/create-task.dto";
 import { DeleteTaskDto } from "./dto/delete-task.dto";
 import { UpdateTaskDto } from "./dto/update-task.dto";
+import { LoadTaskDto } from "./dto/find-task.dto";
 import { Task } from "./task.entity";
 
 @CustomRepository(Task)
 export class TaskRepository extends Repository<Task>{
-    async LoadTask(): Promise<Array<Task>>{
-        return await this.find();
+    async LoadTask(param : LoadTaskDto): Promise<Array<Task>>{
+        const result = await this.find({where : { projectId : param.id}}); 
+        
+        return result;
     }
 
     async CreateTask(taskInfo: CreateTaskDto): Promise<Task>{

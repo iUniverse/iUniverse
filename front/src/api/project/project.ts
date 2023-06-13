@@ -8,11 +8,13 @@ export async function createProject(name:string){
             method : 'POST',
             cache : 'no-cache',
             headers: {
-                'Content-Type': 'application/x-www-form-urlencoded'
+                'Accept' : 'application/json',
+                'Content-Type' : 'application/json'
             },
-            body: new URLSearchParams({
-                name :  name,
-                description : 'test'
+            body : JSON.stringify({
+                name : name,
+                description : '무제',
+                creatorId : 0
             })
         })
         return response.json();
@@ -52,13 +54,10 @@ export async function updateProject(obj : {id: number, key : string, value : str
             method : 'PATCH',
             cache : 'no-cache',
             headers : {
-                'Content-Type': 'application/x-www-form-urlencoded'
+                'Accept' : 'application/json',
+                'Content-Type' : 'application/json'
             },
-            body : new URLSearchParams({
-                id : obj.id.toString(),
-                key : obj.key,
-                value : obj.value
-            })
+            body : JSON.stringify(obj)
         })
         return response.json();
     }

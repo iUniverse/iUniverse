@@ -1,0 +1,88 @@
+.modal-default {
+    display:grid;
+    grid-template-columns: auto;    
+    justify-content: center;
+}
+
+.modal-banner-box{
+    display : flex;
+    width : 100px;
+    height : 100px;
+    background-color: #00e15a;
+    opacity : 0.3;
+    margin : 0 auto;
+    justify-content: center;
+    align-items: center;
+    font-family: Pretendard;
+    font-size: 18px;
+    font-weight: 500;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 0.78;
+    letter-spacing: -0.18px;
+    color : #00e15a;
+}
+
+
+.modal-title{
+    font-family: Pretendard;
+    font-size: 18px;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.33;
+    letter-spacing: -0.18px;
+    text-align: center;
+    color: #222222;
+    margin-top : 20px;
+}
+
+.modal-sub-title{
+    font-family: Pretendard;
+    font-size: 12px;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 2;
+    letter-spacing: -0.12px;
+    text-align: center;
+    color: #7a7a7a;
+    margin-top : 8px;
+}
+
+.modal-cancle-btn{
+    display : flex;
+    width : 100px;
+    height : 42px;
+    justify-content: center;
+    align-items: center;
+    border-radius : 8px;
+    background-color: #fff;
+    border : 1px solid #1120ff; 
+    color : #1120ff;
+    font-size : 18px;
+    font-weight : 500;
+    cursor: pointer;
+}
+
+.modal-submit-btn{
+    display : flex;
+    width : 100px;
+    height : 42px;
+    justify-content: center;
+    align-items: center;
+    border-radius : 8px;
+    background-color: #1120ff;
+    border : 1px solid #1120ff; 
+    color : #fff;
+    font-size : 18px;
+    font-weight : 500;
+    cursor: pointer;
+}
+
+.modal-btn-list{
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    margin-top : 16px;
+}

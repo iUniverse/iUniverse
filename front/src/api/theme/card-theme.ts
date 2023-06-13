@@ -4,58 +4,53 @@ const url = 'http://localhost:3500/iuni_theme';
 export function loadSkeleton() : object{
     const skeleton_size = {
         0 : {
-            'badge' : '60px',
-            'firstWidth' : '286px',
-            'secondWidth' : '159px' 
+            'firstWidth' : '90%',
+            'secondWidth' : '55%' 
         },
         1 : {
-            'badge' : '60px',
-            'firstWidth' : '293px',
-            'secondWidth' : '230px'
+            'firstWidth' : '92%',
+            'secondWidth' : '80%'
         },
         2 : {
-            'firstWidth' : '277px',
-            'secondWidth' : '93px'
+            'firstWidth' : '87%',
+            'secondWidth' : '17%'
         },
         3 : {
-            'firstWidth' : '294px',
-            'secondWidth' : '93px'
+            'firstWidth' : '90%',
+            'secondWidth' : '15%'
         },
         4 : {
-            'badge' : '60px',
-            'firstWidth' : '297px',
-            'secondWidth' : '128px'
+            'firstWidth' : '92%',
+            'secondWidth' : '50%'
         },
         5 : {
-            'badge' : '60px',
             'first-sekeleton' : 'test',
-            'firstWidth' : '297px',
-            'secondWidth' : '129px'
+            'firstWidth' : '94%',
+            'secondWidth' : '45%'
         },
         6 : {
-            'badge' : '60px',
-            'firstWidth' : '297px',
-            'secondWidth' : '129px'
+            'firstWidth' : '93%',
+            'secondWidth' : '55%'
         },
         7 : {
-            'firstWidth' : '297px',
-            'secondWidth' : '265px'
+            'firstWidth' : '93%',
+            'secondWidth' : '93%'
         },
         8 : {
-            'firstWidth' : '297px',
-            'secondWidth' : '40px'
+            'firstWidth' : '93%',
+            'secondWidth' : '12%'
         },
         9 : {
-            'firstWidth' : '297px',
-            'secondWidth' : '128px'
+            'firstWidth' : '95%',
+            'secondWidth' : '55%'
         },
         10 : {
-            'firstWidth' : '297px',
-            'secondWidth' : '265px'
+            'firstWidth' : '97%',
+            'secondWidth' : '92%'
         },
         11 : {
-            'firstWidth' : '297px',
-            'secondWidth' : '40px'
+            'firstWidth' : '90%',
+            'secondWidth' : '21%'
         }
     }
 
@@ -68,8 +63,7 @@ export interface SelectTheme {
 }
 
 export interface themeInfo {
-    'bannerBC' : string,
-    'favoriteBColors' : string[],
+    'colors' : string[],
     'fontColor' : string,
     'id' : number,
     'name' : string,
@@ -82,6 +76,7 @@ export async function loadMyTheme() {
         method: 'GET',
         cache: 'no-cache'
     })
+    
     return response.json();
 }
 
@@ -128,7 +123,6 @@ export async function getMyInitTheme() {
         console.log(e);
         return null;
     }
-    
 }
 
 export async function createInitTheme(themeName : string) : Promise<boolean> {
@@ -167,8 +161,27 @@ export async function checkInitTheme(themeName : string) : Promise<any> {
 }
 
 /* 테마 업데이트 */
-export async function updateTheme() {
-
+export async function updateTheme(updateCardTheme : {id :number, key : string, value : any}) : Promise<any>{
+    try{
+        const response = await fetch(url, {
+            method : 'PATCH',
+            cache : 'no-cache',
+            headers : {
+                'Content-Type': 'application/x-www-form-urlencoded'
+            },
+            body : new URLSearchParams({
+                id : JSON.stringify(updateCardTheme.id),
+                key : JSON.stringify(updateCardTheme.key),
+                value : JSON.stringify(updateCardTheme.value)
+            })
+        });
+        console.log(response);
+        return response.json();
+    }
+    catch(e){
+        console.log(e);
+        throw(e);
+    }
 }
 
 /* 테마 삭제 */

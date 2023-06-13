@@ -1,5 +1,6 @@
 export type CreateProjectsOutboundPortInputDto = {
-    name : string
+    name : string,
+    creatorId : number
 };
 
 export type CreateProjectsOutboundPortOutputDto = {

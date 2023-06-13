@@ -13,6 +13,7 @@ export class PostThemeController{
     @UsePipes(ValidationPipe)
     async create(@Body() theme : CreateThemeIPInputDto) : Promise<CreateThemeIPOutputDto>{
         try{
+            console.log("dsalkf;adksfl");
             return await this.createThemeInboundPort.create(theme);
         }
         catch(e){

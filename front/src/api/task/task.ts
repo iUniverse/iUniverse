@@ -17,9 +17,12 @@ export async function create(projectId:number, name : string){
 }
 
 /* projectId로 task 목록 불러오기 */
-export async function loadByProjectId(projectId: number){
-    const response = await fetch(url, {
+export async function loadByProjectId(id: number){
+    
+    const response = await fetch(url+`/${id}`, {
         method : 'GET',
         cache : 'no-cache'
     })
+    
+    return response.json();
 }

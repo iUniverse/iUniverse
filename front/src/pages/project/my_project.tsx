@@ -1,6 +1,8 @@
-import React, { useEffect, useState, Dispatch, SetStateAction } from 'react';
-import { useRouter } from 'next/router';
+import React, { useEffect, useState, Dispatch, SetStateAction, MouseEvent } from 'react';
+import router, { useRouter } from 'next/router';
 import { createProject, updateProject } from '../../api/project/project';
+import { loadMyTheme } from 'api/theme/card-theme';
+import { createProjectTheme } from 'api/project-theme-map/project-theme-map';
 
 interface Project {
     id: number,
@@ -26,16 +28,31 @@ interface Props {
 }
 
 export default function MyProject(props: Props) {
-    function moveTaskPage() {
+    function moveTaskPage(id : number) {
         console.log('moveTaskPage!!');
+        router.push(`/task?iuni_project=${id}&p_category=my_project`);
     }
-
+    
     /* 프로젝트 생성 */
     async function create() {
         const result = await createProject('무제');
         if (result.statusCode === 400)
-            throw new Error('프로젝트 생성도중 에러가 발생 했어요.')
-        props.setProjects(prev => [result, ...prev])
+            throw new Error('프로젝트 생성도중 에러가 발생 했어요.');
+            props.setProjects(prev => [result, ...prev]);
+        const my_theme_list = await loadMyTheme();
+        console.log(my_theme_list);
+        my_theme_list.themeList.map((theme : any) => {
+            
+            createProjectTheme({
+                'projectId' : result.id,
+                'themeId' : theme.id,
+                'userId' : 0,
+                'isUse' : theme.otherName === 'basic' ? true : false
+            });
+        });
+
+        
+        
     }
 
     function checkFavoriteCount() {
@@ -46,7 +63,9 @@ export default function MyProject(props: Props) {
         }
     }
     /* 즐겨찾기 프로젝트로 수정 */
-    async function updateFavorite(id: number, type: boolean) {
+    async function updateFavorite(e:MouseEvent<HTMLElement>,id: number, type: boolean) {
+        e.stopPropagation();
+
         const obj = {
             'key': 'isFavorite',
             'value': JSON.stringify(type),
@@ -120,7 +139,7 @@ export default function MyProject(props: Props) {
                         <div className="project-card-list">
                             {
                                 props.projects.map((value, index) => (
-                                    <div className="project-card no-content-card" key={value.id} onClick={() => moveTaskPage()}>
+                                    <div className="project-card no-content-card" key={value.id} onClick={() => moveTaskPage(value.id)}>
                                         <div className="project-name">
                                             {value.name}
                                         </div>
@@ -128,10 +147,10 @@ export default function MyProject(props: Props) {
                                             <div className="favorite-project-icon-list">
                                                 {
                                                     value.isFavorite === false ?
-                                                        <div className="favorite-project-icon" onClick={() => updateFavorite(value.id, true)}>
+                                                        <div className="favorite-project-icon" onClick={(e : MouseEvent<HTMLElement>) => updateFavorite(e, value.id, true)}>
                                                             <img src={"/img/project/project_heart.png"} />
                                                         </div> :
-                                                        <div className="favorite-project-icon" onClick={() => updateFavorite(value.id, false)}>
+                                                        <div className="favorite-project-icon" onClick={(e : MouseEvent<HTMLElement>) => updateFavorite(e, value.id, false)}>
                                                             <img src={"/img/project/heart.png"} />
                                                         </div>
                                                 }
@@ -151,13 +170,13 @@ export default function MyProject(props: Props) {
                                 <div className="col-12 row-column theme-content-center">
                                     <div className="w-auto">
                                         <img src={"/img/project/empty-project.webp"}
-                                            style={{ width: '320px', height: '195px' }} />
+                                            style={{ width: '16.6667vw', height: '10.1563vw' }} />
                                     </div>
 
-                                    <div className="w-auto mt-2"  style={{width:'215px'}}>
+                                    <div className="w-auto mt-1r"  style={{width:'11.1979vw'}} onClick={() => create()}>
                                         <div className="p-0-5 project-empty-create-btn">
                                             <img src={"/img/project/btn-add-blue.webp"}
-                                                style={{ width: '23.9px', height: '23.9px', marginRight : '3%' }} />
+                                                style={{ width: '1.2448vw', height: '1.2448vw', marginRight : '3%' }} />
                                             <span>
                                                 새로운 프로젝트 만들기
                                             </span>
