@@ -60,7 +60,7 @@ export default function Kanban(props: Props) {
                 </div>
                 <div className="kanban-board-body">
                     {
-                        props.tasks.map((val, index) => (
+                        props.tasks?.map((val, index) => (
                             <div className="kanban-card col-12" key={`task_${val.id}_${index}`}>
                                 <div className="kanban-card-header">
                                     {val.name}

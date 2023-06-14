@@ -1,6 +1,6 @@
 // import { ProjectMember } from "../projectmember/projectmember.entity";
 import { BaseEntity, Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
-import { BaseType } from "../basetype/basetype.entity";
+import { Basetype } from "../basetype/basetype.entity";
 
 @Entity()
 export class SubType{
@@ -16,6 +16,9 @@ export class SubType{
     @Column({ type : 'varchar', length : '30', comment : '색상코드'})
     color : string;
 
+    @Column({type : 'varchar', length : '30', comment : '폰트색상'})
+    fontColor : string;
+    
     @CreateDateColumn({name : 'create_date', 'comment' : '생성날짜'})
     createDate : Date;
 
@@ -25,9 +28,9 @@ export class SubType{
     @Column()
     orderNum : number;
 
-    @ManyToOne(() => BaseType, (baseType) => baseType.subtypes)
+    @ManyToOne(() => Basetype, (baseType) => baseType.subtypes)
     @JoinColumn()
-    baseType : BaseType;
+    baseType : Basetype;
 
     // @OneToMany(type => ProjectMember, projectMember => projectMember.subType)
     // projectMembers : ProjectMember[];
