@@ -1,5 +1,3 @@
-
-
 export class BasetypeInit{
     readonly name : string;
     readonly description : string;
