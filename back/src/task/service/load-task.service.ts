@@ -1,14 +1,21 @@
 import { Inject } from '@nestjs/common';
-import { LoadTaskInboundPort, LoadTaskInboundPortOutputDto } from '../inbound-port/load-task.inbound-port';
-import { LoadTaskOutboundPort, LOAD_TASK_OUTBOUND_PORT, LoadTaskOPInputDto } from '../outbound-port/load-task.outbound-port';
+import { LoadTaskInboundPort, LoadTaskInboundPortOutputDto, LoadByDateInboundPort } from '../inbound-port/load-task.inbound-port';
+import { LoadTaskOutboundPort, LOAD_TASK_OUTBOUND_PORT, LoadTaskOPInputDto, LoadByDateOPInputDto, LoadByDateboundPort } from '../outbound-port/load-task.outbound-port';
 
-export class LoadTaskService implements LoadTaskInboundPort {
+export class LoadTaskService implements LoadTaskInboundPort, LoadByDateInboundPort {
     constructor(
         @Inject(LOAD_TASK_OUTBOUND_PORT)
-        private readonly loadTaskOutboundPort: LoadTaskOutboundPort
+        private readonly loadTaskOutboundPort: LoadTaskOutboundPort,
+
+        @Inject(LOAD_TASK_OUTBOUND_PORT)
+        private readonly loadByDateOutboundPort: LoadByDateboundPort
     ){}
 
     async load(param : LoadTaskOPInputDto): Promise<LoadTaskInboundPortOutputDto>{
         return this.loadTaskOutboundPort.load(param);
+    }
+
+    async loadByDate(param : LoadByDateOPInputDto): Promise<LoadTaskInboundPortOutputDto>{
+        return this.loadByDateOutboundPort.loadByDate(param);
     }
 }
