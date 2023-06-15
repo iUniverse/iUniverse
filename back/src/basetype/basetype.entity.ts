@@ -26,7 +26,7 @@ export class Basetype{
         (type) => Project,
         (project) => project.baseTypes
     )
-
+    
     project! : Project;
 } 
 

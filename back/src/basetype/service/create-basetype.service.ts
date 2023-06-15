@@ -10,7 +10,7 @@ export class CreateBasetypeService implements CreateBasetypeInboundPort{
         private readonly createBasetypeOutboundPort : CreateBasetypeOutboundPort
     ){}
 
-    async createInit(data : BaseTypeInit) : Promise<ReturnBasetype>{
+    async createInit(data : BaseTypeInit) : Promise<ReturnBasetype[]>{
         return new Promise(async (resolve) => {
             const init_basetypes = await getInitBaseType(data.projectId);
 
@@ -18,7 +18,7 @@ export class CreateBasetypeService implements CreateBasetypeInboundPort{
                 this.createBasetypeOutboundPort.createInit(init_basetypes[0]),
                 this.createBasetypeOutboundPort.createInit(init_basetypes[1]),
                 this.createBasetypeOutboundPort.createInit(init_basetypes[2]),
-            ])
+            ]).then((result : ReturnBasetype[]) => resolve(result))
         })
 
         
