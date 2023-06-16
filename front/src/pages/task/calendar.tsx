@@ -10,7 +10,7 @@ export default function Calendar(){
                 <Days></Days>
             </div>
             <div className={styles.calendar__box}>
-                <Weeks></Weeks>
+                    <Weeks />
             </div>
         </div>
     )

@@ -26,7 +26,7 @@ export default function CalendarView(props:any){ //프로젝트 정보 가져올
                     <span>{`${calendarRange.getMonth()+1}월`}</span>
                     <button onClick={moveNextMonth}>&gt;</button>
                 </div>
-                <Calendar></Calendar>
+                    <Calendar />
            </div>
         </>
     )

@@ -2,23 +2,24 @@ import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 import { DateInfo } from "./Weeks";
 import { taskItemsState, TaskItem, isSameDate } from "../../state/TaskState";
 import styles from "../../styles/Calendar.module.css";
-import { ReactNode, use, useCallback, useEffect, useMemo, useState } from "react";
+import React, { ReactNode, use, useCallback, useEffect, useMemo, useState } from "react";
 import { calendarCellState } from "src/state/CalendarState";
 
 export default function TaskCell({number, date}:DateInfo){
     const maxTaskCount = 4;
-    const [taskItems, setTaskItems] = useRecoilState(taskItemsState(date));
     const [isMoreTask, setIsMoreTask] = useState(false);
-    
-    const taskList = useMemo(()=>{
-        const newTaskList:ReactNode[] = [];
-        for (let i=0; i< taskItems.length; i++){
-            const props = {taskItems: {...taskItems[i]}, cellDate: date, index: i}
-            newTaskList.push(<Task key={`taskItem_${number}_${i}`} {...props} ></Task>)            
-        }
 
-        return newTaskList;
-    }, [taskItems]);
+    
+    // const taskList = useMemo(()=>{
+    //     const newTaskList:ReactNode[] = [];
+    //     for (let i=0; i< taskItems.length; i++){
+    //         const props = {taskItems: {...taskItems[i]}, cellDate: date, index: i}
+    //         newTaskList.push(<Task key={`taskItem_${number}_${i}`} {...props} ></Task>)            
+    //     }
+
+    //     return newTaskList;
+    // }, [taskItems]);
+    const taskList = <></>;
 
     return (
         <div className={`${styles.task__container} ${styles.cell}`}>
@@ -29,31 +30,15 @@ export default function TaskCell({number, date}:DateInfo){
 
 const Task = ({cellDate, taskItems, index}:{taskItems: TaskItem, cellDate: Date, index: number}) =>{
     const {name, startDate, dueDate} = taskItems;
-    
-    const currentCalendarCell = useRecoilValue(calendarCellState(cellDate))[index];
-    //태스크 일정표시를 위한 정보를 가져옴.
-    const nextDate = new Date(cellDate.getFullYear(), cellDate.getMonth(), cellDate.getDate()+1);
-    const setNextCalendarCell = useSetRecoilState (calendarCellState(nextDate));
-
-    //해당 번째에 이미 일정표시가 되어있다면
-    if(currentCalendarCell != 0){
-        setNextCalendarCell((cell: number[])=> setCalendarCell(cell, index, currentCalendarCell-1))
-        return <div className={styles.task__item} style = {{backgroundColor: 'white'}}></div>;
-    }
 
     const taskStyle = useMemo(()=>{
 
         if(!startDate || !dueDate){
-            setNextCalendarCell((cell:number[]) => setCalendarCell(cell, index, 0))
 
             return {width: 'calc(100% - 20px)'};
         }
 
         const {total, past, remaining, rate} = getPeriodInfo(startDate, dueDate, cellDate);
-
-        //현재 날짜가 시작일과 동일할 때 기간 값도 표시해야함.
-        if(past == 0) setNextCalendarCell((cell: number[])=> setCalendarCell(cell, index, total+1));
-        else setNextCalendarCell((cell: number[])=> setCalendarCell(cell, index, remaining))
         
         return {width: `calc((100% * ${rate}) - 20px)`};
 

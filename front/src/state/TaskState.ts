@@ -1,5 +1,6 @@
 import { atom, atomFamily, selector } from "recoil"
-
+import router from 'next/router';
+import { calendarInfoState } from "./CalendarState";
 
 export interface TaskItem {
     readonly id: number,
@@ -17,57 +18,17 @@ export interface TaskItem {
     projectId?: number;
 }
 
-const taskInfo2:TaskItem[] = [
-    {
-        id: 1,
-        name: '태스크1111',
-        createDate: new Date('2023-06-01'),
-        startDate: new Date('2023-06-11'),
-        dueDate: new Date('2023-06-22')
-    },
-    {
-        id: 2,
-        name: '태스크22222',
-        createDate: new Date('2023-06-16')
-    },
-    {
-        id: 3,
-        name: '태스크3333',
-        createDate: new Date('2023-06-25'),
-        startDate: new Date('2023-06-14'),
-        dueDate: new Date('2023-07-01')
-    },
-    {
-        id: 4,
-        name: '태스크4444',
-        createDate: new Date('2023-06-25')
-    },
-    {
-        id: 5,
-        name: '태스크5555',
-        createDate: new Date('2023-06-25')
-    },
-    {
-        id: 6,
-        name: '태스크6666',
-        createDate: new Date('2023-06-25')
-    },
-]
-
-export const taskItemsState = atomFamily<TaskItem[]|[], Date>({
+export const taskItemsState = selector<TaskItem[]>({
     key: 'taskItemsState',
-    default: (date)=>{
-        return taskInfo2.filter((v)=> {
-            if (v.startDate && v.dueDate) 
-                return isSameDate(v.startDate, date) || 
-                        (date.getDay() == 0 &&
-                        (isSameDate(v.dueDate, date) || 
-                        (v.startDate < date && date < v.dueDate)));
+    get: async ({get})=>{
+        const response = await fetch(
+            `http://localhost:3500/iuni_task/search/date/${get(calendarInfoState)}`
+        )
+        const taskItems = await response.json();
 
-            return isSameDate(v.createDate, date);
-        })
+        return taskItems;
     }
-})
+});
 
 export const isSameDate = (date1:Date, date2:Date) : boolean =>{
     return date1.getFullYear() === date2.getFullYear()

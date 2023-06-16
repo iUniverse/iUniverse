@@ -21,10 +21,9 @@ export class GetTaskController {
             console.log(e)
             throw e;
         }
-
     }
 
-    @Get('/searchByDate/:firstDate')
+    @Get('/search/date/:firstDate')
     async loadByDate(@Param() date: LoadByDateIPInputDto): Promise<LoadTaskInboundPortOutputDto> {
         try {
             return this.loadByDateInboundPort.loadByDate(date);
