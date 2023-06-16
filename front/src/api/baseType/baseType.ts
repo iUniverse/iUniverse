@@ -1,4 +1,4 @@
-const url = 'http://localhost:3500/iuni_base_type';
+const url = 'http://localhost:3500/iuni_basetype';
 
 /* 기본 baseType값 생성 */
 export async function initCreateBaseType(){
@@ -18,6 +18,23 @@ export async function initCreateBaseType(){
     }
 }
 
+async function initCheck(id : number) : Promise<any>{
+    try{
+        console.log(id);
+        const response = await fetch(url+`/init/${id}`, {
+            method : 'GET',
+            cache : 'no-cache',
+        })
+        return response.json();
+    } catch(e){
+        throw(e);
+    }
+}
+
+export async function initBaseTypeCheck(id : number){
+    const result = await initCheck(id);
+    console.log(result);    
+}
 /* baseType값 생성 */
 export async function createBaseType(){
     try{

@@ -7,6 +7,7 @@ import SideMenu from "./sideMenu";
 import { Project } from "pages/project";
 import ProjectDetail from "./projectDetail";
 import Setting from "./setting";
+import { initBaseTypeCheck } from "api/baseType/baseType";
 
 interface ProjectCategory {
     [key: string]: string
@@ -103,6 +104,7 @@ export default function Task({ }: any) { //태스크 정보를 가지고 올 예
             const return_value = await getCurrentProject();
             setCurrentProject(() => return_value);
             loadTaskByProjectId(return_value.id);
+            initBaseTypeCheck(return_value.id);
         }
         initProject();
 
@@ -111,6 +113,8 @@ export default function Task({ }: any) { //태스크 정보를 가지고 올 예
             setProjects(() => return_value);
         }
         loadMyProject();
+
+        
     }, [])
 
     return (

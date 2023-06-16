@@ -2,7 +2,8 @@ import { CustomRepository } from "src/typeorm-ex.decorator";
 import { Repository } from "typeorm";
 import { Basetype } from "./basetype.entity";
 import { BasetypeInit } from "./dto/create-basetype.dto";
-import { CheckInit } from "./inbound-port/find-basetype.inbound-port";
+import { CheckInit,  ReturnCheckInit} from "./dto/find-basetype.dto";
+
 
 @CustomRepository(Basetype)
 export class BasetypeRepository extends Repository<Basetype>{
@@ -10,8 +11,9 @@ export class BasetypeRepository extends Repository<Basetype>{
         return await this.save(data);
     }
 
-    async CheckInit(data : CheckInit) : Promise<boolean>{
+    async findCheckInit(data : any) : Promise<ReturnCheckInit>{
         try{
+            console.log(data);
             const result = await this.findOne({
                 where : {
                     projectId : data.projectId,
@@ -20,9 +22,9 @@ export class BasetypeRepository extends Repository<Basetype>{
             });
 
             if(result === null)
-                return false;
+                return { 'name' : data.name, 'result' : false }
             else 
-                return true;
+                return { 'name' : data.name, 'result' : true}
         }
         catch(e){
             throw e;

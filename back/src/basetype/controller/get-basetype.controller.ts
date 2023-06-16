@@ -1,5 +1,5 @@
 import { Controller, Get, Inject, Param, UsePipes, ValidationPipe } from "@nestjs/common";
-import { CheckInit, FIND_BASETYPE_INBOUND_PORT, FindBasetypeInboundPort } from "../inbound-port/find-basetype.inbound-port";
+import { FIND_BASETYPE_INBOUND_PORT, FindBasetypeInboundPort, ReturnCheckInit } from "../inbound-port/find-basetype.inbound-port";
 
 @Controller('iuni_basetype')
 export class GetBasetypeController{
@@ -7,10 +7,16 @@ export class GetBasetypeController{
         @Inject(FIND_BASETYPE_INBOUND_PORT)
         private readonly findBasetypeInboundPort : FindBasetypeInboundPort
     ){}
-    
+
     @Get('/init/:projectId')
-    @UsePipes(ValidationPipe)
-    async checkInit(@Param() param : CheckInit) : Promise<boolean>{
-        return this.findBasetypeInboundPort.checkInit(param);
+    async checkInit(@Param('projectId') param : number) : Promise<ReturnCheckInit[]>{
+        try{
+            console.log("----------------dja-------------");
+            console.log(param);
+            return this.findBasetypeInboundPort.checkInit(param);
+        }
+        catch(e){
+            throw e;
+        }       
     }
 }

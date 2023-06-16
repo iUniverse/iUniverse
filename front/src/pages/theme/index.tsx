@@ -10,6 +10,7 @@ import IuniAlert from 'pages/layout/iuniAlert';
 import { throttle } from 'lodash';
 import IuniSelect from 'pages/layout/iuniSelect';
 
+
 export interface ThemeInfo {
     id: number;
     name: string;
@@ -35,7 +36,6 @@ export default function Index() {
     /* 테마 선택 박스 정보 */
     const settingThemeSelectBox = async () => {
         const my_theme_list = await loadMyThemeInfo(['name', 'id']);
-
         for (const my_theme of my_theme_list) {
             setThemeInfo(prev => {
                 return [...prev, { 'id': my_theme.id, 'name': my_theme.name }]
@@ -63,7 +63,6 @@ export default function Index() {
 
     /* ---- useEffect start----  */
     useEffect(() => {
-        console.log(iuniAlertVal);
         if(iuniAlertVal === true){
             const update_data = {
                 'id' : themeId,  
@@ -82,6 +81,8 @@ export default function Index() {
             window.removeEventListener("resize", resizeObserver);
         })
     });
+
+    
     /* ---- useEffect end----  */
     
     const customModalStyle = {
