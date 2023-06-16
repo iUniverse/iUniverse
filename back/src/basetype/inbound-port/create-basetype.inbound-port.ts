@@ -1,6 +1,7 @@
 
 export class BaseTypeInit{
     readonly projectId : number;
+    readonly name : string;
 }
 
 export class ReturnBaseType{
@@ -14,6 +15,6 @@ export class ReturnBaseType{
 export const CREATE_BASETYPE_INBOUND_PORT = 'CREATE_BASETYPE_INBOUND_PORT' as const;
 
 export interface CreateBasetypeInboundPort{
-    createInit(data : BaseTypeInit) : Promise<ReturnBaseType[]>;
+    createInit(data : BaseTypeInit) : Promise<ReturnBaseType>;
 }
 

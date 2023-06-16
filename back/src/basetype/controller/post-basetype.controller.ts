@@ -9,9 +9,9 @@ export class PostBaseTypeController{
     ){}
 
     @Post('/init')
-    async createInit(@Body() project : BaseTypeInit) : Promise<ReturnBaseType[]>{
+    async createInit(@Body() initData : BaseTypeInit) : Promise<ReturnBaseType>{
         try{
-            return await this.createBaseTypeInboundPort.createInit(project);
+            return await this.createBaseTypeInboundPort.createInit(initData);
         }
         catch(e){
             console.log(e);

@@ -27,6 +27,9 @@ export function getInitBaseType(projectId : number) : BaseTypeInit[]{
     for(const basetype of init_basetypes){
         basetype['projectId'] = projectId
     }
-
     return init_basetypes;
+}
+
+export async function findInitBaseType(data : any) : Promise<BaseTypeInit> {
+    return await init_basetypes.find(el => el.name === data.name);
 }
