@@ -14,17 +14,24 @@ export default function Weeks(){
     const firstDate = useRecoilValue(calendarInfoState);
     console.log("11111111")
     // const firstDate = new Date();
-    const taskItems = useRecoilValueLoadable(taskItemsState);
-    switch (taskItems.state){
-        case 'hasValue':
-            console.log('taskss', taskItems.contents)
-            return <div>{taskItems.contents.length}</div>;
-        case 'loading':
-            console.log('loading')
-            return <div>Loading...</div>;
-        case 'hasError':
-            throw taskItems;
-    }
+    const taskItems = useRecoilValue(taskItemsState);
+    console.log(2222222);
+    return (
+        <div style={{'width': '20px', 'height': '20px' ,'backgroundColor': 'red'}}>
+            {taskItems.length}
+        </div>
+    );
+    // const taskItems = useRecoilValueLoadable(taskItemsState);
+    // switch (taskItems.state){
+    //     case 'hasValue':
+    //         console.log('taskss', taskItems.contents)
+    //         return <div>{taskItems.contents.length}</div>;
+    //     case 'loading':
+    //         console.log('loading')
+    //         return <div>Loading...</div>;
+    //     case 'hasError':
+    //         throw taskItems;
+    // }
     // let weeks = [];
 
     // console.log('taskds', taskItems);
