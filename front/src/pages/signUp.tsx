@@ -6,7 +6,7 @@ import SignUpSecond from "containers/signUp/second/SignUpSecond";
 const inter = Inter({ subsets: ['latin'] })
 
 export default function SignUp() {
-    let page = 1;
+    let page = 0;
     return (
         <>
             <main className={signUpStyle.sign_up}>

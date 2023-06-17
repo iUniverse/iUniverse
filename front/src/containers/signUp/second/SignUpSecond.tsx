@@ -9,7 +9,8 @@ export default function SignUpSecond() {
 
             </article>
             <article className={signUpStyle.text}>
-                <span className={`t_2 ${signUpStyle.space}`}>회원가입이 거의 끝나가요.</span>
+                <span className={`t_2 `}>회원가입이</span>
+                <span className={`t_2 ${signUpStyle.space}`}>거의 끝나가요.</span>
                 <span className={'b_2'}>더욱 편리한 서비스 이용을 위해</span>
                 <span className={'b_2'}>개인정보를 입력해주세요.</span>
             </article>
