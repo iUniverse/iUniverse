@@ -3,7 +3,7 @@ import { BaseEntity, Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, On
 import { Basetype } from "../basetype/basetype.entity";
 
 @Entity()
-export class SubType{
+export class Subtype{
     @PrimaryGeneratedColumn()
     id: number;
 

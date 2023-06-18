@@ -7,8 +7,16 @@ import { CheckInit,  ReturnCheckInit} from "./dto/find-basetype.dto";
 
 @CustomRepository(Basetype)
 export class BasetypeRepository extends Repository<Basetype>{
-    async Create(data : BasetypeInit) : Promise<Basetype>{
-        return await this.save(data);
+    
+    async CreateBaseType(data : BasetypeInit) : Promise<Basetype>{
+        try{
+            const result = await this.save(data);
+            return result;
+        }
+        catch(e){
+            throw(e);
+        }
+        
     }
 
     async findCheckInit(data : any) : Promise<ReturnCheckInit>{

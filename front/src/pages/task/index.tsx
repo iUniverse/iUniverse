@@ -105,6 +105,7 @@ export default function Task({ }: any) { //태스크 정보를 가지고 올 예
             setCurrentProject(() => return_value);
             loadTaskByProjectId(return_value.id);
             initBaseTypeCheck(return_value.id);
+            
         }
         initProject();
 

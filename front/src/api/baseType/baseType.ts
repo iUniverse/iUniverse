@@ -1,23 +1,33 @@
+import { initCreateBaseSubtype } from "api/baseSubType/baseSubtype";
+
 const url = 'http://localhost:3500/iuni_basetype';
 
+
+
+
 /* 기본 baseType값 생성 */
-export async function initCreateBaseType(projectId : number, basetypeName : string){
+async function initCreateBaseType(projectId : number, basetypeName : string){
     try{
-        const response = await fetch(url+'/init', {
+        console.log(projectId);
+        console.log(basetypeName);
+        const data = {
+            'projectId' : projectId,
+            'name' : basetypeName
+        };
+        const response = await fetch(url+`/init`, {
             method : 'POST',
             cache : 'no-cache',
             headers : {
                 'Accept' : 'application/json',
                 'Content-Type' : 'application/json'
             },
-            body : JSON.stringify({
-                projectId : projectId,
-                name : basetypeName
-            })
+            body : JSON.stringify(data)
         })
+        console.log(response);
         return response.json();
     }
     catch(e){
+        console.log(e);
         throw(e);
     }
 }
@@ -35,32 +45,40 @@ async function initCheck(id : number) : Promise<any>{
     }
 }
 
+
 export async function initBaseTypeCheck(id : number){
-    let result = await initCheck(id);
-    result = result.filter((e : any) => e.result === false);
-    console.log(result);
-    for(const data of result){
-        initCreateBaseType(id, data.name)
-    }
-    console.log('완료');
-    return 'complete';
-}
-/* baseType값 생성 */
-export async function createBaseType(){
     try{
-        const response = await fetch(url, {
-            method : 'POST',
-            cache : 'no-cache',
-            headers : {
-                'Accept' : 'application/json',
-                'Content-Type' : 'application/json'
-            },
-            body : JSON.stringify({
-                
-            })
-        })
+        let result = await initCheck(id);
+        result = result.filter((e : any) => e.result === false);    
+        for(const data of result){
+            const basetype = await initCreateBaseType(id, data.name);
+            await initCreateBaseSubtype(basetype);
+        }
+
+        
+        return 'complete';
     }
     catch(e){
-        throw(e);
+        return 'error';
     }
 }
+
+/* baseType값 생성 */
+// export async function createBaseType(){
+//     try{
+//         const response = await fetch(url, {
+//             method : 'POST',
+//             cache : 'no-cache',
+//             headers : {
+//                 'Accept' : 'application/json',
+//                 'Content-Type' : 'application/json'
+//             },
+//             body : JSON.stringify({
+                
+//             })
+//         })
+//     }
+//     catch(e){
+//         throw(e);
+//     }
+// }

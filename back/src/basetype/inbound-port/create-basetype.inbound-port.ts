@@ -1,6 +1,9 @@
+import { IsNotEmpty } from "class-validator";
 
 export class BaseTypeInit{
+    @IsNotEmpty()
     readonly projectId : number;
+    @IsNotEmpty()
     readonly name : string;
 }
 

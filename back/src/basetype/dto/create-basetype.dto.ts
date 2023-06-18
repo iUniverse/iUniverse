@@ -1,7 +1,7 @@
 export class BasetypeInit{
-    readonly name : string;
-    readonly description : string;
-    readonly projectId : number;
+    name : string;
+    description : string;
+    projectId : number;
 }
 
 

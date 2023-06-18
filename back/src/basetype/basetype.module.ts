@@ -1,6 +1,6 @@
 import { Module } from "@nestjs/common";
 import { BasetypeRepository } from "./basetype.repository";
-import { PostBaseTypeController } from "./controller/post-basetype.controller";
+import { PostBasetypeController } from "./controller/post-basetype.controller";
 import { TypeOrmExModule } from "src/typeorm-ex.module";
 import { CREATE_BASETYPE_INBOUND_PORT } from "./inbound-port/create-basetype.inbound-port";
 import { CreateBasetypeService } from "./service/create-basetype.service";
@@ -16,7 +16,7 @@ import { FindBasetypeService } from "./service/find-basetype.service";
     imports : [
         TypeOrmExModule.forCustomRepository([BasetypeRepository])
     ],
-    controllers : [PostBaseTypeController, GetBasetypeController],
+    controllers : [PostBasetypeController, GetBasetypeController],
     providers : [
         {
             provide : CREATE_BASETYPE_INBOUND_PORT,

@@ -11,8 +11,6 @@ export class GetBasetypeController{
     @Get('/init/:projectId')
     async checkInit(@Param('projectId') param : number) : Promise<ReturnCheckInit[]>{
         try{
-            console.log("----------------dja-------------");
-            console.log(param);
             return this.findBasetypeInboundPort.checkInit(param);
         }
         catch(e){
