@@ -1,5 +1,5 @@
 import { BaseEntity, Column, CreateDateColumn, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
-import { SubType } from '../subtype/subtype.entity';
+import { Subtype } from '../subtype/subtype.entity';
 import { Project } from "src/project/project.entity";
 
 @Entity()
@@ -16,8 +16,8 @@ export class Basetype{
     @CreateDateColumn()
     createDate : Date;
 
-    @OneToMany(() => SubType, (subtype) => subtype.baseType)
-    subtypes : SubType[];
+    @OneToMany(() => Subtype, (subtype) => subtype.basetype)
+    subtypes : Subtype[];
 
     @Column()
     projectId : number;

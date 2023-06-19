@@ -9,6 +9,7 @@ import { ThemeModule } from './theme/theme.module';
 import { IuniCatModule } from './iunicat/iunicat.module';
 import { ProjectThemeModule } from './project-theme-map/project-theme.module';
 import { BasetypeModule } from './basetype/basetype.module';
+import { SubtypeModule } from './subtype/subtype.module';
 
 @Module({
   imports: [
@@ -18,7 +19,8 @@ import { BasetypeModule } from './basetype/basetype.module';
     IuniCatModule,
     ThemeModule,
     ProjectThemeModule,
-    BasetypeModule
+    BasetypeModule,
+    SubtypeModule
   ],
   controllers: [AppController],
   providers: [AppService]

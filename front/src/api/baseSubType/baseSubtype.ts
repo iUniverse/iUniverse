@@ -1,4 +1,4 @@
-const url = 'http://localhost:3500/iuni_base_subtype';
+const url = 'http://localhost:3500/iuni_subtype';
 //기본 baseSubType값 생성
 //추후 baseSubType 쪽으로 옮길 예정
 export async function initCreateBaseSubtype(basetype : any){

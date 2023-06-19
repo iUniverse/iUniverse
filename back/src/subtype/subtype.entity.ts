@@ -1,5 +1,5 @@
 // import { ProjectMember } from "../projectmember/projectmember.entity";
-import { BaseEntity, Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
+import { Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 import { Basetype } from "../basetype/basetype.entity";
 
 @Entity()
@@ -23,14 +23,14 @@ export class Subtype{
     createDate : Date;
 
     @Column()
-    baseTypeId : number;
+    basetypeId : number;
 
     @Column()
     orderNum : number;
 
-    @ManyToOne(() => Basetype, (baseType) => baseType.subtypes)
+    @ManyToOne(() => Basetype, (basetype) => basetype.subtypes)
     @JoinColumn()
-    baseType : Basetype;
+    basetype : Basetype;
 
     // @OneToMany(type => ProjectMember, projectMember => projectMember.subType)
     // projectMembers : ProjectMember[];

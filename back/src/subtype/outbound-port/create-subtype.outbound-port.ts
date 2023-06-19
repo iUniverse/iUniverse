@@ -14,7 +14,7 @@ export type ReturnSubtype = {
     readonly color : string;
     readonly fontColor : string;
     readonly createDate : Date;
-    readonly baseTypeId : number;
+    readonly basetypeId : number;
     readonly orderNum : number;
 }
 
