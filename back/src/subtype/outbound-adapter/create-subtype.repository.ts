@@ -12,5 +12,5 @@ export class CreateSubtypeRepository implements CreateSubtypeOutboundPort{
 
     async createInit(data : SubtypeInit) : Promise<ReturnSubtype>{
         return await this.createSubtypeRepo.CreateSubtype(data);
-    }
+    } 
 }
