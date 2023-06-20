@@ -1,5 +1,5 @@
 import { Inject } from "@nestjs/common";
-import { FindBasetypeInboundPort } from "../inbound-port/find-basetype.inbound-port";
+import { Basetype, FindBasetypeInboundPort } from "../inbound-port/find-basetype.inbound-port";
 import { FIND_BASETYPE_OUTBOUND_PORT, FindBasetypeOutboundPort, ReturnCheckInit } from "../outbound-port/find-basetype.outbound-port";
 import { getInitBaseType } from "../module/basetype.init";
 
@@ -9,6 +9,9 @@ export class FindBasetypeService implements FindBasetypeInboundPort{
         private readonly findBasetypeOutboundPort : FindBasetypeOutboundPort
     ){}
     
+    async loadProjectBasetype(data: number): Promise<Basetype[]> {
+        return this.findBasetypeOutboundPort.loadProjectBasetype(data);
+    }
     /* default 값이 있는지 확인 */
     async checkInit(param : number) : Promise<ReturnCheckInit[]>{
         return new Promise(async (resolve) => {

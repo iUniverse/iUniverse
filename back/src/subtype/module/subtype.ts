@@ -3,7 +3,7 @@ type ReturnSubtypeInit = {
     description; string;
     color: string;
     fontColor: string;
-    baseTypeId: number;
+    basetypeId: number;
     orderNum: number;
 }
 
@@ -19,7 +19,7 @@ const init_subtypes = {
             'description': '프로젝트의 관리자',
             'color': '',
             'fontColor': '',
-            'baseTypeId': 0,
+            'basetypeId': 0,
             'orderNum': 0,
         },
         {
@@ -27,7 +27,7 @@ const init_subtypes = {
             'description': '프로젝트의 매니저',
             'color': '',
             'fontColor': '',
-            'baseTypeId': 0,
+            'basetypeId': 0,
             'orderNum': 1,
         },
         {
@@ -35,7 +35,7 @@ const init_subtypes = {
             'description': '프로젝트의 참여자',
             'color': '',
             'fontColor': '',
-            'baseTypeId': 0,
+            'basetypeId': 0,
             'orderNum': 3,
         }
     ],
@@ -45,7 +45,7 @@ const init_subtypes = {
             'description': '프로젝트 대기 상태',
             'color': '',
             'fontColor': '',
-            'baseTypeId': 0,
+            'basetypeId': 0,
             'orderNum': 0,
         },
         {
@@ -53,7 +53,7 @@ const init_subtypes = {
             'description': '프로젝트 진행 상태',
             'color': '',
             'fontColor': '',
-            'baseTypeId': 0,
+            'basetypeId': 0,
             'orderNum': 1,
         },
         {
@@ -61,7 +61,7 @@ const init_subtypes = {
             'description': '프로젝트 완료 상태',
             'color': '',
             'fontColor': '',
-            'baseTypeId': 0,
+            'basetypeId': 0,
             'orderNum': 2,
         }
     ],
@@ -71,7 +71,7 @@ const init_subtypes = {
             'description': '태스크 대기 상태',
             'color': '',
             'fontColor': '',
-            'baseTypeId': 0,
+            'basetypeId': 0,
             'orderNum': 0,
         },
         {
@@ -79,7 +79,7 @@ const init_subtypes = {
             'description': '태스크 진행 상태',
             'color': '',
             'fontColor': '',
-            'baseTypeId': 0,
+            'basetypeId': 0,
             'orderNum': 1,
         },
         {
@@ -87,7 +87,7 @@ const init_subtypes = {
             'description': '태스크 완료 상태',
             'color': '',
             'fontColor': '',
-            'baseTypeId': 0,
+            'basetypeId': 0,
             'orderNum': 2,
         }
     ],
@@ -97,7 +97,7 @@ const init_subtypes = {
 export async function loadInitSubType(data : SubtypeInit) : Promise<ReturnSubtypeInit[]>{
     const result = init_subtypes[data.basetypeName];
     for(const init_subtype of result){
-        init_subtype.baseTypeId = data.basetypeId;
+        init_subtype.basetypeId = data.basetypeId;
     }
     return result;
 }

@@ -48,7 +48,7 @@ export default function Task({ }: any) { //태스크 정보를 가지고 올 예
         'chart': <></>,
         'calendar': <CalendarView />,
         'project': <ProjectDetail />,
-        'setting': <Setting />
+        'setting': <Setting projectId={currentProject?.id} />
     }
 
     const getCurrentProject = async () => {

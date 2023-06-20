@@ -1,8 +1,11 @@
+import { IsNotEmpty } from "class-validator";
 import { LargeNumberLike } from "crypto";
 
 export class SubtypeInit{
-    readonly basetypeId : number;
-    readonly basetypeName : string;
+    @IsNotEmpty()
+    basetypeId : number;
+    @IsNotEmpty()
+    basetypeName : string;
 }
 
 export class ReturnSubtype{

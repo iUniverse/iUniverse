@@ -7,10 +7,10 @@ export class PostBasetypeController{
         @Inject(CREATE_BASETYPE_INBOUND_PORT)
         private readonly createBaseTypeInboundPort : CreateBasetypeInboundPort
     ){}
-    @Post('/')
-    async create(){
-        return '엄'
-    }
+    // @Post('/')
+    // async create(){
+    //     return '엄'
+    // }
 
     @Post('/init')
     @UsePipes(ValidationPipe)

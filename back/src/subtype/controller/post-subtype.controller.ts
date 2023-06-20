@@ -12,8 +12,6 @@ export class PostSubtypeController{
     @UsePipes(ValidationPipe)
     async createInit(@Body() initData : SubtypeInit) : Promise<ReturnSubtype[]>{
         try{
-            console.log('zizizizizizizizizizizizizizizizizizizizizizzi');
-            console.log(initData);
             return await this.createSubtypeInboundPort.createInit(initData);
         }
         catch(e){

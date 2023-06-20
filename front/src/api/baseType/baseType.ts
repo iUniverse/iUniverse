@@ -1,4 +1,4 @@
-import { initCreateBaseSubtype } from "api/baseSubType/baseSubtype";
+import { initCreateBaseSubtype } from "api/subtype/subtype";
 
 const url = 'http://localhost:3500/iuni_basetype';
 
@@ -32,6 +32,7 @@ async function initCreateBaseType(projectId : number, basetypeName : string){
     }
 }
 
+/* 기본 baseType 값 체크 */
 async function initCheck(id : number) : Promise<any>{
     try{
         console.log(id);
@@ -45,7 +46,7 @@ async function initCheck(id : number) : Promise<any>{
     }
 }
 
-
+/* basetype 값 체크 이후 subtype 값 체크  */
 export async function initBaseTypeCheck(id : number){
     try{
         let result = await initCheck(id);
@@ -53,13 +54,39 @@ export async function initBaseTypeCheck(id : number){
         for(const data of result){
             const basetype = await initCreateBaseType(id, data.name);
             await initCreateBaseSubtype(basetype);
-        }
-
-        
+        }        
         return 'complete';
     }
     catch(e){
         return 'error';
+    }
+}
+
+export async function findBasetypeByName( name : string, id : number){
+    try{
+        const response = await fetch(url + `/${id}/${name}`,{
+            method : 'GET',
+            cache : 'no-cache'
+        })
+        return response.json();
+    }
+    catch(e) {
+        throw e;
+    }
+}
+
+/* projectBaseType 전체 불러오기 */
+export async function loadProjectBasetype(id : number){
+    try{
+        
+        const response = await fetch(url + `/${id}`, {
+            method : 'GET',
+            cache : 'no-cache'
+        })
+        return response.json();
+    }
+    catch(e) {
+        throw e;
     }
 }
 

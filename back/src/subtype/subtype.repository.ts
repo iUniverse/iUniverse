@@ -5,6 +5,20 @@ import { SubtypeInit } from "./dto/create-subtype.dto";
 
 @CustomRepository(Subtype)
 export class SubtypeRepository extends Repository<Subtype>{
+    async loadSubtype(param : number) : Promise<Subtype[]>{
+        try{
+            const result = await this.find({
+                where : {
+                    basetypeId : param
+                }
+            });
+            return result === null ? [] : result;
+        }
+        catch(e){
+            throw e;
+        }
+    }
+    
     async CreateSubtype(data : SubtypeInit) : Promise<Subtype>{
         try{
             return await this.save(data);

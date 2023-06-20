@@ -1,5 +1,6 @@
+import { findBasetypeByName } from "api/baseType/baseType";
 import { create } from "api/task/task";
-import { Dispatch, SetStateAction, useRef } from "react";
+import { Dispatch, SetStateAction, useEffect, useRef, useState } from "react";
 
 interface Task {
     id: number;
@@ -32,6 +33,17 @@ export default function Kanban(props: Props) {
     const handleAddBtn = (type : string) => {
         addBtnList.current[0].value = type;
     }
+    const [taskStatus, setTaskStatus] = useState<any>();
+    
+    useEffect(() => {
+        const settingTaskStatus = async () => {
+            const basetype = await findBasetypeByName('태스크 상태',  props.projectId);
+            console.log(basetype);
+            //const subtype = await loadProjectSubtype(basetype.id);
+            //setTaskStatus(() => [...subtype]);
+        }
+        settingTaskStatus()
+    }, []);
 
     return (
         <div className="kanban-board-view">

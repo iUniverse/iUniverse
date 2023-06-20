@@ -3,7 +3,7 @@ export class SubtypeInit{
     readonly description : string;
     readonly color : string;
     readonly fontColor : string;
-    readonly baseTypeId : number;
+    readonly basetypeId : number;
     readonly orderNum : number;
 }
 
@@ -13,7 +13,7 @@ export class ReturnSubtype{
     readonly description : string;
     readonly color : string;
     readonly fontColor : string;
-    readonly baseTypeId : number;
+    readonly basetypeId : number;
     readonly orderNum : number;
 }
 

@@ -3,16 +3,19 @@ const url = 'http://localhost:3500/iuni_subtype';
 //추후 baseSubType 쪽으로 옮길 예정
 export async function initCreateBaseSubtype(basetype : any){
     try{
+        const data = {
+            'basetypeName' : basetype.name,
+            'basetypeId' : basetype.id
+        }
+
         const response = await fetch(url + `/init`, {
             method : 'POST',
+            cache : 'no-cache',
             headers : {
                 'Accept' : 'application/json',
                 'Content-Type' : 'application/json'
             },
-            body : JSON.stringify({
-                'basetypeName' : basetype.name,
-                'basetypeId' : basetype.id
-            })
+            body : JSON.stringify(data)
         })
         console.log(response);
         return response.json();
@@ -21,5 +24,19 @@ export async function initCreateBaseSubtype(basetype : any){
     {
         console.log(e);
         throw(e);
+    }
+}
+
+export async function loadProjectSubtype(basetypeId : number) {
+    try{
+        console.log(basetypeId);
+        const response = await fetch(url+`/${basetypeId}`, {
+            method : 'GET',
+            cache : 'no-cache'
+        });
+        return response.json();
+    }
+    catch(e) {
+        throw e;
     }
 }

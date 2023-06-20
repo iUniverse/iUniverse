@@ -6,12 +6,17 @@ import { CreateSubtypeService } from "./service/create-subtype.service";
 import { CREATE_SUBTYPE_INBOUND_PORT } from "./inbound-port/create-subtype.inbound-port";
 import { CREATE_SUBTYPE_OUTBOUND_PORT } from "./outbound-port/create-subtype.outbound-port";
 import { CreateSubtypeRepository } from "./outbound-adapter/create-subtype.repository";
+import { GetSubtypeController } from "./controller/get-subtype.controller";
+import { FIND_SUBTYPE_INBOUND_PORT } from "./inbound-port/find-subtype.inbound-port";
+import { FindSubtypeService } from "./service/find-subtype.service";
+import { FIND_SUBTYPE_OUTBOUND_PORT } from "./outbound-port/find-subtype.outbound-port";
+import { FindSubtypeRepository } from "./outbound-adapter/find-subtype.repository";
 
 @Module({
     imports : [
         TypeOrmExModule.forCustomRepository([SubtypeRepository])
     ],
-    controllers : [PostSubtypeController],
+    controllers : [GetSubtypeController, PostSubtypeController],
     providers : [
         {
             provide : CREATE_SUBTYPE_INBOUND_PORT,
@@ -20,6 +25,14 @@ import { CreateSubtypeRepository } from "./outbound-adapter/create-subtype.repos
         {
             provide : CREATE_SUBTYPE_OUTBOUND_PORT,
             useClass : CreateSubtypeRepository
+        },
+        {
+            provide : FIND_SUBTYPE_INBOUND_PORT,
+            useClass : FindSubtypeService
+        },
+        {
+            provide : FIND_SUBTYPE_OUTBOUND_PORT,
+            useClass : FindSubtypeRepository
         }
     ]
 })
