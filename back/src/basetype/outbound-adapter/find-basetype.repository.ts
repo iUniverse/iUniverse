@@ -7,7 +7,16 @@ export class FindBasetypeRepository implements FindBasetypeOutboundPort{
     constructor(
         private readonly findBasetypeRepo : BasetypeRepository
     ){}
-    
+    async findBasetypeByName(projectId: number, name: string): Promise<Basetype> {
+        try{
+            return await this.findBasetypeRepo.findBasetypeName(projectId, name);
+        }
+        catch(e){
+            console.log(e);
+            throw e;
+        }
+    }
+
     async loadProjectBasetype(param: number): Promise<Basetype[]> {
         try{
             return await this.findBasetypeRepo.loadProjectBasetype(param);
@@ -17,6 +26,7 @@ export class FindBasetypeRepository implements FindBasetypeOutboundPort{
             throw e;
         }
     }
+
     async checkInit(data : CheckInit) : Promise<ReturnCheckInit>{
         try{
             console.log(data);

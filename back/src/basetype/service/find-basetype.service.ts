@@ -24,7 +24,7 @@ export class FindBasetypeService implements FindBasetypeInboundPort{
         })
     }
 
-    async loadMyBaseType() {
-
+    async findBasetypeByName(projectId : number, name : string) : Promise<Basetype> {
+        return this.findBasetypeOutboundPort.findBasetypeByName(projectId, name)
     }
 }

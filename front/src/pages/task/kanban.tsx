@@ -1,6 +1,8 @@
 import { findBasetypeByName } from "api/baseType/baseType";
+import { loadProjectSubtype } from "api/subtype/subtype";
 import { create } from "api/task/task";
 import { Dispatch, SetStateAction, useEffect, useRef, useState } from "react";
+import { StringLiteral } from "typescript";
 
 interface Task {
     id: number;
@@ -18,6 +20,17 @@ interface Task {
     typeId: number | null;
 }
 
+interface Subtype {
+    id : number;
+    name : string;
+    description : string;
+    color : string;
+    fontColor : string;
+    createDate : Date;
+    basetypeId : number;
+    orderNum : number;
+}
+
 interface Props {
     projectId: number;
     tasks: Task[];
@@ -25,6 +38,7 @@ interface Props {
 }
 
 export default function Kanban(props: Props) {
+    
     const addTask = async () => {
         const result = await create(props.projectId, '새로운 태스크');
         props.setCurrentTaskContent(prev => [result, ...prev]);
@@ -33,21 +47,41 @@ export default function Kanban(props: Props) {
     const handleAddBtn = (type : string) => {
         addBtnList.current[0].value = type;
     }
-    const [taskStatus, setTaskStatus] = useState<any>();
+    const [taskStatus, setTaskStatus] = useState<Subtype[]>([]);
     
     useEffect(() => {
         const settingTaskStatus = async () => {
-            const basetype = await findBasetypeByName('태스크 상태',  props.projectId);
-            console.log(basetype);
+            console.log(props);
+            if(props.projectId !== undefined){
+                const basetype = await findBasetypeByName('태스크 상태',  props.projectId);
+                if(basetype === 'noData'){
+                    return;
+                }
+
+                const subtype = await loadProjectSubtype(basetype.id);
+                console.log(subtype);
+                setTaskStatus(() => [...subtype]);
+            }
+
             //const subtype = await loadProjectSubtype(basetype.id);
             //setTaskStatus(() => [...subtype]);
         }
         settingTaskStatus()
-    }, []);
+    }, [props.projectId]);
 
     return (
         <div className="kanban-board-view">
-            <div className="kanban-board my-duty">
+            <>
+                {
+                    taskStatus.map((val, index) => (
+                        <div className="kanban-board" key={`kanban-board_${val.id}_${index}`}>
+
+                        </div>
+                    ))
+                } 
+            </>
+
+            {/* <div className="kanban-board my-duty">
                 <div className="kanban-board-header">
                     <div className="kanban-task-category">
                         할 일
@@ -100,7 +134,7 @@ export default function Kanban(props: Props) {
 
             <div className="kanban-board complete">
 
-            </div>
+            </div> */}
 
 
 

@@ -31,7 +31,7 @@ export default function Task({ }: any) { //태스크 정보를 가지고 올 예
     const [projectCategory, setProjectCategory] = useState<string | undefined>();
 
     const [editProjectTitle, setEditProjectTitle] = useState<boolean>(false);
-    const [currentTaskType, setCurrentTaskType] = useState<string>('board');
+    const [currentTaskType, setCurrentTaskType] = useState<string>('calendar');
 
     const TASK_TYPE = [
         { 'title': 'board', 'name': '보드' },
@@ -42,7 +42,8 @@ export default function Task({ }: any) { //태스크 정보를 가지고 올 예
     ] as const
 
     const TASK_TYPE_PAGE: TaskTypePage = {
-        'board': <Kanban projectId={currentProject?.id}
+        'board': <Kanban 
+            projectId={currentProject?.id}
             tasks={currentTaskContent}
             setCurrentTaskContent={setCurrentTaskContent} />,
         'chart': <></>,

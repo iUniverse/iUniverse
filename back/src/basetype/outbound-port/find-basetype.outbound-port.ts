@@ -19,5 +19,8 @@ export const FIND_BASETYPE_OUTBOUND_PORT = 'FIND_BASETYPE_OUTBOUND_PORT' as cons
 
 export interface FindBasetypeOutboundPort{
     checkInit(param : CheckInit) : Promise<ReturnCheckInit>
+    
     loadProjectBasetype(param : number) : Promise<Array<Basetype>>
+    
+    findBasetypeByName(projectId : number, name : string) : Promise<Basetype>
 }

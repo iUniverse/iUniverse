@@ -35,7 +35,6 @@ async function initCreateBaseType(projectId : number, basetypeName : string){
 /* 기본 baseType 값 체크 */
 async function initCheck(id : number) : Promise<any>{
     try{
-        console.log(id);
         const response = await fetch(url+`/init/${id}`, {
             method : 'GET',
             cache : 'no-cache',
@@ -49,7 +48,9 @@ async function initCheck(id : number) : Promise<any>{
 /* basetype 값 체크 이후 subtype 값 체크  */
 export async function initBaseTypeCheck(id : number){
     try{
+        console.log(id);
         let result = await initCheck(id);
+        
         result = result.filter((e : any) => e.result === false);    
         for(const data of result){
             const basetype = await initCreateBaseType(id, data.name);
@@ -62,13 +63,22 @@ export async function initBaseTypeCheck(id : number){
     }
 }
 
-export async function findBasetypeByName( name : string, id : number){
+export async function findBasetypeByName(name : string, id : number){
     try{
         const response = await fetch(url + `/${id}/${name}`,{
             method : 'GET',
             cache : 'no-cache'
         })
-        return response.json();
+
+        if(!Object.keys(response).length){
+            return 'noData';
+        } else {
+            return response.json()
+        }
+
+        // const tt = await response.json();
+        // console.log(tt);
+        return tt;
     }
     catch(e) {
         throw e;
