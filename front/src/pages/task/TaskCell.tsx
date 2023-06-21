@@ -1,13 +1,31 @@
-import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
+import { useRecoilState, useRecoilValue, useRecoilValueLoadable, useSetRecoilState } from "recoil";
 import { DateInfo } from "./Weeks";
 import { taskItemsState, TaskItem, isSameDate } from "../../state/TaskState";
 import styles from "../../styles/Calendar.module.css";
 import React, { ReactNode, use, useCallback, useEffect, useMemo, useState } from "react";
-import { calendarCellState } from "src/state/CalendarState";
 
 export default function TaskCell({number, date}:DateInfo){
     const maxTaskCount = 4;
     const [isMoreTask, setIsMoreTask] = useState(false);
+    const taskItems = useRecoilValueLoadable(taskItemsState);
+    const [hydrated, setHydrated] = useState(false);
+
+    useEffect(()=>{
+        setHydrated(true);
+    }, [])
+
+    if(hydrated){
+        switch (taskItems.state){
+            case 'hasValue':
+                return <div className={`${styles.task__container} ${styles.cell}`}>{taskItems.contents.length}</div>
+            case 'loading':
+                return <div>Loading...</div>;
+            case 'hasError':
+                throw taskItems;
+        }
+    }
+
+    return <div>Loading... </div>
 
     
     // const taskList = useMemo(()=>{
@@ -37,10 +55,8 @@ const Task = ({cellDate, taskItems, index}:{taskItems: TaskItem, cellDate: Date,
 
             return {width: 'calc(100% - 20px)'};
         }
-
-        const {total, past, remaining, rate} = getPeriodInfo(startDate, dueDate, cellDate);
         
-        return {width: `calc((100% * ${rate}) - 20px)`};
+        return {width: `calc(100% - 20px)`};
 
     },[startDate, dueDate]);
     
@@ -51,33 +67,3 @@ const Task = ({cellDate, taskItems, index}:{taskItems: TaskItem, cellDate: Date,
         </div>
     );
 }
-
-const setCalendarCell = (cell:number[], index: number, remaining:number)=>{
-    const newNextCell = [...cell];
-    newNextCell[index] = remaining;
-    return newNextCell;
-}
-
-//기간 계산하는 함수
-const calcTaskPeriod = (start:Date, due:Date)=>{
-    const date1 = new Date(start.getFullYear(), start.getMonth(), start.getDate())
-    const date2 = new Date(due.getFullYear(), due.getMonth(), due.getDate());
-  
-    const diffDate = Math.abs(date1.getTime() - date2.getTime());
-  
-    return Math.ceil((diffDate / (1000 * 60 * 60 * 24))); // 밀리세컨 * 초 * 분 * 시 = 일
-}
-
-//총 기간, 지난 시간, 남은 시간, 표시할 길이를 반환하는 함수
-const getPeriodInfo = (startDate:Date, dueDate:Date, currentDate:Date) => {
-    const total = calcTaskPeriod(startDate, dueDate);
-    const past = calcTaskPeriod(startDate, currentDate);
-    const remaining = total-past+1;
-    const maxWidth = 7-currentDate.getDay();
-
-    const rate = remaining > maxWidth? maxWidth: remaining;
-
-    return {total, past, remaining, rate}
-}
-
-//기간 순 태스크 정렬하여 우선순위정하기.

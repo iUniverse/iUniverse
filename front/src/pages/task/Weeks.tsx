@@ -1,5 +1,5 @@
 import { useRecoilValue, RecoilEnv, useRecoilValueLoadable } from "recoil";
-import { calendarInfoState } from "src/state/CalendarState";
+import { firstDateState } from "src/state/CalendarState";
 import TaskCell from "./TaskCell";
 import DateCell from "./DateCell";
 import styles from "../../styles/Calendar.module.css";
@@ -11,37 +11,15 @@ import { taskItemsState } from "src/state/TaskState";
 RecoilEnv.RECOIL_DUPLICATE_ATOM_KEY_CHECKING_ENABLED = false;
 
 export default function Weeks(){
-    const firstDate = useRecoilValue(calendarInfoState);
-    console.log("11111111")
-    // const firstDate = new Date();
-    const taskItems = useRecoilValue(taskItemsState);
-    console.log(2222222);
-    return (
-        <div style={{'width': '20px', 'height': '20px' ,'backgroundColor': 'red'}}>
-            {taskItems.length}
-        </div>
-    );
-    // const taskItems = useRecoilValueLoadable(taskItemsState);
-    // switch (taskItems.state){
-    //     case 'hasValue':
-    //         console.log('taskss', taskItems.contents)
-    //         return <div>{taskItems.contents.length}</div>;
-    //     case 'loading':
-    //         console.log('loading')
-    //         return <div>Loading...</div>;
-    //     case 'hasError':
-    //         throw taskItems;
-    // }
-    // let weeks = [];
+    const firstDate = useRecoilValue(firstDateState);
+    let weeks = [];
 
-    // console.log('taskds', taskItems);
+    for (let i=0; i<42; i=i+7){
+        let date = new Date(firstDate.getFullYear(), firstDate.getMonth(), firstDate.getDate()+i);
+        weeks.push(<Week key={'week_'+i} number={i} date={date}></Week>)
+    }
 
-    // for (let i=0; i<42; i=i+7){
-    //     let date = new Date(firstDate.getFullYear(), firstDate.getMonth(), firstDate.getDate()+i);
-    //     weeks.push(<Week key={'week_'+i} number={i} date={date}></Week>)
-    // }
-
-    // return <>{weeks}</>;
+    return <>{weeks}</>;
 }
 
 export interface DateInfo {

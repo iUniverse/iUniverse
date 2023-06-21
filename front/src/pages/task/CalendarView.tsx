@@ -1,7 +1,7 @@
 import { useRecoilState, RecoilEnv } from "recoil";
 import { calendarRangeState } from "src/state/CalendarState";
 import styles from "../../styles/Calendar.module.css";
-import Calendar from "./Calendarr";
+import Calendar from "./Calendar";
 
 //Duplicate atom key 에러 문구 없애줌
 RecoilEnv.RECOIL_DUPLICATE_ATOM_KEY_CHECKING_ENABLED = false;

@@ -1,4 +1,5 @@
 import { FindTaskDto } from "../dto/find-task.dto";
+import { Task } from "../task.entity";
 
 
 // export type LoadTaskOutboundPortInputDto = void;
@@ -12,6 +13,14 @@ export type LoadByDateOPInputDto = {
 
 export type LoadTaskOutboundPortOutputDto = Array<FindTaskDto>;
 
+export type LoadByDateOPOutputDto = {
+    [key: string] : [{
+                        isStart: boolean,
+                        task: Task,
+                        width: number
+                    }]
+}
+
 export const LOAD_TASK_OUTBOUND_PORT = 'LOAD_TASK_OUTBOUND_PORT' as const;
 
 export interface LoadTaskOutboundPort {
@@ -19,5 +28,5 @@ export interface LoadTaskOutboundPort {
 }
 
 export interface LoadByDateboundPort {
-    loadByDate(param: LoadByDateOPInputDto): Promise<LoadTaskOutboundPortOutputDto>;
+    loadByDate(param: LoadByDateOPInputDto): Promise<LoadByDateOPOutputDto>;
 }

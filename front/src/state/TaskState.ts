@@ -1,6 +1,6 @@
 import { atom, atomFamily, selector } from "recoil"
 import router from 'next/router';
-import { calendarInfoState } from "./CalendarState";
+import { firstDateState } from "./CalendarState";
 
 export interface TaskItem {
     readonly id: number,
@@ -22,9 +22,11 @@ export const taskItemsState = selector<TaskItem[]>({
     key: 'taskItemsState',
     get: async ({get})=>{
         const response = await fetch(
-            `http://localhost:3500/iuni_task/search/date/${get(calendarInfoState)}`
+            `http://localhost:3500/iuni_task/search/date/${get(firstDateState)}`
         )
         const taskItems = await response.json();
+
+        console.log("tas==================", taskItems);
 
         return taskItems;
     }

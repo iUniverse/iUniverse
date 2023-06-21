@@ -1,5 +1,5 @@
 import { Controller, Get, Inject, Param } from '@nestjs/common';
-import { LoadTaskInboundPort, LoadTaskInboundPortOutputDto, LOAD_TASK_INBOUND_PORT, LoadTaskIPInputDto, LoadByDateIPInputDto, LoadByDateInboundPort } from '../inbound-port/load-task.inbound-port';
+import { LoadTaskInboundPort, LoadTaskInboundPortOutputDto, LOAD_TASK_INBOUND_PORT, LoadTaskIPInputDto, LoadByDateIPInputDto, LoadByDateInboundPort, LoadByDateInboundPortOutputDto } from '../inbound-port/load-task.inbound-port';
 
 @Controller('iuni_task')
 export class GetTaskController {
@@ -24,7 +24,7 @@ export class GetTaskController {
     }
 
     @Get('/search/date/:firstDate')
-    async loadByDate(@Param() date: LoadByDateIPInputDto): Promise<LoadTaskInboundPortOutputDto> {
+    async loadByDate(@Param() date: LoadByDateIPInputDto): Promise<LoadByDateInboundPortOutputDto> {
         try {
             return this.loadByDateInboundPort.loadByDate(date);
         }

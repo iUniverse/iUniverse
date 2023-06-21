@@ -30,8 +30,8 @@ export const calendarRangeState = atom<Date>({
 })
 
 //표시할 캘린더의 정보임. 달의 시작 요일, 달을 표시할 줄의 개수, 달의 마지막 날짜
-export const calendarInfoState = selector<Date>({
-    key: 'calendarInfo',
+export const firstDateState = selector<Date>({
+    key: 'firstDateState',
     get: ({get})=>{
         const range = get(calendarRangeState);
 
@@ -42,14 +42,6 @@ export const calendarInfoState = selector<Date>({
     }
 })
 
-//실패!!
-export const calendarCellState = atomFamily<number[], Date>({
-    key: 'calendarCell',
-    default: ((date)=>{
-        const calendarCellItem = [0, 0, 0, 0];
-        return calendarCellItem;
-    })
-})
 
 
 //일단 순서 신경안쓰고 태스크들 다 표시한 후 (=마운트 후) 태스크 리스트를 재배치 해볼까??
