@@ -1,23 +1,32 @@
-// import { BaseEntity, Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
-// import { SubType } from '../subtype/subtype.entity';
+import { BaseEntity, Column, CreateDateColumn, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
+import { Subtype } from '../subtype/subtype.entity';
+import { Project } from "src/project/project.entity";
 
-// @Entity()
-// export class BaseType{
-//     @PrimaryGeneratedColumn()
-//     id: number;
+@Entity()
+export class Basetype{
+    @PrimaryGeneratedColumn()
+    id: number;
 
-//     @Column()
-//     name : string;
+    @Column()
+    name : string;
     
-//     @Column()
-//     description : string;
+    @Column()
+    description : string;
 
-//     @Column()
-//     color : string;
+    @CreateDateColumn()
+    createDate : Date;
 
-//     @Column()
-//     createDate : Date;
+    @OneToMany(() => Subtype, (subtype) => subtype.basetype)
+    subtypes : Subtype[];
 
-//     @OneToMany(() => SubType, (subtype) => subtype.baseType)
-//     subtypes : SubType[];
-// } 
+    @Column()
+    projectId : number;
+
+    @ManyToOne(
+        (type) => Project,
+        (project) => project.baseTypes
+    )
+    
+    project! : Project;
+} 
+

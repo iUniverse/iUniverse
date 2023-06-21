@@ -9,7 +9,7 @@ export class FindThemeRepository implements FindThemeOutboundPort{
     constructor(
         private readonly findThemeRepo : ThemeRepository,
     ){}
-z
+
     async find(param : FindThemeOPInputDto) : Promise<FindThemeOPOutputDto>{
         return await this.findThemeRepo.FindTheme(param);
     }
@@ -21,6 +21,7 @@ z
     async findMyTheme(param: FindThemeOPInputDto): Promise<FindThemeOPOutputDto> {
         return await this.findThemeRepo.FindMyTheme(param);
     }
+
     async load() : Promise<LoadThemeOPOutputDto>{
         const userId = 0;
         return await this.findThemeRepo.LoadMyTheme(userId);

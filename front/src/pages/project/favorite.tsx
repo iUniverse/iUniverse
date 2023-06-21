@@ -26,8 +26,6 @@ interface Props {
 }
 
 export default function Favorite(props: Props) {
-    console.log(props.projects);
-
     function moveTaskPage(id: number) {
         console.log('moveTaskPage!!');
         router.push(`/task?iuni_project=${id}&p_category=favorite`);

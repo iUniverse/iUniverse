@@ -50,4 +50,5 @@ import { PatchThemeController } from "./controller/patch-theme.controller";
         }
     ]
 })
+
 export class ThemeModule{}

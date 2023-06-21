@@ -8,6 +8,8 @@ import { TaskModule } from './task/task.module';
 import { ThemeModule } from './theme/theme.module';
 import { IuniCatModule } from './iunicat/iunicat.module';
 import { ProjectThemeModule } from './project-theme-map/project-theme.module';
+import { BasetypeModule } from './basetype/basetype.module';
+import { SubtypeModule } from './subtype/subtype.module';
 
 @Module({
   imports: [
@@ -16,7 +18,9 @@ import { ProjectThemeModule } from './project-theme-map/project-theme.module';
     TaskModule, 
     IuniCatModule,
     ThemeModule,
-    ProjectThemeModule
+    ProjectThemeModule,
+    BasetypeModule,
+    SubtypeModule
   ],
   controllers: [AppController],
   providers: [AppService]

@@ -107,11 +107,6 @@ const makeTaskSchedule =  async (taskItems: Task[], firstDate: Date, lastDate: D
         const day = startDate.getDay();
         let index = 0;
 
-        if(task.name == '태스크8'){
-            console.log('period', period);
-            console.log('day', day);
-        }
-
         if(period <= 7-day){
             for(let j=0; j<period; j++){
                 let key = `${currentDate.getMonth()}-${currentDate.getDate()}`;

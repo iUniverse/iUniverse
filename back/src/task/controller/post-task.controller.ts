@@ -10,7 +10,6 @@ export class PostTaskController {
 
     @Post('/')
     async create(@Body() taskInfo: CreateTaskInboundPortInputDto):Promise<CreateTaskInboundPortOutputDto>{
-        console.log(taskInfo);
         return this.createTaskInboundPort.create(taskInfo);
     }
 }

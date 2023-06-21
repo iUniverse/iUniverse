@@ -20,10 +20,7 @@ type Day = {
     [key: number]: string
 }
 
-export interface ThemeInfo {
-    id: number;
-    name: string;
-}
+
 export default function Banner(props: any) {
     const [today, setToday] = useState('');
     const [currentDay, setCurrentDay] = useState('');

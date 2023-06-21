@@ -1,16 +1,25 @@
 const url = 'http://localhost:3500/iuni_task';
 
-export async function create(projectId:number, name : string){
+export async function create(projectId:number, name : string, statusId : number){
+    const data = {
+        'projectId' : projectId,
+        'name' : name,
+        'statusId' : statusId
+    };
+
     const response = await fetch(url, {
         method : 'POST',
         cache : 'no-cache',
         headers : {
-            'Content-Type' : 'application/x-www-form-urlencoded'
+            'Accept' : 'application/json',
+            'Content-Type' : 'application/json'
         },
-        body : new URLSearchParams({
-            'projectId' : projectId.toString(),
-            'name' : name
-        })
+        // body : new URLSearchParams({
+        //     'projectId' : projectId.toString(),
+        //     'name' : name,
+        // }),
+        //body : 
+        body : JSON.stringify(data)
     })
 
     return response.json();
