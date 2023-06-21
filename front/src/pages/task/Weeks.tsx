@@ -4,7 +4,6 @@ import TaskCell from "./TaskCell";
 import DateCell from "./DateCell";
 import styles from "../../styles/Calendar.module.css";
 import React, { useEffect, useState } from "react";
-import { taskItemsState } from "src/state/TaskState";
 // import dynamic from "next/dynamic";
 
 //Duplicate atom key 에러 문구 없애줌
@@ -57,9 +56,3 @@ function Week({number, date}:DateInfo){
         </div>
         );
 }
-
-// const DateCell = dynamic(()=>{
-//     return import ('./DateCell');
-// },
-// {ssr: false}
-// ) 

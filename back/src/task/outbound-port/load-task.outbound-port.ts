@@ -1,5 +1,6 @@
 import { FindTaskDto } from "../dto/find-task.dto";
 import { Task } from "../task.entity";
+import { scheduleInfo } from "../task.repository";
 
 
 // export type LoadTaskOutboundPortInputDto = void;
@@ -14,11 +15,9 @@ export type LoadByDateOPInputDto = {
 export type LoadTaskOutboundPortOutputDto = Array<FindTaskDto>;
 
 export type LoadByDateOPOutputDto = {
-    [key: string] : [{
-                        isStart: boolean,
-                        task: Task,
-                        width: number
-                    }]
+    [key: string] : {
+        [key: number] : scheduleInfo
+    }
 }
 
 export const LOAD_TASK_OUTBOUND_PORT = 'LOAD_TASK_OUTBOUND_PORT' as const;

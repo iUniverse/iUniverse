@@ -21,11 +21,14 @@ export interface TaskItem {
 export interface ScheduleInfo {
     isStart: boolean,
     task: TaskItem,
-    width: number
+    width: number,
+    period: number
 }
 
 export interface TaskSchedule {
-    [key: string] : ScheduleInfo[]
+    [key: string] : {
+        [key: number]: ScheduleInfo
+    }
 }
 
 
@@ -37,13 +40,11 @@ export const allTaskSchedule = selector<TaskSchedule>({
         )
         const taskItems = await response.json();
 
-        console.log("task==================", taskItems);
-
         return taskItems;
     }
 });
 
-export const scheduleState = selectorFamily<ScheduleInfo[], string>({
+export const scheduleState = selectorFamily<{[key: number]: ScheduleInfo}, string>({
     key: 'scheduleState',
     get: (date) => ({get}) => {
         return get(allTaskSchedule)[date];

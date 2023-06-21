@@ -81,12 +81,17 @@ export class TaskRepository extends Repository<Task>{
     }
 }
 
+export type scheduleInfo = {
+    isStart: boolean,
+    task: Task,
+    width: number,
+    period: number
+}
+
 type taskSchedule = {
-    [key: string] : [{
-                        isStart: boolean,
-                        task: Task,
-                        width: number
-                    }]
+    [key: string] : {
+        [key: number] : scheduleInfo
+    }
 }
 
 const makeTaskSchedule =  async (taskItems: Task[], firstDate: Date, lastDate: Date): Promise<taskSchedule> =>{
@@ -98,33 +103,60 @@ const makeTaskSchedule =  async (taskItems: Task[], firstDate: Date, lastDate: D
         const currentDate = new Date(startDate);
         
         const period = await calcTaskPeriod(startDate, dueDate)+1;
-        const day = startDate.getDay()+1;
-        
-        if(period < 7-day){
-            
+        const totalPeriod = await calcTaskPeriod(task.startDate, task.dueDate)+1;
+        const day = startDate.getDay();
+        let index = 0;
+
+        if(task.name == '태스크8'){
+            console.log('period', period);
+            console.log('day', day);
+        }
+
+        if(period <= 7-day){
             for(let j=0; j<period; j++){
                 let key = `${currentDate.getMonth()}-${currentDate.getDate()}`;
                 
+                if(j == 0)
+                    index = await getIndex(schedule, key, { isStart: true, task: task, width: period, period: totalPeriod});
                 
-                if(j == 0) schedule[key].push({ isStart: true, task: task, width: period});
-                else schedule[key].push({ isStart: false, task: task, width: period});
+                else schedule[key][index]={ isStart: false, task: task, width: period, period: totalPeriod};
 
                 currentDate.setDate(currentDate.getDate()+1);
             }
         }
         else {
-            for(let j=1; j<period; j++){
+            for(let j=0; j<period; j++){
+
                 let key = `${currentDate.getMonth()}-${currentDate.getDate()}`;
 
-                if(j == 0) schedule[key].push({ isStart: true, task: task, width: 8-day});
-                else if((j-(8-day))%7==1) schedule[key].push({isStart: true, task: task, width: period-j > 7? 7: period-j});
-                else schedule[key].push({ isStart: false, task: task, width: -1});
+                if(!schedule[key]) continue;
+
+                if(j == 0)
+                    index = await getIndex(schedule, key, { isStart: true, task: task, width: 7-day, period: totalPeriod});
+                
+                else if((j-(7-day))%7==0) 
+                    index = await getIndex(schedule, key, {isStart: true, task: task, width: period-j > 7? 7: period-j, period: totalPeriod});
+                
+                else schedule[key][index]={ isStart: false, task: task, width: -1, period:totalPeriod};
 
                 currentDate.setDate(currentDate.getDate()+1);
             }
         }
     }
     return schedule;
+}
+
+const getIndex = async(schedule:taskSchedule, key:string, data: scheduleInfo) : Promise<number> =>{
+    
+    let index = 0;
+
+    while (true){
+        if(!schedule[key][index]){
+            schedule[key][index]=data;
+            return index;
+        }
+        index++;
+    }
 }
 
 const getTaskDate = async(startDate:Date, firstDate:Date, dueDate:Date, lastDate:Date)=>{

@@ -52,13 +52,21 @@ export default function TaskCell({number, date}:DateInfo){
 
 const TaskSchedule = ({date}: {date: Date})=>{
     const schedule = useRecoilValue(scheduleState(`${date.getMonth()}-${date.getDate()}`));
-    const TaskListElement = schedule?.map(({isStart, task, width}, index)=>{
+
+    const TaskListElement = Object.keys(schedule).map((index)=>{
+        
+        const scheduleInfo = schedule[parseInt(index)];
+
+        if(!scheduleInfo) 
+            return <div key={`${index}_${date.getMonth()}_${date.getDate()}`} className={styles.task__item}></div>;
+
+        const { isStart, task, width, period } = scheduleInfo
+
         if(!isStart) return <div key={`${index}_${date.getMonth()}_${date.getDate()}`} className={styles.task__item}></div>;
 
-        console.log('width::', width)
         return (
             <div key={`${index}_${date.getMonth()}_${date.getDate()}`} 
-                className={`${width==1?styles.short: styles.long} ${styles.task__item}`} 
+                className={`${period==1?styles.short: styles.long} ${styles.task__item}`} 
                 style={{width: `calc((100% * ${width}) - 20px)`}}>
                 {task.name}
             </div>

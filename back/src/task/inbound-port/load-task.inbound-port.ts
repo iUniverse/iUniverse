@@ -1,6 +1,7 @@
 import { IsNotEmpty } from "class-validator";
 import { FindTaskDto } from "../dto/find-task.dto";
 import { Task } from "../task.entity";
+import { scheduleInfo } from "../task.repository";
 
 // export type LoadTaskInboundPortInputDto = void;
 
@@ -15,11 +16,9 @@ export type LoadByDateIPInputDto = {
 export type LoadTaskInboundPortOutputDto = Array<FindTaskDto>;
 
 export type LoadByDateInboundPortOutputDto =  {
-    [key: string] : [{
-                        isStart: boolean,
-                        task: Task,
-                        width: number
-                    }]
+    [key: string] : {
+        [key: number] : scheduleInfo
+    }
 };
 
 export const LOAD_TASK_INBOUND_PORT = 'LOAD_TASK_INBOUND_PORT' as const;
