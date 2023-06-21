@@ -2,21 +2,8 @@ import React from 'react';
 import { Space, Tooltip, Button } from 'antd';
 import { SearchOutlined, PlusOutlined, UnorderedListOutlined, TableOutlined } from '@ant-design/icons';
 import { createProject } from '../../api/project/project'; 
+import { Project } from './interface';
 
-export interface Project{
-    id : number,
-    name : string,
-    description : string,
-    createDate : string,
-    dueDate : string,
-    startDate : string,
-    endDate : String,
-    isPrivate : boolean,
-    processRate : number,
-    statusId : number,
-    typeId : number,
-    color : string
-}
 
 interface Props {
     setProjects : React.Dispatch<React.SetStateAction<Array<Project>>>

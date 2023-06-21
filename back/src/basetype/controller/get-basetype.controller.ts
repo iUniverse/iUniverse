@@ -17,14 +17,10 @@ export class GetBasetypeController{
             throw e;
         }
     }
-    //여기까지함
-    @Get('/:projectId/:name')
+
+    @Get('/basetype/:projectId/:name')
     async findBasetypeByName(@Param('projectId') projectId :number, @Param('name') name : string) : Promise<Basetype> {
         try{
-            console.log('엄;')
-            console.log(projectId);
-            console.log(name);
-            console.log('wns')
             return this.findBasetypeInboundPort.findBasetypeByName(projectId, name);
         }
         catch(e) {
@@ -35,9 +31,6 @@ export class GetBasetypeController{
     @Get('/init/:projectId')
     async checkInit(@Param('projectId') param : number) : Promise<ReturnCheckInit[]>{
         try{
-            console.log('요긴가');
-            console.log(param);
-            console.log('요기요');
             return this.findBasetypeInboundPort.checkInit(param);
         }
         catch(e){

@@ -10,6 +10,9 @@ export class SubtypeRepository extends Repository<Subtype>{
             const result = await this.find({
                 where : {
                     basetypeId : param
+                },
+                order:{
+                    orderNum : "ASC"
                 }
             });
             return result === null ? [] : result;

@@ -3,22 +3,10 @@ import router, { useRouter } from 'next/router';
 import { createProject, updateProject } from '../../api/project/project';
 import { loadMyTheme } from 'api/theme/card-theme';
 import { createProjectTheme } from 'api/project-theme-map/project-theme-map';
+import { Project } from './interface';
+import { initBaseTypeCheck } from 'api/baseType/baseType';
 
-interface Project {
-    id: number,
-    name: string,
-    description: string,
-    createDate: string,
-    dueDate: string,
-    startDate: string,
-    endDate: string,
-    isFavorite: boolean,
-    isPrivate: boolean,
-    processRate: number,
-    statusId: number,
-    typeId: number,
-    color: string
-}
+
 
 interface Props {
     projects: Project[]
@@ -28,31 +16,28 @@ interface Props {
 }
 
 export default function MyProject(props: Props) {
-    function moveTaskPage(id : number) {
-        console.log('moveTaskPage!!');
+    function moveTaskPage(id: number) {
         router.push(`/task?iuni_project=${id}&p_category=my_project`);
     }
-    
+
     /* 프로젝트 생성 */
     async function create() {
         const result = await createProject('무제');
         if (result.statusCode === 400)
             throw new Error('프로젝트 생성도중 에러가 발생 했어요.');
-            props.setProjects(prev => [result, ...prev]);
-        const my_theme_list = await loadMyTheme();
-        console.log(my_theme_list);
-        my_theme_list.themeList.map((theme : any) => {
-            
+        props.setProjects(prev => [result, ...prev]);
+        initBaseTypeCheck(result.id);
+        
+        const my_theme_list = await loadMyTheme();        
+        my_theme_list.themeList.map((theme: any) => {
+
             createProjectTheme({
-                'projectId' : result.id,
-                'themeId' : theme.id,
-                'userId' : 0,
-                'isUse' : theme.otherName === 'basic' ? true : false
+                'projectId': result.id,
+                'themeId': theme.id,
+                'userId': 0,
+                'isUse': theme.otherName === 'basic' ? true : false
             });
         });
-
-        
-        
     }
 
     function checkFavoriteCount() {
@@ -63,7 +48,7 @@ export default function MyProject(props: Props) {
         }
     }
     /* 즐겨찾기 프로젝트로 수정 */
-    async function updateFavorite(e:MouseEvent<HTMLElement>,id: number, type: boolean) {
+    async function updateFavorite(e: MouseEvent<HTMLElement>, id: number, type: boolean) {
         e.stopPropagation();
 
         const obj = {
@@ -147,10 +132,10 @@ export default function MyProject(props: Props) {
                                             <div className="favorite-project-icon-list">
                                                 {
                                                     value.isFavorite === false ?
-                                                        <div className="favorite-project-icon" onClick={(e : MouseEvent<HTMLElement>) => updateFavorite(e, value.id, true)}>
+                                                        <div className="favorite-project-icon" onClick={(e: MouseEvent<HTMLElement>) => updateFavorite(e, value.id, true)}>
                                                             <img src={"/img/project/project_heart.png"} />
                                                         </div> :
-                                                        <div className="favorite-project-icon" onClick={(e : MouseEvent<HTMLElement>) => updateFavorite(e, value.id, false)}>
+                                                        <div className="favorite-project-icon" onClick={(e: MouseEvent<HTMLElement>) => updateFavorite(e, value.id, false)}>
                                                             <img src={"/img/project/heart.png"} />
                                                         </div>
                                                 }
@@ -173,10 +158,10 @@ export default function MyProject(props: Props) {
                                             style={{ width: '16.6667vw', height: '10.1563vw' }} />
                                     </div>
 
-                                    <div className="w-auto mt-1r"  style={{width:'11.1979vw'}} onClick={() => create()}>
+                                    <div className="w-auto mt-1r" style={{ width: '11.1979vw' }} onClick={() => create()}>
                                         <div className="p-0-5 project-empty-create-btn">
                                             <img src={"/img/project/btn-add-blue.webp"}
-                                                style={{ width: '1.2448vw', height: '1.2448vw', marginRight : '3%' }} />
+                                                style={{ width: '1.2448vw', height: '1.2448vw', marginRight: '3%' }} />
                                             <span>
                                                 새로운 프로젝트 만들기
                                             </span>

@@ -32,6 +32,19 @@ async function initCreateBaseType(projectId : number, basetypeName : string){
     }
 }
 
+// /* 기본 baseType 값 체크 */
+// async function initCheck(id : number) : Promise<any>{
+//     try{
+//         const response = await fetch(url+`/init/${id}`, {
+//             method : 'GET',
+//             cache : 'no-cache',
+//         })
+//         return response.json();
+//     } catch(e){
+//         throw(e);
+//     }
+// }
+
 /* 기본 baseType 값 체크 */
 async function initCheck(id : number) : Promise<any>{
     try{
@@ -48,10 +61,10 @@ async function initCheck(id : number) : Promise<any>{
 /* basetype 값 체크 이후 subtype 값 체크  */
 export async function initBaseTypeCheck(id : number){
     try{
-        console.log(id);
         let result = await initCheck(id);
         
         result = result.filter((e : any) => e.result === false);    
+        console.log(result);
         for(const data of result){
             const basetype = await initCreateBaseType(id, data.name);
             await initCreateBaseSubtype(basetype);
@@ -65,20 +78,15 @@ export async function initBaseTypeCheck(id : number){
 
 export async function findBasetypeByName(name : string, id : number){
     try{
-        const response = await fetch(url + `/${id}/${name}`,{
+        const response = await fetch(url + `/basetype/${id}/${encodeURI(name)}`,{
             method : 'GET',
             cache : 'no-cache'
         })
 
-        if(!Object.keys(response).length){
-            return 'noData';
-        } else {
-            return response.json()
-        }
+        return response.json();
 
         // const tt = await response.json();
         // console.log(tt);
-        return tt;
     }
     catch(e) {
         throw e;

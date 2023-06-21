@@ -17,7 +17,6 @@ export async function initCreateBaseSubtype(basetype : any){
             },
             body : JSON.stringify(data)
         })
-        console.log(response);
         return response.json();
     }
     catch(e)

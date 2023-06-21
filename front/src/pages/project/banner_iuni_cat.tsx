@@ -2,16 +2,9 @@ import { IuniCatStyle } from 'api/project/iuni-cat';
 import { findMyIuniCat } from 'api/theme/iuni-cat-theme';
 import IuniCat from 'pages/theme/iuni_cat';
 import React, { useEffect, useState } from 'react';
+import { CatStyle } from './interface';
 
-export interface CatStyle {
-    background : string;
-    leftEye : string;
-    leftEyeWhite : string;
-    rightEye : string,
-    rightEyeWhite : string;
-    nose : string
-    body : string;
-}
+
 
 interface Props{
     timePeriod : string;

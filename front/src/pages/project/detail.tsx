@@ -4,22 +4,10 @@ import { useRouter } from 'next/router';
 import { useCallback, useEffect, useState } from "react";
 import { create } from "api/task/task";
 import dayjs from 'dayjs';
+import { Project } from "./interface";
 
 const { RangePicker } = DatePicker;
-export interface Project {
-    id: number,
-    name: string,
-    description: string,
-    createDate: string,
-    dueDate : string,
-    startDate : string,
-    endDate : string,
-    isPrivate :boolean,
-    processRate : number,
-    statusId : number,
-    typeId : number,
-    color : string
-}
+
 
 export interface Task {
     id : number,
@@ -31,20 +19,7 @@ export default function Detail(props: any) {
 
     const router = useRouter();
     const id: number = Number(router.query['id']);
-    const [project, setProject] = useState<Project>({
-        id : 0,
-        name : '',
-        description: '',
-        createDate: '',
-        dueDate : '',
-        startDate : '',
-        endDate : '',
-        isPrivate :false,
-        processRate : 0,
-        statusId : 0,
-        typeId : 0,
-        color : ''
-    });
+    const [project, setProject] = useState<Project>();
 
     /** 이름 변경 */
     function handlerNameChange(e: any) : void{

@@ -4,24 +4,7 @@ import { useRouter } from 'next/router';
 import Banner from './banner';
 import Favorite from './favorite';
 import MyProject from './my_project';
-
-
-
-export interface Project{
-    id : number,
-    name : string,
-    description : string,
-    createDate : string,
-    dueDate : string,
-    startDate : string,
-    endDate : string,
-    isFavorite : boolean,
-    isPrivate : boolean,
-    processRate : number,
-    statusId : number,
-    typeId : number,
-    color : string
-}
+import { Project } from './interface';
 
 export default function Index(props : any) {
     const [favoriteProjects, setFavoriteProjects] = useState<Array<Project>>([]);

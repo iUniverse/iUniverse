@@ -31,7 +31,7 @@ export default function Task({ }: any) { //태스크 정보를 가지고 올 예
     const [projectCategory, setProjectCategory] = useState<string | undefined>();
 
     const [editProjectTitle, setEditProjectTitle] = useState<boolean>(false);
-    const [currentTaskType, setCurrentTaskType] = useState<string>('calendar');
+    const [currentTaskType, setCurrentTaskType] = useState<string>('board');
 
     const TASK_TYPE = [
         { 'title': 'board', 'name': '보드' },
@@ -104,9 +104,7 @@ export default function Task({ }: any) { //태스크 정보를 가지고 올 예
         const initProject = async () => {
             const return_value = await getCurrentProject();
             setCurrentProject(() => return_value);
-            loadTaskByProjectId(return_value.id);
-            initBaseTypeCheck(return_value.id);
-            
+            loadTaskByProjectId(return_value.id);            
         }
         initProject();
 
