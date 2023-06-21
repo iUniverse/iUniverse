@@ -1,4 +1,4 @@
-import { atom, atomFamily, selector } from "recoil"
+import { atom, atomFamily, selector, selectorFamily } from "recoil"
 import router from 'next/router';
 import { firstDateState } from "./CalendarState";
 
@@ -18,19 +18,37 @@ export interface TaskItem {
     projectId?: number;
 }
 
-export const taskItemsState = selector<TaskItem[]>({
-    key: 'taskItemsState',
+export interface ScheduleInfo {
+    isStart: boolean,
+    task: TaskItem,
+    width: number
+}
+
+export interface TaskSchedule {
+    [key: string] : ScheduleInfo[]
+}
+
+
+export const allTaskSchedule = selector<TaskSchedule>({
+    key: 'allTaskSchedule',
     get: async ({get})=>{
         const response = await fetch(
             `http://localhost:3500/iuni_task/search/date/${get(firstDateState)}`
         )
         const taskItems = await response.json();
 
-        console.log("tas==================", taskItems);
+        console.log("task==================", taskItems);
 
         return taskItems;
     }
 });
+
+export const scheduleState = selectorFamily<ScheduleInfo[], string>({
+    key: 'scheduleState',
+    get: (date) => ({get}) => {
+        return get(allTaskSchedule)[date];
+    }
+})
 
 export const isSameDate = (date1:Date, date2:Date) : boolean =>{
     return date1.getFullYear() === date2.getFullYear()
