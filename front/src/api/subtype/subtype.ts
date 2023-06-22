@@ -26,6 +26,32 @@ export async function initCreateBaseSubtype(basetype : any){
     }
 }
 
+interface CreateSubtype {
+    basetypeId : number;
+    name : string;
+    description : string;
+    orderNum : number;
+    color : string;
+    fontColor : string;
+}
+export async function createSubtype(data : CreateSubtype){
+    try{
+        const response = await fetch(url, {
+            method : 'POST',
+            cache : 'no-cache',
+            headers : {
+                'Accept' : 'application/json',
+                'Content-Type' : 'application/json'
+            },
+            body : JSON.stringify(data)
+        })
+        return response.json();
+    }
+    catch(e){
+        console.log(e);
+        throw(e);
+    }
+}
 export async function loadProjectSubtype(basetypeId : number) {
     try{
         console.log(basetypeId);
