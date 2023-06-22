@@ -4,7 +4,6 @@ import { getProject, loadProject, updateProject } from "api/project/project";
 import Kanban from "./kanban";
 import { loadByProjectId } from "api/task/task";
 import SideMenu from "./sideMenu";
-import { Project } from "pages/project";
 import ProjectDetail from "./projectDetail";
 import Setting from "./setting";
 import { initBaseTypeCheck } from "api/baseType/baseType";
@@ -185,9 +184,7 @@ export default function Task({ }: any) { //태스크 정보를 가지고 올 예
                                 TASK_TYPE.map((val, index) => (
                                     <div className={currentTaskContent === val.title ? "task-view-tab-title active" : "task-view-tab-title"}
                                         key={`task_Type_${val.title}_${index}`}
-                                        //onClick={() => loadTaskContent(`${val.title}`, index)}
                                         onClick={() => loadPage(`${val.title}`)}
-
                                     >
                                         {val.name}
                                     </div>
