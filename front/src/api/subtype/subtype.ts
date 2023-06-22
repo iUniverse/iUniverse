@@ -40,6 +40,7 @@ export async function createSubtype(data : CreateSubtype){
             method : 'POST',
             cache : 'no-cache',
             headers : {
+                
                 'Accept' : 'application/json',
                 'Content-Type' : 'application/json'
             },
