@@ -84,6 +84,7 @@ export default function Kanban(props: Props) {
 
     const newBoardName = useRef<any>();
     const createBoard = async () => {
+        
         const result = await createSubtype({
             'basetypeId' : currentBasetypeId!,
             'description' : newBoardName.current!.value,
@@ -92,12 +93,13 @@ export default function Kanban(props: Props) {
             'color' : '#1120ff',
             'fontColor' : '#ffffff'
         });
+        newBoardName.current.value = '';
         setTaskStatus((prev) => [...prev, result]);
     }
     /* 보드 삭제 */
-    const removeBoard = (id: number, index: number) => {
-        alert(id);
-    }
+    // const removeBoard = async (id: number, index: number) => {
+    //     const result = await removeSubtype(id);
+    // }
 
     useEffect(() => {
         const settingTaskStatus = async () => {
@@ -201,7 +203,7 @@ export default function Kanban(props: Props) {
                     ref={newBoardName}
                     placeholder="새 보드 이름"
                     onKeyUp={(e) => { if(e.key === 'Enter') createBoard()}}
-                    onBlur={() => createBoard()}
+                    //onBlur={() => createBoard()}
                     />
                 </div>
                 <div className="kanban-board-body">

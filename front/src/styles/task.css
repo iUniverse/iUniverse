@@ -222,11 +222,12 @@
     padding-top: 0.72vw;
     gap: 0.75vw;
     overflow-x: auto;
+    max-width : 74vw;
 }
 
 
 .kanban-board {
-    width: 18.12vw;
+    min-width : 17vw;
     padding: 24px;
     border-radius: 24px;
     background-color: #efefef;

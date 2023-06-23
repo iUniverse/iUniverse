@@ -34,13 +34,33 @@ interface CreateSubtype {
     color : string;
     fontColor : string;
 }
+
+export async function removeSubtype(id : number){
+    try{        
+        const response = await fetch(url+`/${id}`, {
+            method : 'DELETE',
+            cache : 'no-cache',
+            headers : {
+                'Accept' : 'application/json',
+                'Content-Type' : 'application/json'
+            },
+            body : JSON.stringify(data)
+        })
+
+        return response;
+    }
+    catch(e){
+
+    }
+}
+
 export async function createSubtype(data : CreateSubtype){
     try{
         const response = await fetch(url, {
             method : 'POST',
             cache : 'no-cache',
             headers : {
-                
+
                 'Accept' : 'application/json',
                 'Content-Type' : 'application/json'
             },
@@ -53,6 +73,7 @@ export async function createSubtype(data : CreateSubtype){
         throw(e);
     }
 }
+
 export async function loadProjectSubtype(basetypeId : number) {
     try{
         console.log(basetypeId);
