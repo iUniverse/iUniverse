@@ -1,5 +1,5 @@
 import { findBasetypeByName } from "api/baseType/baseType";
-import { createSubtype, loadProjectSubtype } from "api/subtype/subtype";
+import { createSubtype, loadProjectSubtype, removeSubtype } from "api/subtype/subtype";
 import { create } from "api/task/task";
 import { Dispatch, SetStateAction, useEffect, useRef, useState } from "react";
 import { StringLiteral } from "typescript";
@@ -53,15 +53,15 @@ export default function Kanban(props: Props) {
     /* 태스크 셋팅 버튼 handle */
     const settingBtnList = useRef<any>([]);
     const handleSettingBtn = (type: string, index: number) => {
-        if(settingBtnList.current[index].value === 'active' && (type === 'no-hover' || type === 'hover')){
+        if (settingBtnList.current[index].value === 'active' && (type === 'no-hover' || type === 'hover')) {
             return;
         }
 
         settingBtnList.current[index].value = type;
-        
-        if(type === 'hover') {
+
+        if (type === 'hover') {
             type = 'active';
-        } else if (type === 'no-hover'){
+        } else if (type === 'no-hover') {
             type = 'default';
         }
         settingBtnList.current[index].src = `img/task/setting-btn-${type}.webp`;
@@ -83,30 +83,34 @@ export default function Kanban(props: Props) {
     }
 
     const newBoardName = useRef<any>();
-    const createBoard = async () => {
-        
-        const result = await createSubtype({
-            'basetypeId' : currentBasetypeId!,
-            'description' : newBoardName.current!.value,
-            'name' : newBoardName.current!.value,
-            'orderNum' : taskStatus[taskStatus.length-1].orderNum+1,
-            'color' : '#1120ff',
-            'fontColor' : '#ffffff'
-        });
-        newBoardName.current.value = '';
-        setTaskStatus((prev) => [...prev, result]);
+    const createBoard = async (e) => {
+        if (e.key === 'Enter') {
+            const result = await createSubtype({
+                'basetypeId': currentBasetypeId!,
+                'description': newBoardName.current!.value,
+                'name': newBoardName.current!.value,
+                'orderNum': taskStatus[taskStatus.length - 1].orderNum + 1,
+                'color': '#1120ff',
+                'fontColor': '#ffffff'
+            });
+            newBoardName.current.value = '';
+            setTaskStatus((prev) => [...prev, result]);
+        }
     }
     /* 보드 삭제 */
-    // const removeBoard = async (id: number, index: number) => {
-    //     const result = await removeSubtype(id);
-    // }
+    const removeBoard = async (id: number, index: number) => {
+        const result = await removeSubtype(id);
+        if (result && result.status === 200) {
+            setTaskStatus((prev) => [...prev.filter(e => e.id !== id)])
+        }
+    }
 
     useEffect(() => {
         const settingTaskStatus = async () => {
             console.log(props.projectId);
             if (props.projectId !== undefined) {
                 const basetype = await findBasetypeByName('태스크 상태', props.projectId);
-                
+
                 if (basetype === 'noData') {
                     return;
                 }
@@ -199,10 +203,10 @@ export default function Kanban(props: Props) {
 
             <div className="kanban-board add">
                 <div className="kanban-board-header">
-                    <input className="kanban-task-add-category" 
-                    ref={newBoardName}
-                    placeholder="새 보드 이름"
-                    onKeyUp={(e) => { if(e.key === 'Enter') createBoard()}}
+                    <input className="kanban-task-add-category"
+                        ref={newBoardName}
+                        placeholder="새 보드 이름"
+                        onKeyUp={createBoard}
                     //onBlur={() => createBoard()}
                     />
                 </div>

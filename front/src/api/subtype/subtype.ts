@@ -40,12 +40,7 @@ export async function removeSubtype(id : number){
         const response = await fetch(url+`/${id}`, {
             method : 'DELETE',
             cache : 'no-cache',
-            headers : {
-                'Accept' : 'application/json',
-                'Content-Type' : 'application/json'
-            },
-            body : JSON.stringify(data)
-        })
+        });
 
         return response;
     }

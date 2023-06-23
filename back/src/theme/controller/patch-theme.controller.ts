@@ -13,5 +13,5 @@ export class PatchThemeController {
     async update(@Body() updateTheme : UpdateThemeIPInputDto) : Promise<UpdateThemeIPOutputDto>{
         return this.updateThemeInboundPort.update(updateTheme);
     }
-    async
+    
 }

@@ -3,7 +3,7 @@ import { TypeOrmExModule } from 'src/typeorm-ex.module';
 import { DeleteTaskController } from './controller/delete-task.controller';
 import {GetTaskController} from './controller/get-task.controller';
 import { PostTaskController } from './controller/post-task.controller';
-import { UpdateTaskController } from './controller/update-task.controller';
+import { PatchTaskController } from './controller/patch-task.controller';
 import { CREATE_TASK_INBOUND_PORT } from './inbound-port/create-task.inbound-port';
 import { DELETE_TASK_INBOUND_PORT } from './inbound-port/delete-task.inbound-port';
 import { LOAD_TASK_INBOUND_PORT } from './inbound-port/load-task.inbound-port';
@@ -24,7 +24,7 @@ import { TaskRepository } from './task.repository';
 
 @Module({
   imports: [TypeOrmExModule.forCustomRepository([TaskRepository])],
-  controllers: [GetTaskController, PostTaskController, DeleteTaskController, UpdateTaskController],
+  controllers: [GetTaskController, PostTaskController, DeleteTaskController, PatchTaskController],
   providers: [
     {
       provide: LOAD_TASK_INBOUND_PORT,

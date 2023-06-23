@@ -22,6 +22,7 @@ export class SubtypeRepository extends Repository<Subtype>{
             throw e;
         }
     }
+
     async CreateSubtype(data : CreateSubtype) : Promise<Subtype>{
         try{
             return await this.save(data);
@@ -38,5 +39,10 @@ export class SubtypeRepository extends Repository<Subtype>{
         catch(e) {
             throw(e);
         }
+    }
+    
+    async RemoveSubtype(param : number) : Promise<boolean> {
+        const result = await this.delete(param);
+        return result.affected === 1 ? true : false;
     }
 }

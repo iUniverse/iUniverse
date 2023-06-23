@@ -11,12 +11,17 @@ import { FIND_SUBTYPE_INBOUND_PORT } from "./inbound-port/find-subtype.inbound-p
 import { FindSubtypeService } from "./service/find-subtype.service";
 import { FIND_SUBTYPE_OUTBOUND_PORT } from "./outbound-port/find-subtype.outbound-port";
 import { FindSubtypeRepository } from "./outbound-adapter/find-subtype.repository";
+import { DeleteSubtypeController } from "./controller/delete-subtype.controller";
+import { RemoveSubtypeRepository } from "./outbound-adapter/remove-subtype.repository";
+import { REMOVE_SUBTYPE_OUTBOUND_PORT } from "./outbound-port/delete-subtype.outbound-port";
+import { REMOVE_SUBTYPE_INBOUND_PORT } from "./inbound-port/remove-subtype.inbound-port";
+import { RemoveSubtypeService } from "./service/remove-subtype.service";
 
 @Module({
     imports : [
         TypeOrmExModule.forCustomRepository([SubtypeRepository])
     ],
-    controllers : [GetSubtypeController, PostSubtypeController],
+    controllers : [GetSubtypeController, PostSubtypeController, DeleteSubtypeController],
     providers : [
         {
             provide : CREATE_SUBTYPE_INBOUND_PORT,
@@ -33,6 +38,14 @@ import { FindSubtypeRepository } from "./outbound-adapter/find-subtype.repositor
         {
             provide : FIND_SUBTYPE_OUTBOUND_PORT,
             useClass : FindSubtypeRepository
+        },
+        {
+            provide : REMOVE_SUBTYPE_INBOUND_PORT,
+            useClass : RemoveSubtypeService
+        },
+        {
+            provide : REMOVE_SUBTYPE_OUTBOUND_PORT,
+            useClass : RemoveSubtypeRepository
         }
     ]
 })

@@ -38,6 +38,7 @@ export default function Task({ }: any) { //태스크 정보를 가지고 올 예
         { 'title': 'calendar', 'name': '캘린더' },
         { 'title': 'project', 'name': '프로젝트' },
         { 'title': 'setting', 'name': '설정' },
+        { 'title': 'trash', 'name' : '휴지통'}
     ] as const
 
     const TASK_TYPE_PAGE: TaskTypePage = {
