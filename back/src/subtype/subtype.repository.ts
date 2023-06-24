@@ -2,6 +2,7 @@ import { CustomRepository } from "src/typeorm-ex.decorator";
 import { Subtype } from "./subtype.entity";
 import { Repository } from "typeorm";
 import { SubtypeInit } from "./dto/create-subtype.dto";
+import { CreateSubtype } from "./outbound-port/create-subtype.outbound-port";
 
 @CustomRepository(Subtype)
 export class SubtypeRepository extends Repository<Subtype>{
@@ -21,13 +22,27 @@ export class SubtypeRepository extends Repository<Subtype>{
             throw e;
         }
     }
+
+    async CreateSubtype(data : CreateSubtype) : Promise<Subtype>{
+        try{
+            return await this.save(data);
+        }  
+        catch(e) {
+            throw(e);
+        }
+    }
     
-    async CreateSubtype(data : SubtypeInit) : Promise<Subtype>{
+    async CreateSubtypeInit(data : SubtypeInit) : Promise<Subtype>{
         try{
             return await this.save(data);
         }
         catch(e) {
             throw(e);
         }
+    }
+    
+    async RemoveSubtype(param : number) : Promise<boolean> {
+        const result = await this.delete(param);
+        return result.affected === 1 ? true : false;
     }
 }

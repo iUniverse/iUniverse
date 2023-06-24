@@ -6,7 +6,7 @@ export class DeleteProjectController {
     constructor(
         @Inject(REMOVE_PROJECT_INBOUND_PORT)
         private readonly removeProjectInboundPort: RemoveProjectInboundPort
-    ) { }
+    ) {}
 
     @Delete('/:id')
     async remove(@Param() param: RemoveProjectIPInputDto): Promise<RemoveProjectIPOutputDto> {

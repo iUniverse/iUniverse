@@ -8,6 +8,17 @@ export class SubtypeInit{
     basetypeName : string;
 }
 
+export class CreateSubtype{
+    @IsNotEmpty()
+    basetypeId : number;
+    @IsNotEmpty()
+    name : string;
+    description : string;
+    orderNum : number;
+    color : string;
+    fontColor : string;
+}
+
 export class ReturnSubtype{
     readonly id : number;
     readonly name : string;
@@ -22,5 +33,7 @@ export class ReturnSubtype{
 export const CREATE_SUBTYPE_INBOUND_PORT = 'CREATE_SUBTYPE_INBOUND_PORT' as const;
 
 export interface CreateSubtypeInboundPort{
+    create(data : CreateSubtype) : Promise<ReturnSubtype>
+
     createInit(data : SubtypeInit) : Promise<ReturnSubtype[]>
 }

@@ -1,5 +1,5 @@
 import { Injectable } from "@nestjs/common";
-import { CreateSubtypeOutboundPort, ReturnSubtype, SubtypeInit } from "../outbound-port/create-subtype.outbound-port";
+import { CreateSubtype, CreateSubtypeOutboundPort, ReturnSubtype, SubtypeInit } from "../outbound-port/create-subtype.outbound-port";
 import { Subtype } from "../subtype.entity";
 import { SubtypeRepository } from "../subtype.repository";
 
@@ -10,7 +10,11 @@ export class CreateSubtypeRepository implements CreateSubtypeOutboundPort{
         private readonly createSubtypeRepo : SubtypeRepository
     ){}
 
+    async create(data : CreateSubtype) : Promise<ReturnSubtype>{
+        return await this.createSubtypeRepo.CreateSubtype(data)
+    }
+
     async createInit(data : SubtypeInit) : Promise<ReturnSubtype>{
-        return await this.createSubtypeRepo.CreateSubtype(data);
+        return await this.createSubtypeRepo.CreateSubtypeInit(data);
     } 
 }

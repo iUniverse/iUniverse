@@ -1,3 +1,5 @@
+import { IsNotEmpty } from "class-validator";
+
 export type SubtypeInit = { 
     readonly name : string;
     readonly description : string;
@@ -5,6 +7,15 @@ export type SubtypeInit = {
     readonly fontColor : string;
     readonly basetypeId : number;
     readonly orderNum : number;
+}
+
+export type CreateSubtype = {
+    readonly basetypeId : number;
+    readonly name : string;
+    readonly orderNum : number;
+    readonly description : string;
+    readonly color : string;
+    readonly fontColor : string;
 }
 
 export type ReturnSubtype = {
@@ -21,5 +32,6 @@ export type ReturnSubtype = {
 export const CREATE_SUBTYPE_OUTBOUND_PORT = 'CREATE_SUBTYPE_OUTBOUND_PORT' as const;
 
 export interface CreateSubtypeOutboundPort {
+    create(data : CreateSubtype) : Promise<ReturnSubtype>
     createInit(data : SubtypeInit) : Promise<ReturnSubtype>
 }
