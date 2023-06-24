@@ -10,118 +10,118 @@ import Setting from "./setting";
 import { initBaseTypeCheck } from "api/baseType/baseType";
 
 
-// interface ProjectCategory {
-//     [key: string]: string
-// }
-// interface TaskTypePage {
-//     [key: string]: JSX.Element
-// }
+interface ProjectCategory {
+    [key: string]: string
+}
+interface TaskTypePage {
+    [key: string]: JSX.Element
+}
 
 export default function Task({ }: any) { //태스크 정보를 가지고 올 예정
-//     const PROJECT_CATEGORY: ProjectCategory = {
-//         'favorite': '즐겨찾기',
-//         'my_project': '내 프로젝트',
-//         'un_known': '알 수 없음'
-//     }
+    const PROJECT_CATEGORY: ProjectCategory = {
+        'favorite': '즐겨찾기',
+        'my_project': '내 프로젝트',
+        'un_known': '알 수 없음'
+    }
 
-    // /* 현재 활성화된 테스크 */
-    // const [currentTaskContent, setCurrentTaskContent] = useState<any>([]);
-    // /* 현재 활성화된  프로젝트 */
-    // const [currentProject, setCurrentProject] = useState<any>();
-    // const [projects, setProjects] = useState<any>();
-    // const [projectCategory, setProjectCategory] = useState<string | undefined>();
+    /* 현재 활성화된 테스크 */
+    const [currentTaskContent, setCurrentTaskContent] = useState<any>([]);
+    /* 현재 활성화된  프로젝트 */
+    const [currentProject, setCurrentProject] = useState<any>();
+    const [projects, setProjects] = useState<any>();
+    const [projectCategory, setProjectCategory] = useState<string | undefined>();
 
 
-    // const [editProjectTitle, setEditProjectTitle] = useState<boolean>(false);
-    // const [currentTaskType, setCurrentTaskType] = useState<string>('board');
+    const [editProjectTitle, setEditProjectTitle] = useState<boolean>(false);
+    const [currentTaskType, setCurrentTaskType] = useState<string>('board');
 
-    // const TASK_TYPE = [
-    //     { 'title': 'board', 'name': '보드' },
-    //     { 'title': 'chart', 'name': '표' },
-    //     { 'title': 'calendar', 'name': '캘린더' },
-    //     { 'title': 'project', 'name': '프로젝트' },
-    //     { 'title': 'setting', 'name': '설정' },
-    // ] as const
+    const TASK_TYPE = [
+        { 'title': 'board', 'name': '보드' },
+        { 'title': 'chart', 'name': '표' },
+        { 'title': 'calendar', 'name': '캘린더' },
+        { 'title': 'project', 'name': '프로젝트' },
+        { 'title': 'setting', 'name': '설정' },
+    ] as const
 
-    // const TASK_TYPE_PAGE: TaskTypePage = {
-    //     'board': <Kanban 
-    //         projectId={currentProject?.id}
-    //         tasks={currentTaskContent}
-    //         setCurrentTaskContent={setCurrentTaskContent} />,
-    //     'chart': <></>,
-    //     'calendar': <CalendarView />,
-    //     'project': <ProjectDetail />,
-    //     'setting': <Setting projectId={currentProject?.id} />
-    // }
+    const TASK_TYPE_PAGE: TaskTypePage = {
+        'board': <Kanban 
+            projectId={currentProject?.id}
+            tasks={currentTaskContent}
+            setCurrentTaskContent={setCurrentTaskContent} />,
+        'chart': <></>,
+        'calendar': <CalendarView />,
+        'project': <ProjectDetail />,
+        'setting': <Setting projectId={currentProject?.id} />
+    }
 
-    // const getCurrentProject = async () => {
-    //     const params = new URLSearchParams(location.search);
-    //     setProjectCategory(() => params.get('p_category') === null ? 'un_known' : params.get('p_category')?.toString());
-    //     return await getProject(Number(params.get('iuni_project')));
-    // }
-    // const loadPage = (title: string) => {
-    //     setCurrentTaskType(() => title)
-    // }
-    // const handleProjectTitle = (e: MouseEvent<HTMLDivElement>, type: boolean | undefined) => {
-    //     e.stopPropagation();
-    //     type === undefined ? setEditProjectTitle(() => !editProjectTitle) : setEditProjectTitle(() => type);
-    // }
+    const getCurrentProject = async () => {
+        const params = new URLSearchParams(location.search);
+        setProjectCategory(() => params.get('p_category') === null ? 'un_known' : params.get('p_category')?.toString());
+        return await getProject(Number(params.get('iuni_project')));
+    }
+    const loadPage = (title: string) => {
+        setCurrentTaskType(() => title)
+    }
+    const handleProjectTitle = (e: MouseEvent<HTMLDivElement>, type: boolean | undefined) => {
+        e.stopPropagation();
+        type === undefined ? setEditProjectTitle(() => !editProjectTitle) : setEditProjectTitle(() => type);
+    }
 
-    // const projectTitle = useRef<any>();
-    // /* 테스크 컨텐츠 불러오기 */
-    // const loadTaskContent = (type: string, index: number) => {
-    //     setCurrentTaskContent(() => type);
-    // }
+    const projectTitle = useRef<any>();
+    /* 테스크 컨텐츠 불러오기 */
+    const loadTaskContent = (type: string, index: number) => {
+        setCurrentTaskContent(() => type);
+    }
 
-    // /* 테스크 목록 불러오기 */
-    // const loadTaskByProjectId = async (projectId: number) => {
-    //     const tasks = await loadByProjectId(projectId);
-    //     setCurrentTaskContent(() => [...tasks]);
-    // }
+    /* 테스크 목록 불러오기 */
+    const loadTaskByProjectId = async (projectId: number) => {
+        const tasks = await loadByProjectId(projectId);
+        setCurrentTaskContent(() => [...tasks]);
+    }
 
-    // const updateProjectTitle = async () => {
-    //     if (currentProject === undefined) return;
+    const updateProjectTitle = async () => {
+        if (currentProject === undefined) return;
 
-    //     const editTitle: string = projectTitle.current.value;
-    //     const result = await updateProject({
-    //         'id': currentProject.id,
-    //         'key': 'name',
-    //         'value': editTitle
-    //     });
-    //     if (result.result === true) {
-    //         setCurrentProject((prev: any) => {
-    //             return { ...prev, 'name': editTitle };
-    //         });
-    //     }
+        const editTitle: string = projectTitle.current.value;
+        const result = await updateProject({
+            'id': currentProject.id,
+            'key': 'name',
+            'value': editTitle
+        });
+        if (result.result === true) {
+            setCurrentProject((prev: any) => {
+                return { ...prev, 'name': editTitle };
+            });
+        }
 
-    // }
+    }
 
-    // const handlerTest = (e: any) => {
-    //     if (e.key === 'Enter') {
-    //         updateProjectTitle();
-    //         setEditProjectTitle(() => false);
-    //     }
-    // }
-    // useEffect(() => {
-    //     const initProject = async () => {
-    //         const return_value = await getCurrentProject();
-    //         setCurrentProject(() => return_value);
-    //         loadTaskByProjectId(return_value.id);            
-    //     }
-    //     initProject();
+    const handlerTest = (e: any) => {
+        if (e.key === 'Enter') {
+            updateProjectTitle();
+            setEditProjectTitle(() => false);
+        }
+    }
+    useEffect(() => {
+        const initProject = async () => {
+            const return_value = await getCurrentProject();
+            setCurrentProject(() => return_value);
+            loadTaskByProjectId(return_value.id);            
+        }
+        initProject();
 
-    //     const loadMyProject = async () => {
-    //         const return_value = await loadProject();
-    //         setProjects(() => return_value);
-    //     }
-    //     loadMyProject();
+        const loadMyProject = async () => {
+            const return_value = await loadProject();
+            setProjects(() => return_value);
+        }
+        loadMyProject();
 
         
-    // }, [])
+    }, [])
 
     return (
         <>
-            {/* <div className="task-container">
+            { <div className="task-container">
                 <SideMenu
                     projects={projects}
                     loadTaskByProjectId={loadTaskByProjectId}
@@ -204,8 +204,8 @@ export default function Task({ }: any) { //태스크 정보를 가지고 올 예
                         </div>
                     </div>
                 </div>
-            </div> */}
-            <CalendarView></CalendarView>
+            </div> }
+            {/* <CalendarView></CalendarView> */}
         </>
     )
 }
