@@ -5,6 +5,7 @@ type ReturnSubtypeInit = {
     fontColor: string;
     basetypeId: number;
     orderNum: number;
+    defaultVal : boolean;
 }
 
 type SubtypeInit = {
@@ -21,6 +22,7 @@ const init_subtypes = {
             'fontColor': '',
             'basetypeId': 0,
             'orderNum': 0,
+            'defaultVal' : true, 
         },
         {
             'name': '매니저',
@@ -29,6 +31,7 @@ const init_subtypes = {
             'fontColor': '',
             'basetypeId': 0,
             'orderNum': 1,
+            'defaultVal' : true, 
         },
         {
             'name': '참여자',
@@ -36,7 +39,8 @@ const init_subtypes = {
             'color': '',
             'fontColor': '',
             'basetypeId': 0,
-            'orderNum': 3,
+            'orderNum': 2,
+            'defaultVal' : true, 
         }
     ],
     '프로젝트 상태': [
@@ -47,6 +51,7 @@ const init_subtypes = {
             'fontColor': '',
             'basetypeId': 0,
             'orderNum': 0,
+            'defaultVal' : true, 
         },
         {
             'name': '진행중',
@@ -55,6 +60,7 @@ const init_subtypes = {
             'fontColor': '',
             'basetypeId': 0,
             'orderNum': 1,
+            'defaultVal' : true, 
         },
         {
             'name': '완료',
@@ -63,32 +69,46 @@ const init_subtypes = {
             'fontColor': '',
             'basetypeId': 0,
             'orderNum': 2,
+            'defaultVal' : true, 
         }
     ],
     '태스크 상태': [
         {
+            
+            'name' : '삭제됨',
+            'description': '태스크 삭제 상태',
+            'color': '#1120ff',
+            'fontColor': '#ffffff',
+            'basetypeId': 0,
+            'orderNum': -1,
+            'defaultVal' : true, 
+        },
+        {
             'name': '대기중',
             'description': '태스크 대기 상태',
-            'color': '',
-            'fontColor': '',
+            'color': '#1120ff',
+            'fontColor': '#ffffff',
             'basetypeId': 0,
             'orderNum': 0,
+            'defaultVal' : true,
         },
         {
             'name': '진행중',
             'description': '태스크 진행 상태',
-            'color': '',
-            'fontColor': '',
+            'color': '#1120ff',
+            'fontColor': '#ffffff',
             'basetypeId': 0,
             'orderNum': 1,
+            'defaultVal' : true,
         },
         {
             'name': '완료',
             'description': '태스크 완료 상태',
-            'color': '',
-            'fontColor': '',
+            'color': '#1120ff',
+            'fontColor': '#ffffff',
             'basetypeId': 0,
             'orderNum': 2,
+            'defaultVal' : true,
         }
     ],
 } as const;

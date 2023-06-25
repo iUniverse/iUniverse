@@ -1,5 +1,5 @@
 import { Body, Controller, Inject, Patch, UsePipes, ValidationPipe } from "@nestjs/common";
-import { ResultUpdateTask, UPDATE_TASK_INBOUND_PORT, UpdateTask, UpdateTaskInboundPort } from "../inbound-port/update-task.inbound-port";
+import { ResultUpdateTask, UPDATE_TASK_INBOUND_PORT, UpdateAllStatus, UpdateTask, UpdateTaskInboundPort } from "../inbound-port/update-task.inbound-port";
 
 @Controller('iuni_task')
 export class PatchTaskController{
@@ -9,12 +9,18 @@ export class PatchTaskController{
     ){}
 
     /* 
-    2023-06-23 여기까지 함 
-    태스트 업데이트 진행중
+    테스크 정보 업데이트
     */
     @Patch('/')
     @UsePipes(ValidationPipe)
     async update(@Body() data : UpdateTask) : Promise<ResultUpdateTask>{
         return this.updateTaskInboundPort.update(data);
+    }
+
+    /* pastStatusId 와 관련된 모든 테스크 상태 변경*/
+    @Patch('/allstatus')
+    @UsePipes(ValidationPipe)
+    async updateAllTaskByStatus(@Body() data : UpdateAllStatus) : Promise<ResultUpdateTask>{
+        return this.updateTaskInboundPort.updateAllTaskByStatus(data);
     }
 }

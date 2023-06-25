@@ -14,6 +14,14 @@ export class UpdateTask{
     value : any
 }
 
+export class UpdateAllStatus{
+    @IsNotEmpty()
+    postStatusId : number;
+    @IsNotEmpty()
+    currentStatusId : number;
+}
+
+
 export class ResultUpdateTask{
     result : boolean;
 }
@@ -26,4 +34,6 @@ export interface UpdateTaskInboundPort{
     // ): Promise<UpdateTaskInboundPortOutputDto>; 
 
     update(data : UpdateTask) : Promise<ResultUpdateTask>
+
+    updateAllTaskByStatus(data: UpdateAllStatus) : Promise<ResultUpdateTask>
 }

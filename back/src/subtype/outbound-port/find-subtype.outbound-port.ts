@@ -7,6 +7,7 @@ export type Subtype = {
     createDate : Date;
     basetypeId : number;
     orderNum : number;
+    defaultVal : boolean;
 }
 
 export const FIND_SUBTYPE_OUTBOUND_PORT = 'FIND_SUBTYPE_OUTBOUND_PORT' as const;

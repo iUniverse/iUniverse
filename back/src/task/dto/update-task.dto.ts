@@ -16,3 +16,10 @@ export class UpdateTaskDto{
     readonly creatorId?: number;
     readonly projectId?: number;
 }
+
+export class UpdateAllStatus{
+    @IsNotEmpty()
+    postStatusId : number;
+    @IsNotEmpty()
+    currentStatusId : number;
+}

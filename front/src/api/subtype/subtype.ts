@@ -33,6 +33,7 @@ interface CreateSubtype {
     orderNum : number;
     color : string;
     fontColor : string;
+    defaultVal : boolean;
 }
 
 export async function removeSubtype(id : number){

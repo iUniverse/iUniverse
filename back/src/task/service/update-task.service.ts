@@ -1,5 +1,5 @@
 import { Inject } from "@nestjs/common";
-import { UpdateTask, UpdateTaskInboundPort} from "../inbound-port/update-task.inbound-port";
+import { UpdateAllStatus, UpdateTask, UpdateTaskInboundPort} from "../inbound-port/update-task.inbound-port";
 import { UpdateTaskOutboundPort, UpdateTaskOutboundPortInputDto, UpdateTaskOutboundPortOutputDto, UPDATE_TASK_OUTBOUND_PORT, ResultUpdateTask } from "../outbound-port/update-task.outboud-port";
 
 export class UpdateTaskService implements UpdateTaskInboundPort{
@@ -15,5 +15,9 @@ export class UpdateTaskService implements UpdateTaskInboundPort{
 
     async update(data : UpdateTask) : Promise<ResultUpdateTask>{
         return await this.updateTaskOutboundPort.update(data);
+    }
+
+    async updateAllTaskByStatus(data: UpdateAllStatus): Promise<ResultUpdateTask> {
+        return await this.updateTaskOutboundPort.updateAllTaskByStatus(data);
     }
 }

@@ -6,6 +6,7 @@ import { FindProjectOutboundPortInputDto } from "./outbound-port/find-projects.o
 import { RemoveProjectOutboundPort, RemoveProjectOutboundPortInputDto } from "./outbound-port/remove-projects.outbound-port";
 import { UpdateProjectsOutboundPort, UpdateProjectsOutboundPortInputDto } from "./outbound-port/update-projects.outbound-port";
 import { Project } from "./project.entity";
+import { makeUpdatQuery } from "src/theme/module/theme.module";
 
 @CustomRepository(Project)
 export class ProjectRepository extends Repository<Project> {
@@ -27,13 +28,13 @@ export class ProjectRepository extends Repository<Project> {
     }
 
     async UpdateProject(param : UpdateProjectsOutboundPortInputDto) : Promise<boolean>{
-        const obj : object = {};
-        console.log(param);
-        obj[param.key] = param.value;
+        // const obj : object = {};
+        // console.log(param);
+        // obj[param.key] = param.value;
         
         const result =  await this.createQueryBuilder()
                         .update(Project)
-                        .set(obj)
+                        .set(makeUpdatQuery(param))
                         .where("id = :id", { id : param.id})
                         .execute();
 

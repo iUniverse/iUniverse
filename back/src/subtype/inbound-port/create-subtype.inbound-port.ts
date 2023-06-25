@@ -17,6 +17,7 @@ export class CreateSubtype{
     orderNum : number;
     color : string;
     fontColor : string;
+    defaultVal : boolean;
 }
 
 export class ReturnSubtype{
@@ -28,6 +29,7 @@ export class ReturnSubtype{
     readonly createDate : Date;
     readonly basetypeId : number;
     readonly orderNum : number;
+    readonly defaultVal : boolean;
 }
 
 export const CREATE_SUBTYPE_INBOUND_PORT = 'CREATE_SUBTYPE_INBOUND_PORT' as const;

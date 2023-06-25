@@ -28,6 +28,9 @@ export class Subtype{
     @Column()
     orderNum : number;
 
+    @Column({default : false})
+    defaultVal : boolean;
+
     @ManyToOne(() => Basetype, (basetype) => basetype.subtypes)
     @JoinColumn()
     basetype : Basetype;

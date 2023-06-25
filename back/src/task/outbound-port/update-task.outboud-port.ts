@@ -1,3 +1,4 @@
+import { IsNotEmpty } from "class-validator";
 import { UpdateTaskDto } from "../dto/update-task.dto";
 
 export type UpdateTaskOutboundPortInputDto = UpdateTaskDto;
@@ -13,6 +14,12 @@ export type ResultUpdateTask = {
     readonly result : boolean;
 }
 
+export class UpdateAllStatus{
+    @IsNotEmpty()
+    postStatusId : number;
+    @IsNotEmpty()
+    currentStatusId : number;
+}
 export const UPDATE_TASK_OUTBOUND_PORT = 'UPDATE_TASK_OUTBOUND_PORT' as const;
 
 export interface UpdateTaskOutboundPort {
@@ -20,4 +27,7 @@ export interface UpdateTaskOutboundPort {
     //     params: UpdateTaskOutboundPortInputDto
     // ): Promise<UpdateTaskOutboundPortOutputDto>;
     update(data : UpdateTask) : Promise<ResultUpdateTask>
+
+    updateAllTaskByStatus(data : UpdateAllStatus) : Promise<ResultUpdateTask>
 }
+

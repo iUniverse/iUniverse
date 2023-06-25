@@ -5,6 +5,7 @@ export class SubtypeInit{
     readonly fontColor : string;
     readonly basetypeId : number;
     readonly orderNum : number;
+    readonly defaultVal : boolean;
 }
 
 export class ReturnSubtype{
@@ -15,5 +16,6 @@ export class ReturnSubtype{
     readonly fontColor : string;
     readonly basetypeId : number;
     readonly orderNum : number;
+    readonly defaultVal : boolean;
 }
 

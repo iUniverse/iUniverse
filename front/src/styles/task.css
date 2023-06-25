@@ -12,6 +12,7 @@
 }
 
 .task-view-list {
+    position : relative;
     height: 100vh;
     display: grid;
     grid-template-rows: 2.5fr 9.5fr;
@@ -392,4 +393,28 @@
     border-top: 0.6px solid #e5e5e5;
     padding-top: 6px;
     padding-bottom: 6px;
+}
+
+
+
+.task-detail-view-hide{
+    display : none;
+}
+
+.task-detail-view-half{
+    position: absolute;
+    width : 50vw;
+    height : 100%;
+    background-color: white;
+    border : 1px solid black;
+    right :0px;
+}
+
+.task-detail-view-full {
+    position: absolute;
+    width : 78vw;
+    height : 100%;
+    background-color: white;
+    border : 1px solid black;
+    right :0px;
 }
