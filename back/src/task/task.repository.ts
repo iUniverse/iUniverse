@@ -5,7 +5,7 @@ import { DeleteTaskDto } from "./dto/delete-task.dto";
 import { UpdateTaskDto } from "./dto/update-task.dto";
 import { LoadTaskDto } from "./dto/find-task.dto";
 import { Task } from "./task.entity";
-import { UpdateTask } from "./outbound-port/update-task.outboud-port";
+import { UpdateAllStatus, UpdateTask } from "./outbound-port/update-task.outboud-port";
 import { makeUpdatQuery } from "src/theme/module/theme.module";
 
 @CustomRepository(Task)
@@ -42,6 +42,15 @@ export class TaskRepository extends Repository<Task>{
     //     const result = await this.update(taskInfo.id, taskInfo);
     //     console.log('update task result: ', result);
     // }
+    async UpdateAllTaskByStatus(data : UpdateAllStatus) : Promise<boolean>{
+        const result = await this.createQueryBuilder()
+                                .update(Task)
+                                .set(makeUpdatQuery(data))
+                                .where("statusId = :statusId", {statusId : data.currentStatusId})
+                                .execute();
+
+        return result.affected === 1 ? true : false;
+    }
 
     async UpdateTask(data: UpdateTask): Promise<boolean> {
         const result = await this.createQueryBuilder()
@@ -53,3 +62,4 @@ export class TaskRepository extends Repository<Task>{
         return result.affected === 1 ? true : false;
     }
 }
+
