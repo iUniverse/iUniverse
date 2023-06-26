@@ -15,3 +15,10 @@ export function makeUpdatQuery(data) : object {
     console.log(update_query);
     return update_query;
 }
+
+/* 업데이트 쿼리 만들기 */
+export function makeUpdateQuery(data) : object{
+    const update_query : object = {};
+    update_query[data.key] = data.value;
+    return update_query;
+}

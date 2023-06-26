@@ -1,8 +1,10 @@
+
 import { findBasetypeByName } from "api/baseType/baseType";
 import { createSubtype, loadProjectSubtype, removeSubtype } from "api/subtype/subtype";
 import { create, updateAllTaskByStatus } from "api/task/task";
+import { Project } from "pages/project/interface";
 import { Dispatch, SetStateAction, useEffect, useRef, useState } from "react";
-import { StringLiteral } from "typescript";
+import dynamic from 'next/dynamic';
 
 interface Task {
     id: number;
@@ -33,15 +35,32 @@ interface Subtype {
 }
 
 interface Props {
-    projectId: number;
+    project: Project;
     tasks: Task[];
     setTasks: Dispatch<SetStateAction<Array<Task>>>
 }
+interface TaskDetailViewType {
+    [key: string]: string
+}
 
 export default function Kanban(props: Props) {
+    const Editor = dynamic(() => import("../task/editor"), { ssr: false });
+    const TASK_DETAIL_VIEW_TYPE: TaskDetailViewType = {
+        'hide': 'task-detail-view-hide',
+        'half': 'task-detail-view-half',
+        'full': 'task-detail-view-full'
+    }
+    /* 태스크 상세보기 타입 */
+    const [taskDetailType, setTaskDetailType] = useState<string>('hide');
+    const handleTaskDetailView = (type: string) => {
+        setTaskDetailType(() => TASK_DETAIL_VIEW_TYPE[type])
+    }
+
+    /* 현재 활성화된 태스크 */
+    const [currentTask, setCurrentTask] = useState<any>();
     const [currentBasetypeId, setCurrentBasetypeId] = useState<number>();
     const addTask = async (statusId: number) => {
-        const result = await create(props.projectId, '새로운 태스크', statusId);
+        const result = await create(props.project.id, '새로운 태스크', statusId);
         props.setTasks(prev => [result, ...prev]);
     }
     /* 태스크 추가 버튼 handle */
@@ -51,6 +70,10 @@ export default function Kanban(props: Props) {
         addBtnList.current[index].src = `img/task/add-btn-${type}.webp`;
     }
 
+    const [currentMode, setCurrentMode] = useState<string>();
+    const handleCurrentMode = (type : string) => {
+        setCurrentMode(() => type);
+    }
     /* 태스크 셋팅 버튼 handle */
     const settingBtnList = useRef<any>([]);
     const handleSettingBtn = (type: string, index: number) => {
@@ -80,6 +103,12 @@ export default function Kanban(props: Props) {
     const [currentTaskId, setCurrentTaskId] = useState<number>();
 
     const renderTaskDetail = (taskId: number) => {
+        const currentTask = props.tasks.find((e) => e.id === taskId);
+        if (currentTask !== undefined) {
+            console.log(currentTask);
+            setCurrentTask(() => currentTask);
+            handleTaskDetailView('half');
+        }
         setCurrentTaskId(taskId);
     }
 
@@ -106,7 +135,7 @@ export default function Kanban(props: Props) {
         if (removeStatus === undefined) {
             return false;
         }
-        
+
         const all_task_status_update_result = await updateAllTaskByStatus(id, removeStatus.id);
 
         if (all_task_status_update_result.result === false) {
@@ -118,13 +147,19 @@ export default function Kanban(props: Props) {
             setTaskStatus((prev) => [...prev.filter(e => e.id !== id)])
         }
     }
-    
+    /* 테스크의 정보가 바뀔때 */
+    useEffect(() => {
+        if (currentTask !== undefined) {
+            handleTaskDetailView('half');
+        }
+    }, [currentTask]);
+
+
 
     useEffect(() => {
         const settingTaskStatus = async () => {
-            console.log(props.projectId);
-            if (props.projectId !== undefined) {
-                const basetype = await findBasetypeByName('태스크 상태', props.projectId);
+            if (props.project?.id !== undefined) {
+                const basetype = await findBasetypeByName('태스크 상태', props.project.id);
 
                 if (basetype === 'noData') {
                     return;
@@ -141,7 +176,7 @@ export default function Kanban(props: Props) {
             }
         }
         settingTaskStatus()
-    }, [props.projectId]);
+    }, [props.project]);
 
     return (
         <div className="kanban-board-view">
@@ -236,6 +271,102 @@ export default function Kanban(props: Props) {
 
                 </div>
             </div>
+
+            {
+                currentTask !== undefined &&
+                <div className={taskDetailType}>
+                    <div className="task-detail-view-bread">
+                        <div className="task-detail-expand-btn" onClick={() => handleTaskDetailView('hide')}>
+                        </div>
+
+                        <div className="task-bread-name">
+                            프로젝트
+                        </div>
+                        <div>
+                            <img src="/img/task/task-bread.webp" style={{ width: '18px', height: '18px' }} />
+                        </div>
+
+                        <div className="task-bread-name">
+                            내 프로젝트
+                        </div>
+
+                        <div>
+                            <img src="/img/task/task-bread.webp" style={{ width: '18px', height: '18px' }} />
+                        </div>
+
+                        <div className="task-bread-name">
+                            {props.project.name}
+                        </div>
+                    </div>
+
+                    <div className="task-detail-view-container">
+                        <div className="task-detail-view-header">
+                            <div className="task-detail-view-title">
+                                {currentTask.name}
+                            </div>
+
+                            <div className="task-detail-view-during-date">
+                                <div className="during-date-badge">D-13</div>
+                                <div className="during-date-title">태스크 기간</div>
+                                <div className="during-date-start-date">2022.10.01</div>
+                                <div className="during-date-connection">~</div>
+                                <div className="during-date-end-date">2022.10.03</div>
+                            </div>
+
+                            <div className="task-detail-view-writor">
+                                <div className="task-creator">
+                                    <div className="task-writor-title">생성자</div>
+                                    <div className="task-writor">
+                                        <div className="task-writor-iuni-cat"></div>
+                                        김태호
+                                    </div>
+                                </div>
+
+                                <div className="task-gap">
+                                    <img src="/img/task/division-line.webp" style={{ width: '18px', height: '18px', marginTop: '3px' }} />
+                                </div>
+
+                                <div className="task-editor">
+                                    <div className="task-writor-title">편집자</div>
+                                    <div className="task-writor">
+                                        <div className="task-writor-iuni-cat"></div>
+                                        김망고
+                                    </div>
+                                    <div className="task-latest-update-date">2022.11.03 최종편집</div>
+                                </div>
+                            </div>
+
+                            <div className="task-detail-status">
+                                <div className="task-detail-status-title">
+                                    <p>상태</p>
+                                    <div className="task-status-badge">
+                                        {
+                                            taskStatus?.find((z: any) => z.id === currentTask.statusId)!.name
+                                        }
+                                    </div>
+                                </div>
+
+                                <div className="task-detail-status-title">
+                                    <p>보드</p>
+                                    <div className="task-status-badge">
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div className="task-detail-view-body" onClick={() => handleCurrentMode('edit')}>
+                            
+                            {
+                                currentMode !== 'edit' ?
+                                currentTask.description === null ? '내용을 입력 해주세요' : currentTask.description
+                                : <Editor 
+                                    description={currentTask.description}/>
+                            }
+                        </div>
+                    </div>
+                </div>
+            }
         </div>
     )
 }

@@ -14,9 +14,6 @@ interface ProjectCategory {
 interface TaskTypePage {
     [key: string]: JSX.Element
 }
-interface TaskDetailViewType { 
-    [key : string] :string
-}
 
 export default function Task({ }: any) { //태스크 정보를 가지고 올 예정
     const PROJECT_CATEGORY: ProjectCategory = {
@@ -25,20 +22,13 @@ export default function Task({ }: any) { //태스크 정보를 가지고 올 예
         'un_known': '알 수 없음'
     }
 
-    const TASK_DETAIL_VIEW_TYPE : TaskDetailViewType = {
-        'hide' : 'task-detail-view-hide',
-        'half' : 'task-detail-view-half',
-        'full' : 'task-detail-view-full'
-    }
-    
+
     /*  프로젝트의 테스크들 */
     const [tasks, setTasks] = useState<any>([]);
     /* 현재 활성화된  프로젝트 */
     const [currentProject, setCurrentProject] = useState<any>();
-    /* 현재 활성화된 태스크 */
-    const [currentTask, setCurrentTask] = useState<any>();
-    /* 태스크 상세보기 타입 */
-    const [taskDetailType, setTaskDetailType] = useState<string>('hide');
+    
+    
     const [projects, setProjects] = useState<any>();
     const [projectCategory, setProjectCategory] = useState<string | undefined>();
 
@@ -51,12 +41,12 @@ export default function Task({ }: any) { //태스크 정보를 가지고 올 예
         { 'title': 'calendar', 'name': '캘린더' },
         { 'title': 'project', 'name': '프로젝트' },
         { 'title': 'setting', 'name': '설정' },
-        { 'title': 'trash', 'name' : '휴지통'}
+        { 'title': 'trash', 'name': '휴지통' }
     ] as const
 
     const TASK_TYPE_PAGE: TaskTypePage = {
-        'board': <Kanban 
-            projectId={currentProject?.id}
+        'board': <Kanban
+            project={currentProject}
             tasks={tasks}
             setTasks={setTasks} />,
         'chart': <></>,
@@ -120,7 +110,7 @@ export default function Task({ }: any) { //태스크 정보를 가지고 올 예
         const initProject = async () => {
             const return_value = await getCurrentProject();
             setCurrentProject(() => return_value);
-            loadTaskByProjectId(return_value.id);            
+            loadTaskByProjectId(return_value.id);
         }
         initProject();
 
@@ -131,12 +121,9 @@ export default function Task({ }: any) { //태스크 정보를 가지고 올 예
         loadMyProject();
     }, [])
 
-    /* 테스크의 정보가 바뀔때 */
-    useEffect(() => {
-        setTaskDetailType(() => TASK_DETAIL_VIEW_TYPE['half']);
-    },[currentTask]);
 
-    
+
+
     return (
         <>
             <div className="task-container">
@@ -218,9 +205,7 @@ export default function Task({ }: any) { //태스크 정보를 가지고 올 예
                             }
                         </div>
                     </div>
-                    <div className="task-detail-view-half">
-                        
-                    </div>
+                   
                 </div>
             </div>
             {/* <CalendarView></CalendarView> */}

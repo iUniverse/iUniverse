@@ -10,6 +10,8 @@
   },
   "dependencies": {
     "@ant-design/icons": "^5.0.0",
+    "@ckeditor/ckeditor5-build-classic": "^38.0.1",
+    "@ckeditor/ckeditor5-react": "^6.0.0",
     "@next/font": "13.1.1",
     "@types/antd": "^1.0.0",
     "@types/node": "18.11.18",

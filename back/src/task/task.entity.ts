@@ -44,6 +44,12 @@ export class Task{
     @Column({nullable: true})
     projectId: number;
 
+    @Column({nullable : true})
+    updateDate : Date;
+
+    @Column({nullable : true})
+    editorId : number;
+    
     @ManyToOne(
         (type) => Project,
         (project) => project.tasks
