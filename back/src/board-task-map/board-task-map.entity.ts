@@ -1,6 +1,6 @@
 import { Board } from "src/board/board.entity";
 import { Task } from "src/task/task.entity";
-import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
+import { Column, CreateDateColumn, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity()
 export class BoardTaskMap{
@@ -24,4 +24,7 @@ export class BoardTaskMap{
         (task) => task.boardTaskMap
     )
     task! : Task;
+
+    @CreateDateColumn()
+    createDate : Date;
 }

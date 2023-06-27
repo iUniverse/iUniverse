@@ -11,6 +11,7 @@ import { ProjectThemeModule } from './project-theme-map/project-theme.module';
 import { BasetypeModule } from './basetype/basetype.module';
 import { SubtypeModule } from './subtype/subtype.module';
 import { BoardModule } from './board/board.module';
+import { BoardTaskMapModule } from './board-task-map/board-task-map.module';
 
 @Module({
   imports: [
@@ -22,7 +23,8 @@ import { BoardModule } from './board/board.module';
     ProjectThemeModule,
     BasetypeModule,
     SubtypeModule,
-    BoardModule
+    BoardModule,
+    BoardTaskMapModule
   ],
   controllers: [AppController],
   providers: [AppService]

@@ -1,4 +1,3 @@
-import { ProjectRepository } from "src/project/project.repository";
 import { TypeOrmExModule } from "src/typeorm-ex.module";
 import { PostBoardController } from "./controller/post-board.controller";
 import { Module } from "@nestjs/common";
@@ -6,10 +5,11 @@ import { CREATE_BOARD_INBOUND_PORT } from "./inbound-port/create-board.inbound-p
 import { CreateBoardService } from "./service/create-board.service";
 import { CreateBoardRepository } from "./outbound-adapter/create-board.repository";
 import { CREATE_BOARD_OUTBOUND_PORT } from "./outbound-port/create-board.outbound-port";
+import { BoardRepository } from "./board.repository";
 
 @Module({
     imports : [
-        TypeOrmExModule.forCustomRepository([ProjectRepository])
+        TypeOrmExModule.forCustomRepository([BoardRepository])
     ],
     controllers : [PostBoardController],
     providers : [

@@ -1,6 +1,6 @@
 import { Injectable } from "@nestjs/common";
-import { CreateBoardOutboundPort, ResultCreateBoard } from "../outbound-port/create-board.outbound-port";
-import { CreateBoard } from "../inbound-port/create-board.inbound-port";
+import { CreateBoard, CreateBoardOutboundPort, InitCreateBoard, ResultCreateBoard, ResultInitCreateBoard } from "../outbound-port/create-board.outbound-port";
+
 import { BoardRepository } from "../board.repository";
 
 @Injectable()
@@ -18,5 +18,10 @@ export class CreateBoardRepository implements CreateBoardOutboundPort{
             'createDate' : result.createDate,
             'projectId' : result.projectId
         };
+    }
+
+    async createInit(data : InitCreateBoard) : Promise<ResultInitCreateBoard>{
+        const result = await this.createBoardRepo.Create(data);
+        return { 'result' : result};
     }
 }
