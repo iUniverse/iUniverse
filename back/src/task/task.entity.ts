@@ -1,5 +1,6 @@
 import { Column, CreateDateColumn, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 import { Project } from '../project/project.entity';
+import { BoardTaskMap } from "src/board-task-map/board-task-map.entity";
 //테스트용으로 id랑 이름만 입력해도 되도록 해놓음. 나중에 바꿔야함!
 @Entity()
 export class Task{
@@ -55,4 +56,11 @@ export class Task{
         (project) => project.tasks
     )
     project!: Project;
+
+    @OneToMany(
+        (type) => BoardTaskMap,
+        (boardTaskMap) => boardTaskMap.task
+    )
+
+    boardTaskMap! : BoardTaskMap[];
 }

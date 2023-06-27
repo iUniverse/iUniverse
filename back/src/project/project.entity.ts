@@ -4,6 +4,7 @@ import { Column, CreateDateColumn, Entity, OneToMany, PrimaryGeneratedColumn } f
 import { Task } from '../task/task.entity';
 import { ProjectThemeMap } from "src/project-theme-map/project-theme.entity";
 import { Basetype } from "src/basetype/basetype.entity";
+import { Board } from "src/board/board.entity";
 
 @Entity()
 export class Project{
@@ -71,4 +72,11 @@ export class Project{
     )
 
     baseTypes! : Basetype[];
+
+
+    @OneToMany(
+        (type) => Board,
+        (board) => board.project
+    )
+    boards! : Board[];
 }

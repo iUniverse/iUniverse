@@ -10,6 +10,7 @@ import { IuniCatModule } from './iunicat/iunicat.module';
 import { ProjectThemeModule } from './project-theme-map/project-theme.module';
 import { BasetypeModule } from './basetype/basetype.module';
 import { SubtypeModule } from './subtype/subtype.module';
+import { BoardModule } from './board/board.module';
 
 @Module({
   imports: [
@@ -20,7 +21,8 @@ import { SubtypeModule } from './subtype/subtype.module';
     ThemeModule,
     ProjectThemeModule,
     BasetypeModule,
-    SubtypeModule
+    SubtypeModule,
+    BoardModule
   ],
   controllers: [AppController],
   providers: [AppService]

@@ -39,9 +39,11 @@ interface Props {
     tasks: Task[];
     setTasks: Dispatch<SetStateAction<Array<Task>>>
 }
+
 interface TaskDetailViewType {
     [key: string]: string
 }
+
 
 export default function Kanban(props: Props) {
     const Editor = dynamic(() => import("../task/editor"), { ssr: false });
@@ -113,7 +115,7 @@ export default function Kanban(props: Props) {
     }
 
     const newBoardName = useRef<any>();
-    const createBoard = async (e) => {
+    const createBoard = async (e : any) => {
         if (e.key === 'Enter') {
             const result = await createSubtype({
                 'basetypeId': currentBasetypeId!,

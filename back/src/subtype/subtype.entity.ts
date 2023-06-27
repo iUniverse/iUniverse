@@ -34,7 +34,7 @@ export class Subtype{
     @ManyToOne(() => Basetype, (basetype) => basetype.subtypes)
     @JoinColumn()
     basetype : Basetype;
-
+ 
     // @OneToMany(type => ProjectMember, projectMember => projectMember.subType)
     // projectMembers : ProjectMember[];
 }
