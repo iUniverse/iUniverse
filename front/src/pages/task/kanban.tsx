@@ -5,6 +5,7 @@ import { create, updateAllTaskByStatus } from "api/task/task";
 import { Project } from "pages/project/interface";
 import { Dispatch, SetStateAction, useEffect, useRef, useState } from "react";
 import dynamic from 'next/dynamic';
+import { createNewBoard, loadBoardByProjectId } from "api/task/board";
 
 interface Task {
     id: number;
@@ -21,7 +22,14 @@ interface Task {
     statusId: number | null;
     typeId: number | null;
 }
-
+interface Board {
+    id: number;
+    name: string;
+    color: string;
+    fontColor: string;
+    taskOrder: number[] | null
+    orderNum: number;
+}
 interface Subtype {
     id: number;
     name: string;
@@ -73,7 +81,7 @@ export default function Kanban(props: Props) {
     }
 
     const [currentMode, setCurrentMode] = useState<string>();
-    const handleCurrentMode = (type : string) => {
+    const handleCurrentMode = (type: string) => {
         setCurrentMode(() => type);
     }
     /* 태스크 셋팅 버튼 handle */
@@ -115,19 +123,27 @@ export default function Kanban(props: Props) {
     }
 
     const newBoardName = useRef<any>();
-    const createBoard = async (e : any) => {
+    const createBoard = async (e: any) => {
         if (e.key === 'Enter') {
-            const result = await createSubtype({
-                'basetypeId': currentBasetypeId!,
-                'description': newBoardName.current!.value,
-                'name': newBoardName.current!.value,
-                'orderNum': taskStatus[taskStatus.length - 1].orderNum + 1,
+            const result = await createNewBoard({
+                'name' : newBoardName.current!.value,
+                'projectId' : props.project.id,
+                'orderNum': board[board.length - 1].orderNum + 1,
                 'color': '#1120ff',
                 'fontColor': '#ffffff',
-                'defaultVal': false,
-            });
+            })
+            
+            // const result = await createSubtype({
+            //     'basetypeId': currentBasetypeId!,
+            //     'description': newBoardName.current!.value,
+            //     'name': newBoardName.current!.value,
+            //     'orderNum': taskStatus[taskStatus.length - 1].orderNum + 1,
+             
+            //     'defaultVal': false,
+            // });
+            
             newBoardName.current.value = '';
-            setTaskStatus((prev) => [...prev, result]);
+            setBoard((prev) => [...prev, result]);
         }
     }
 
@@ -157,34 +173,43 @@ export default function Kanban(props: Props) {
     }, [currentTask]);
 
 
-
+    const [board, setBoard] = useState<Board[]>([]);
     useEffect(() => {
-        const settingTaskStatus = async () => {
+        // const settingTaskStatus = async () => {
+        //     if (props.project?.id !== undefined) {
+        //         const basetype = await findBasetypeByName('태스크 상태', props.project.id);
+
+        //         if (basetype === 'noData') {
+        //             return;
+        //         }
+        //         ;
+        //         const subtype = await loadProjectSubtype(basetype.id);
+        //         setCurrentBasetypeId(() => basetype.id);
+
+        //         setTaskStatus(() => [...subtype]);
+        //         // setTaskStatus(() => {
+        //         //     const normal_status = subtype.filter((e: any) => e.orderNum !== -1);
+        //         //     return [...normal_status];
+        //         // });
+        //     }
+        // }
+        // settingTaskStatus()
+
+        const settingBoard = async () => {
             if (props.project?.id !== undefined) {
-                const basetype = await findBasetypeByName('태스크 상태', props.project.id);
-
-                if (basetype === 'noData') {
-                    return;
-                }
-                ;
-                const subtype = await loadProjectSubtype(basetype.id);
-                setCurrentBasetypeId(() => basetype.id);
-
-                setTaskStatus(() => [...subtype]);
-                // setTaskStatus(() => {
-                //     const normal_status = subtype.filter((e: any) => e.orderNum !== -1);
-                //     return [...normal_status];
-                // });
+                const boards = await loadBoardByProjectId(props.project.id);
+                console.log(boards);
+                setBoard(() => [...boards])
             }
         }
-        settingTaskStatus()
+        settingBoard()
     }, [props.project]);
 
     return (
         <div className="kanban-board-view">
             <>
                 {
-                    taskStatus.filter((e) => e.orderNum !== -1).map((status, index) => (
+                    board.filter((e) => e.orderNum !== -1).map((status, index) => (
                         <div className="kanban-board" key={`kanban-board_${status.id}_${index}`}>
                             <div className="kanban-board-header">
                                 <div className="kanban-task-category">
@@ -206,31 +231,28 @@ export default function Kanban(props: Props) {
                                             src="img/task/add-btn-default.webp"
                                             style={{ width: '100%', height: '100%' }} />
                                     </div>
-                                    {
-                                        status.defaultVal === false &&
-                                        <div className="kanban-task-setting-btn"
-                                            onMouseOver={() => handleSettingBtn('hover', index)}
-                                            onMouseLeave={() => handleSettingBtn('no-hover', index)}
-                                            onClick={() => openSettingDropdown(status.id, index)}>
-                                            <img
-                                                ref={(el) => settingBtnList.current[index] = el}
-                                                src="img/task/setting-btn-default.webp" style={{ width: '100%', height: '100%' }} />
-                                            {
-                                                boardDropdown === status.id &&
-                                                <>
-                                                    <div className="kanban-setting-dropdown"
-                                                        onMouseOver={(e) => e.stopPropagation()}
-                                                        onMouseLeave={(e) => e.stopPropagation()}
-                                                        onClick={() => removeBoard(status.id, index)}>
-                                                        <img
-                                                            src="img/task/board-remove-btn-default.webp"
-                                                            style={{ width: '28px', height: '28px' }} />
-                                                        <p>보드 삭제</p>
-                                                    </div>
-                                                </>
-                                            }
-                                        </div>
-                                    }
+                                    <div className="kanban-task-setting-btn"
+                                        onMouseOver={() => handleSettingBtn('hover', index)}
+                                        onMouseLeave={() => handleSettingBtn('no-hover', index)}
+                                        onClick={() => openSettingDropdown(status.id, index)}>
+                                        <img
+                                            ref={(el) => settingBtnList.current[index] = el}
+                                            src="img/task/setting-btn-default.webp" style={{ width: '100%', height: '100%' }} />
+                                        {
+                                            boardDropdown === status.id &&
+                                            <>
+                                                <div className="kanban-setting-dropdown"
+                                                    onMouseOver={(e) => e.stopPropagation()}
+                                                    onMouseLeave={(e) => e.stopPropagation()}
+                                                    onClick={() => removeBoard(status.id, index)}>
+                                                    <img
+                                                        src="img/task/board-remove-btn-default.webp"
+                                                        style={{ width: '28px', height: '28px' }} />
+                                                    <p>보드 삭제</p>
+                                                </div>
+                                            </>
+                                        }
+                                    </div>
                                 </div>
                             </div>
                             <div className="kanban-board-body">
@@ -358,12 +380,12 @@ export default function Kanban(props: Props) {
                         </div>
 
                         <div className="task-detail-view-body" onClick={() => handleCurrentMode('edit')}>
-                            
+
                             {
                                 currentMode !== 'edit' ?
-                                currentTask.description === null ? '내용을 입력 해주세요' : currentTask.description
-                                : <Editor 
-                                    description={currentTask.description}/>
+                                    currentTask.description === null ? '내용을 입력 해주세요' : currentTask.description
+                                    : <Editor
+                                        description={currentTask.description} />
                             }
                         </div>
                     </div>
