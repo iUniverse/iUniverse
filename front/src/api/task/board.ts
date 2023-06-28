@@ -27,6 +27,20 @@ export async function createNewBoard(data : CreateBoard){
     }
 }   
 
+/* 보드 삭제 */
+export async function removeProjectBoard(id : number) {
+    try{
+        const response = await fetch(url + `/${id}`, {
+            method : 'DELETE',
+            cache : 'no-cache',
+        });
+        return response;
+    }
+    catch(e){
+        throw e;
+    }
+}
+
 /* 보드 기본값 생성 */
 export async function initCreateBoard(projectId : number){
     try{

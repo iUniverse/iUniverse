@@ -11,12 +11,17 @@ import { FIND_BOARD_INBOUND_PORT } from "./inbound-port/find-board.inbound-port"
 import { FindBoardRepository } from "./outbound-adapter/find-board.repository";
 import { FindBoardService } from "./service/find-board.service";
 import { FIND_BOARD_OUTBOUND_PORT } from "./outbound-port/find-board.outbound-port";
+import { REMOVE_BOARD_INBOUND_PORT } from "./inbound-port/remove-board.inbound-port";
+import { RemoveBoardService } from "./service/remove-board.service";
+import { REMOVE_BOARD_OUTBOUND_PORT } from "./outbound-port/remove-board.outbound-port";
+import { RemoveBoardRepository } from "./outbound-adapter/remove-board.repository";
+import { DeleteBoardController } from "./controller/delete-board.controller";
 
 @Module({
     imports : [
         TypeOrmExModule.forCustomRepository([BoardRepository])
     ],
-    controllers : [PostBoardController, GetBoardController],
+    controllers : [PostBoardController, GetBoardController, DeleteBoardController],
     providers : [
         {
             provide : CREATE_BOARD_INBOUND_PORT,
@@ -33,6 +38,14 @@ import { FIND_BOARD_OUTBOUND_PORT } from "./outbound-port/find-board.outbound-po
         {
             provide : FIND_BOARD_OUTBOUND_PORT,
             useClass : FindBoardRepository
+        },
+        {
+            provide : REMOVE_BOARD_INBOUND_PORT,
+            useClass : RemoveBoardService
+        },
+        {
+            provide : REMOVE_BOARD_OUTBOUND_PORT,
+            useClass : RemoveBoardRepository
         }
     ]
 })

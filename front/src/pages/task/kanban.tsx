@@ -5,7 +5,7 @@ import { create, updateAllTaskByStatus } from "api/task/task";
 import { Project } from "pages/project/interface";
 import { Dispatch, SetStateAction, useEffect, useRef, useState } from "react";
 import dynamic from 'next/dynamic';
-import { createNewBoard, loadBoardByProjectId } from "api/task/board";
+import { createNewBoard, loadBoardByProjectId, removeProjectBoard } from "api/task/board";
 
 interface Task {
     id: number;
@@ -69,8 +69,12 @@ export default function Kanban(props: Props) {
     /* 현재 활성화된 태스크 */
     const [currentTask, setCurrentTask] = useState<any>();
     const [currentBasetypeId, setCurrentBasetypeId] = useState<number>();
-    const addTask = async (statusId: number) => {
-        const result = await create(props.project.id, '새로운 태스크', statusId);
+    const [taskStatus, setTaskStatus] = useState<Subtype[]>([]);
+
+    /* 테스크 추가 */
+    const addTask = async (boardId: number) => {
+        const result = await create(props.project.id, '새로운 태스크', taskStatus[0].id);
+        //생성후 board-task-map에 추가
         props.setTasks(prev => [result, ...prev]);
     }
     /* 태스크 추가 버튼 handle */
@@ -105,11 +109,9 @@ export default function Kanban(props: Props) {
     const [boardDropdown, setBoardDropdown] = useState<number>(-1);
     const openSettingDropdown = (id: number, index: number) => {
         settingBtnList.current[index].value === 'active' ? handleSettingBtn('default', index) : handleSettingBtn('active', index);
-
         setBoardDropdown((prev) => prev === id ? -1 : id);
     }
 
-    const [taskStatus, setTaskStatus] = useState<Subtype[]>([]);
     const [currentTaskId, setCurrentTaskId] = useState<number>();
 
     const renderTaskDetail = (taskId: number) => {
@@ -149,20 +151,25 @@ export default function Kanban(props: Props) {
 
     /* 보드 삭제 */
     const removeBoard = async (id: number, index: number) => {
-        const removeStatus = taskStatus.find(e => e.orderNum === -1)
-        if (removeStatus === undefined) {
-            return false;
-        }
+        // const removeStatus = taskStatus.find(e => e.orderNum === -1)
+        // if (removeStatus === undefined) {
+        //     return false;
+        // }
 
-        const all_task_status_update_result = await updateAllTaskByStatus(id, removeStatus.id);
+        // const all_task_status_update_result = await updateAllTaskByStatus(id, removeStatus.id);
 
-        if (all_task_status_update_result.result === false) {
-            return false;
-        }
+        // if (all_task_status_update_result.result === false) {
+        //     return false;
+        // }
 
-        const result = await removeSubtype(id);
-        if (result && result.status === 200) {
-            setTaskStatus((prev) => [...prev.filter(e => e.id !== id)])
+        // const result = await removeSubtype(id);
+        // if (result && result.status === 200) {
+        //     setTaskStatus((prev) => [...prev.filter(e => e.id !== id)])
+        // }
+        /* board-task-map 수정(즉 없애는것) */
+        const result = await removeProjectBoard(id);
+        if(result && result.status === 200) {
+            setBoard((prev) => [...prev.filter(e => e.id !== id)]);
         }
     }
     /* 테스크의 정보가 바뀔때 */
@@ -175,25 +182,26 @@ export default function Kanban(props: Props) {
 
     const [board, setBoard] = useState<Board[]>([]);
     useEffect(() => {
-        // const settingTaskStatus = async () => {
-        //     if (props.project?.id !== undefined) {
-        //         const basetype = await findBasetypeByName('태스크 상태', props.project.id);
+        /* 프로젝트 상태값 불러오기 */
+        const settingTaskStatus = async () => {
+            if (props.project?.id !== undefined) {
+                const basetype = await findBasetypeByName('태스크 상태', props.project.id);
 
-        //         if (basetype === 'noData') {
-        //             return;
-        //         }
-        //         ;
-        //         const subtype = await loadProjectSubtype(basetype.id);
-        //         setCurrentBasetypeId(() => basetype.id);
+                if (basetype === 'noData') {
+                    return;
+                }
+                ;
+                const subtype = await loadProjectSubtype(basetype.id);
+                //setCurrentBasetypeId(() => basetype.id);
 
-        //         setTaskStatus(() => [...subtype]);
-        //         // setTaskStatus(() => {
-        //         //     const normal_status = subtype.filter((e: any) => e.orderNum !== -1);
-        //         //     return [...normal_status];
-        //         // });
-        //     }
-        // }
-        // settingTaskStatus()
+                setTaskStatus(() => [...subtype]);
+                // setTaskStatus(() => {
+                //     const normal_status = subtype.filter((e: any) => e.orderNum !== -1);
+                //     return [...normal_status];
+                // });
+            }
+        }
+        settingTaskStatus()
 
         const settingBoard = async () => {
             if (props.project?.id !== undefined) {
@@ -209,23 +217,23 @@ export default function Kanban(props: Props) {
         <div className="kanban-board-view">
             <>
                 {
-                    board.filter((e) => e.orderNum !== -1).map((status, index) => (
-                        <div className="kanban-board" key={`kanban-board_${status.id}_${index}`}>
+                    board.filter((e) => e.orderNum !== -1).map((val, index) => (
+                        <div className="kanban-board" key={`kanban-board_${val.id}_${index}`}>
                             <div className="kanban-board-header">
                                 <div className="kanban-task-category">
-                                    {status.name}
+                                    {val.name}
                                 </div>
                                 {
                                     props.tasks.length > 0 &&
                                     <div className="kanban-task-count ml-3">
-                                        <p>{props.tasks?.filter(z => z.statusId === status.id).length}</p>
+                                        <p>{props.tasks?.filter(z => z.statusId === val.id).length}</p>
                                     </div>
                                 }
                                 <div className="kanban-task-btn-list">
                                     <div className="kanban-task-add-btn"
                                         onMouseEnter={() => handleAddBtn('active', index)}
                                         onMouseLeave={() => handleAddBtn('default', index)}
-                                        onClick={() => addTask(status.id)}>
+                                        onClick={() => addTask(val.id)}>
                                         <img
                                             ref={(el) => addBtnList.current[index] = el}
                                             src="img/task/add-btn-default.webp"
@@ -234,17 +242,17 @@ export default function Kanban(props: Props) {
                                     <div className="kanban-task-setting-btn"
                                         onMouseOver={() => handleSettingBtn('hover', index)}
                                         onMouseLeave={() => handleSettingBtn('no-hover', index)}
-                                        onClick={() => openSettingDropdown(status.id, index)}>
+                                        onClick={() => openSettingDropdown(val.id, index)}>
                                         <img
                                             ref={(el) => settingBtnList.current[index] = el}
                                             src="img/task/setting-btn-default.webp" style={{ width: '100%', height: '100%' }} />
                                         {
-                                            boardDropdown === status.id &&
+                                            boardDropdown === val.id &&
                                             <>
                                                 <div className="kanban-setting-dropdown"
                                                     onMouseOver={(e) => e.stopPropagation()}
                                                     onMouseLeave={(e) => e.stopPropagation()}
-                                                    onClick={() => removeBoard(status.id, index)}>
+                                                    onClick={() => removeBoard(val.id, index)}>
                                                     <img
                                                         src="img/task/board-remove-btn-default.webp"
                                                         style={{ width: '28px', height: '28px' }} />
@@ -256,8 +264,8 @@ export default function Kanban(props: Props) {
                                 </div>
                             </div>
                             <div className="kanban-board-body">
-                                {
-                                    props.tasks?.filter(z => z.statusId === status.id).map((val, index) => (
+                                {/* {
+                                    props.tasks?.filter(z => z.statusId === val.id).map((val, index) => (
                                         <div className="kanban-card col-12" key={`task_${val.id}_${index}`} onClick={() => renderTaskDetail(val.id)}>
                                             <div className="kanban-card-header">
                                                 {val.name}
@@ -275,7 +283,7 @@ export default function Kanban(props: Props) {
                                             </div>
                                         </div>
                                     ))
-                                }
+                                } */}
                             </div>
                         </div>
                     ))
@@ -287,7 +295,7 @@ export default function Kanban(props: Props) {
                     <input className="kanban-task-add-category"
                         ref={newBoardName}
                         placeholder="새 보드 이름"
-                        onKeyUp={createBoard}
+                        onKeyUp={(e) => createBoard(e)}
                     //onBlur={() => createBoard()}
                     />
                 </div>

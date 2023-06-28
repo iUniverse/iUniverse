@@ -32,4 +32,14 @@ export class BoardRepository extends Repository<Board> {
             throw e;
         }
     }
+
+    async Remove(param : number) : Promise<boolean> {
+        try{
+            const result = await this.delete(param);
+            return result.affected === 1 ? true : false;
+        }
+        catch(e){
+            throw e;
+        }
+    }
 }
