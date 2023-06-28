@@ -29,7 +29,10 @@ export class Board{
     @CreateDateColumn()
     createDate : Date; 
     
-    @Column('integer',{array : true})
+    @Column()
+    orderNum : number;
+    
+    @Column('integer',{array : true, nullable : true})
     taskOrder : number[];
 
     @OneToMany(

@@ -16,12 +16,15 @@ export class CreateBoardRepository implements CreateBoardOutboundPort{
             'id' : result.id,
             'name' : result.name,
             'createDate' : result.createDate,
-            'projectId' : result.projectId
+            'projectId' : result.projectId,
+            'color' : result.color,
+            'fontColor' : result.fontColor,
+            'orderNum' : result.orderNum,
         };
     }
 
-    async createInit(data : InitCreateBoard) : Promise<ResultInitCreateBoard>{
+    async createInit(data : CreateBoard) : Promise<any>{
         const result = await this.createBoardRepo.Create(data);
-        return { 'result' : result};
+        return result
     }
 }

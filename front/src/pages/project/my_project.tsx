@@ -5,6 +5,7 @@ import { loadMyTheme } from 'api/theme/card-theme';
 import { createProjectTheme } from 'api/project-theme-map/project-theme-map';
 import { Project } from './interface';
 import { initBaseTypeCheck } from 'api/baseType/baseType';
+import { initCreateBoard } from 'api/task/board';
 
 
 
@@ -26,6 +27,7 @@ export default function MyProject(props: Props) {
         if (result.statusCode === 400)
             throw new Error('프로젝트 생성도중 에러가 발생 했어요.');
         props.setProjects(prev => [result, ...prev]);
+        initCreateBoard(result.id);
         initBaseTypeCheck(result.id);
         
         const my_theme_list = await loadMyTheme();        

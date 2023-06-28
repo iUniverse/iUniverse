@@ -1,5 +1,5 @@
 import { Inject } from "@nestjs/common";
-import { FIND_SUBTYPE_INBOUND_PORT, FindSubtypeInboundPort } from "../inbound-port/find-subtype.inbound-port";
+import { FindSubtypeInboundPort } from "../inbound-port/find-subtype.inbound-port";
 import { FIND_SUBTYPE_OUTBOUND_PORT, FindSubtypeOutboundPort, Subtype } from "../outbound-port/find-subtype.outbound-port";
 
 export class FindSubtypeService implements FindSubtypeInboundPort{

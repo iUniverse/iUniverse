@@ -1,7 +1,9 @@
 export type CreateBoard = {
     readonly name : string;
-    readonly creatorId : number;
+    readonly orderNum : number;
     readonly projectId : number;
+    readonly color : string;
+    readonly fontColor : string;
 }
 
 export type ResultCreateBoard = {
@@ -9,6 +11,9 @@ export type ResultCreateBoard = {
     readonly name : string;
     readonly createDate : Date;
     readonly projectId : number;
+    readonly orderNum :number;
+    readonly color : string;
+    readonly fontColor : string;
 }
 
 export type InitCreateBoard = {
@@ -25,6 +30,6 @@ export const CREATE_BOARD_OUTBOUND_PORT = 'CREATE_BOARD_OUTBOUND_PORT' as const;
 export interface CreateBoardOutboundPort{
     create(data : CreateBoard) : Promise<ResultCreateBoard>
 
-    createInit(data : InitCreateBoard) : Promise<ResultInitCreateBoard>
+    createInit(data : CreateBoard) : Promise<ResultInitCreateBoard>
 }
 

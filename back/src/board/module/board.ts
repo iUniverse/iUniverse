@@ -11,16 +11,19 @@ const init_board = {
             'name' : '대기중',
             'color' : '#1120ff',
             'fontColor' : '#ffffff',
+            'orderNum' : 0
         },
         {
             'name' : '진행중',
             'color' : '#1120ff',
             'fontColor' : '#ffffff',
+            'orderNum' : 1
         },
         {
             'name' : '완료',
             'color' : '#1120ff',
             'fontColor' : '#ffffff',
+            'orderNum' : 2
         }
     ]
 }

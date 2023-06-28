@@ -4,9 +4,10 @@ export class CreateBoard {
     @IsNotEmpty()
     readonly name : string;
     @IsNotEmpty()
-    readonly creatorId : number;
-    @IsNotEmpty()
     readonly projectId : number;
+    readonly orderNum : number;
+    readonly color : string;
+    readonly fontColor : string;
 }
 
 export class InitCreateBoard {
@@ -21,6 +22,9 @@ export class ResultCreateBoard {
     readonly name : string;
     readonly createDate : Date;
     readonly projectId : number;
+    readonly orderNum : number;
+    readonly color : string;
+    readonly fontColor : string;
 }
 
 export class ResultInitCreateBoard{

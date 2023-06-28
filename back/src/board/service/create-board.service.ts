@@ -3,26 +3,28 @@ import { CreateBoard, CreateBoardInboundPort, InitCreateBoard, ResultCreateBoard
 import { CREATE_BOARD_OUTBOUND_PORT, CreateBoardOutboundPort } from "../outbound-port/create-board.outbound-port";
 import { initCreateBoard } from "../module/board";
 
-export class CreateBoardService implements CreateBoardInboundPort{
+export class CreateBoardService implements CreateBoardInboundPort {
     constructor(
         @Inject(CREATE_BOARD_OUTBOUND_PORT)
-        private readonly createboardOutboundPort : CreateBoardOutboundPort
-    ){}
+        private readonly createboardOutboundPort: CreateBoardOutboundPort
+    ) { }
 
-    async create(data : CreateBoard) : Promise<ResultCreateBoard> {
+    async create(data: CreateBoard): Promise<ResultCreateBoard> {
         return this.createboardOutboundPort.create(data);
     }
 
-    async createInit(data : InitCreateBoard) : Promise<ResultInitCreateBoard>{
-        
-        const init_data_list = await initCreateBoard(data);
-        let funcs = [];
-        for(const init_data of init_data_list){
-            funcs.push(this.createboardOutboundPort.createInit(init_data));
-        }
-        Promise.all(funcs).then((result) => {
-            return result;
-        })        
+    async createInit(data: InitCreateBoard): Promise<ResultInitCreateBoard> {
+        return new Promise(async(resolve) => {
+            const init_data_list = await initCreateBoard(data);
+            let funcs = [];
+            for (const init_data of init_data_list) {
+                funcs.push(this.createboardOutboundPort.createInit(init_data));
+            }
+
+            Promise.all(funcs).then((result) => {
+                resolve({ 'result': true })
+            })
+        })
         //return this.createboardOutboundPort.createInit(data);
     }
 }
