@@ -1,24 +1,89 @@
 .task-container {
-    display: grid;
-    grid-template-columns: 16.61vw auto;
+    position: relative;
+    display: flex;
+    justify-content: flex-end;
 }
 
-.task-side-menu {
-    border-right: 1px solid #e4e4e4;
+.task-side-menu{
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: flex;
+    flex-direction: column;
     height: 100vh;
+    width: 319px;
+    border-right: 1px solid #e4e4e4;
     padding-top: 44px;
-    padding-left: 15.5px;
-    padding-right: 15.5px;
+    box-sizing: border-box;
+}
+.task-side-menu > * {
+    padding: 0 16px;
+}
+.task-search-box{
+    width: 100%;
+    height: 48px;
+}
+.task-side-content {
+    height: 100%;
+    width: 100%;
+    margin-top: 27px;
+    padding-bottom: 64px;
+    box-sizing: border-box;
+    overflow-y: scroll;
+}
+.task-side-content::-webkit-scrollbar {
+    width: 3px;
+    padding: 0;
+}
+
+.task-side-content::-webkit-scrollbar-thumb {
+    background: #a6a6a6; 
+    border-radius: 10px;
+    padding: 0;
+    
+} 
+.project-add-btn{
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 3px;
+    bottom: 14px;
+    left: 16px;
+    width: calc(100% - 32px);
+    height: 48px;
+    border: 1px solid #1120ff;
+    border-radius: 9px;
+    background-color: #ffffff;
+    cursor: pointer;
+    transition: all 0.1s ease-in-out;
+}
+.project-add-btn:hover{
+    background-color: #f2f3ff;
+}
+.project-add-btn > img{
+    width: 24px;
+    height: 24px;
+}
+
+.project-add-btn > span{
+  font-family: Pretendard;
+  font-size: 17px;
+  font-weight: 600;
+  font-stretch: normal;
+  font-style: normal;
+  letter-spacing: -0.17px;
+  text-align: left;
+  color: #1120ff;
 }
 
 .task-view-list {
     height: 100vh;
-    display: grid;
-    grid-template-rows: 2.5fr 9.5fr;
-}
-
-.task-view-header {
-    padding: 2.23vw 2.23vw 1vw 2.23vw;
+    width: calc(100% - 319px);
+    display: flex;
+    flex-direction: column;
+    padding: 38px 44px 44px 44px;
+    box-sizing: border-box;
 }
 
 .task-view-tab-title {
@@ -65,6 +130,10 @@
     color: #222222;
 }
 
+.task-view-body{
+    margin-top: 23px;
+}
+
 .task-view-tab-title.active {
     position: relative;
     color: #222;
@@ -75,20 +144,24 @@
 .task-view-tab {
     position: relative;
     display: flex;
+    height: 33.9px;
     gap: 16px;
     padding: 0;
     margin: 0;
     border-bottom: 2px solid #e4e4e4;
 }
 
+.task-view-content {
+    height: calc(100% - 33.9px);
+}
+
 .active-project-member {
     display: flex;
-    justify-self: end;
 }
 
 .active-project-banner {
-    display: grid;
-    grid-template-rows: 1fr auto 0.8fr 1fr;
+    display: flex;
+    flex-direction: column;
     width: 100%;
     height: 100%;
     border-radius: 24px;
@@ -98,6 +171,10 @@
 .project-member-add {
     display: flex;
     align-items: center;
+    justify-content: center;
+    gap: 2px;
+    width: 86px;
+    height: 32px;
     font-family: Pretendard;
     font-size: 13px;
     font-weight: 500;
@@ -107,23 +184,36 @@
     text-align: left;
     color: #fff;
     border-radius: 20px;
-    padding: 3px 13px 3px 13px;
-    background-color: #19007a;
+    background-color: #1120ff;
+}
+.project-member-add > span{
+    font-family: Pretendard;
+    font-size: 13px;
+    font-weight: 500;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 0.77;
+    letter-spacing: -0.13px;
+    text-align: left;
+    color: #fff;
 }
 
 .active-project-bread {
+    width: 100%;
+    height: 32px;
     font-family: Pretendard;
     font-size: 14px;
     font-weight: 500;
     font-stretch: normal;
     font-style: normal;
-    line-height: 1;
+    line-height: 32px;
     letter-spacing: -0.14px;
     text-align: left;
     color: #222222;
 }
 
 .active-project-title {
+    margin-top: 25px;
     font-family: Pretendard;
     font-size: 30px;
     font-weight: 600;
@@ -137,11 +227,23 @@
     word-break: break-all;
 }
 
+.active-project-bottom{
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    width: 100%;
+    height: 32px;
+    margin-top: 12px;
+}
+
 .add-project-date {
     display: flex;
     align-items: center;
-    padding: 11px 19px 11px 19px;
-    border: solid 1px #00e15a;
+    gap: 2px;
+    padding: 7px 12px;
+    box-sizing: border-box;
+    border: solid 1px #1120ff;
+    border-radius: 9px;
     font-family: Pretendard;
     font-size: 12px;
     font-weight: normal;
@@ -152,11 +254,11 @@
     cursor: pointer;
 }
 
-.task-view-tab {}
-
-.task-view-body {
-    padding-left: 2.23vw;
-    padding-right: 2.23vw;
+.task-view-header{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: fit-content;
 }
 
 .task-search {
@@ -204,16 +306,32 @@
     background-color: #f5f5f5;
 }
 
-.recent-project-list {
-    padding-top: 27px;
-}
-
 .favorite-project-list {
     padding-top: 34px;
 }
 
 .my-project-list {
     padding-top: 34px;
+}
+
+.open-task-side-menu{
+    position: absolute;
+    top: 9px;
+    left: 9px;
+    display: none;
+    justify-content: center;
+    align-items: center;
+    width: 24px;
+    height: 24px;
+    border: none;
+    border-radius: 4px;
+    padding: 0;
+    background-color: #0a1399;
+    cursor: pointer;
+}
+.open-task-side-menu > img{
+    width: 18px;
+    height: 18px;
 }
 
 .kanban-board-view {
@@ -392,4 +510,17 @@
     border-top: 0.6px solid #e5e5e5;
     padding-top: 6px;
     padding-bottom: 6px;
+}
+
+@media screen and (max-width : 1280px){
+    .task-side-menu{
+        width: 0px;
+        overflow: hidden;
+    }
+    .open-task-side-menu{
+        display: flex;
+    }
+    .task-view-list{
+        width: 100%;
+    }
 }

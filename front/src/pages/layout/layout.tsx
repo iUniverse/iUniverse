@@ -7,9 +7,11 @@ export default function IUniLayout({children} : any){
     return(
         <>
              <div className="iuni_container">
-                <IUniLeftSide />
-                {/* <IUniHeader /> */}
-                <IUniContent page={children} />
+                <div className="iuni_main">
+                    <IUniLeftSide />
+                    {/* <IUniHeader /> */}
+                    <IUniContent page={children} />
+                </div>
                 <IUniFooter />
             </div>
         </>

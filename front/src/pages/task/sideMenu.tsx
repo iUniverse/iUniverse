@@ -109,56 +109,115 @@ export default function SideMenu(props: Props) {
                 <div className="task-search-box">
                     <input type="text" className="task-search" placeholder="프로젝트를 찾아보세요." />
                 </div>
-                <div className="recent-project-list">
-                    <p className="side-menu-title">최근</p>
-                    <div className="side-menu-project-name">
+                <div className="task-side-content">
+                    <div className="recent-project-list">
+                        <p className="side-menu-title">최근</p>
+                        <div className="side-menu-project-name">
 
+                        </div>
+                    </div>
+
+                    <div className="favorite-project-list">
+                        <p className="side-menu-title">즐겨찾기</p>
+                        {
+                            favoriteProjects?.map((val: any) => (
+                                <div key={`favorite_projects_${val.id}`}
+                                    className="side-menu-project-name"
+                                    onClick={() => findProject(val.id)}
+                                    onMouseEnter={() => handleFavorite(val.id)}
+                                    onMouseLeave={() => handleFavorite(val.id)}>
+                                    <div className="col-11">{val.name}</div>
+                                    {
+                                        currentMouseOverId === val.id &&
+                                        <img src='/img/task/favorite_active.webp'
+                                            style={{ width: '1.19vw', height: '1.19vw' }}
+                                            onClick={() => handleIsFavorite()}
+                                        />
+                                    }
+                                </div>
+                            ))
+                        }
+                    </div>
+
+                    <div className="my-project-list">
+                        <p className="side-menu-title">내 프로젝트</p>
+                        {
+                            myProjects?.map((val: any) => (
+                                <div key={`my_projects_${val.id}`} className="side-menu-project-name"
+                                    onClick={() => findProject(val.id)}
+                                    onMouseEnter={() => handleFavorite(val.id)}
+                                    onMouseLeave={() => handleFavorite(val.id)}>
+                                    <div className="col-11">{val.name}</div>
+                                    {
+                                        currentMouseOverId === val.id &&
+                                        <img src={val.isFavorite === true ? `/img/task/favorite_active.webp` : `/img/task/favorite.webp`}
+                                            style={{ width: '1.19vw', height: '1.19vw' }}
+                                            onClick={() => handleIsFavorite()}
+                                        />
+                                    }
+                                </div>
+                            ))
+                        }
+
+                        <div key={`my_projects_q`} className="side-menu-project-name">
+                            <div className="col-11">테스트 플젝</div>
+                                <img src={"/img/task/favorite_active.webp"}
+                                    style={{ width: '1.19vw', height: '1.19vw' }}
+                                />
+                        </div>
+                        <div key={`my_projects_q1`} className="side-menu-project-name">
+                            <div className="col-11">테스트 플젝</div>
+                                <img src={"/img/task/favorite_active.webp"}
+                                    style={{ width: '1.19vw', height: '1.19vw' }}
+                                />
+                        </div>
+                        <div key={`my_projects_q2`} className="side-menu-project-name">
+                            <div className="col-11">테스트 플젝</div>
+                                <img src={"/img/task/favorite_active.webp"}
+                                    style={{ width: '1.19vw', height: '1.19vw' }}
+                                />
+                        </div>
+                        <div key={`my_projects_q3`} className="side-menu-project-name">
+                            <div className="col-11">테스트 플젝</div>
+                                <img src={"/img/task/favorite_active.webp"}
+                                    style={{ width: '1.19vw', height: '1.19vw' }}
+                                />
+                        </div>
+                        <div key={`my_projects_q4`} className="side-menu-project-name">
+                            <div className="col-11">테스트 플젝</div>
+                                <img src={"/img/task/favorite_active.webp"}
+                                    style={{ width: '1.19vw', height: '1.19vw' }}
+                                />
+                        </div>
+                        <div key={`my_projects_q5`} className="side-menu-project-name">
+                            <div className="col-11">테스트 플젝</div>
+                                <img src={"/img/task/favorite_active.webp"}
+                                    style={{ width: '1.19vw', height: '1.19vw' }}
+                                />
+                        </div>
+                        <div key={`my_projects_q6`} className="side-menu-project-name">
+                            <div className="col-11">테스트 플젝</div>
+                                <img src={"/img/task/favorite_active.webp"}
+                                    style={{ width: '1.19vw', height: '1.19vw' }}
+                                />
+                        </div>
+                        <div key={`my_projects_q7`} className="side-menu-project-name">
+                            <div className="col-11">테스트 플젝</div>
+                                <img src={"/img/task/favorite_active.webp"}
+                                    style={{ width: '1.19vw', height: '1.19vw' }}
+                                />
+                        </div>
                     </div>
                 </div>
 
-                <div className="favorite-project-list">
-                    <p className="side-menu-title">즐겨찾기</p>
-                    {
-                        favoriteProjects?.map((val: any) => (
-                            <div key={`favorite_projects_${val.id}`}
-                                className="side-menu-project-name"
-                                onClick={() => findProject(val.id)}
-                                onMouseEnter={() => handleFavorite(val.id)}
-                                onMouseLeave={() => handleFavorite(val.id)}>
-                                <div className="col-11">{val.name}</div>
-                                {
-                                    currentMouseOverId === val.id &&
-                                    <img src='/img/task/favorite_active.webp'
-                                        style={{ width: '1.19vw', height: '1.19vw' }}
-                                        onClick={() => handleIsFavorite()}
-                                    />
-                                }
-                            </div>
-                        ))
-                    }
-                </div>
-
-                <div className="my-project-list">
-                    <p className="side-menu-title">내 프로젝트</p>
-                    {
-                        myProjects?.map((val: any) => (
-                            <div key={`my_projects_${val.id}`} className="side-menu-project-name"
-                                onClick={() => findProject(val.id)}
-                                onMouseEnter={() => handleFavorite(val.id)}
-                                onMouseLeave={() => handleFavorite(val.id)}>
-                                <div className="col-11">{val.name}</div>
-                                {
-                                    currentMouseOverId === val.id &&
-                                    <img src={val.isFavorite === true ? `/img/task/favorite_active.webp` : `/img/task/favorite.webp`}
-                                        style={{ width: '1.19vw', height: '1.19vw' }}
-                                        onClick={() => handleIsFavorite()}
-                                    />
-                                }
-                            </div>
-                        ))
-                    }
-                </div>
+                <button className="project-add-btn">
+                    <img src="/img/task/project-create.png"/>
+                    <span>새 프로젝트</span>
+                </button>
             </div>
+            <button className="open-task-side-menu">
+                <img src="/img/task/right-arrow-white.png" alt="" />
+            </button>
         </>
     )
 }

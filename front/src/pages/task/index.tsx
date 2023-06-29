@@ -136,7 +136,7 @@ export default function Task({ }: any) { //태스크 정보를 가지고 올 예
                         <div className="col-12">
                             <div className="active-project-banner">
                                 <div className="active-project-bread">
-                                프로젝트 > {projectCategory === undefined ? '알 수 없음' : PROJECT_CATEGORY[projectCategory]} > {currentProject?.name}
+                                    프로젝트 > {projectCategory === undefined ? '알 수 없음' : PROJECT_CATEGORY[projectCategory]} > {currentProject?.name}
                                 </div>
                                 {
                                     editProjectTitle === false ?
@@ -153,30 +153,32 @@ export default function Task({ }: any) { //태스크 정보를 가지고 올 예
                                             defaultValue={currentProject?.name}
                                             onKeyUp={handlerTest}></textarea>
                                 }
-                                <div className="active-project-member">
-                                    <div className="project-member-add">
-                                        <img src='/img/task/project-member-add.webp' style={{ width: '18px', height: '18px' }} />
-                                        멤버추가
+                                <div className="active-project-bottom">
+                                    <div className="active-project-other">
+                                        {
+                                            currentProject?.startDate === null || currentProject?.endDate === null ?
+                                                <>
+                                                    <div className="add-project-date">
+                                                        <img src='/img/task/project-date-add.webp' style={{ width: '16px', height: '16px' }} />
+                                                        <p style={{ marginTop: '3px', lineHeight: '13px'}}>프로젝트 기간 설정</p>
+                                                    </div>
+                                                </>
+                                                :
+                                                <>
+                                                    <p className="project-during-date">D-13</p>
+                                                    <p className="ml-1r project-remain-title">프로젝트 기간</p>
+                                                    <p className="ml-3 project-during-date">2022.10.1</p>
+                                                    <p className="ml-3 project-during-date">~</p>
+                                                    <p className="ml-3 project-during-date">2022.11.3</p>
+                                                </>
+                                        }
                                     </div>
-                                </div>
-                                <div className="active-project-other">
-                                    {
-                                        currentProject?.startDate === null || currentProject?.endDate === null ?
-                                            <>
-                                                <div className="add-project-date">
-                                                    <img src='/img/task/project-date-add.webp' style={{ width: '18px', height: '18px' }} />
-                                                    <p style={{ marginTop: '3px' }}>프로젝트 기간 설정</p>
-                                                </div>
-                                            </>
-                                            :
-                                            <>
-                                                <p className="project-during-date">D-13</p>
-                                                <p className="ml-1r project-remain-title">프로젝트 기간</p>
-                                                <p className="ml-3 project-during-date">2022.10.1</p>
-                                                <p className="ml-3 project-during-date">~</p>
-                                                <p className="ml-3 project-during-date">2022.11.3</p>
-                                            </>
-                                    }
+                                    <div className="active-project-member">
+                                        <div className="project-member-add">
+                                            <img src='/img/task/project-member-add.webp' style={{ width: '15px', height: '15px' }} />
+                                            <span>멤버추가</span>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -203,7 +205,6 @@ export default function Task({ }: any) { //태스크 정보를 가지고 올 예
                     </div>
                 </div>
             </div> }
-            {/* <CalendarView></CalendarView> */}
         </>
     )
 }
