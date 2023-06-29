@@ -20,6 +20,7 @@ export class ProjectRepository extends Repository<Project> {
     }
 
     async FindProject(param : FindProjectOutboundPortInputDto) : Promise<Project>{
+
         return await this.findOne({
             where : {
                 id : param.id

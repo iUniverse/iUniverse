@@ -72,7 +72,6 @@ export async function createSubtype(data : CreateSubtype){
 
 export async function loadProjectSubtype(basetypeId : number) {
     try{
-        console.log(basetypeId);
         const response = await fetch(url+`/${basetypeId}`, {
             method : 'GET',
             cache : 'no-cache'

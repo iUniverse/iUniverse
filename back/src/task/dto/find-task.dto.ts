@@ -10,7 +10,8 @@ export class FindTaskDto {
     readonly startDate?: Date;
     readonly dueDate?: Date;
     readonly completionDate?: Date;
-    readonly createDate?: Date;
+    @IsNotEmpty()
+    readonly createDate: Date;
     readonly score?: number;
     readonly statusId?: number;
     readonly typeId?: number;
@@ -21,4 +22,8 @@ export class FindTaskDto {
 
 export class LoadTaskDto {
     id : number;
+}
+
+export class LoadByDateDto {
+    firstDate: Date;
 }

@@ -1,9 +1,9 @@
 import { Injectable } from "@nestjs/common";
-import { LoadTaskOPInputDto, LoadTaskOutboundPort, LoadTaskOutboundPortOutputDto } from "../outbound-port/load-task.outbound-port";
+import { LoadTaskOPInputDto, LoadTaskOutboundPort, LoadTaskOutboundPortOutputDto, LoadByDateOPInputDto, LoadByDateboundPort, LoadByDateOPOutputDto } from "../outbound-port/load-task.outbound-port";
 import { TaskRepository } from "../task.repository";
 
 @Injectable()
-export class LoadTaskRepository implements LoadTaskOutboundPort{
+export class LoadTaskRepository implements LoadTaskOutboundPort, LoadByDateboundPort{
     constructor(
         private readonly loadTaskRepo: TaskRepository
     ){}
@@ -13,4 +13,7 @@ export class LoadTaskRepository implements LoadTaskOutboundPort{
     }
 
     
+    async loadByDate(param : LoadByDateOPInputDto): Promise<LoadByDateOPOutputDto>{
+        return await this.loadTaskRepo.LoadByDate(param);
+    }
 }

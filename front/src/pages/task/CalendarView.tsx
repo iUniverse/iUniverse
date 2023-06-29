@@ -1,120 +1,38 @@
-import { createDeflate } from "zlib";
+import { useRecoilState, RecoilEnv } from "recoil";
+import { calendarRangeState } from "src/state/CalendarState";
 import styles from "../../styles/Calendar.module.css";
 import Calendar from "./Calendar";
 
+//Duplicate atom key 에러 문구 없애줌
+RecoilEnv.RECOIL_DUPLICATE_ATOM_KEY_CHECKING_ENABLED = false;
+
 export default function CalendarView(props:any){ //프로젝트 정보 가져올 예정
 
-    let calendar = new CalendarInfo();
+    const [calendarRange, setCalendarRange] = useRecoilState(calendarRangeState);
+
+    const movePrevMonth = ()=>{
+        setCalendarRange((range)=> new Date(range.getFullYear(), range.getMonth()-1));
+    }
+
+    const moveNextMonth = ()=>{
+        setCalendarRange((range)=> new Date(range.getFullYear(), range.getMonth()+1));
+    }
 
     return (
         <>
            <div className={styles.contents}>
-                <div className={styles.setting__bar}>달력위에 필터, 날짜 등 설정하는 부분</div>
-                <Calendar></Calendar>
+                <div className={styles.setting__bar}>
+                    <div className={styles.move__date}>
+                        <button onClick={movePrevMonth}><img src="/img/task/right-arrow.png"/></button>
+                        <button onClick={moveNextMonth}><img src="/img/task/right-arrow.png"/></button>
+                        <span>{`${calendarRange.getFullYear()}.${calendarRange.getMonth()+1 < 10? 0:''}${calendarRange.getMonth()+1}`}</span>
+                    </div>
+                    <div>
+                        <button className={styles.move__today}><span>오늘</span></button>
+                    </div>
+                </div>
+                    <Calendar />
            </div>
-
         </>
     )
 }
-
-type todayInfo = {
-    year: number,
-    month: number,
-    date: number
-}
-
-type calendar = {
-    startDay: number; //달의 시작 요일
-    weekCount: number; //달을 표시할 줄의 개수
-    lastDate: number; // 달의 마지막 날짜
-}
-
-class CalendarInfo {
-
-    //년도가 바뀔때마다 윤년 계산해야하니까 set year(){} 만들자. 이 안에는 isChangeYear을 true로 바꾸는 부분 추가해야함!!!!!
-
-    private today: todayInfo;
-    private calendar : calendar;
-    private lastDateList = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
-    private isChangeYear = false;
-
-    constructor (date?: Date){   
-        this.today = this.getTodayInfo(date);
-
-        this.setLastDateList();
-        this.calendar = this.getCalendarInfo();
-    }
-    
-    setLastDateList(){
-        const year = this.today.year;
-        
-        //윤년 확인
-        if ((year % 4 == 0 && year % 100 != 0) || year % 400 == 0 ) this.lastDateList[1] = 29;
-        else this.lastDateList[1] = 28;
-
-        this.isChangeYear = false;
-    }
-
-    getTodayInfo(date?: Date){
-        let newDate;
-        if (date === undefined) newDate = new Date(); 
-        else newDate = date;
-
-        let today = {
-            year: newDate.getFullYear(),
-            month: newDate.getMonth(),
-            date: newDate.getDate()
-        }
-
-        return today;
-    }
-
-    getCalendarInfo(){
-        let calendarInfo = {
-            startDay: new Date(this.today.year, this.today.month, 1).getDay(), //1일이 출력되는 위치.
-            lastDate: this.lastDateList[this.today.month],
-            weekCount: 0
-        };
-
-        calendarInfo.weekCount = Math.ceil((calendarInfo.startDay + calendarInfo.lastDate)/7)
-
-        return calendarInfo;
-    }
-
-    get calendarInfo(){
-        return {
-            today: {
-                year: this.today.year,
-                month: this.today.month+1,
-                today: this.today.date
-            },
-            calendar: this.calendar
-        };
-    }
-
-    set resetDate(newDate:Date){
-        this.today = this.getTodayInfo(newDate); 
-        this.setLastDateList();
-        this.calendar = this.getCalendarInfo();
-    }
-
-}
-
-const taskInfo = [
-    {
-        name: '태스크1111',
-        startDate: new Date('2023-04-12'),
-        deuDate: new Date('2023-04-22'),
-        createDeflate: new Date('2023-04-11')
-    },
-    {
-        name: '태스크22222',
-        startDate: new Date('2023-04-17'),
-        deuDate: new Date('2023-04-20'),
-        createDeflate: new Date('2023-04-16')
-    },
-    {
-        name: '태스크3333',
-        createDeflate: new Date('2023-04-25')
-    },
-]

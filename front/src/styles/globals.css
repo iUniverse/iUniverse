@@ -116,14 +116,36 @@ a {
 
 
 .iuni_container {
-
+  display: flex;
+  flex-direction: column;
   max-width: 100%;
-  margin: 0 auto;
+  /* margin: 0 auto; */
   /* align-items, justify-items 순서로 진행한다. */
-  place-items: stretch strecth;
+  /* place-items: stretch strecth; */
 }
 
-@media screen and (max-width : 768px) {
+.iuni_main{
+  display: flex;
+  width: 100%;
+  height: 100vh;
+}
+
+.iuni_footer{
+  width: 100%;
+  height: 100px;
+}
+
+.iuni_left_side{
+  width: 80px;
+  height: 100%;
+}
+
+.iuni_content{
+  width: calc(100% - 80px);
+  height: 100%;
+}
+
+/* @media screen and (max-width : 768px) {
   .iuni_container {
     grid-template-columns: minmax(1fr, 1fr);
   }
@@ -176,7 +198,7 @@ a {
   .iuni_left_side {
     grid-row: 1 / span 3;
     position: relative;
-  }
+  } 
 
   .iuni_right_side {
     position: relative;
@@ -192,7 +214,7 @@ a {
   .iuni_footer {
     min-height: 8vh;
   }
-}
+} */
 
 
 .center {
