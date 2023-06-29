@@ -14,5 +14,5 @@ export type ResultLoadTaskByBoardId = {
 }
 
 export interface FindBoardTaskMapOutboundPort{
-    loadByBoardId(param : number) : Promise<ResultLoadTaskByBoardId>
+    loadByBoardId(param : number) : Promise<any>
 }

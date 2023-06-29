@@ -9,7 +9,7 @@ export class GetBoardTaskMapController {
     ){}
 
     @Get('/byboardid/:boardId')
-    async loadByBoardId(@Param('boardId') param : number) : Promise<ResultLoadTaskByBoardId>{
+    async loadByBoardId(@Param('boardId') param : number) : Promise<any>{
         try{
             return this.findBoardTaskMapInboundPort.loadByBoardId(param);
         }

@@ -8,8 +8,26 @@ export class FindBoardTaskMapService implements FindBoardTaskMapInboundPort{
         private readonly findBoardTaskMapOutboundPort : FindBoardTaskMapOutboundPort
     ){}
 
-    async loadByBoardId(param : number) : Promise<ResultLoadTaskByBoardId> {
+    async loadByBoardId(param : number) : Promise<any> {
+        const result_list = await this.findBoardTaskMapOutboundPort.loadByBoardId(param);
         
-        return this.findBoardTaskMapOutboundPort.loadByBoardId(param);
+        const return_value = [];
+    
+        for(const result of result_list){
+            return_value.push({
+                'id' : result.task.id,
+                'name' : result.task.name,
+                'description' : result.task.description,
+                'startDate' : result.task.startDate,
+                'dueDate' : result.task.dueDate,
+                'completionDate' :result.task.completionDate,
+                'score' : result.task.score,
+                'statusId' : result.task.statusId,
+                'typeId' : result.task.typeId,
+                'projectId' : result.task.projectId
+            });
+            
+        }
+        return return_value;
     }
 }

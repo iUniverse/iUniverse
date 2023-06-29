@@ -16,7 +16,6 @@ export class BoardTaskMapRepository extends Repository<BoardTaskMap>{
             relations : ['task'],
             where : { boardId : param}
         });
-        console.log(result);
         return result;
     }  
 }
