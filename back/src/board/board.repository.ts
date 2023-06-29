@@ -2,6 +2,8 @@ import { CustomRepository } from "src/typeorm-ex.decorator";
 import { Board } from "./board.entity";
 import { Repository } from "typeorm";
 import { CreateBoard } from "./outbound-port/create-board.outbound-port";
+import { makeUpdateQuery } from "src/theme/module/theme.module";
+import { UpdateBoard } from "./outbound-port/update-board.outbound-port";
 
 @CustomRepository(Board)
 export class BoardRepository extends Repository<Board> {
@@ -12,7 +14,21 @@ export class BoardRepository extends Repository<Board> {
         catch(e){
             throw e;
         }
-        
+    }
+    
+    async UpdateBoard(data : UpdateBoard) : Promise<boolean> {
+        try{
+            const result = await this.createQueryBuilder()
+                            .update(Board)
+                            .set(makeUpdateQuery(data))
+                            .where("id = :id" , { id : data.id})
+                            .execute();
+            
+            return result.affected === 1 ? true : false;
+        }
+        catch(e){
+            throw e;
+        }
     }
 
     async LoadBoardByProjectId(param : number) : Promise<Board[]>{

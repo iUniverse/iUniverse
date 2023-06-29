@@ -1,6 +1,6 @@
 import { Inject } from "@nestjs/common";
 import { UpdateAllStatus, UpdateTask, UpdateTaskInboundPort} from "../inbound-port/update-task.inbound-port";
-import { UpdateTaskOutboundPort, UpdateTaskOutboundPortInputDto, UpdateTaskOutboundPortOutputDto, UPDATE_TASK_OUTBOUND_PORT, ResultUpdateTask } from "../outbound-port/update-task.outboud-port";
+import { UpdateTaskOutboundPort, UPDATE_TASK_OUTBOUND_PORT, ResultUpdateTask } from "../outbound-port/update-task.outboud-port";
 
 export class UpdateTaskService implements UpdateTaskInboundPort{
     constructor(

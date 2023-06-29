@@ -16,12 +16,17 @@ import { RemoveBoardService } from "./service/remove-board.service";
 import { REMOVE_BOARD_OUTBOUND_PORT } from "./outbound-port/remove-board.outbound-port";
 import { RemoveBoardRepository } from "./outbound-adapter/remove-board.repository";
 import { DeleteBoardController } from "./controller/delete-board.controller";
+import { PatchBoardController } from "./controller/patch-board.controller";
+import { UPDATE_BOARD_INBOUND_PORT } from "./inbound-port/update-board.inbound-port";
+import { UpdateBoardRepository } from "./outbound-adapter/update-board.repository";
+import { UpdateBoardService } from "./service/update-board.service";
+import { UPDATE_BOARD_OUTBOUND_PORT } from "./outbound-port/update-board.outbound-port";
 
 @Module({
     imports : [
         TypeOrmExModule.forCustomRepository([BoardRepository])
     ],
-    controllers : [PostBoardController, GetBoardController, DeleteBoardController],
+    controllers : [PostBoardController, GetBoardController, DeleteBoardController, PatchBoardController],
     providers : [
         {
             provide : CREATE_BOARD_INBOUND_PORT,
@@ -46,6 +51,14 @@ import { DeleteBoardController } from "./controller/delete-board.controller";
         {
             provide : REMOVE_BOARD_OUTBOUND_PORT,
             useClass : RemoveBoardRepository
+        },
+        {
+            provide : UPDATE_BOARD_INBOUND_PORT,
+            useClass : UpdateBoardService
+        },
+        {
+            provide : UPDATE_BOARD_OUTBOUND_PORT,
+            useClass : UpdateBoardRepository
         }
     ]
 })

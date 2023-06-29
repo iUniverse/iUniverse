@@ -10,5 +10,5 @@ export class LoadTaskService implements LoadTaskInboundPort {
 
     async load(param : LoadTaskOPInputDto): Promise<LoadTaskInboundPortOutputDto>{
         return this.loadTaskOutboundPort.load(param);
-    }
+    }   
 }

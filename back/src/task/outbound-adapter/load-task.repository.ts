@@ -11,4 +11,6 @@ export class LoadTaskRepository implements LoadTaskOutboundPort{
     async load(param : LoadTaskOPInputDto): Promise<LoadTaskOutboundPortOutputDto>{
         return await this.loadTaskRepo.LoadTask(param);
     }
+
+    
 }

@@ -27,6 +27,27 @@ export async function createNewBoard(data : CreateBoard){
     }
 }   
 
+/* 보드 수정 */
+export async function updateBoard(updateTask : {id : number, key : string, value : any}) : Promise<any>{
+    try{
+        const response = await fetch(url, {
+            method : 'PATCH',
+            cache : 'no-cache',
+            headers : {
+                'Accept' : 'application/json',
+                'Content-Type' : 'application/json'
+            },
+            body : JSON.stringify(updateTask)
+        });
+
+        return response.json();
+    }
+    catch(e){
+        console.log(e);
+        throw(e);
+    }
+}
+
 /* 보드 삭제 */
 export async function removeProjectBoard(id : number) {
     try{

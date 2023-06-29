@@ -9,4 +9,15 @@ export class BoardTaskMapRepository extends Repository<BoardTaskMap>{
     async Create(data : CreateBoardTaskMap) : Promise<BoardTaskMap>{
         return await this.save(data);
     }
+
+
+    async LoadByBoardId(param : number) : Promise<any> {
+        const result = await this.find({ 
+            relations : ['task'],
+            where : { boardId : param}
+        });
+        console.log(result);
+        return result;
+    }  
 }
+
