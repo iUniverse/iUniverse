@@ -786,6 +786,8 @@
     text-align: left;
     color: #222;
     cursor : pointer;
+
+}
 @media screen and (max-width : 1280px){
     .task-side-menu{
         width: 0px;
