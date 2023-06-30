@@ -159,7 +159,7 @@ export default function SideMenu(props: Props) {
                             ))
                         }
 
-                        <div key={`my_projects_q`} className="side-menu-project-name">
+                        {/* <div key={`my_projects_q`} className="side-menu-project-name">
                             <div className="col-11">테스트 플젝</div>
                                 <img src={"/img/task/favorite_active.webp"}
                                     style={{ width: '1.19vw', height: '1.19vw' }}
@@ -206,7 +206,7 @@ export default function SideMenu(props: Props) {
                                 <img src={"/img/task/favorite_active.webp"}
                                     style={{ width: '1.19vw', height: '1.19vw' }}
                                 />
-                        </div>
+                        </div> */}
                     </div>
                 </div>
 

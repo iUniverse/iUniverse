@@ -8,19 +8,19 @@
 const init_board = {
     'default' : [
         {
-            'name' : '대기중',
+            'name' : '보드 1',
             'color' : '#1120ff',
             'fontColor' : '#ffffff',
             'orderNum' : 0
         },
         {
-            'name' : '진행중',
+            'name' : '보드 2',
             'color' : '#1120ff',
             'fontColor' : '#ffffff',
             'orderNum' : 1
         },
         {
-            'name' : '완료',
+            'name' : '보드 3',
             'color' : '#1120ff',
             'fontColor' : '#ffffff',
             'orderNum' : 2

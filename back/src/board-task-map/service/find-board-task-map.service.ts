@@ -10,11 +10,10 @@ export class FindBoardTaskMapService implements FindBoardTaskMapInboundPort{
 
     async loadByBoardId(param : number) : Promise<any> {
         const result_list = await this.findBoardTaskMapOutboundPort.loadByBoardId(param);
-        
-        const return_value = [];
-    
+        const return_value = {};
+        const task_list = [];
         for(const result of result_list){
-            return_value.push({
+            task_list.push({
                 'id' : result.task.id,
                 'name' : result.task.name,
                 'description' : result.task.description,
@@ -26,8 +25,8 @@ export class FindBoardTaskMapService implements FindBoardTaskMapInboundPort{
                 'typeId' : result.task.typeId,
                 'projectId' : result.task.projectId
             });
-            
         }
+        return_value[param] = task_list; 
         return return_value;
     }
 }

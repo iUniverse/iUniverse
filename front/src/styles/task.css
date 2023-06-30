@@ -534,7 +534,7 @@
     width: 50vw;
     height: 100%;
     background-color: white;
-    border: 1px solid black;
+    border-left: 0.5px solid #e5e5e5;
     right: -65%;
     top: 0;
     /* animation-duration: 3s;
@@ -799,4 +799,8 @@
     .task-view-list{
         width: 100%;
     }
+}
+
+.ck-content{
+    height : 50vh;
 }

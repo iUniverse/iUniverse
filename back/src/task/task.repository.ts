@@ -6,7 +6,7 @@ import { UpdateTaskDto } from "./dto/update-task.dto";
 import { LoadByDateDto, LoadTaskDto } from "./dto/find-task.dto";
 import { Task } from "./task.entity";
 import { UpdateAllStatus, UpdateTask } from "./outbound-port/update-task.outboud-port";
-import { makeUpdatQuery } from "src/theme/module/theme.module";
+import { makeUpdatQuery, makeUpdateQuery } from "src/theme/module/theme.module";
 
 @CustomRepository(Task)
 export class TaskRepository extends Repository<Task>{
@@ -84,7 +84,7 @@ export class TaskRepository extends Repository<Task>{
     async UpdateAllTaskByStatus(data : UpdateAllStatus) : Promise<boolean>{
         const result = await this.createQueryBuilder()
                                 .update(Task)
-                                .set(makeUpdatQuery(data))
+                                .set(makeUpdateQuery(data))
                                 .where("statusId = :statusId", {statusId : data.currentStatusId})
                                 .execute();
 
@@ -94,7 +94,7 @@ export class TaskRepository extends Repository<Task>{
     async UpdateTask(data: UpdateTask): Promise<boolean> {
         const result = await this.createQueryBuilder()
                                 .update(Task)
-                                .set(makeUpdatQuery(data))
+                                .set(makeUpdateQuery(data))
                                 .where("id = :id", { id: data.id })
                                 .execute();
 

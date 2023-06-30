@@ -1,10 +1,21 @@
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 import { CKEditor } from "@ckeditor/ckeditor5-react";
+import { updateTask } from "api/task/task";
 
 interface Props {
     description : string
+    taskId : number;
 }
 export default function Editor(props : Props) {
+    const update = async (description : string) => {
+        const result = await updateTask({
+            'id' : props.taskId,
+            'key' : 'description',
+            'value' : description 
+        });
+        console.log(result);
+    }
+
     return (
         <CKEditor
             editor={ClassicEditor}
@@ -19,7 +30,8 @@ export default function Editor(props : Props) {
                 console.log(e);
             }}
             onBlur={(event, editor) => {
-                console.log('Blur.', editor);
+                // console.log(editor.getData());
+                update(editor.getData());
             }}
             onFocus={(event, editor) => {
                 console.log('Focus.', editor);

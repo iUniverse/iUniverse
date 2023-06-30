@@ -22,6 +22,7 @@ interface Task {
     startDate: string | null;
     statusId: number | null;
     typeId: number | null;
+    boardId : number | null;
 }
 interface Board {
     id: number;
@@ -70,25 +71,36 @@ export default function Kanban(props: Props) {
     const [currentTask, setCurrentTask] = useState<any>();
     const [currentBasetypeId, setCurrentBasetypeId] = useState<number>();
     const [taskStatus, setTaskStatus] = useState<Subtype[]>([]);
-
+    const [projectBoard, setProjectBoard] = useState<Board[]>([]);
+    const [boardTask, setBoardTask] = useState<any>({});
     /* 테스크 추가 */
     const addTask = async (boardId: number) => {
-        const task = await create(props.project.id, '새로운 태스크', taskStatus[0].id);
+        const task = await create(props.project.id, '새로운 태스크', taskStatus!.find(e => e.orderNum === 0 && e.defaultVal === true)!.id);
         //생성후 board-task-map에 추가
         props.setTasks(prev => [task, ...prev]);
         const boardTaskMap = await addBoardTaskMap(boardId, task.id);
-        console.log(boardTaskMap);
-        
         let taskOrder = projectBoard.find(e => e.id === boardId)?.taskOrder;
         
+        //completionDate
+        //desscription
+        //dueDate
+        //id
+        //name
+        //projectId
+        //score
+        //startDate
+        //statusId
+        //typeId
+
         const updateBoardResult = await updateBoard({
             'id' : boardId,
             'key' : 'taskOrder',
             'value' : taskOrder = taskOrder ? [task.id, ...taskOrder] : [task.id]
         });
+
+
     }
 
-    
     /* 태스크 추가 버튼 handle */
     const addBtnList = useRef<any>([]);
     const handleAddBtn = (type: string, index: number) => {
@@ -126,10 +138,11 @@ export default function Kanban(props: Props) {
 
     const [currentTaskId, setCurrentTaskId] = useState<number>();
 
-    const renderTaskDetail = (taskId: number) => {
+    const renderTaskDetail = (projectBoardId: number, taskId: number) => {
         const currentTask = props.tasks.find((e) => e.id === taskId);
+
         if (currentTask !== undefined) {
-            console.log(currentTask);
+            currentTask.boardId = projectBoardId;
             setCurrentTask(() => currentTask);
             handleTaskDetailView('half');
         }
@@ -184,6 +197,12 @@ export default function Kanban(props: Props) {
             setProjectBoard((prev) => [...prev.filter(e => e.id !== id)]);
         }
     }
+
+    /* 테스크 데이터 저장 */
+    const saveTaskData = (type : string, value : any) => {
+        console.log(type);
+        console.log(value);
+    }
     /* 테스크의 정보가 바뀔때 */
     useEffect(() => {
         if (currentTask !== undefined) {
@@ -197,15 +216,13 @@ export default function Kanban(props: Props) {
             for(const boardId of boardIds){
                 funcs.push(loadTaskByBoardId(boardId));
             }
-
             Promise.all(funcs).then((result) => {
                 resolve(result);
             });
         })
     }
 
-    const [projectBoard, setProjectBoard] = useState<Board[]>([]);
-    const [boardTask, setBoardTask] = useState<any>();
+
     useEffect(() => {
         /* 프로젝트 상태값 불러오기 */
         const settingTaskStatus = async () => {
@@ -226,29 +243,18 @@ export default function Kanban(props: Props) {
             }
         }
         settingTaskStatus()
-
+        
         const settingBoard = async () => {
             if (props.project?.id !== undefined) {
                 const boards = await loadBoardByProjectId(props.project.id);
                 setProjectBoard(() => [...boards])
-                const boardTasks = await settingBoardTask(boards.map((e : any) => e.id));                
+                const boardTasks : any = await settingBoardTask(boards.map((e : any) => e.id));                
                 console.log(boardTasks);
-                // for(const temp of boardTasks){
-                //     console.log(...temp);
-                //     setBoardTask((prev) => [...temp, prev])
-                //     setBoardTask((prev) => {
-
-                //     })
-                // }
-
-                boards.map((val, i) => {
-                    setBoardTask((prev) => {
-                        const obj : any = {}
-                        obj[val.id] = boardTasks[i];  
-                    
-                        return [obj, prev];
-                    })
-                })
+                
+                boardTasks.map((val : any, i : number) => {
+                    setBoardTask((prev : any) => {return {...val, ...prev }})
+                });
+                
             }
         }
         settingBoard()
@@ -267,7 +273,7 @@ export default function Kanban(props: Props) {
                                 {
                                     props.tasks.length > 0 &&
                                     <div className="kanban-task-count ml-3">
-                                        <p>{props.tasks?.filter(z => z.statusId === val.id).length}</p>
+                                        <p>{boardTask[val.id]?.length}</p>
                                     </div>
                                 }
                                 <div className="kanban-task-btn-list">
@@ -306,17 +312,19 @@ export default function Kanban(props: Props) {
                             </div>
                             <div className="kanban-board-body">
                             {
-                                    boardTask?.map((val, index) => (
-                                        <div className="kanban-card col-12" key={`task_${val.id}_${index}`} onClick={() => renderTaskDetail(val.id)}>
+                                    boardTask[val.id]?.map((task : any, i : number) => (
+                                        <div className="kanban-card col-12" key={`task_${task.id}_${index}`} onClick={() => renderTaskDetail(val.id, task.id)}>
                                             <div className="kanban-card-header">
-                                                {val.name}
+                                                {task.name}
                                             </div>
                                             <div className="kanban-card-body">
                                                 <div className="kanban-card-body-content col-12">
-                                                    {val.description}
+                                                    {task.description}
                                                 </div>
                                                 <div className="kanban-card-body-status">
-                                                    {val.name}
+                                                    {
+                                                        taskStatus?.find((z:any) => z.id === task.statusId)?.name
+                                                    }
                                                 </div>
                                             </div>
                                             <div className="kanban-card-footer">
@@ -414,7 +422,7 @@ export default function Kanban(props: Props) {
                                     <p>상태</p>
                                     <div className="task-status-badge">
                                         {
-                                            taskStatus?.find((z: any) => z.id === currentTask.statusId)!.name
+                                            taskStatus?.find((z: any) => z.id === currentTask.statusId)?.name
                                         }
                                     </div>
                                 </div>
@@ -422,7 +430,9 @@ export default function Kanban(props: Props) {
                                 <div className="task-detail-status-title">
                                     <p>보드</p>
                                     <div className="task-status-badge">
-
+                                        {
+                                            projectBoard?.find((z : any) => z.id === currentTask.boardId)?.name
+                                        }
                                     </div>
                                 </div>
                             </div>
@@ -434,6 +444,7 @@ export default function Kanban(props: Props) {
                                 currentMode !== 'edit' ?
                                     currentTask.description === null ? '내용을 입력 해주세요' : currentTask.description
                                     : <Editor
+                                        taskId={currentTask.id}
                                         description={currentTask.description} />
                             }
                         </div>
