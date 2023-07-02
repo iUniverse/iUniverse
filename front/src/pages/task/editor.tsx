@@ -10,45 +10,58 @@ interface Props {
     taskId : number;
     boardId : number;
     setCurrentTask : Dispatch<SetStateAction<any>>
+    setBoardTask : Dispatch<SetStateAction<any>>
 }
 
 export default function Editor(props : Props) {
-    console.log(props);
+    
+    /* 태스크 내용 변경 */
+    const handleTaskDescription = (description : string) => {     
+        props.setCurrentTask((prev : any) => {
+            return { ...prev, 'description' : description}
+        });
+
+        props.setBoardTask((prev : any) => {
+            const tasks = prev[props.boardId];
+            const update_task = tasks.find((e : any) => e.id === props.taskId);
+            update_task.description = description;
+            return { ...prev }
+        })      
+    }
+
     const update = async (description : string) => {
         const result = await updateTask({
             'id' : props.taskId,
             'key' : 'description',
             'value' : description 
         });
-        console.log(result);
+
         if(result.result === true){
-            props.setCurrentTask((prev : any) => {
-                console.log(prev);
-                return { ...prev, 'description' : description}
-            })
+            handleTaskDescription(description);
         };
     }
+
     //필요한거
-    //boardId 밒 보드 전체 정도, statusId 및 상태값 전체 정보
     return (
         <CKEditor
             editor={ClassicEditor}
-            data={props.description === null ? '내용을 입력해주세요' : props.description}
-            onReady={editor => {
-                // You can store the "editor" and use when it is needed.
-                console.log('Editor is ready to use!', editor);
-            }}
-            onChange={(e) => {
-                //const data = e.getData();
-                // console.log({ event, editor, data });
-                console.log(e);
-            }}
+            data={props?.description}
+            // onReady={editor => {
+            //     // You can store the "editor" and use when it is needed.
+            //     console.log('Editor is ready to use!', editor);
+            // }}
+            // onChange={(e) => {
+            //     //const data = e.getData();
+            //     // console.log({ event, editor, data });
+            //     console.log(e);
+            // }}
+           
+            // onFocus={(event, editor) => {
+            //     console.log('Focus.', editor);
+            // }}
             onBlur={(event, editor) => {
                 // console.log(editor.getData());
                 update(editor.getData());
-            }}
-            onFocus={(event, editor) => {
-                console.log('Focus.', editor);
             }}
         />
     )

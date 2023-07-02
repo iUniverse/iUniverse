@@ -4,7 +4,7 @@
     justify-content: flex-end;
 }
 
-.task-side-menu{
+.task-side-menu {
     position: absolute;
     top: 0;
     left: 0;
@@ -16,13 +16,16 @@
     padding-top: 44px;
     box-sizing: border-box;
 }
-.task-side-menu > * {
+
+.task-side-menu>* {
     padding: 0 16px;
 }
-.task-search-box{
+
+.task-search-box {
     width: 100%;
     height: 48px;
 }
+
 .task-side-content {
     height: 100%;
     width: 100%;
@@ -31,18 +34,20 @@
     box-sizing: border-box;
     overflow-y: scroll;
 }
+
 .task-side-content::-webkit-scrollbar {
     width: 3px;
     padding: 0;
 }
 
 .task-side-content::-webkit-scrollbar-thumb {
-    background: #a6a6a6; 
+    background: #a6a6a6;
     border-radius: 10px;
     padding: 0;
-    
-} 
-.project-add-btn{
+
+}
+
+.project-add-btn {
     position: absolute;
     display: flex;
     justify-content: center;
@@ -58,23 +63,25 @@
     cursor: pointer;
     transition: all 0.1s ease-in-out;
 }
-.project-add-btn:hover{
+
+.project-add-btn:hover {
     background-color: #f2f3ff;
 }
-.project-add-btn > img{
+
+.project-add-btn>img {
     width: 24px;
     height: 24px;
 }
 
-.project-add-btn > span{
-  font-family: Pretendard;
-  font-size: 17px;
-  font-weight: 600;
-  font-stretch: normal;
-  font-style: normal;
-  letter-spacing: -0.17px;
-  text-align: left;
-  color: #1120ff;
+.project-add-btn>span {
+    font-family: Pretendard;
+    font-size: 17px;
+    font-weight: 600;
+    font-stretch: normal;
+    font-style: normal;
+    letter-spacing: -0.17px;
+    text-align: left;
+    color: #1120ff;
 }
 
 .task-view-list {
@@ -131,7 +138,7 @@
     color: #222222;
 }
 
-.task-view-body{
+.task-view-body {
     margin-top: 23px;
 }
 
@@ -187,7 +194,8 @@
     border-radius: 20px;
     background-color: #1120ff;
 }
-.project-member-add > span{
+
+.project-member-add>span {
     font-family: Pretendard;
     font-size: 13px;
     font-weight: 500;
@@ -228,7 +236,7 @@
     word-break: break-all;
 }
 
-.active-project-bottom{
+.active-project-bottom {
     display: flex;
     justify-content: space-between;
     align-items: flex-end;
@@ -255,7 +263,7 @@
     cursor: pointer;
 }
 
-.task-view-header{
+.task-view-header {
     display: flex;
     flex-direction: column;
     width: 100%;
@@ -315,7 +323,7 @@
     padding-top: 34px;
 }
 
-.open-task-side-menu{
+.open-task-side-menu {
     position: absolute;
     top: 9px;
     left: 9px;
@@ -330,7 +338,8 @@
     background-color: #0a1399;
     cursor: pointer;
 }
-.open-task-side-menu > img{
+
+.open-task-side-menu>img {
     width: 18px;
     height: 18px;
 }
@@ -516,7 +525,7 @@
 }
 
 .task-detail-view-hide {
-    display : none;
+    display: none;
 }
 
 @keyframes task-view-half-open {
@@ -557,6 +566,17 @@
     padding: 27px;
 }
 
+.active-task-title {
+    font-family: Pretendard;
+    font-size: 24px;
+    font-weight: 600;
+    font-stretch: normal;
+    letter-spacing: -0.24px;
+    text-align: left;
+    color: #222;
+    width: 100%;
+}
+
 .task-detail-view-title {
     font-family: Pretendard;
     font-size: 24px;
@@ -576,6 +596,47 @@
     border-bottom: 0.5px solid #e4e4e4;
 }
 
+.during-date-add-btn {
+    display: flex;
+    align-items: center;
+    padding: 2px;
+    cursor: pointer;
+}
+
+.during-date-add-btn>p {
+    margin-top: 1px;
+    margin-left: 5px;
+    font-family: Pretendard;
+    font-size: 12px;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    letter-spacing: -0.12px;
+    color: #4e4e4e;
+}
+
+.task-status-select {
+    position: absolute;
+    width: 480px;
+    height: 200px;
+    padding: 2px;
+    border-radius: 6px;
+    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.16);
+    background-color: #fff;
+    left : 1.2vw;
+    top : 0;
+    z-index : 9999;
+}
+
+.option-selected{
+    padding: 13px;
+    border-bottom :0.5px solid #e4e4e4
+}
+
+.option-selected>p{
+    padding : 4px 10px 4px 10px;
+    border-radius: 6px;    
+}
 .during-date-badge {
     padding: 2px 6px;
     border-radius: 4px;
@@ -672,6 +733,7 @@
 }
 
 .task-detail-status-title {
+    position : relative;
     display: flex;
     align-items: center;
 }
@@ -785,22 +847,25 @@
     letter-spacing: -0.18px;
     text-align: left;
     color: #222;
-    cursor : pointer;
+    cursor: pointer;
 
 }
-@media screen and (max-width : 1280px){
-    .task-side-menu{
+
+@media screen and (max-width : 1280px) {
+    .task-side-menu {
         width: 0px;
         overflow: hidden;
     }
-    .open-task-side-menu{
+
+    .open-task-side-menu {
         display: flex;
     }
-    .task-view-list{
+
+    .task-view-list {
         width: 100%;
     }
 }
 
-.ck-content{
-    height : 50vh;
+.ck-content {
+    height: 50vh;
 }

@@ -7,60 +7,23 @@ import { Dispatch, SetStateAction, useEffect, useRef, useState } from "react";
 import dynamic from 'next/dynamic';
 import { createNewBoard, loadBoardByProjectId, removeProjectBoard, updateBoard } from "api/task/board";
 import { addBoardTaskMap, loadTaskByBoardId } from "api/task/boardTaskMap";
+import TaskDetail from "./TaskDetail";
+import * as taskIF from "api/task/task-interface";
 
-interface Task {
-    id: number;
-    completionDate: string;
-    createDate: string;
-    creatorId: number | null;
-    description: string | null;
-    dueDate: string | null;
-    name: string | null;
-    parentTaskId: number | null;
-    projectId: number;
-    score: number | null;
-    startDate: string | null;
-    statusId: number | null;
-    typeId: number | null;
-    boardId: number | null;
-}
-interface Board {
-    id: number;
-    name: string;
-    color: string;
-    fontColor: string;
-    taskOrder: number[] | null
-    orderNum: number;
-}
-interface Subtype {
-    id: number;
-    name: string;
-    description: string;
-    color: string;
-    fontColor: string;
-    createDate: Date;
-    basetypeId: number;
-    orderNum: number;
-    defaultVal: boolean;
-}
 
 interface Props {
     project: Project;
-    tasks: Task[];
-    setTasks: Dispatch<SetStateAction<Array<Task>>>
-}
-
-interface TaskDetailViewType {
-    [key: string]: string
+    tasks: taskIF.Task[];
+    setTasks: Dispatch<SetStateAction<Array<taskIF.Task>>>
 }
 
 export default function Kanban(props: Props) {
-    const Editor = dynamic(() => import("../task/editor"), { ssr: false });
-    const TASK_DETAIL_VIEW_TYPE: TaskDetailViewType = {
+    const TASK_DETAIL_VIEW_TYPE: taskIF.TaskDetailViewType = {
         'hide': 'task-detail-view-hide',
         'half': 'task-detail-view-half',
         'full': 'task-detail-view-full'
     }
+    
     /* 태스크 상세보기 타입 */
     const [taskDetailType, setTaskDetailType] = useState<string>('hide');
     const handleTaskDetailView = (type: string) => {
@@ -68,10 +31,10 @@ export default function Kanban(props: Props) {
     }
 
     /* 현재 활성화된 태스크 */
-    const [currentTask, setCurrentTask] = useState<any>();
+    const [currentTask, setCurrentTask] = useState<taskIF.Task | undefined>();
     //const [currentBasetypeId, setCurrentBasetypeId] = useState<number>();
-    const [taskStatus, setTaskStatus] = useState<Subtype[]>([]);
-    const [projectBoard, setProjectBoard] = useState<Board[]>([]);
+    const [taskStatus, setTaskStatus] = useState<taskIF.Subtype[]>([]);
+    const [projectBoard, setProjectBoard] = useState<taskIF.Board[]>([]);
     const [boardTask, setBoardTask] = useState<any>({});
     /* 테스크 추가 */
     const addTask = async (boardId: number) => {
@@ -145,19 +108,19 @@ export default function Kanban(props: Props) {
         setBoardDropdown((prev) => prev === id ? -1 : id);
     }
 
-    const [currentBoard, setCurrentBoard] = useState<any>();
+    const [currentBoard, setCurrentBoard] = useState<taskIF.Board | undefined>();
     const renderTaskDetail = (projectBoardId: number, taskId: number) => {
 
         const temp_currentTask = props.tasks.find((e) => e.id === taskId);
         const temp_currentBoard = projectBoard.find((e) => e.id === projectBoardId);
-        
+        console.log(temp_currentBoard);
         if (temp_currentTask !== undefined && temp_currentBoard !== undefined) {
             temp_currentTask.boardId = projectBoardId;
+            console.log(temp_currentTask);
             setCurrentTask(() => temp_currentTask);
             setCurrentBoard(() => temp_currentBoard);
             handleTaskDetailView('half');
-        }
-        
+        }       
     }
 
     const newBoardName = useRef<any>();
@@ -233,7 +196,7 @@ export default function Kanban(props: Props) {
         })
     }
 
-
+    /* 프로젝트 상태값 불러오기 */
     useEffect(() => {
         /* 프로젝트 상태값 불러오기 */
         const settingTaskStatus = async () => {
@@ -356,114 +319,25 @@ export default function Kanban(props: Props) {
                         ref={newBoardName}
                         placeholder="새 보드 이름"
                         onKeyUp={(e) => createBoard(e)}
-                    //onBlur={() => createBoard()}
                     />
                 </div>
                 <div className="kanban-board-body">
 
                 </div>
             </div>
-
             {
-                currentTask !== undefined &&
-                <div className={taskDetailType}>
-                    <div className="task-detail-view-bread">
-                        <div className="task-detail-expand-btn" onClick={() => handleTaskDetailView('hide')}>
-                        </div>
-
-                        <div className="task-bread-name">
-                            프로젝트
-                        </div>
-                        <div>
-                            <img src="/img/task/task-bread.webp" style={{ width: '18px', height: '18px' }} />
-                        </div>
-
-                        <div className="task-bread-name">
-                            내 프로젝트
-                        </div>
-
-                        <div>
-                            <img src="/img/task/task-bread.webp" style={{ width: '18px', height: '18px' }} />
-                        </div>
-
-                        <div className="task-bread-name">
-                            {props.project.name}
-                        </div>
-                    </div>
-
-                    <div className="task-detail-view-container">
-                        <div className="task-detail-view-header">
-                            <div className="task-detail-view-title">
-                                {currentTask.name}
-                            </div>
-
-                            <div className="task-detail-view-during-date">
-                                <div className="during-date-badge">D-13</div>
-                                <div className="during-date-title">태스크 기간</div>
-                                <div className="during-date-start-date">2022.10.01</div>
-                                <div className="during-date-connection">~</div>
-                                <div className="during-date-end-date">2022.10.03</div>
-                            </div>
-
-                            <div className="task-detail-view-writor">
-                                <div className="task-creator">
-                                    <div className="task-writor-title">생성자</div>
-                                    <div className="task-writor">
-                                        <div className="task-writor-iuni-cat"></div>
-                                        김태호
-                                    </div>
-                                </div>
-
-                                <div className="task-gap">
-                                    <img src="/img/task/division-line.webp" style={{ width: '18px', height: '18px', marginTop: '3px' }} />
-                                </div>
-
-                                <div className="task-editor">
-                                    <div className="task-writor-title">편집자</div>
-                                    <div className="task-writor">
-                                        <div className="task-writor-iuni-cat"></div>
-                                        김망고
-                                    </div>
-                                    <div className="task-latest-update-date">2022.11.03 최종편집</div>
-                                </div>
-                            </div>
-
-                            <div className="task-detail-status">
-                                <div className="task-detail-status-title">
-                                    <p>상태</p>
-                                    <div className="task-status-badge">
-                                        {
-                                            taskStatus?.find((z: any) => z.id === currentTask.statusId)?.name
-                                        }
-                                    </div>
-                                </div>
-
-                                <div className="task-detail-status-title">
-                                    <p>보드</p>
-                                    <div className="task-status-badge">
-                                        {
-                                            projectBoard?.find((z: any) => z.id === currentTask.boardId)?.name
-                                        }
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div className="task-detail-view-body" onClick={() => handleCurrentMode('edit')}>
-                            {
-                                currentMode !== 'edit' ?
-                                    currentTask.description === null ? '내용을 입력 해주세요' : 
-                                    <div dangerouslySetInnerHTML={{__html : currentTask.description }}></div> 
-                                    : <Editor
-                                        taskId={currentTask.id}
-                                        //여기까지 함 2023.06.30(금)
-                                        boardId={currentBoard.id}
-                                        setCurrentTask={setCurrentTask}
-                                        description={currentTask.description} />
-                            }
-                        </div>
-                    </div>
-                </div>
+               currentTask !== undefined &&
+               <TaskDetail 
+                    taskDetailType={taskDetailType}
+                    setTaskDetailType={setTaskDetailType}
+                    project={props.project}
+                    currentTask={currentTask}
+                    setCurrentTask={setCurrentTask}
+                    currentBoard={currentBoard}
+                    taskStatus={taskStatus}
+                    projectBoard={projectBoard}
+                    setBoardTask={setBoardTask}
+               />
             }
         </div>
     )
