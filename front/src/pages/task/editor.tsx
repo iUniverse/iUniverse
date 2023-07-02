@@ -1,12 +1,19 @@
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 import { CKEditor } from "@ckeditor/ckeditor5-react";
 import { updateTask } from "api/task/task";
+import { Dispatch, SetStateAction } from "react";
+
+
 
 interface Props {
-    description : string
+    description : string;
     taskId : number;
+    boardId : number;
+    setCurrentTask : Dispatch<SetStateAction<any>>
 }
+
 export default function Editor(props : Props) {
+    console.log(props);
     const update = async (description : string) => {
         const result = await updateTask({
             'id' : props.taskId,
@@ -14,8 +21,15 @@ export default function Editor(props : Props) {
             'value' : description 
         });
         console.log(result);
+        if(result.result === true){
+            props.setCurrentTask((prev : any) => {
+                console.log(prev);
+                return { ...prev, 'description' : description}
+            })
+        };
     }
-
+    //필요한거
+    //boardId 밒 보드 전체 정도, statusId 및 상태값 전체 정보
     return (
         <CKEditor
             editor={ClassicEditor}

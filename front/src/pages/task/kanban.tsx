@@ -22,7 +22,7 @@ interface Task {
     startDate: string | null;
     statusId: number | null;
     typeId: number | null;
-    boardId : number | null;
+    boardId: number | null;
 }
 interface Board {
     id: number;
@@ -69,7 +69,7 @@ export default function Kanban(props: Props) {
 
     /* 현재 활성화된 태스크 */
     const [currentTask, setCurrentTask] = useState<any>();
-    const [currentBasetypeId, setCurrentBasetypeId] = useState<number>();
+    //const [currentBasetypeId, setCurrentBasetypeId] = useState<number>();
     const [taskStatus, setTaskStatus] = useState<Subtype[]>([]);
     const [projectBoard, setProjectBoard] = useState<Board[]>([]);
     const [boardTask, setBoardTask] = useState<any>({});
@@ -80,25 +80,34 @@ export default function Kanban(props: Props) {
         props.setTasks(prev => [task, ...prev]);
         const boardTaskMap = await addBoardTaskMap(boardId, task.id);
         let taskOrder = projectBoard.find(e => e.id === boardId)?.taskOrder;
-        
-        //completionDate
-        //desscription
-        //dueDate
-        //id
-        //name
-        //projectId
-        //score
-        //startDate
-        //statusId
-        //typeId
+
 
         const updateBoardResult = await updateBoard({
-            'id' : boardId,
-            'key' : 'taskOrder',
-            'value' : taskOrder = taskOrder ? [task.id, ...taskOrder] : [task.id]
+            'id': boardId,
+            'key': 'taskOrder',
+            'value': taskOrder = taskOrder ? [task.id, ...taskOrder] : [task.id]
         });
 
-
+        setBoardTask((prev: any) => {
+            let temp = prev[boardId];
+            console.log(temp);
+            prev[boardId] = [
+                {
+                    'completionDate' : task.completionDate,
+                    'description' : task.description,
+                    'dueDate' : task.dueDate,
+                    'id' : task.id,
+                    'name' : task.name,
+                    'projectId' : task.projectId,
+                    'score' : task.score,
+                    'startDate' : task.startDate,
+                    'statusId' : task.statusId,
+                    'typeId' : task.typeId
+                },
+                ...temp];
+            
+            return {...prev};
+        });
     }
 
     /* 태스크 추가 버튼 handle */
@@ -136,39 +145,41 @@ export default function Kanban(props: Props) {
         setBoardDropdown((prev) => prev === id ? -1 : id);
     }
 
-    const [currentTaskId, setCurrentTaskId] = useState<number>();
-
+    const [currentBoard, setCurrentBoard] = useState<any>();
     const renderTaskDetail = (projectBoardId: number, taskId: number) => {
-        const currentTask = props.tasks.find((e) => e.id === taskId);
 
-        if (currentTask !== undefined) {
-            currentTask.boardId = projectBoardId;
-            setCurrentTask(() => currentTask);
+        const temp_currentTask = props.tasks.find((e) => e.id === taskId);
+        const temp_currentBoard = projectBoard.find((e) => e.id === projectBoardId);
+        
+        if (temp_currentTask !== undefined && temp_currentBoard !== undefined) {
+            temp_currentTask.boardId = projectBoardId;
+            setCurrentTask(() => temp_currentTask);
+            setCurrentBoard(() => temp_currentBoard);
             handleTaskDetailView('half');
         }
-        setCurrentTaskId(taskId);
+        
     }
 
     const newBoardName = useRef<any>();
     const createBoard = async (e: any) => {
         if (e.key === 'Enter') {
             const result = await createNewBoard({
-                'name' : newBoardName.current!.value,
-                'projectId' : props.project.id,
+                'name': newBoardName.current!.value,
+                'projectId': props.project.id,
                 'orderNum': projectBoard[projectBoard.length - 1].orderNum + 1,
                 'color': '#1120ff',
                 'fontColor': '#ffffff',
             })
-            
+
             // const result = await createSubtype({
             //     'basetypeId': currentBasetypeId!,
             //     'description': newBoardName.current!.value,
             //     'name': newBoardName.current!.value,
             //     'orderNum': taskStatus[taskStatus.length - 1].orderNum + 1,
-             
+
             //     'defaultVal': false,
             // });
-            
+
             newBoardName.current.value = '';
             setProjectBoard((prev) => [...prev, result]);
         }
@@ -193,13 +204,13 @@ export default function Kanban(props: Props) {
         // }
         /* board-task-map 수정(즉 없애는것) */
         const result = await removeProjectBoard(id);
-        if(result && result.status === 200) {
+        if (result && result.status === 200) {
             setProjectBoard((prev) => [...prev.filter(e => e.id !== id)]);
         }
     }
 
     /* 테스크 데이터 저장 */
-    const saveTaskData = (type : string, value : any) => {
+    const saveTaskData = (type: string, value: any) => {
         console.log(type);
         console.log(value);
     }
@@ -210,10 +221,10 @@ export default function Kanban(props: Props) {
         }
     }, [currentTask]);
 
-    const settingBoardTask = (boardIds : number[]) => {
+    const settingBoardTask = (boardIds: number[]) => {
         return new Promise((resolve) => {
             let funcs = [];
-            for(const boardId of boardIds){
+            for (const boardId of boardIds) {
                 funcs.push(loadTaskByBoardId(boardId));
             }
             Promise.all(funcs).then((result) => {
@@ -243,18 +254,18 @@ export default function Kanban(props: Props) {
             }
         }
         settingTaskStatus()
-        
+
         const settingBoard = async () => {
             if (props.project?.id !== undefined) {
                 const boards = await loadBoardByProjectId(props.project.id);
                 setProjectBoard(() => [...boards])
-                const boardTasks : any = await settingBoardTask(boards.map((e : any) => e.id));                
+                const boardTasks: any = await settingBoardTask(boards.map((e: any) => e.id));
                 console.log(boardTasks);
-                
-                boardTasks.map((val : any, i : number) => {
-                    setBoardTask((prev : any) => {return {...val, ...prev }})
+
+                boardTasks.map((val: any, i: number) => {
+                    setBoardTask((prev: any) => { return { ...val, ...prev } })
                 });
-                
+
             }
         }
         settingBoard()
@@ -311,19 +322,19 @@ export default function Kanban(props: Props) {
                                 </div>
                             </div>
                             <div className="kanban-board-body">
-                            {
-                                    boardTask[val.id]?.map((task : any, i : number) => (
+                                {
+                                    boardTask[val.id]?.map((task: any, i: number) => (
                                         <div className="kanban-card col-12" key={`task_${task.id}_${index}`} onClick={() => renderTaskDetail(val.id, task.id)}>
                                             <div className="kanban-card-header">
                                                 {task.name}
                                             </div>
                                             <div className="kanban-card-body">
                                                 <div className="kanban-card-body-content col-12">
-                                                    {task.description}
+                                                    <div dangerouslySetInnerHTML={{__html : task?.description }}></div> 
                                                 </div>
                                                 <div className="kanban-card-body-status">
                                                     {
-                                                        taskStatus?.find((z:any) => z.id === task.statusId)?.name
+                                                        taskStatus?.find((z: any) => z.id === task.statusId)?.name
                                                     }
                                                 </div>
                                             </div>
@@ -431,7 +442,7 @@ export default function Kanban(props: Props) {
                                     <p>보드</p>
                                     <div className="task-status-badge">
                                         {
-                                            projectBoard?.find((z : any) => z.id === currentTask.boardId)?.name
+                                            projectBoard?.find((z: any) => z.id === currentTask.boardId)?.name
                                         }
                                     </div>
                                 </div>
@@ -439,12 +450,15 @@ export default function Kanban(props: Props) {
                         </div>
 
                         <div className="task-detail-view-body" onClick={() => handleCurrentMode('edit')}>
-
                             {
                                 currentMode !== 'edit' ?
-                                    currentTask.description === null ? '내용을 입력 해주세요' : currentTask.description
+                                    currentTask.description === null ? '내용을 입력 해주세요' : 
+                                    <div dangerouslySetInnerHTML={{__html : currentTask.description }}></div> 
                                     : <Editor
                                         taskId={currentTask.id}
+                                        //여기까지 함 2023.06.30(금)
+                                        boardId={currentBoard.id}
+                                        setCurrentTask={setCurrentTask}
                                         description={currentTask.description} />
                             }
                         </div>
