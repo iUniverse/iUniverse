@@ -11,6 +11,7 @@ interface Props {
     boardId : number;
     setCurrentTask : Dispatch<SetStateAction<any>>
     setBoardTask : Dispatch<SetStateAction<any>>
+    setEditPosition : Dispatch<SetStateAction<string | undefined>>
 }
 
 export default function Editor(props : Props) {
@@ -38,6 +39,7 @@ export default function Editor(props : Props) {
 
         if(result.result === true){
             handleTaskDescription(description);
+            props.setEditPosition(() => 'none')
         };
     }
 

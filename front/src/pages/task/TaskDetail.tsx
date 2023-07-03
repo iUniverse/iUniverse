@@ -22,13 +22,10 @@ interface Props {
 
 export default function TaskDetail(props: Props) {
     console.log(props.currentBoard);
-    const [currentMode, setCurrentMode] = useState<string>();
-    const handleCurrentMode = (mode: string) => {
-        setCurrentMode(() => mode);
-    }
-    const [currentTaskStatus, setCurrentTaskStatus] = useState<taskIF.Subtype>();
-
     
+    //const [currentTaskStatus, setCurrentTaskStatus] = useState<taskIF.Subtype>();
+
+
     /* detail 기본 세팅값 */
     //const [taskDetailType, setTaskDetailType] = useState<string>('hide');
     const TASK_DETAIL_VIEW_TYPE: TaskDetailViewType = {
@@ -43,12 +40,23 @@ export default function TaskDetail(props: Props) {
     const [editPosition, setEditPosition] = useState<string>();
     const editVal = useRef<any>();
 
+    const changeStatusId = (statusId: number) => {
+
+    }
     /* ui에 표현되는 정보 변경 */
     const changeTaskContent = (type: string, val: any) => {
         if (type === 'name') {
             props.setCurrentTask((prev: any) => {
                 return { ...prev, 'name': val }
-            })
+            });
+        } else if (type === 'statusId') {
+            props.setCurrentTask((prev: any) => {
+                return { ...prev, 'statusId': val }
+            });
+        } else if (type === 'boardId') {
+            props.setCurrentTask((prev: any) => {
+                return { ...prev, 'boardId': val }
+            });
         }
 
         props.setBoardTask((prev: any) => {
@@ -59,16 +67,22 @@ export default function TaskDetail(props: Props) {
         });
     }
 
-    const update = async (type: string) => {
+    const checkKey = (e: any, type: string, value: string) => {
+        if (e.key === 'Enter') {
+            update(type, value);
+        }
+    }
+
+    const update = async (type: string, value: any) => {
         const result = await updateTask({
             'id': props.currentTask.id,
             'key': type,
-            'value': editVal.current.value
+            'value': value
         });
 
         if (result.result === true) {
             setEditPosition(() => 'none');
-            changeTaskContent(type, editVal.current.value);
+            changeTaskContent(type, value);
         }
     }
 
@@ -98,7 +112,7 @@ export default function TaskDetail(props: Props) {
                 </div>
             </div>
 
-            <div className="task-detail-view-container">
+            <div className="task-detail-view-container" onClick={() => editPosition !== 'none' && editPosition !== 'description' && setEditPosition(() => 'none')}>
                 <div className="task-detail-view-header">
                     <div className="task-detail-view-title" onClick={() => setEditPosition(() => 'name')}>
                         {
@@ -107,7 +121,8 @@ export default function TaskDetail(props: Props) {
                                     className="active-task-title"
                                     defaultValue={props.currentTask.name}
                                     ref={(el) => editVal.current = el}
-                                    onBlur={() => update('name')} /> :
+                                    onKeyUp={(e) => checkKey(e, 'name', editVal.current.value)}
+                                    onBlur={() => update('name', editVal.current.value)} /> :
                                 props.currentTask.name
                         }
                     </div>
@@ -161,20 +176,25 @@ export default function TaskDetail(props: Props) {
                                 editPosition === 'statusId' ?
                                     <div className="task-status-select">
                                         <div className="option-selected">
-                                            <p style={{backgroundColor : props.taskStatus.find((e) => e.id === props.currentTask.statusId)?.color}}>
+                                            <p style={{
+                                                backgroundColor: props.taskStatus.find((e) => e.id === props.currentTask.statusId)?.color,
+                                                color: props.taskStatus.find((e) => e.id === props.currentTask.statusId)?.fontColor
+                                            }}>
                                                 {
                                                     props.taskStatus.find((e) => e.id === props.currentTask.statusId)?.name
                                                 }
                                             </p>
                                         </div>
                                         <div className="option-title">
-                                            보드 {props.taskStatus.filter((e) => e.id !== props.currentTask.statusId && e.orderNum !== -1)?.length}
+                                            보드 <span>{props.taskStatus.filter((e) => e.id !== props.currentTask.statusId && e.orderNum !== -1)?.length}</span>
                                         </div>
                                         <>
                                             {
                                                 props.taskStatus.filter((e) => e.id !== props.currentTask.statusId && e.orderNum !== -1).map((val) => (
-                                                    <div className="status-option" key={`select_status_${val.id}`}>
-                                                        <p className="status-badge">
+                                                    <div className="status-option"
+                                                        key={`select_status_${val.id}`}
+                                                        onClick={() => update('statusId', val.id)}>
+                                                        <p className="status-badge" style={{ backgroundColor: val.color, color: val.fontColor }}>
                                                             {val.name}
                                                         </p>
                                                     </div>
@@ -191,28 +211,60 @@ export default function TaskDetail(props: Props) {
                             }
                         </div>
 
-                        <div className="task-detail-status-title">
+                        <div className="task-detail-status-title" onClick={() => setEditPosition(() => 'boardId')}>
                             <p>보드</p>
-                            <div className="task-status-badge">
-                                {
-                                    props.projectBoard?.find((z: any) => z.id === props.currentTask.boardId)?.name
-                                }
-                            </div>
+                            {
+                                editPosition === 'boardId' ?
+                                    <div className="task-status-select">
+                                        <div className="option-selected">
+                                            <p style={{
+                                                backgroundColor: props.currentBoard?.color,
+                                                color: props.currentBoard?.fontColor
+                                            }}>
+                                                {props.currentBoard?.name}
+                                            </p>
+                                        </div>
+                                        <div className="option-title">
+                                            보드 <span>{props.projectBoard.filter((e) => e.id !== props.currentBoard!.id && e.orderNum !== -1)?.length}</span>
+                                        </div>
+                                        <>
+                                            {
+                                                props.projectBoard.filter((e) => e.id !== props.currentBoard!.id && e.orderNum !== -1).map((val) => (
+                                                    <div className="status-option"
+                                                        key={`select_status_${val.id}`}
+                                                        onClick={() => update('boardId', val.id)}>
+                                                        <p className="status-badge" style={{ backgroundColor: val.color, color: val.fontColor }}>
+                                                            {val.name}
+                                                        </p>
+                                                    </div>
+                                                ))
+                                            }
+                                        </>
+
+                                    </div> :
+                                    <div className="task-status-badge">
+                                        {
+                                            //props.projectBoard?.find((z: any) => z.id === props.currentTask.boardId)?.name
+                                            props.currentBoard?.name
+                                        }
+                                    </div>
+                            }
                         </div>
                     </div>
                 </div>
 
-                <div className="task-detail-view-body" onClick={() => handleCurrentMode('edit')}>
+                <div className="task-detail-view-body" onClick={() => setEditPosition(() => 'description')}>
                     {
-                        currentMode !== 'edit' ?
-                            props.currentTask.description === null ? '내용을 입력 해주세요' :
-                                <div dangerouslySetInnerHTML={{ __html: props.currentTask.description }}></div>
-                            : <Editor
+                        editPosition === 'description' ?
+                            <Editor
                                 taskId={props.currentTask.id}
                                 boardId={props.currentBoard!.id}
                                 setCurrentTask={props.setCurrentTask}
                                 setBoardTask={props.setBoardTask}
+                                setEditPosition={setEditPosition}
                                 description={props.currentTask!.description} />
+                            : props.currentTask.description === null ? '내용을 입력 해주세요' :
+                                <div dangerouslySetInnerHTML={{ __html: props.currentTask.description }}></div>
                     }
                 </div>
             </div>

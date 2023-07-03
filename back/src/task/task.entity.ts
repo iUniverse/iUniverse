@@ -1,4 +1,4 @@
-import { Column, CreateDateColumn, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
+import { Column, CreateDateColumn, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
 import { Project } from '../project/project.entity';
 import { BoardTaskMap } from "src/board-task-map/board-task-map.entity";
 //테스트용으로 id랑 이름만 입력해도 되도록 해놓음. 나중에 바꿔야함!
@@ -45,7 +45,7 @@ export class Task{
     @Column({nullable: true})
     projectId: number;
 
-    @Column({nullable : true})
+    @UpdateDateColumn({nullable : true})
     updateDate : Date;
 
     @Column({nullable : true})
