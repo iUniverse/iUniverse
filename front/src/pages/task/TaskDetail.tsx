@@ -3,6 +3,7 @@ import { Dispatch, SetStateAction, useRef, useState } from "react";
 import * as taskIF from "api/task/task-interface";
 import { Project } from "pages/project/interface";
 import { updateTask } from "api/task/task";
+import { updateBoardTaskMap } from "api/task/boardTaskMap";
 
 interface TaskDetailViewType {
     [key: string]: string
@@ -14,6 +15,7 @@ interface Props {
     project: Project;
     currentTask: taskIF.Task;
     setCurrentTask: Dispatch<SetStateAction<taskIF.Task | undefined>>;
+    setCurrentBoard : Dispatch<SetStateAction<any>>
     currentBoard: taskIF.Board | undefined;
     taskStatus: taskIF.Subtype[];
     projectBoard: taskIF.Board[];
@@ -39,6 +41,7 @@ export default function TaskDetail(props: Props) {
 
     const [editPosition, setEditPosition] = useState<string>();
     const editVal = useRef<any>();
+    
 
     const changeStatusId = (statusId: number) => {
 
@@ -53,16 +56,14 @@ export default function TaskDetail(props: Props) {
             props.setCurrentTask((prev: any) => {
                 return { ...prev, 'statusId': val }
             });
-        } else if (type === 'boardId') {
-            props.setCurrentTask((prev: any) => {
-                return { ...prev, 'boardId': val }
-            });
         }
 
         props.setBoardTask((prev: any) => {
             const tasks = prev[props.currentBoard!.id];
             const update_task = tasks.find((e: any) => e.id === props.currentTask.id);
+            console.log(update_task);
             update_task[type] = val;
+            
             return { ...prev }
         });
     }
@@ -73,6 +74,43 @@ export default function TaskDetail(props: Props) {
         }
     }
 
+    const updateBoardId = async (updateBoardId : number) => {
+        const result = await updateBoardTaskMap(props.currentBoard!.id, props.currentTask.id, updateBoardId);
+        console.log(result);
+        if(result === true){
+
+            props.setBoardTask((prev: any) => {
+                
+                prev[props.currentBoard!.id] =  prev[props.currentBoard!.id].filter((e : any) => e.id !== props.currentTask.id);
+                console.log(prev[props.currentBoard!.id]);
+
+                prev[updateBoardId].push({
+                    'completionDate' : props.currentTask.completionDate,
+                    'description' : props.currentTask.description,
+                    'dueDate' : props.currentTask.dueDate,
+                    'id' : props.currentTask.id,
+                    'name' : props.currentTask.name,
+                    'projectId' : props.currentTask.projectId,
+                    'score' : props.currentTask.score,
+                    'startDate' : props.currentTask.startDate,
+                    'statusId' : props.currentTask.statusId,
+                    'typeId' : props.currentTask.typeId
+                })
+                return { ...prev };
+            });
+            
+            props.setCurrentTask((prev: any) => {
+                return { ...prev, 'boardId': updateBoardId }
+            });
+
+            props.setCurrentBoard(() => props.projectBoard.find((e) => e.id === updateBoardId))
+            
+            
+                 
+            //changeTaskContent('boardId', updateBoardId);
+        }
+    }
+    
     const update = async (type: string, value: any) => {
         const result = await updateTask({
             'id': props.currentTask.id,
@@ -122,7 +160,9 @@ export default function TaskDetail(props: Props) {
                                     defaultValue={props.currentTask.name}
                                     ref={(el) => editVal.current = el}
                                     onKeyUp={(e) => checkKey(e, 'name', editVal.current.value)}
-                                    onBlur={() => update('name', editVal.current.value)} /> :
+                                    onBlur={() => update('name', editVal.current.value)}
+                                    autoFocus
+                                    onFocus={(e) => e.target.select()} /> :
                                 props.currentTask.name
                         }
                     </div>
@@ -186,7 +226,7 @@ export default function TaskDetail(props: Props) {
                                             </p>
                                         </div>
                                         <div className="option-title">
-                                            보드 <span>{props.taskStatus.filter((e) => e.id !== props.currentTask.statusId && e.orderNum !== -1)?.length}</span>
+                                            상태 <span>{props.taskStatus.filter((e) => e.id !== props.currentTask.statusId && e.orderNum !== -1)?.length}</span>
                                         </div>
                                         <>
                                             {
@@ -232,7 +272,7 @@ export default function TaskDetail(props: Props) {
                                                 props.projectBoard.filter((e) => e.id !== props.currentBoard!.id && e.orderNum !== -1).map((val) => (
                                                     <div className="status-option"
                                                         key={`select_status_${val.id}`}
-                                                        onClick={() => update('boardId', val.id)}>
+                                                        onClick={() => updateBoardId(val.id)}>
                                                         <p className="status-badge" style={{ backgroundColor: val.color, color: val.fontColor }}>
                                                             {val.name}
                                                         </p>

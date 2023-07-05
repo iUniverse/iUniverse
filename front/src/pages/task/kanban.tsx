@@ -333,6 +333,7 @@ export default function Kanban(props: Props) {
                     project={props.project}
                     currentTask={currentTask}
                     setCurrentTask={setCurrentTask}
+                    setCurrentBoard={setCurrentBoard}
                     currentBoard={currentBoard}
                     taskStatus={taskStatus}
                     projectBoard={projectBoard}
