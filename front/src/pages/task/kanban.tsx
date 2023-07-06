@@ -4,11 +4,13 @@ import { createSubtype, loadProjectSubtype, removeSubtype } from "api/subtype/su
 import { create, updateAllTaskByStatus } from "api/task/task";
 import { Project } from "pages/project/interface";
 import { Dispatch, SetStateAction, useEffect, useRef, useState } from "react";
-import dynamic from 'next/dynamic';
+
 import { createNewBoard, loadBoardByProjectId, removeProjectBoard, updateBoard } from "api/task/board";
 import { addBoardTaskMap, loadTaskByBoardId } from "api/task/boardTaskMap";
 import TaskDetail from "./TaskDetail";
 import * as taskIF from "api/task/task-interface";
+
+import { useDrag, useDrop } from 'react-dnd';
 
 
 interface Props {
@@ -18,6 +20,7 @@ interface Props {
 }
 
 export default function Kanban(props: Props) {
+
     const TASK_DETAIL_VIEW_TYPE: taskIF.TaskDetailViewType = {
         'hide': 'task-detail-view-hide',
         'half': 'task-detail-view-half',
@@ -133,16 +136,6 @@ export default function Kanban(props: Props) {
                 'color': '#1120ff',
                 'fontColor': '#ffffff',
             })
-
-            // const result = await createSubtype({
-            //     'basetypeId': currentBasetypeId!,
-            //     'description': newBoardName.current!.value,
-            //     'name': newBoardName.current!.value,
-            //     'orderNum': taskStatus[taskStatus.length - 1].orderNum + 1,
-
-            //     'defaultVal': false,
-            // });
-
             newBoardName.current.value = '';
             setProjectBoard((prev) => [...prev, result]);
         }

@@ -39,7 +39,7 @@ export default function TaskDetail(props: Props) {
     /* editor 불러오기 */
     const Editor = dynamic(() => import("../task/editor"), { ssr: false });
 
-    const [editPosition, setEditPosition] = useState<string>();
+    const [editPosition, setEditPosition] = useState<string>('none');
     const editVal = useRef<any>();
     
 
