@@ -7,6 +7,8 @@ import SideMenu from "./sideMenu";
 import ProjectDetail from "./projectDetail";
 import Setting from "./setting";
 import { initBaseTypeCheck } from "api/baseType/baseType";
+import { DndProvider } from "react-dnd";
+import { HTML5Backend } from "react-dnd-html5-backend";
 
 
 interface ProjectCategory {
@@ -28,8 +30,8 @@ export default function Task({ }: any) { //태스크 정보를 가지고 올 예
     const [tasks, setTasks] = useState<any>([]);
     /* 현재 활성화된  프로젝트 */
     const [currentProject, setCurrentProject] = useState<any>();
-    
-    
+
+
     const [projects, setProjects] = useState<any>();
     const [projectCategory, setProjectCategory] = useState<string | undefined>();
 
@@ -47,10 +49,13 @@ export default function Task({ }: any) { //태스크 정보를 가지고 올 예
     ] as const
 
     const TASK_TYPE_PAGE: TaskTypePage = {
-        'board': <Kanban
-            project={currentProject}
-            tasks={tasks}
-            setTasks={setTasks} />,
+        'board':
+            <DndProvider backend={HTML5Backend}>
+                <Kanban
+                    project={currentProject}
+                    tasks={tasks}
+                    setTasks={setTasks} />
+            </DndProvider>,
         'chart': <></>,
         'calendar': <CalendarView />,
         'project': <ProjectDetail />,
@@ -128,7 +133,7 @@ export default function Task({ }: any) { //태스크 정보를 가지고 올 예
 
     return (
         <>
-            { <div className="task-container">
+            {<div className="task-container">
                 <SideMenu
                     projects={projects}
                     loadTaskByProjectId={loadTaskByProjectId}
@@ -167,7 +172,7 @@ export default function Task({ }: any) { //태스크 정보를 가지고 올 예
                                                 <>
                                                     <div className="add-project-date">
                                                         <img src='/img/task/project-date-add.webp' style={{ width: '16px', height: '16px' }} />
-                                                        <p style={{ marginTop: '3px', lineHeight: '13px'}}>프로젝트 기간 설정</p>
+                                                        <p style={{ marginTop: '3px', lineHeight: '13px' }}>프로젝트 기간 설정</p>
                                                     </div>
                                                 </>
                                                 :
@@ -210,9 +215,9 @@ export default function Task({ }: any) { //태스크 정보를 가지고 올 예
                             }
                         </div>
                     </div>
-                   
+
                 </div>
-            </div> }
+            </div>}
         </>
     )
 }

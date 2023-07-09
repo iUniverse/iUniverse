@@ -9,8 +9,12 @@ import { createNewBoard, loadBoardByProjectId, removeProjectBoard, updateBoard }
 import { addBoardTaskMap, loadTaskByBoardId } from "api/task/boardTaskMap";
 import TaskDetail from "./TaskDetail";
 import * as taskIF from "api/task/task-interface";
+import KanbanCard, { ItemTypes } from "./kanbanCard";
+import { useDrop } from "react-dnd";
+import KanbanBody from "./kanbanBody";
 
-import { useDrag, useDrop } from 'react-dnd';
+// import { DndProvider, useDrag, useDrop } from 'react-dnd';
+// import { HTML5Backend } from "react-dnd-html5-backend";
 
 
 interface Props {
@@ -27,6 +31,8 @@ export default function Kanban(props: Props) {
         'full': 'task-detail-view-full'
     }
     
+  
+
     /* 태스크 상세보기 타입 */
     const [taskDetailType, setTaskDetailType] = useState<string>('hide');
     const handleTaskDetailView = (type: string) => {
@@ -59,20 +65,20 @@ export default function Kanban(props: Props) {
             console.log(temp);
             prev[boardId] = [
                 {
-                    'completionDate' : task.completionDate,
-                    'description' : task.description,
-                    'dueDate' : task.dueDate,
-                    'id' : task.id,
-                    'name' : task.name,
-                    'projectId' : task.projectId,
-                    'score' : task.score,
-                    'startDate' : task.startDate,
-                    'statusId' : task.statusId,
-                    'typeId' : task.typeId
+                    'completionDate': task.completionDate,
+                    'description': task.description,
+                    'dueDate': task.dueDate,
+                    'id': task.id,
+                    'name': task.name,
+                    'projectId': task.projectId,
+                    'score': task.score,
+                    'startDate': task.startDate,
+                    'statusId': task.statusId,
+                    'typeId': task.typeId
                 },
                 ...temp];
-            
-            return {...prev};
+
+            return { ...prev };
         });
     }
 
@@ -116,16 +122,15 @@ export default function Kanban(props: Props) {
 
         const temp_currentTask = props.tasks.find((e) => e.id === taskId);
         const temp_currentBoard = projectBoard.find((e) => e.id === projectBoardId);
-        console.log(temp_currentBoard);
         if (temp_currentTask !== undefined && temp_currentBoard !== undefined) {
             temp_currentTask.boardId = projectBoardId;
             console.log(temp_currentTask);
             setCurrentTask(() => temp_currentTask);
             setCurrentBoard(() => temp_currentBoard);
             handleTaskDetailView('half');
-        }       
+        }
     }
-
+    
     const newBoardName = useRef<any>();
     const createBoard = async (e: any) => {
         if (e.key === 'Enter') {
@@ -277,30 +282,12 @@ export default function Kanban(props: Props) {
                                     </div>
                                 </div>
                             </div>
-                            <div className="kanban-board-body">
-                                {
-                                    boardTask[val.id]?.map((task: any, i: number) => (
-                                        <div className="kanban-card col-12" key={`task_${task.id}_${index}`} onClick={() => renderTaskDetail(val.id, task.id)}>
-                                            <div className="kanban-card-header">
-                                                {task.name}
-                                            </div>
-                                            <div className="kanban-card-body">
-                                                <div className="kanban-card-body-content col-12">
-                                                    <div dangerouslySetInnerHTML={{__html : task?.description }}></div> 
-                                                </div>
-                                                <div className="kanban-card-body-status">
-                                                    {
-                                                        taskStatus?.find((z: any) => z.id === task.statusId)?.name
-                                                    }
-                                                </div>
-                                            </div>
-                                            <div className="kanban-card-footer">
-                                                프로필 들어감요
-                                            </div>
-                                        </div>
-                                    ))
-                                }
-                            </div>
+                            <KanbanBody 
+                                boardTask = {boardTask}
+                                taskStatus = {taskStatus}
+                                board = {val}
+                                renderTaskDetail = {renderTaskDetail}
+                            />
                         </div>
                     ))
                 }
@@ -319,8 +306,8 @@ export default function Kanban(props: Props) {
                 </div>
             </div>
             {
-               currentTask !== undefined &&
-               <TaskDetail 
+                currentTask !== undefined &&
+                <TaskDetail
                     taskDetailType={taskDetailType}
                     setTaskDetailType={setTaskDetailType}
                     project={props.project}
@@ -331,7 +318,7 @@ export default function Kanban(props: Props) {
                     taskStatus={taskStatus}
                     projectBoard={projectBoard}
                     setBoardTask={setBoardTask}
-               />
+                />
             }
         </div>
     )
