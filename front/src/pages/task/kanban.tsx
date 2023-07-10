@@ -294,6 +294,7 @@ export default function Kanban(props: Props) {
                             <KanbanBody 
                                 boardTask = {boardTask}
                                 taskStatus = {taskStatus}
+                                setProjectBoard={setProjectBoard}
                                 board = {val}
                                 renderTaskDetail = {renderTaskDetail}
                             />

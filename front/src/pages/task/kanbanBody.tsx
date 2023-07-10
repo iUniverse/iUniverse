@@ -1,21 +1,25 @@
 import { useDrop } from "react-dnd";
 import KanbanCard, { ItemTypes } from "./kanbanCard";
-import { useEffect, useState } from "react";
+import { Dispatch, SetStateAction, useEffect, useState } from "react";
 
 interface Props {
     boardTask: any;
     taskStatus: any;
     board: any;
     renderTaskDetail: any
+    setProjectBoard :  Dispatch<SetStateAction<any>>
 }
 
 export default function KanbanBody(props: Props) {
-    console.log(props);    
+    // console.log(props);    
 
     const [hoverBoardId, setHoverBoardId] = useState<number | null | undefined>();
     const [currentBoardTasks, setCurrentBoardTasks] = useState<any[]>();
-    const moveKanbanCard = (boardId: number, taskId: number) => {
-
+    const moveKanbanCard = (task: any, index: number) => {
+        // props.setProjectBoard((prev : any) => {
+        //     prev.taskOrder = [-1, prev.taskOrder];
+        //     return prev;
+        // });
     }
 
     //console.log(currentBoardTasks);
@@ -34,21 +38,20 @@ export default function KanbanBody(props: Props) {
             {
                 props.board?.taskOrder?.map((val: number, i: number) => (
                     <div key={`task_${i}`}
-                        onMouseEnter={() => setHoverBoardId(props.board.id)}
+                        onMouseOver={() => setHoverBoardId(props.board.id)}
                         onMouseLeave={() => setHoverBoardId(null)}>
                         <KanbanCard
                             taskStatus={props.taskStatus}
                             task={currentBoardTasks?.find(z => z.id === val)}
                             board={props.board}
                             hoverBoardId={hoverBoardId}
+                            setHoverBoardId={setHoverBoardId}
+                            moveKanbanCard={moveKanbanCard}
                             renderTaskDetail={props.renderTaskDetail}
                             index={i}
                         />
                     </div>
-                ))
-
-
-
+                )) 
             }
         </div>
     )
