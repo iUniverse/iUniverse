@@ -31,8 +31,6 @@ export default function Kanban(props: Props) {
         'full': 'task-detail-view-full'
     }
     
-  
-
     /* 태스크 상세보기 타입 */
     const [taskDetailType, setTaskDetailType] = useState<string>('hide');
     const handleTaskDetailView = (type: string) => {
@@ -43,7 +41,7 @@ export default function Kanban(props: Props) {
     const [currentTask, setCurrentTask] = useState<taskIF.Task | undefined>();
     //const [currentBasetypeId, setCurrentBasetypeId] = useState<number>();
     const [taskStatus, setTaskStatus] = useState<taskIF.Subtype[]>([]);
-    const [projectBoard, setProjectBoard] = useState<taskIF.Board[]>([]);
+    const [projectBoard, setProjectBoard] = useState<taskIF.Board[]>();
     const [boardTask, setBoardTask] = useState<any>({});
     /* 테스크 추가 */
     const addTask = async (boardId: number) => {
@@ -51,14 +49,25 @@ export default function Kanban(props: Props) {
         //생성후 board-task-map에 추가
         props.setTasks(prev => [task, ...prev]);
         const boardTaskMap = await addBoardTaskMap(boardId, task.id);
-        let taskOrder = projectBoard.find(e => e.id === boardId)?.taskOrder;
-
+        let taskOrder : number[] | undefined | null = projectBoard?.find(e => e.id === boardId)?.taskOrder;
+        taskOrder = taskOrder ? [task.id, ...taskOrder] : [task.id];
 
         const updateBoardResult = await updateBoard({
             'id': boardId,
             'key': 'taskOrder',
-            'value': taskOrder = taskOrder ? [task.id, ...taskOrder] : [task.id]
+            'value': taskOrder
         });
+        
+        if(updateBoardResult){
+            setProjectBoard((prev:any) => {
+                const result = prev.find((e:taskIF.Board) => e.id === boardId);
+                if(result && taskOrder){
+                    result.taskOrder = [...taskOrder];
+                    return [...prev];
+                }
+            })    
+        }
+        
 
         setBoardTask((prev: any) => {
             let temp = prev[boardId];
@@ -236,7 +245,7 @@ export default function Kanban(props: Props) {
         <div className="kanban-board-view">
             <>
                 {
-                    projectBoard.filter((e) => e.orderNum !== -1).map((val, index) => (
+                    projectBoard?.filter((e) => e.orderNum !== -1).map((val, index) => (
                         <div className="kanban-board" key={`kanban-board_${val.id}_${index}`}>
                             <div className="kanban-board-header">
                                 <div className="kanban-task-category">

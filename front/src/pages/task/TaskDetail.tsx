@@ -76,7 +76,7 @@ export default function TaskDetail(props: Props) {
 
     const updateBoardId = async (updateBoardId : number) => {
         const result = await updateBoardTaskMap(props.currentBoard!.id, props.currentTask.id, updateBoardId);
-        console.log(result);
+        
         if(result === true){
 
             props.setBoardTask((prev: any) => {
