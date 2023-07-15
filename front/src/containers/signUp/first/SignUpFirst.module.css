@@ -1,7 +1,3 @@
-article.logo{margin-bottom:126px;}
-
-article.step{margin-bottom:126px;}
-
 article.text{display:flex;flex-direction:column;margin-bottom:20px;}
 article.text span.space{margin-bottom:12px;}
 
@@ -17,3 +13,8 @@ article.sign_up .space_top{margin-bottom:52px;}
 article.login{display:flex;justify-content:center;align-items:center;gap:var(--spc-8);}
 article.login span{}
 article.login a{color:var(--prim-l-50);}
+
+div.idContainer{height:83px;}
+div.pwContainer{height:79px;}
+
+span.adviser{font-family:Pretendard;font-size:12px;font-weight:500;font-stretch:normal;font-style:normal;line-height:1.17;letter-spacing:-0.12px;text-align:left;color:var(--w-red);}

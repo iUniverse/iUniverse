@@ -20,6 +20,8 @@ export class ValidateAccountService implements ValidateAccountInboundPort {
   ): Promise<ValidateAccountInboundPortOutputDto> {
     const {account} = params;
     const authResult = await this.validateAccountOutboundPort.validate({"account":account});
+      console.log(1111111111111111111111111111111111111111);
+    console.log(authResult);
     return authResult;
   }
 }

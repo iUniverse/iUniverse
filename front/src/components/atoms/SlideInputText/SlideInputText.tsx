@@ -5,10 +5,14 @@ type Options = {
     placeholder?: string;
     space?      : number;
     password ?  : boolean;
+    maxLength?  : number;
+    onChange?   : any;
+    setData?    : any;
 }
 
 export default function SlideInputText(props : Options) {
     const isPass = !props.password ? false : true;
+    const maxLength = props.maxLength !== 0 && !props.maxLength ? 9999999 : props.maxLength;
     const [condition,setCondition] = useState(false);
     const [inputType,setType] = useState(isPass ? "password" : "text");
     const [value,setValue] = useState("");
@@ -17,6 +21,8 @@ export default function SlideInputText(props : Options) {
     const onChange = async (e:any) => {
         setCondition(e.target.value.length > 0 ? true : false);
         if(!isPass) setValue(e.target.value);
+        if(props.setData) await props.setData(e.target.value);
+        if(props.onChange) props.onChange();
     }
     const onClick = async () => {
         if(isPass === true){
@@ -35,8 +41,10 @@ export default function SlideInputText(props : Options) {
             <div className={sitStyles.input} style={props?.space ? {marginBottom:props.space} : {}}>
                 {
                     !isPass
-                    ? <input ref={inputRef} className={sitStyles.sit} type={inputType} onChange={onChange} value={value} required={true}/>
-                    : <input ref={inputRef} className={sitStyles.sit} type={inputType} onChange={onChange} required={true} />
+                    ? <input ref={inputRef} className={sitStyles.sit} type={inputType} onChange={onChange} maxLength={maxLength} value={value} required={true}/>
+                    : <input ref={inputRef} className={sitStyles.sit} type={inputType} onChange={onChange} maxLength={maxLength} required={true}
+
+                        />
                 }                <span className={sitStyles.highlight}></span>
                 <span className={sitStyles.bar}></span>
                 {
