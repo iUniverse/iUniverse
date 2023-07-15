@@ -68,14 +68,18 @@ const passwordLengthValidation = (account:string) => {
 const temp = async (account:string)=>{
     try{
         const data = {"account":account};
-        const result = await fetch("http://localhost:3500/validateAccount", {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json",
-        },
-        body: JSON.stringify(data),
-        });
-        if(result) return {status:true,func:null,code:null};
+        const response = await fetch('',{
+            method : 'POST',
+            cache : 'no-cache',
+            headers: {
+                'Accept' : 'application/json',
+                'Content-Type' : 'application/json'
+            },
+            body : JSON.stringify({
+                'account':account
+            })
+        })
+        if(response) return {status:true,func:null,code:null};
         else return {status:false,func:'05',code:'01'};
     }
     catch(e){
