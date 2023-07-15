@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32">
+    <path data-name="사각형 50" style="fill:none" d="M0 0h32v32H0z"/>
+    <g data-name="그룹 58">
+        <path data-name="사각형 52" transform="translate(4 4)" style="fill:none" d="M0 0h24v24H0z"/>
+        <path data-name="패스 56" d="M10 0A10 10 0 1 1 0 10 10 10 0 0 1 10 0z" transform="translate(6 6)" style="fill:#e6e8ff"/>
+        <path data-name="패스 57" d="m9.265 8.459 2.823-2.823.806.806-2.823 2.823 2.823 2.823-.806.806-2.823-2.823-2.823 2.823-.806-.806 2.823-2.823-2.823-2.823.806-.806z" transform="translate(6.734 6.734)" style="fill:#5762ff"/>
+    </g>
+</svg>

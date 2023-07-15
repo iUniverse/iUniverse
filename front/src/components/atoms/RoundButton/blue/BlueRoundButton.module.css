@@ -1,0 +1,4 @@
+.blue{color:var(--mono-0);background-color:var(--prim-100);border: solid 1px var(--prim-100);}
+.blue.disable{color:var(--mono-70);background-color:var(--mono-5);border: solid 1px var(--mono-5);cursor:not-allowed;}
+.blue.able:hover{background-color:var(--prim-d-40);border: solid 1px var(--prim-d-40);}
+.blue.able:active{background-color:var(--prim-d-40);border: solid 1px var(--prim-d-40);}
