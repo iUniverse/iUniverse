@@ -3,9 +3,11 @@ export type SignUpInboundPortInputDto = {
   password : string;
   id : number;
   email:string;
-  familyName : string;
-  givenName: string;
+  lastName : string;
+  firstName: string;
   nickName: string;
+  mobileCarrier:string|null;
+  mobile:string|null;
 };
 export type SignUpInboundPortOutputDto = {
   status:boolean;

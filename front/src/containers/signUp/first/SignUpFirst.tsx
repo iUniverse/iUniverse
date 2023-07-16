@@ -14,7 +14,8 @@ export default function SignUpFirst() {
     const [idAdviser,setIdAdviser] = useState('');
     const [pwAdviser,setPwAdviser] = useState('');
     const btnToggle = () => {
-        if(account.replace(/ /,"").length > 4 && password.replace(/ /,"").length > 7){
+        if( account.replace(/\s/g,"").length > 4
+            && password.replace(/\s/g,"").length > 7){
             setAccountBtn(true);
         }
         else{
@@ -80,7 +81,7 @@ export default function SignUpFirst() {
                 case '05':
                     switch(code){
                         case '01':
-                            setIdAdviser('이미 있는 아이디에요.');
+                            setIdAdviser('이미 사용중인 아이디에요.');
                             break;
                     }
                     break;
@@ -101,12 +102,12 @@ export default function SignUpFirst() {
             </article>
             <article className={signUpStyle.sign_up}>
                 <div className={`${signUpStyle.division} ${signUpStyle.space_top}`}><span className={signUpStyle.text}>또는</span></div>
-                <div className={`${signUpStyle.idContainer}`}>
+                <div className={`${signUpStyle.id_container}`}>
                     <SlideInputText placeholder={'아이디'} space={6} maxLength={15} setData={setAccount} onChange={btnToggle}/>
                     <span className={signUpStyle.adviser}>{idAdviser}</span>
                 </div>
-                <div className={`${signUpStyle.pwContainer}`}>
-                    <SlideInputText placeholder={'비밀번호'} space={6} password={true} setData={setPassword} onChange={btnToggle}/>
+                <div className={`${signUpStyle.pw_container}`}>
+                    <SlideInputText placeholder={'비밀번호'} space={6} maxLength={30} password={true} setData={setPassword} onChange={btnToggle}/>
                     <span className={signUpStyle.adviser}>{pwAdviser}</span>
                 </div>
                 {

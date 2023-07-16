@@ -18,6 +18,6 @@ export class ValidateAccountController {
 
   @Post()
   async handle(@Body() validateAccountInboundPortInputDto : ValidateAccountInboundPortInputDto, @Headers() headers) {
-    return this.validateAccountInboundPort.validate(validateAccountInboundPortInputDto);
+    return await this.validateAccountInboundPort.validate(validateAccountInboundPortInputDto);
   }
 }

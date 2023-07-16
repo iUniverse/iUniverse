@@ -9,11 +9,17 @@ export class User extends BaseEntity {
     email : string;
 
     @Column()
-    familyName : string;
+    lastName : string;
 
     @Column()
-    givenName : string;
+    firstName : string;
 
     @Column()
     nickName : string;
+
+    @Column()
+    mobile : string | null;
+
+    @Column()
+    mobileCarrier : string | null;
 }

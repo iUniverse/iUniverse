@@ -14,7 +14,7 @@ article.login{display:flex;justify-content:center;align-items:center;gap:var(--s
 article.login span{}
 article.login a{color:var(--prim-l-50);}
 
-div.idContainer{height:83px;}
-div.pwContainer{height:79px;}
+div.id_container{height:83px;}
+div.pw_container{height:79px;}
 
 span.adviser{font-family:Pretendard;font-size:12px;font-weight:500;font-stretch:normal;font-style:normal;line-height:1.17;letter-spacing:-0.12px;text-align:left;color:var(--w-red);}

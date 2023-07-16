@@ -2,7 +2,7 @@ export interface User
 {
     id : number;
     email:string;
-    familyName : string;
-    givenName: string;
+    lastName : string;
+    firstName: string;
     nickName: string;
 }

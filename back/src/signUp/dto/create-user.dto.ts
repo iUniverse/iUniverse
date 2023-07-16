@@ -4,11 +4,15 @@ export class CreateUserDto{
     email : string;
 
     @IsNotEmpty()
-    familyName : string;
+    lastName : string;
 
     @IsNotEmpty()
-    givenName : string;
+    firstName : string;
 
     @IsNotEmpty()
     nickName : string;
+
+    mobile? : string;
+
+    mobileCarrier? : string;
 }

@@ -17,3 +17,7 @@ article.sign_up .space_top{margin-bottom:52px;}
 article.login{display:flex;justify-content:center;align-items:center;gap:var(--spc-8);}
 article.login span{}
 article.login a{color:var(--prim-l-50);}
+
+div.input_container{height:88px;}
+
+span.adviser{font-family:Pretendard;font-size:12px;font-weight:500;font-stretch:normal;font-style:normal;line-height:1.17;letter-spacing:-0.12px;text-align:left;color:var(--w-red);}

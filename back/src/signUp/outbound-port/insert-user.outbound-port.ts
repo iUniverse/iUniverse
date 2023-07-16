@@ -2,9 +2,11 @@ export const CREATE_USER_OUTBOUND_PORT = 'CREATE_USER_OUTBOUND_PORT' as const;
 
 export type CreateUserOutboundPortInputDto= {
     email:string;
-    familyName : string;
-    givenName: string;
+    lastName : string;
+    firstName: string;
     nickName: string;
+    mobileCarrier:string|null;
+    mobile:string|null;
 };
 export type SignUpOutboundPortOutputDto = {
   status : boolean;

@@ -1,9 +1,10 @@
 import { CustomRepository } from 'src/typeorm-ex.decorator'
+import * as bcrypt from 'bcrypt';
 import { Repository } from 'typeorm'
 import { Account } from './account.entity'
 import { AuthAccountDto } from './dto/create-account.dto';
 import { CreateAccountDto } from './dto/create-account.dto';
-export type SignUpRopositoryOutputDto = {
+export type SignUpRepositoryOutputDto = {
   status:boolean;
   code:string;
 };
@@ -11,9 +12,9 @@ export type SignUpRopositoryOutputDto = {
 
 @CustomRepository(Account)
 export class AccountRepository extends Repository<Account> {
-  AuthAccount = async (AuthAccountDto : AuthAccountDto) : Promise<SignUpRopositoryOutputDto> => {
+  AuthAccount = async (AuthAccountDto : AuthAccountDto) : Promise<SignUpRepositoryOutputDto> => {
     try{
-      const {account } = AuthAccountDto;
+      const {account} = AuthAccountDto;
       const result = await this.findOne({where:[{"account":account}]});
       if(!result) return {status:true,code:"000"} ;
       else return {status:false,code:"101"} ;
@@ -27,10 +28,11 @@ export class AccountRepository extends Repository<Account> {
       return {status:false,code:"000"} ;
     }
   }
-  CreateAccount = async (CreateAccountDto : CreateAccountDto) : Promise<SignUpRopositoryOutputDto> => {
+  CreateAccount = async (CreateAccountDto : CreateAccountDto) : Promise<SignUpRepositoryOutputDto> => {
     try{
       const {account, password } = CreateAccountDto;
-      const createAccount = this.create({account,password,certified : false});
+      const hashPassword = await bcrypt.hash(password, 10,);
+      const createAccount = this.create({account,"password":hashPassword,"certified" : false, type:"iUniverse",});
       const result = await this.save(createAccount);
 
       return {status:true,code:"000"} ;

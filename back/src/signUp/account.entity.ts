@@ -13,4 +13,7 @@ export class Account extends BaseEntity {
 
     @Column()
     certified : boolean;
+
+    @Column()
+    type : string;
 }

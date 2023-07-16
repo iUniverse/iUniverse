@@ -1,3 +1,5 @@
+import {validateAccount} from "containers/signUp/first/SingUpFirst.fetch";
+
 const accountCharValidation = (account:string) => {
     try{
         const accountReg = new RegExp('(?=.*[a-z])(?=.*[0-9])|(?=.*[A-Z])(?=.*[0-9])|(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])');
@@ -54,7 +56,7 @@ const passwordCharValidation = (password:string) => {
 
 const passwordLengthValidation = (account:string) => {
     try{
-        const target = account.replace(/ /,"");
+        const target = account.replace(/\s/g,"");
         if(target.length < 8) return {status:false,func:'04',code:'01'};
         else return {status:true,func:null,code:null};
     }
@@ -65,22 +67,12 @@ const passwordLengthValidation = (account:string) => {
     }
 }
 
-const temp = async (account:string)=>{
+const callValidateAccount = async (account:string)=>{
     try{
-        const data = {"account":account};
-        const response = await fetch('',{
-            method : 'POST',
-            cache : 'no-cache',
-            headers: {
-                'Accept' : 'application/json',
-                'Content-Type' : 'application/json'
-            },
-            body : JSON.stringify({
-                'account':account
-            })
-        })
-        if(response) return {status:true,func:null,code:null};
-        else return {status:false,func:'05',code:'01'};
+        const result = await validateAccount(account);
+        console.log(result);
+        if(!result.status) return {status:false,func:'05',code:'01'};
+        else return {status:true,func:null,code:null};
     }
     catch(e){
         console.log('[Error] passwordLengthValidation');
@@ -100,8 +92,7 @@ export const signUpFirstValidation = async (account: string, password: string) =
     if(!passwordCharResult.status) return passwordCharResult;
     const passwordLength : any = await passwordLengthValidation(password);
     if(!passwordLength.status) return passwordLength;
-    const tempResult = await temp(account);
-    console.log(tempResult);
-    if(!tempResult.status) return passwordLength;
+    const validationResult : any = await callValidateAccount(account);
+    if(!validationResult.status) return validationResult;
     else return {status:true,code:null};
 }
