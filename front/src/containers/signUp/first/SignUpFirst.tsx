@@ -98,7 +98,7 @@ export default function SignUpFirst() {
                 <span className={'b_2'}>아이디와 비밀번호를 입력해주세요.{accountBtn.toString()}</span>
             </article>
             <article className={`${signUpStyle.social} ${signUpStyle.column}`}>
-                <RoundButton color={"white"} title={"구글로 회원가입"} img={"/logos/logo.google.svg"}/>
+                <RoundButton color={"white"} title={"구글로 회원가입"} img={"/logos/logo.google.svg"} func={()=>{alert('서비스 준비중이에요.')}}/>
             </article>
             <article className={signUpStyle.sign_up}>
                 <div className={`${signUpStyle.division} ${signUpStyle.space_top}`}><span className={signUpStyle.text}>또는</span></div>
