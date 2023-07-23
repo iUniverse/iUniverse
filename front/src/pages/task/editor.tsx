@@ -12,22 +12,25 @@ interface Props {
     setCurrentTask : Dispatch<SetStateAction<any>>
     setBoardTask : Dispatch<SetStateAction<any>>
     setEditPosition : Dispatch<SetStateAction<string | undefined>>
+    updateCurrentTask : any;
 }
 
 export default function Editor(props : Props) {
     
     /* 태스크 내용 변경 */
     const handleTaskDescription = (description : string) => {     
-        props.setCurrentTask((prev : any) => {
-            return { ...prev, 'description' : description}
-        });
+        // props.setCurrentTask((prev : any) => {
+        //     return { ...prev, 'description' : description}
+        // });
 
-        props.setBoardTask((prev : any) => {
-            const tasks = prev[props.boardId];
-            const update_task = tasks.find((e : any) => e.id === props.taskId);
-            update_task.description = description;
-            return { ...prev }
-        })      
+        props.updateCurrentTask(description);
+
+        // props.setBoardTask((prev : any) => {
+        //     const tasks = prev[props.boardId];
+        //     const update_task = tasks.find((e : any) => e.id === props.taskId);
+        //     update_task.description = description;
+        //     return { ...prev }
+        // })      
     }
 
     const update = async (description : string) => {

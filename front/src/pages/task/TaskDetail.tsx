@@ -18,15 +18,11 @@ interface Props {
     setCurrentBoard : Dispatch<SetStateAction<any>>
     currentBoard: taskIF.Board | undefined;
     taskStatus: taskIF.Subtype[];
-    projectBoard: taskIF.Board[];
-    setBoardTask: Dispatch<SetStateAction<any>>
+    updateCurrentTask : any;
+    projectBoard: taskIF.Board[] | undefined;
 }
 
 export default function TaskDetail(props: Props) {
-    console.log(props.currentBoard);
-    
-    //const [currentTaskStatus, setCurrentTaskStatus] = useState<taskIF.Subtype>();
-
 
     /* detail 기본 세팅값 */
     //const [taskDetailType, setTaskDetailType] = useState<string>('hide');
@@ -57,15 +53,15 @@ export default function TaskDetail(props: Props) {
                 return { ...prev, 'statusId': val }
             });
         }
-
-        props.setBoardTask((prev: any) => {
-            const tasks = prev[props.currentBoard!.id];
-            const update_task = tasks.find((e: any) => e.id === props.currentTask.id);
-            console.log(update_task);
-            update_task[type] = val;
+        
+        // props.setBoardTask((prev: any) => {
+        //     const tasks = prev[props.currentBoard!.id];
+        //     const update_task = tasks.find((e: any) => e.id === props.currentTask.id);
+        //     console.log(update_task);
+        //     update_task[type] = val;
             
-            return { ...prev }
-        });
+        //     return { ...prev }
+        // });
     }
 
     const checkKey = (e: any, type: string, value: string) => {
@@ -79,25 +75,25 @@ export default function TaskDetail(props: Props) {
         
         if(result === true){
 
-            props.setBoardTask((prev: any) => {
+            // props.setBoardTask((prev: any) => {
                 
-                prev[props.currentBoard!.id] =  prev[props.currentBoard!.id].filter((e : any) => e.id !== props.currentTask.id);
-                console.log(prev[props.currentBoard!.id]);
+            //     prev[props.currentBoard!.id] =  prev[props.currentBoard!.id].filter((e : any) => e.id !== props.currentTask.id);
+            //     console.log(prev[props.currentBoard!.id]);
 
-                prev[updateBoardId].push({
-                    'completionDate' : props.currentTask.completionDate,
-                    'description' : props.currentTask.description,
-                    'dueDate' : props.currentTask.dueDate,
-                    'id' : props.currentTask.id,
-                    'name' : props.currentTask.name,
-                    'projectId' : props.currentTask.projectId,
-                    'score' : props.currentTask.score,
-                    'startDate' : props.currentTask.startDate,
-                    'statusId' : props.currentTask.statusId,
-                    'typeId' : props.currentTask.typeId
-                })
-                return { ...prev };
-            });
+            //     prev[updateBoardId].push({
+            //         'completionDate' : props.currentTask.completionDate,
+            //         'description' : props.currentTask.description,
+            //         'dueDate' : props.currentTask.dueDate,
+            //         'id' : props.currentTask.id,
+            //         'name' : props.currentTask.name,
+            //         'projectId' : props.currentTask.projectId,
+            //         'score' : props.currentTask.score,
+            //         'startDate' : props.currentTask.startDate,
+            //         'statusId' : props.currentTask.statusId,
+            //         'typeId' : props.currentTask.typeId
+            //     })
+            //     return { ...prev };
+            // });
             
             props.setCurrentTask((prev: any) => {
                 return { ...prev, 'boardId': updateBoardId }
@@ -299,9 +295,10 @@ export default function TaskDetail(props: Props) {
                             <Editor
                                 taskId={props.currentTask.id}
                                 boardId={props.currentBoard!.id}
+                                updateCurrentTask={props.updateCurrentTask}
                                 setCurrentTask={props.setCurrentTask}
-                                setBoardTask={props.setBoardTask}
-                                setEditPosition={setEditPosition}
+                                // setBoardTask={props.setBoardTask}
+                                // setEditPosition={setEditPosition}
                                 description={props.currentTask!.description} />
                             : props.currentTask.description === null ? '내용을 입력 해주세요' :
                                 <div dangerouslySetInnerHTML={{ __html: props.currentTask.description }}></div>

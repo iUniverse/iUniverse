@@ -53,7 +53,7 @@ export async function loadTaskByBoardId(boardId: number) {
             method: 'GET',
             cache: 'no-cache',
         });
-
+        
         return response.json();
     }
     catch (e) {

@@ -17,7 +17,9 @@ interface ProjectCategory {
 interface TaskTypePage {
     [key: string]: JSX.Element
 }
-
+interface TaskObject {
+    [key: number]: any
+}
 export default function Task({ }: any) { //태스크 정보를 가지고 올 예정
     const PROJECT_CATEGORY: ProjectCategory = {
         'favorite': '즐겨찾기',
@@ -27,7 +29,7 @@ export default function Task({ }: any) { //태스크 정보를 가지고 올 예
 
 
     /*  프로젝트의 테스크들 */
-    const [tasks, setTasks] = useState<any>([]);
+    const [tasks, setTasks] = useState<any>({});
     /* 현재 활성화된  프로젝트 */
     const [currentProject, setCurrentProject] = useState<any>();
 
@@ -77,15 +79,19 @@ export default function Task({ }: any) { //태스크 정보를 가지고 올 예
 
     const projectTitle = useRef<any>();
     /* 테스크 컨텐츠 불러오기 */
-    const loadTaskContent = (type: string, index: number) => {
-        setTasks(() => type);
-    }
+    // const loadTaskContent = (type: string, index: number) => {
+    //     setTasks(() => type);
+    // }
 
     /* 테스크 목록 불러오기 */
     const loadTaskByProjectId = async (projectId: number) => {
         const tasks = await loadByProjectId(projectId);
-        console.log(tasks);
-        setTasks(() => [...tasks]);
+        const result : TaskObject = {}
+        for(const task of tasks){
+            result[task.id] = task;
+        }
+        setTasks(() => result);
+        // setTasks(() => [...tasks]);
     }
 
     const updateProjectTitle = async () => {

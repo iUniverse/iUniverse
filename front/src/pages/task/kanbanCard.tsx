@@ -26,6 +26,7 @@ interface DragItem {
 }
 
 export default function KanbanCard(props: Props) {
+    console.log(props);
     const ref = useRef<HTMLDivElement>(null);
     
     const [{ handlerId, isOver }, drop] = useDrop<DragItem, void, { handlerId: Identifier | null, isOver : any }>
