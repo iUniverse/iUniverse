@@ -10,5 +10,7 @@ export type ResultBoard = {
 export const FIND_BOARD_OUTBOUND_PORT = 'FIND_BOARD_OUTBOUND_PORT' as const;
 
 export interface FindBoardOutboundPort {
+    getBoardById(param : number) : Promise<ResultBoard>
+    
     loadBoardByProjectId(param : number) : Promise<ResultBoard[]>
 }

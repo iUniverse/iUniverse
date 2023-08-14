@@ -16,7 +16,6 @@ export default function Index(props : any) {
     
     function load(){
         loadProject().then(result => {
-            console.log(result);
             setFavoriteProjects(() => [...result.favorite_projects]);
             setProjects(() => [...result.normal_projects])
         });

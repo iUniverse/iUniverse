@@ -20,7 +20,7 @@ export async function createProjectTheme(data : projectThemeMap){
             },
             body : JSON.stringify(data)
         });
-        console.log(response);
+    
         return response.json();
     }
     catch(e){

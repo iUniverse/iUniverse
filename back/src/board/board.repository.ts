@@ -31,6 +31,19 @@ export class BoardRepository extends Repository<Board> {
         }
     }
 
+    async GetBoardById(param : number) : Promise<Board>{
+        try{
+            return await this.findOne({
+                where : {
+                    id : param
+                }
+            });
+        }
+        catch(e){
+            throw e;
+        }
+    }
+
     async LoadBoardByProjectId(param : number) : Promise<Board[]>{
         try{
             const result = await this.find({

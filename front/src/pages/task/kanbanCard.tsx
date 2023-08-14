@@ -26,7 +26,6 @@ interface DragItem {
 }
 
 export default function KanbanCard(props: Props) {
-    console.log(props);
     const ref = useRef<HTMLDivElement>(null);
     
     const [{ handlerId, isOver }, drop] = useDrop<DragItem, void, { handlerId: Identifier | null, isOver : any }>
@@ -42,7 +41,6 @@ export default function KanbanCard(props: Props) {
                 if (!ref.current) {
                     return;
                 }
-                console.log(props.hoverBoardId);
                 const dragIndex = item.index;
                 const hoverIndex = props.index;
 
@@ -54,27 +52,22 @@ export default function KanbanCard(props: Props) {
 
                 // Determine mouse position
                 const clientOffset = monitor.getClientOffset()
-                console.log(clientOffset);
+                
                 // Get pixels to the top
                 const hoverClientY = (clientOffset as XYCoord).y - hoverBoundingRect.top
 
                 if (hoverClientY < hoverMiddleY) {
-                    console.log("기존 카드가 아래로 가야됨");
-                    console.log(props.task);
                     props.moveKanbanCard(props.task, hoverIndex === 0 ? 0 : hoverIndex-1);
                     return;
                 }
 
                 // Dragging upwards
                 if (hoverClientY > hoverMiddleY) {
-                    console.log("기존 카드가 위로 가야됨");
-                    console.log(props.task)
                     props.moveKanbanCard(props.task, hoverIndex+1);
                     return;
                 }
             
                 item.index = hoverIndex
-                console.log(item.index);
             }
         })
 
@@ -91,7 +84,7 @@ export default function KanbanCard(props: Props) {
             const didDrop = monitor.didDrop();
             if (!didDrop) {
                 //원래 자리로 이동
-                console.log('ㅋㅋㅋ');
+                
             }
         }
     }), [props.task?.id, props.index]);

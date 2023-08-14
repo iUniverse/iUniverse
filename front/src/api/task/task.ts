@@ -66,7 +66,6 @@ export async function updateTask(updateTask : {id : number, key : string, value 
         return response.json();
     }
     catch(e){
-        console.log(e);
         throw(e);
     }
 }

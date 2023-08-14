@@ -15,7 +15,6 @@ export class PostSubtypeController{
             return await this.createSubtypeInboundPort.create(data);
         }
         catch(e){
-            console.log(e);
             throw Error(e);
         }
     }
@@ -26,7 +25,6 @@ export class PostSubtypeController{
             return await this.createSubtypeInboundPort.createInit(initData);
         }
         catch(e){
-            console.log(e);
             throw Error(e);
         }
     }

@@ -155,6 +155,5 @@ export function getInitTheme(themeName : string){
     result.colors = theme.colors;
     result.fontColor = theme.fontColor;
     result.otherName = theme.otherName;
-    console.log(result);
     return result;
 } 

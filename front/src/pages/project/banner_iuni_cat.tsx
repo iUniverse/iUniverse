@@ -14,7 +14,7 @@ export default function BannerIuniCat(props : Props){
     const [catStyle, setCatStyle] = useState<CatStyle>();
     const [myCat, setMyCat] = useState<string>('');
     function handlePart(val : string) {
-        console.log(val);
+    
     }
     const [value, setValue] = useState('')
     async function findMyCatStyle(){

@@ -16,13 +16,9 @@ export class PostBasetypeController{
     @UsePipes(ValidationPipe)
     async createInit(@Body() initData : BaseTypeInit) : Promise<ReturnBaseType>{
         try{
-            console.log('엄?');
-            console.log(initData);
-            console.log('엄!');
             return await this.createBaseTypeInboundPort.createInit(initData);
         }
         catch(e){
-            console.log(e);
             throw Error(e);
         }
     }

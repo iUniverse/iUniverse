@@ -13,7 +13,6 @@ export class ThemeRepository extends Repository<Theme>{
     /* 테마 생성하기 */
     async CreateTheme(CreateThemeDto: CreateThemeDto): Promise<Theme> {
         try {
-            console.log("어어???");
             return await this.save(CreateThemeDto);
         }
         catch (e) {
@@ -32,7 +31,6 @@ export class ThemeRepository extends Repository<Theme>{
             return { 'themeList': result }
         }
         catch (e) {
-            console.log(e);
             throw e;
         }
     }
@@ -46,7 +44,6 @@ export class ThemeRepository extends Repository<Theme>{
                 }
             }); 
 
-            console.log(result);
             return result; 
         }
         catch(e){
@@ -73,10 +70,6 @@ export class ThemeRepository extends Repository<Theme>{
 
     /* 테마 업데이트 */
     async UpdateTheme(param : UpdateThemeOPInputDto) : Promise<boolean>{
-        // const obj : object = {};
-        // obj[param.key] = JSON.parse(param.value);
-        // console.log(param);
-
         const result = await this.createQueryBuilder()
                                 .update(Theme)
                                 .set(makeUpdatQuery(param))
@@ -113,7 +106,6 @@ export class ThemeRepository extends Repository<Theme>{
             return true;
         }
         catch (e) {
-            console.log(e);
             return false;
         }
     }

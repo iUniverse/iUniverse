@@ -15,7 +15,6 @@ export class PostBoardTaskMapController {
             return await this.createBoardTaskMapInboundPort.create(data);
         } 
         catch(e){
-            console.log(e);
             throw Error(e);
         }
     }

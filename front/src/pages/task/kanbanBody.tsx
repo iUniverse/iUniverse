@@ -12,8 +12,6 @@ interface Props {
 }
 
 export default function KanbanBody(props: Props) {
-    // console.log(props);    
-    console.log(props);
     const [hoverBoardId, setHoverBoardId] = useState<number | null | undefined>();
     const [currentBoardTasks, setCurrentBoardTasks] = useState<any[]>();
     const moveKanbanCard = (task: any, index: number) => {

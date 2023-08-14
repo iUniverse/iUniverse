@@ -20,7 +20,7 @@ export default function IuniCat(props){
     const [body, setBody] = useState<string>();
 
     function handlePart(part : string){
-        console.log(part);
+        
     }
 
     return(

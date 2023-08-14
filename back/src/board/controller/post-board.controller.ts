@@ -15,7 +15,6 @@ export class PostBoardController{
             return await this.createBoardInboundPort.create(board);
         }
         catch(e) {
-            console.log(e);
             throw Error(e);
         }
     }
@@ -26,7 +25,6 @@ export class PostBoardController{
             return await this.createBoardInboundPort.createInit(data)
         }
         catch(e) {
-            console.log(e);
             throw Error(e);
         }
     }

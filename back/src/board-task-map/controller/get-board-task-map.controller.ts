@@ -14,7 +14,6 @@ export class GetBoardTaskMapController {
             return this.findBoardTaskMapInboundPort.loadByBoardId(param);
         }
         catch(e){
-            console.log(e);
             throw e;
         }
     }

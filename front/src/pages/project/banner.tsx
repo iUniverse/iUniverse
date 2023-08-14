@@ -101,7 +101,7 @@ export default function Banner(props: any) {
     async function updateTheme(id: number) {
         //현재는 유저 정보가 없기에 업데이트문은 없음
         const theme = await getTheme(id);
-        console.log(theme);
+        
         props.setcolors(() => theme.colors);
         props.setfontColor(() => theme.fontColor);
 
@@ -112,7 +112,7 @@ export default function Banner(props: any) {
     async function settingTheme(id: number) {
         //현재 설정한 나의 테마 정보 가져오기
         const theme = await getMyInitTheme();
-        console.log(theme);
+    
         if (theme !== null) {
             props.setcolors(() => theme.colors);
             props.setfontColor(() => theme.fontColor);

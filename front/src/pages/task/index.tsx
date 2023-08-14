@@ -150,7 +150,6 @@ export default function Task({ }: any) { //태스크 정보를 가지고 올 예
                 <div className="task-view-list">
                     <div className="task-view-header row"
                         onClick={(e: MouseEvent<HTMLDivElement>) => handleProjectTitle(e, false)}>
-
                         <div className="col-12">
                             <div className="active-project-banner">
                                 <div className="active-project-bread">

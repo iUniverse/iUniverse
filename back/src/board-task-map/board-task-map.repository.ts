@@ -22,14 +22,14 @@ export class BoardTaskMapRepository extends Repository<BoardTaskMap>{
 
 
     async UpdateBoardId(data : UpdateBoardTaskMap) : Promise<boolean> {
+        
         const result = await this.createQueryBuilder()
                                 .update(BoardTaskMap)
                                 .set({'boardId' : data.updateBoardId})
                                 .where('boardId =:boardId', {boardId : data.boardId})
-                                .andWhere('taskId =:taskId', { taskId : data.taskId})
+                                .where('taskId =:taskId', { taskId : data.taskId})
                                 .execute();
-        console.log(result.affected);
-        
+                                
         return result.affected > 0 ? true : false;
     }
 }

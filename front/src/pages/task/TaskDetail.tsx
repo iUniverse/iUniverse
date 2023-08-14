@@ -4,6 +4,7 @@ import * as taskIF from "api/task/task-interface";
 import { Project } from "pages/project/interface";
 import { updateTask } from "api/task/task";
 import { updateBoardTaskMap } from "api/task/boardTaskMap";
+import { getBoardById, updateBoard } from "api/task/board";
 
 interface TaskDetailViewType {
     [key: string]: string
@@ -16,6 +17,8 @@ interface Props {
     currentTask: taskIF.Task;
     setCurrentTask: Dispatch<SetStateAction<taskIF.Task | undefined>>;
     setCurrentBoard : Dispatch<SetStateAction<any>>
+    setProjectBoard : Dispatch<SetStateAction<any>>
+    setTasks : Dispatch<SetStateAction<any>>
     currentBoard: taskIF.Board | undefined;
     taskStatus: taskIF.Subtype[];
     updateCurrentTask : any;
@@ -37,11 +40,15 @@ export default function TaskDetail(props: Props) {
 
     const [editPosition, setEditPosition] = useState<string>('none');
     const editVal = useRef<any>();
-    
-
     const changeStatusId = (statusId: number) => {
-
+        props.setTasks((prev : any) => {
+            const data = prev[props.currentTask.id];
+            data.statusId = statusId;
+            return { ...prev };
+        })
+  
     }
+    
     /* ui에 표현되는 정보 변경 */
     const changeTaskContent = (type: string, val: any) => {
         if (type === 'name') {
@@ -52,6 +59,8 @@ export default function TaskDetail(props: Props) {
             props.setCurrentTask((prev: any) => {
                 return { ...prev, 'statusId': val }
             });
+
+            changeStatusId(val);
         }
         
         // props.setBoardTask((prev: any) => {
@@ -70,50 +79,79 @@ export default function TaskDetail(props: Props) {
         }
     }
 
-    const updateBoardId = async (updateBoardId : number) => {
-        const result = await updateBoardTaskMap(props.currentBoard!.id, props.currentTask.id, updateBoardId);
-        
-        if(result === true){
-
-            // props.setBoardTask((prev: any) => {
-                
-            //     prev[props.currentBoard!.id] =  prev[props.currentBoard!.id].filter((e : any) => e.id !== props.currentTask.id);
-            //     console.log(prev[props.currentBoard!.id]);
-
-            //     prev[updateBoardId].push({
-            //         'completionDate' : props.currentTask.completionDate,
-            //         'description' : props.currentTask.description,
-            //         'dueDate' : props.currentTask.dueDate,
-            //         'id' : props.currentTask.id,
-            //         'name' : props.currentTask.name,
-            //         'projectId' : props.currentTask.projectId,
-            //         'score' : props.currentTask.score,
-            //         'startDate' : props.currentTask.startDate,
-            //         'statusId' : props.currentTask.statusId,
-            //         'typeId' : props.currentTask.typeId
-            //     })
-            //     return { ...prev };
-            // });
-            
-            props.setCurrentTask((prev: any) => {
-                return { ...prev, 'boardId': updateBoardId }
-            });
-
-            props.setCurrentBoard(() => props.projectBoard.find((e) => e.id === updateBoardId))
-            
-            
-                 
-            //changeTaskContent('boardId', updateBoardId);
-        }
+    /* 기존 보드의 taskOrder 업데이트(해당 보드 아이디 삭제) */
+    const removeTaskOrderUpdate = async (currentBoard : any, currentTask : any, updateBoardId : number) => {
+        const remove_update_task_order = props.currentBoard?.taskOrder?.filter(e => e !== props.currentTask.id);
+        const remove_update_board_result = await updateBoard({
+            'id' : props.currentBoard.id,
+            'key' : 'taskOrder',
+            'value' : remove_update_task_order
+        });
+        return remove_update_board_result;
     }
-    
+
+    /* 기존 보드의 taskOrder 업데이트(해당 보드 아이디 추가) */
+    const addTaskOrderUpdate = async (currentBoard : any, currentTask : any, updateBoardId : number) => {
+        const add_update_board = await getBoardById(updateBoardId);
+        const add_update_task_order = [props.currentTask.id, ...add_update_board.taskOrder];
+        const add_update_board_result = await updateBoard({
+            'id' : add_update_board.id,
+            'key' : 'taskOrder',
+            'value' : add_update_task_order
+        });
+
+        return add_update_board_result;
+    }
+
+    /* BoardBadge 업데이트 */
+    const changeBoardBadge = (boardId : number) => {
+        const updateBoard = props.projectBoard?.find((e) => e.id === boardId);
+        props.setCurrentBoard(() => updateBoard);
+    }
+
+    /* Card에 표현된 상태값 변경 */
+    const changeCardStatus = () => {
+
+    }
+
+    /* Card 위치 업데이트 */
+    const changeCardPosition = (boardId : number) => {
+        props.setProjectBoard((prev : any) => {
+            let old_data = prev.find((e : any) => e.id === props.currentBoard?.id);
+            old_data.taskOrder = old_data.taskOrder.filter((e : any) => e !== props.currentTask.id);
+
+            let new_data = prev.find((e : any) => e.id === boardId);
+            new_data.taskOrder.push(props.currentTask.id);
+            
+            return [...prev]
+        });
+
+    }
+
+    /* 해당부분 수정 해야됨 */
+    const updateBoardId = async (updateBoardId : number) => {
+        return new Promise((resolve) => {        
+            Promise.all([
+                updateBoardTaskMap(props.currentBoard!.id, props.currentTask.id, updateBoardId),
+                removeTaskOrderUpdate(props.currentBoard, props.currentTask, updateBoardId),
+                addTaskOrderUpdate(props.currentBoard, props.currentTask, updateBoardId)
+            ]).then((result) => {
+                if(result[0] && result[1] && result[2]){
+                    changeBoardBadge(updateBoardId);
+                    changeCardPosition(updateBoardId);
+                    resolve(result)
+                }
+            })
+        })
+    }
+
     const update = async (type: string, value: any) => {
         const result = await updateTask({
             'id': props.currentTask.id,
             'key': type,
             'value': value
         });
-
+        
         if (result.result === true) {
             setEditPosition(() => 'none');
             changeTaskContent(type, value);
@@ -261,11 +299,11 @@ export default function TaskDetail(props: Props) {
                                             </p>
                                         </div>
                                         <div className="option-title">
-                                            보드 <span>{props.projectBoard.filter((e) => e.id !== props.currentBoard!.id && e.orderNum !== -1)?.length}</span>
+                                            보드 <span>{props.projectBoard?.filter((e) => e.id !== props.currentBoard!.id && e.orderNum !== -1)?.length}</span>
                                         </div>
                                         <>
                                             {
-                                                props.projectBoard.filter((e) => e.id !== props.currentBoard!.id && e.orderNum !== -1).map((val) => (
+                                                props.projectBoard?.filter((e) => e.id !== props.currentBoard!.id && e.orderNum !== -1).map((val) => (
                                                     <div className="status-option"
                                                         key={`select_status_${val.id}`}
                                                         onClick={() => updateBoardId(val.id)}>
@@ -297,8 +335,7 @@ export default function TaskDetail(props: Props) {
                                 boardId={props.currentBoard!.id}
                                 updateCurrentTask={props.updateCurrentTask}
                                 setCurrentTask={props.setCurrentTask}
-                                // setBoardTask={props.setBoardTask}
-                                // setEditPosition={setEditPosition}
+                                setEditPosition={setEditPosition}
                                 description={props.currentTask!.description} />
                             : props.currentTask.description === null ? '내용을 입력 해주세요' :
                                 <div dangerouslySetInnerHTML={{ __html: props.currentTask.description }}></div>

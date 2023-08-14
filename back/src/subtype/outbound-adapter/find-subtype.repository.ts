@@ -13,7 +13,6 @@ export class FindSubtypeRepository implements FindSubtypeOutboundPort{
             return await this.findSubtypeRepo.loadSubtype(param);
         }
         catch(e){
-            console.log(e);
             throw e;
         }
     }

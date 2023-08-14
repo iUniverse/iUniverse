@@ -12,7 +12,6 @@ export function makeUpdatQuery(data) : object {
     const update_query : object = {};
     
     update_query[JSON.parse(data.key)] = JSON.parse(data.value);
-    console.log(update_query);
     return update_query;
 }
 

@@ -14,11 +14,9 @@ export class GetTaskController {
     @Get('/:id')
     async load(@Param('id') param: LoadTaskIPInputDto): Promise<LoadTaskInboundPortOutputDto> {
         try {
-            console.log(param);
             return this.loadTaskInboundPort.load(param);
         }
         catch (e) {
-            console.log(e)
             throw e;
         }
     }
@@ -29,7 +27,6 @@ export class GetTaskController {
             return this.loadByDateInboundPort.loadByDate(date);
         }
         catch (e) {
-            console.log(e)
             throw e;
         }
 

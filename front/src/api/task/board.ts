@@ -43,7 +43,6 @@ export async function updateBoard(updateTask : {id : number, key : string, value
         return response.json();
     }
     catch(e){
-        console.log(e);
         throw(e);
     }
 }
@@ -79,11 +78,24 @@ export async function initCreateBoard(projectId : number){
             },
             body : JSON.stringify(data)
         });
-        
-        console.log(response);
     }
     catch(e){
         return 'error';
+    }
+}
+
+/* boardId 를 통해 board 정보 가져오기 */
+export async function getBoardById(boardId : number){
+    try{
+        const response = await fetch(url + `/id/${boardId}`, {
+            method : 'GET',
+            cache : 'no-cache'
+        });
+
+        return response.json();
+    }
+    catch(e){
+        throw e;
     }
 }
 

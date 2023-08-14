@@ -8,6 +8,11 @@ export class GetBoardController {
         private readonly findBoardInboundPort : FindBoardInboundPort
     ){}
     
+    @Get('/id/:boardId')
+    async getBoardById(@Param('boardId') param : number) : Promise<ResultBoard>{
+        return this.findBoardInboundPort.getBoardById(param);
+    }
+
     @Get('/:projectId')
     async loadBoardByProjectId(@Param('projectId') param : number) : Promise<ResultBoard[]>{
         return this.findBoardInboundPort.loadBoardByProjectId(param);

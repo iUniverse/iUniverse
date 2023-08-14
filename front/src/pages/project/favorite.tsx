@@ -27,7 +27,6 @@ interface Props {
 
 export default function Favorite(props: Props) {
     function moveTaskPage(id: number) {
-        console.log('moveTaskPage!!');
         router.push(`/task?iuni_project=${id}&p_category=favorite`);
     }
     /* 프로젝트 즐겨찾기 on / off */
@@ -56,7 +55,6 @@ export default function Favorite(props: Props) {
 
 
     function hexToRgb(hex: string, alpha:number) {
-        console.log(hex);
         let r = parseInt(hex.slice(1, 3), 16),
           g = parseInt(hex.slice(3, 5), 16),
           b = parseInt(hex.slice(5, 7), 16);

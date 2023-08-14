@@ -85,10 +85,8 @@ export default function App({ Component, pageProps }: AppProps) {
 
     checkInitCatStyle()
       .then(async result => {
-        console.log(result);
         if(result === false){
           const iuniCat = await createInitCatStyle();
-          console.log(iuniCat);
         } 
       });
   }, []);

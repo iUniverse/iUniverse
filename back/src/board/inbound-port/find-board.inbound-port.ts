@@ -10,5 +10,7 @@ export class ResultBoard{
 export const FIND_BOARD_INBOUND_PORT = 'FIND_BOARD_INBOUND_PORT' as const;
 
 export interface FindBoardInboundPort{
+    getBoardById(param : number) : Promise<ResultBoard>
+    
     loadBoardByProjectId(param : number) :Promise<ResultBoard[]>
 }

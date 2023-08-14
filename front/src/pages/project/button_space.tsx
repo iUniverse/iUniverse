@@ -11,8 +11,7 @@ interface Props {
 
 export default function ButtonSpace(props : Props){
     async function create() {
-        // const result = await createProject('무제');
-        // console.log(result);
+        
         createProject('무제').then((result) => {
             if(result.statusCode === 400){
                 throw new Error('에러 남 ^^');

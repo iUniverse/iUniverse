@@ -35,8 +35,6 @@ export class BasetypeRepository extends Repository<Basetype>{
 
     async findBasetypeName(projectId : number, name : string) : Promise<Basetype>{
         try{
-            console.log(name);
-            console.log(projectId);
             const result = await this.findOne({
                 where : {
                     projectId : projectId,
@@ -52,7 +50,6 @@ export class BasetypeRepository extends Repository<Basetype>{
 
     async findCheckInit(data: any): Promise<ReturnCheckInit> {
         try {
-            console.log(data);
             const result = await this.findOne({
                 where: {
                     projectId: data.projectId,

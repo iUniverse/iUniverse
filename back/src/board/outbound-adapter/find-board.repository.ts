@@ -9,12 +9,19 @@ export class FindBoardRepository implements FindBoardOutboundPort{
         private readonly findBoardRepo : BoardRepository
     ){}
 
+    async getBoardById(param: number): Promise<ResultBoard> {
+        try{
+            return await this.findBoardRepo.GetBoardById(param);
+        }
+        catch(e){
+            throw e;
+        }
+    }
     async loadBoardByProjectId(param : number) : Promise<ResultBoard[]>{
         try{
             return await this.findBoardRepo.LoadBoardByProjectId(param);
         }
         catch(e){
-            console.log(e);
             throw e;
         }
     }

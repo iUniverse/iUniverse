@@ -19,8 +19,7 @@ export class CreateSubtypeService implements CreateSubtypeInboundPort {
             const funcs = [];
 
             for (const init_subtype of init_subtypes) {
-                console.log('init_subtype');
-                console.log(init_subtype);
+                
                 funcs.push(this.createSubtypeOutboundPort.createInit(init_subtype))
             }
 

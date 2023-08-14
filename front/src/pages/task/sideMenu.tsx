@@ -77,7 +77,7 @@ export default function SideMenu(props: Props) {
 
 
     const handleIsFavorite = () => {
-        console.log("ㅋㅋㅋㅋㅋ");
+        
     }
 
     useEffect(() => {

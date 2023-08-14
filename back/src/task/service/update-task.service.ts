@@ -8,11 +8,6 @@ export class UpdateTaskService implements UpdateTaskInboundPort{
         private readonly updateTaskOutboundPort: UpdateTaskOutboundPort 
     ){}
 
-    // async update(taskInfo: UpdateTaskOutboundPortInputDto):Promise<UpdateTaskOutboundPortOutputDto>{
-    //     console.log('update task service');
-    //     return await this.updateTaskOutboundPort.update(taskInfo);
-    // }
-
     async update(data : UpdateTask) : Promise<ResultUpdateTask>{
         return await this.updateTaskOutboundPort.update(data);
     }

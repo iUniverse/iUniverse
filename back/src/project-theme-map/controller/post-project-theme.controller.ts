@@ -15,7 +15,6 @@ export class PostProjectThemeController{
             return await this.createProjectThemeInboundPort.create(projectThemeMap);
         }
         catch(e){         
-            console.log(e);
             throw Error(e);
         }
     }

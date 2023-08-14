@@ -19,9 +19,7 @@ export async function initCreateBaseSubtype(basetype : any){
         })
         return response.json();
     }
-    catch(e)
-    {
-        console.log(e);
+    catch(e){
         throw(e);
     }
 }
@@ -65,7 +63,6 @@ export async function createSubtype(data : CreateSubtype){
         return response.json();
     }
     catch(e){
-        console.log(e);
         throw(e);
     }
 }

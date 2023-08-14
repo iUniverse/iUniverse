@@ -21,7 +21,7 @@ import { AnyPtrRecord } from "dns";
 interface Props {
     project: Project;
     tasks: taskIF.Task[];
-    setTasks: Dispatch<SetStateAction<Array<taskIF.Task>>>
+    setTasks: Dispatch<SetStateAction<any>>
 }
 
 export default function Kanban(props: Props) {
@@ -70,11 +70,12 @@ export default function Kanban(props: Props) {
         if(updateBoardResult){
             setProjectBoard((prev:any) => {
                 const result = prev.find((e:taskIF.Board) => e.id === boardId);
+
                 if(result && taskOrder){
                     result.taskOrder = [...taskOrder];
                     return [...prev];
                 }
-            })    
+            });    
         }
     }
     
@@ -82,7 +83,13 @@ export default function Kanban(props: Props) {
     const addTask = async (boardId: number) => {
         const task = await create(props.project.id, '새로운 태스크', taskStatus!.find(e => e.orderNum === 0 && e.defaultVal === true)!.id);
         //생성후 board-task-map에 추가
-        props.setTasks(prev => [task, ...prev]);
+        
+        
+        props.setTasks(prev => {
+            prev[task.id] = task;
+            return prev;
+        });
+
         const boardTaskMap = await addBoardTaskMap(boardId, task.id);
         updateBoardTaskOrder(task.id, boardId)
     }
@@ -178,8 +185,7 @@ export default function Kanban(props: Props) {
 
     /* 테스크 데이터 저장 */
     const saveTaskData = (type: string, value: any) => {
-        console.log(type);
-        console.log(value);
+
     }
 
     /* 테스크의 정보가 바뀔때 */
@@ -228,18 +234,11 @@ export default function Kanban(props: Props) {
         const settingBoard = async () => {
             if (props.project?.id !== undefined) {
                 const boards = await loadBoardByProjectId(props.project.id);
-                
-                setProjectBoard(() => [...boards])
-                // const boardTasks: any = await settingBoardTask(boards.map((e: any) => e.id));
-                // boardTasks.map((val: any, i: number) => {
-                //     setBoardTask((prev: any) => { return { ...val, ...prev } })
-                // });
-
+                setProjectBoard(() => [...boards]);
             }
         }
-
         
-        settingBoard()
+        settingBoard();
     }, [props.project]);
 
     return (
@@ -326,6 +325,8 @@ export default function Kanban(props: Props) {
                     currentTask={currentTask}
                     setCurrentTask={setCurrentTask}
                     setCurrentBoard={setCurrentBoard}
+                    setProjectBoard={setProjectBoard}
+                    setTasks={props.setTasks}
                     currentBoard={currentBoard}
                     taskStatus={taskStatus}
                     projectBoard={projectBoard}

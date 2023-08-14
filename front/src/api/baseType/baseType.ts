@@ -8,8 +8,7 @@ const url = 'http://localhost:3500/iuni_basetype';
 /* 기본 baseType값 생성 */
 async function initCreateBaseType(projectId : number, basetypeName : string){
     try{
-        console.log(projectId);
-        console.log(basetypeName);
+        
         const data = {
             'projectId' : projectId,
             'name' : basetypeName
@@ -23,11 +22,10 @@ async function initCreateBaseType(projectId : number, basetypeName : string){
             },
             body : JSON.stringify(data)
         })
-        console.log(response);
+    
         return response.json();
     }
     catch(e){
-        console.log(e);
         throw(e);
     }
 }
@@ -64,7 +62,7 @@ export async function initBaseTypeCheck(id : number){
         let result = await initCheck(id);
         
         result = result.filter((e : any) => e.result === false);    
-        console.log(result);
+
         for(const data of result){
             const basetype = await initCreateBaseType(id, data.name);
             await initCreateBaseSubtype(basetype);
@@ -84,9 +82,6 @@ export async function findBasetypeByName(name : string, id : number){
         })
 
         return response.json();
-
-        // const tt = await response.json();
-        // console.log(tt);
     }
     catch(e) {
         throw e;

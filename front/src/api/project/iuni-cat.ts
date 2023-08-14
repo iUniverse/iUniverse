@@ -137,7 +137,6 @@ export class IuniCatStyle {
 
     injectEvent() {
         //const path = document.querySelector(`path[data-name='iuni-cat-left-eye-white']`);
-        //console.log(path);
 
         //path?.addEventListener('click', () => this.testEvent());
     }

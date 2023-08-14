@@ -15,7 +15,6 @@ export class PostProjectController{
             return await this.createProjectsInboundPort.create(project);
         }
         catch(e){
-            console.log(e);
             throw Error(e);
         }
     }

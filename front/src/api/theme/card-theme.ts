@@ -120,7 +120,6 @@ export async function getMyInitTheme() {
         
     }
     catch(e){
-        console.log(e);
         return null;
     }
 }
@@ -175,11 +174,9 @@ export async function updateTheme(updateCardTheme : {id :number, key : string, v
                 value : JSON.stringify(updateCardTheme.value)
             })
         });
-        console.log(response);
         return response.json();
     }
     catch(e){
-        console.log(e);
         throw(e);
     }
 }

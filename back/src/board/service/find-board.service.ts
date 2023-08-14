@@ -7,6 +7,10 @@ export class FindBoardService implements FindBoardInboundPort {
         @Inject(FIND_BOARD_OUTBOUND_PORT)
         private readonly findBoardOutboundPort : FindBoardOutboundPort
     ){}
+    
+    async getBoardById(param : number) : Promise<ResultBoard>{
+        return this.findBoardOutboundPort.getBoardById(param);
+    }
 
     async loadBoardByProjectId(param: number): Promise<ResultBoard[]> {
         return this.findBoardOutboundPort.loadBoardByProjectId(param);
