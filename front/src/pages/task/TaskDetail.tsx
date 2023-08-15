@@ -5,6 +5,8 @@ import { Project } from "pages/project/interface";
 import { updateTask } from "api/task/task";
 import { updateBoardTaskMap } from "api/task/boardTaskMap";
 import { getBoardById, updateBoard } from "api/task/board";
+import Calendar from "react-calendar";
+import 'react-calendar/dist/Calendar.css';
 
 interface TaskDetailViewType {
     [key: string]: string
@@ -25,8 +27,13 @@ interface Props {
     projectBoard: taskIF.Board[] | undefined;
 }
 
-export default function TaskDetail(props: Props) {
+interface DuringDateInfo {
+    [key:string] : string
+}
 
+export default function TaskDetail(props: Props) {
+    const [openDuringDate, setOpenDuringDate] = useState<boolean>(false)
+    const [duringDateInfo, setDuringDateInfo] = useState<DuringDateInfo>()
     /* detail 기본 세팅값 */
     //const [taskDetailType, setTaskDetailType] = useState<string>('hide');
     const TASK_DETAIL_VIEW_TYPE: TaskDetailViewType = {
@@ -48,20 +55,37 @@ export default function TaskDetail(props: Props) {
         })
   
     }
-    
+
+    const changeName = (name : string) => {
+        props.setTasks((prev : any) => {
+            const data = prev[props.currentTask.id];
+            data.name = name;
+            return { ...prev };
+        })
+    }
+
     /* ui에 표현되는 정보 변경 */
     const changeTaskContent = (type: string, val: any) => {
         if (type === 'name') {
             props.setCurrentTask((prev: any) => {
                 return { ...prev, 'name': val }
             });
+            changeName(val);
         } else if (type === 'statusId') {
             props.setCurrentTask((prev: any) => {
                 return { ...prev, 'statusId': val }
             });
-
             changeStatusId(val);
+        } else if(type === 'startDate'){
+            props.setCurrentTask((prev: any) => {
+                return { ...prev, 'startDate' : val }
+            });
+        } else if(type === 'endDate') {
+            props.setCurrentTask((prev : any) => {
+                return { ...prev, 'completionDate' : val}
+            })
         }
+
         
         // props.setBoardTask((prev: any) => {
         //     const tasks = prev[props.currentBoard!.id];
@@ -145,6 +169,27 @@ export default function TaskDetail(props: Props) {
         })
     }
 
+    const makePrettyDay = (date : Date) => {
+        let year = date.getFullYear();
+        let month = ("0" + (1 + date.getMonth())).slice(-2);
+        let day = ("0" + date.getDate()).slice(-2);
+        return year + "." + month + "." + day;
+    }
+
+    const updateDuringDate = (dateList : Array<Date>) => {
+        return new Promise((resolve) => {
+            try{
+                update('startDate', dateList[0]);
+                update('completionDate', dateList[1]);
+                resolve(true);
+            }
+            catch(e){
+                resolve(false);
+            }
+        });
+    }
+
+    /* 업데이트 */
     const update = async (type: string, value: any) => {
         const result = await updateTask({
             'id': props.currentTask.id,
@@ -202,22 +247,44 @@ export default function TaskDetail(props: Props) {
                     </div>
 
                     <div className="task-detail-view-during-date">
-
                         {
-                            props.currentTask.startDate === null || props.currentTask.completionDate === null ?
-                                <div className="during-date-add-btn">
+                            duringDateInfo === undefined ?
+                                <div className="during-date-add-btn" onClick={() => setOpenDuringDate((prev) => !prev)}>
                                     <img src="img/task/date-add-btn.webp" style={{ width: '18px', height: '18px' }} />
                                     <p>일정추가</p>
                                 </div> :
                                 <>
-                                    <div className="during-date-badge">D-13</div>
+                                    <div className="during-date-badge">{duringDateInfo.d_day}</div>
                                     <div className="during-date-title">태스크 기간</div>
-                                    <div className="during-date-start-date">2022.10.01</div>
+                                    <div className="during-date-start-date">{duringDateInfo.start_date}</div>
                                     <div className="during-date-connection">~</div>
-                                    <div className="during-date-end-date">2022.10.03</div>
+                                    <div className="during-date-end-date">{duringDateInfo.completion_date}</div>
                                 </>
                         }
-
+                        {
+                            openDuringDate === true &&
+                            <div className="duringdate-container">
+                                <p className="react-calendar-title">일정 설정하기</p>
+                                <Calendar 
+                                    selectRange={true}
+                                    onChange={(data : any) => {
+                                        updateDuringDate(data).then(() => {
+                                            setDuringDateInfo(() => {
+                                                let temp_day = data[1]-data[0];
+                                                let result = {
+                                                    'd_day' : `D-${String(Math.floor(temp_day / (1000*60*60*24)))}`,
+                                                    'start_date' : makePrettyDay(data[0]),
+                                                    'completion_date' : makePrettyDay(data[1])
+                                                };
+                                                return { ...result }
+                                            });
+    
+                                            setOpenDuringDate(false);
+                                        });
+                                    }}
+                                />
+                            </div>
+                        }
                     </div>
 
                     <div className="task-detail-view-writor">

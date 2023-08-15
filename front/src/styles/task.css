@@ -17,6 +17,15 @@
     box-sizing: border-box;
 }
 
+.duringdate-container{
+    position:absolute;
+    z-index: 900;
+    width : auto;
+    padding: 15px;
+    border-radius: 14px;
+    box-shadow: 0 0 12px 0 rgba(34, 34, 34, 0.14);
+    background-color: #fff;
+}
 .task-side-menu>* {
     padding: 0 16px;
 }
@@ -590,6 +599,7 @@
 
 .task-detail-view-during-date {
     display: flex;
+    position : relative;
     padding-top: 10px;
     padding-bottom: 10px;
     gap: 8px;

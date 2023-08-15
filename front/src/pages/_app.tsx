@@ -5,6 +5,7 @@ import 'styles/project.css';
 import 'styles/theme.css';
 import 'styles/modal.css';
 import 'styles/task.css';
+import 'styles/CalendarCustom.css';
 
 import type { AppProps } from 'next/app'
 import IUniLayout from './layout/layout'
