@@ -8,12 +8,11 @@ interface Props {
     board: any;
     renderTaskDetail: any
     setProjectBoard :  Dispatch<SetStateAction<any>>
-    tasks : Task[];
+    tasks : any;
 }
 
 export default function KanbanBody(props: Props) {
     const [hoverBoardId, setHoverBoardId] = useState<number | null | undefined>();
-    const [currentBoardTasks, setCurrentBoardTasks] = useState<any[]>();
     const moveKanbanCard = (task: any, index: number) => {
         // props.setProjectBoard((prev : any) => {
         //     prev.taskOrder = [-1, prev.taskOrder];

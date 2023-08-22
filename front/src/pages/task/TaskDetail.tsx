@@ -7,6 +7,7 @@ import { updateBoardTaskMap } from "api/task/boardTaskMap";
 import { getBoardById, updateBoard } from "api/task/board";
 import Calendar from "react-calendar";
 import 'react-calendar/dist/Calendar.css';
+import * as pub from "api/public/public";
 
 interface TaskDetailViewType {
     [key: string]: string
@@ -32,6 +33,7 @@ interface DuringDateInfo {
 }
 
 export default function TaskDetail(props: Props) {
+    console.log(props);
     const [openDuringDate, setOpenDuringDate] = useState<boolean>(false)
     const [duringDateInfo, setDuringDateInfo] = useState<DuringDateInfo>()
     /* detail 기본 세팅값 */
@@ -52,8 +54,17 @@ export default function TaskDetail(props: Props) {
             const data = prev[props.currentTask.id];
             data.statusId = statusId;
             return { ...prev };
-        })
-  
+        })  
+    }
+
+    /* Card에 표현된 시작날짜, 종료날짜 변경 */    
+    const changeCardDuringDate = (startDate : Date, dueDate : Date) => {
+        props.setTasks((prev : any) => {
+            const updateTask = prev[props.currentTask.id]; 
+            updateTask.startDate = startDate;
+            updateTask.dueDate = dueDate;
+            return { ...prev };
+        });
     }
 
     const changeName = (name : string) => {
@@ -80,21 +91,12 @@ export default function TaskDetail(props: Props) {
             props.setCurrentTask((prev: any) => {
                 return { ...prev, 'startDate' : val }
             });
-        } else if(type === 'endDate') {
+            
+        } else if(type === 'dueDate') {
             props.setCurrentTask((prev : any) => {
-                return { ...prev, 'completionDate' : val}
+                return { ...prev, 'dueDate' : val}
             })
         }
-
-        
-        // props.setBoardTask((prev: any) => {
-        //     const tasks = prev[props.currentBoard!.id];
-        //     const update_task = tasks.find((e: any) => e.id === props.currentTask.id);
-        //     console.log(update_task);
-        //     update_task[type] = val;
-            
-        //     return { ...prev }
-        // });
     }
 
     const checkKey = (e: any, type: string, value: string) => {
@@ -107,7 +109,7 @@ export default function TaskDetail(props: Props) {
     const removeTaskOrderUpdate = async (currentBoard : any, currentTask : any, updateBoardId : number) => {
         const remove_update_task_order = props.currentBoard?.taskOrder?.filter(e => e !== props.currentTask.id);
         const remove_update_board_result = await updateBoard({
-            'id' : props.currentBoard.id,
+            'id' : props.currentBoard!.id,
             'key' : 'taskOrder',
             'value' : remove_update_task_order
         });
@@ -137,6 +139,8 @@ export default function TaskDetail(props: Props) {
     const changeCardStatus = () => {
 
     }
+
+    
 
     /* Card 위치 업데이트 */
     const changeCardPosition = (boardId : number) => {
@@ -169,18 +173,12 @@ export default function TaskDetail(props: Props) {
         })
     }
 
-    const makePrettyDay = (date : Date) => {
-        let year = date.getFullYear();
-        let month = ("0" + (1 + date.getMonth())).slice(-2);
-        let day = ("0" + date.getDate()).slice(-2);
-        return year + "." + month + "." + day;
-    }
-
     const updateDuringDate = (dateList : Array<Date>) => {
         return new Promise((resolve) => {
             try{
                 update('startDate', dateList[0]);
-                update('completionDate', dateList[1]);
+                update('dueDate', dateList[1]);
+            
                 resolve(true);
             }
             catch(e){
@@ -196,7 +194,7 @@ export default function TaskDetail(props: Props) {
             'key': type,
             'value': value
         });
-        
+        console.log(result);
         if (result.result === true) {
             setEditPosition(() => 'none');
             changeTaskContent(type, value);
@@ -258,7 +256,7 @@ export default function TaskDetail(props: Props) {
                                     <div className="during-date-title">태스크 기간</div>
                                     <div className="during-date-start-date">{duringDateInfo.start_date}</div>
                                     <div className="during-date-connection">~</div>
-                                    <div className="during-date-end-date">{duringDateInfo.completion_date}</div>
+                                    <div className="during-date-end-date">{duringDateInfo.due_date}</div>
                                 </>
                         }
                         {
@@ -269,12 +267,13 @@ export default function TaskDetail(props: Props) {
                                     selectRange={true}
                                     onChange={(data : any) => {
                                         updateDuringDate(data).then(() => {
+                                            changeCardDuringDate(data[0], data[1]);
                                             setDuringDateInfo(() => {
                                                 let temp_day = data[1]-data[0];
                                                 let result = {
                                                     'd_day' : `D-${String(Math.floor(temp_day / (1000*60*60*24)))}`,
-                                                    'start_date' : makePrettyDay(data[0]),
-                                                    'completion_date' : makePrettyDay(data[1])
+                                                    'start_date' : pub.makePrettyDay(data[0]),
+                                                    'due_date' : pub.makePrettyDay(data[1])
                                                 };
                                                 return { ...result }
                                             });

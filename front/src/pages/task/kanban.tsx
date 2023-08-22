@@ -9,7 +9,7 @@ import { createNewBoard, loadBoardByProjectId, removeProjectBoard, updateBoard }
 import { addBoardTaskMap, loadTaskByBoardId } from "api/task/boardTaskMap";
 import TaskDetail from "./TaskDetail";
 import * as taskIF from "api/task/task-interface";
-import KanbanCard, { ItemTypes } from "./kanbanCard";
+
 import { useDrop } from "react-dnd";
 import KanbanBody from "./kanbanBody";
 import { AnyPtrRecord } from "dns";

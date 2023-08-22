@@ -2,6 +2,7 @@ import type { Identifier, XYCoord } from "dnd-core";
 import * as taskIF from "api/task/task-interface";
 import { Dispatch, SetStateAction, useEffect, useRef } from "react";
 import { useDrag, useDrop } from 'react-dnd';
+import * as pub from "api/public/public";
 
 export const ItemTypes = {
     'BOARDCARD': 'boardCard'
@@ -109,7 +110,11 @@ export default function KanbanCard(props: Props) {
                 </div>
             </div>
             <div className="kanban-card-footer">
-                프로필 들어감요
+                {
+                    props.task?.startDate !== null && props.task?.dueDate !== null ?
+                    `${pub.makePrettyDay(new Date(props.task.startDate))}~${pub.makePrettyDay(new Date(props.task.dueDate))}` :
+                    ``    
+                }
             </div>
         </div>
     )

@@ -17,15 +17,16 @@
     box-sizing: border-box;
 }
 
-.duringdate-container{
-    position:absolute;
+.duringdate-container {
+    position: absolute;
     z-index: 900;
-    width : auto;
+    width: auto;
     padding: 15px;
     border-radius: 14px;
     box-shadow: 0 0 12px 0 rgba(34, 34, 34, 0.14);
     background-color: #fff;
 }
+
 .task-side-menu>* {
     padding: 0 16px;
 }
@@ -529,8 +530,14 @@
 
 .kanban-card-footer {
     border-top: 0.6px solid #e5e5e5;
-    padding-top: 6px;
+    padding-top: 16px;
     padding-bottom: 6px;
+    font-size: 12px;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    letter-spacing: -0.12px;
+    color: #222;
 }
 
 .task-detail-view-hide {
@@ -599,7 +606,7 @@
 
 .task-detail-view-during-date {
     display: flex;
-    position : relative;
+    position: relative;
     padding-top: 10px;
     padding-bottom: 10px;
     gap: 8px;
@@ -665,7 +672,7 @@
 }
 
 .status-option>p {
-    width : fit-content;
+    width: fit-content;
     padding: 4px 10px 4px 10px;
     font-family: Pretendard;
     font-size: 12px;

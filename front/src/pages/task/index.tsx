@@ -86,12 +86,12 @@ export default function Task({ }: any) { //태스크 정보를 가지고 올 예
     /* 테스크 목록 불러오기 */
     const loadTaskByProjectId = async (projectId: number) => {
         const tasks = await loadByProjectId(projectId);
+        
         const result : TaskObject = {}
         for(const task of tasks){
             result[task.id] = task;
         }
         setTasks(() => result);
-        // setTasks(() => [...tasks]);
     }
 
     const updateProjectTitle = async () => {
