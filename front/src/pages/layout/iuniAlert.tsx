@@ -10,8 +10,7 @@ interface Props {
 export default function IuniAlert(props: Props) {
     const returnValue = (val : boolean) => {
         props.setModalState(() => false);
-        props.setIuniAlertVal(() => val);
-        
+        props.setIuniAlertVal(() => val);   
     }
 
     return (

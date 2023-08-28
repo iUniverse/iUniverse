@@ -12,6 +12,7 @@ export default function IUniHeader(props : any) {
                     })}
                 <span>{props.pageTitle}</span>
             </Header> */}
+            
             <div className="iuni_header item row center">
                 <div className="col-5 p-1 pl-2 pb-2 pt-2">
                     <div className="banner card w-100">

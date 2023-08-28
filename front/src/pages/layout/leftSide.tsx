@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 
 export default function IUniLeftSide(){
+    
     const [firstItem, setFirstItem] = useState('/img/layout/leftSide/project.png');
     const [secondItem, setSecondItem] = useState('/img/layout/leftSide/calendar.png');
     const [thirdItem, setThirdItem] = useState('');
