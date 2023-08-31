@@ -14,10 +14,6 @@ import { useDrop } from "react-dnd";
 import KanbanBody from "./kanbanBody";
 import { AnyPtrRecord } from "dns";
 
-// import { DndProvider, useDrag, useDrop } from 'react-dnd';
-// import { HTML5Backend } from "react-dnd-html5-backend";
-
-
 interface Props {
     project: Project;
     tasks: taskIF.Task[];
