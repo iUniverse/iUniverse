@@ -1,5 +1,5 @@
 import dynamic from "next/dynamic";
-import { Dispatch, SetStateAction, useRef, useState } from "react";
+import { Dispatch, SetStateAction, useEffect, useRef, useState } from "react";
 import * as taskIF from "api/task/task-interface";
 import { Project } from "pages/project/interface";
 import { updateTask } from "api/task/task";
@@ -185,8 +185,24 @@ export default function TaskDetail(props: Props) {
                 resolve(false);
             }
         });
+    
     }
-
+    useEffect(() => {
+        setDuringDateInfo(() =>{
+            if(props.currentTask.dueDate !== null && props.currentTask.startDate !== null){
+                let dueDate = new Date(props.currentTask.dueDate);
+                let startDate = new Date(props.currentTask.startDate);
+                let temp_day = ((+dueDate)-(+startDate));
+                let result = {
+                    'd_day' : `D-${String(Math.floor(temp_day / (1000*60*60*24)))}`,
+                    'start_date' : pub.makePrettyDay(startDate),
+                    'due_date' : pub.makePrettyDay(dueDate)
+                };
+                return { ...result }
+            }
+            
+        })    
+    }, [props.currentTask.startDate, props.currentTask.dueDate])
     /* 업데이트 */
     const update = async (type: string, value: any) => {
         const result = await updateTask({

@@ -26,17 +26,13 @@ export default function Task({ }: any) { //태스크 정보를 가지고 올 예
         'my_project': '내 프로젝트',
         'un_known': '알 수 없음'
     }
-
-
     /*  프로젝트의 테스크들 */
     const [tasks, setTasks] = useState<any>({});
     /* 현재 활성화된  프로젝트 */
     const [currentProject, setCurrentProject] = useState<any>();
 
-
     const [projects, setProjects] = useState<any>();
     const [projectCategory, setProjectCategory] = useState<string | undefined>();
-
 
     const [editProjectTitle, setEditProjectTitle] = useState<boolean>(false);
     const [currentTaskType, setCurrentTaskType] = useState<string>('board');
@@ -69,20 +65,18 @@ export default function Task({ }: any) { //태스크 정보를 가지고 올 예
         setProjectCategory(() => params.get('p_category') === null ? 'un_known' : params.get('p_category')?.toString());
         return await getProject(Number(params.get('iuni_project')));
     }
+
     const loadPage = (title: string) => {
         setCurrentTaskType(() => title)
     }
+
     const handleProjectTitle = (e: MouseEvent<HTMLDivElement>, type: boolean | undefined) => {
         e.stopPropagation();
         type === undefined ? setEditProjectTitle(() => !editProjectTitle) : setEditProjectTitle(() => type);
     }
 
     const projectTitle = useRef<any>();
-    /* 테스크 컨텐츠 불러오기 */
-    // const loadTaskContent = (type: string, index: number) => {
-    //     setTasks(() => type);
-    // }
-
+  
     /* 테스크 목록 불러오기 */
     const loadTaskByProjectId = async (projectId: number) => {
         const tasks = await loadByProjectId(projectId);
@@ -103,6 +97,7 @@ export default function Task({ }: any) { //태스크 정보를 가지고 올 예
             'key': 'name',
             'value': editTitle
         });
+
         if (result.result === true) {
             setCurrentProject((prev: any) => {
                 return { ...prev, 'name': editTitle };

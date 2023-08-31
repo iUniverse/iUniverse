@@ -12,7 +12,7 @@ export default function IUniLayout({children} : any){
                     {/* <IUniHeader /> */}
                     <IUniContent page={children} />
                 </div>
-                <IUniFooter />
+                {/*<IUniFooter />*/}
             </div>
         </>
     )

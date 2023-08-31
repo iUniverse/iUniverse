@@ -2,6 +2,7 @@
     position: relative;
     display: flex;
     justify-content: flex-end;
+    height: 100%;
 }
 
 .task-side-menu {
@@ -10,7 +11,7 @@
     left: 0;
     display: flex;
     flex-direction: column;
-    height: 100vh;
+    height: 100%;
     width: 319px;
     border-right: 1px solid #e4e4e4;
     padding-top: 44px;
@@ -96,7 +97,7 @@
 
 .task-view-list {
     position: relative;
-    height: 100vh;
+    height: 100%;
     width: calc(100% - 319px);
     display: flex;
     flex-direction: column;
@@ -149,7 +150,8 @@
 }
 
 .task-view-body {
-    margin-top: 23px;
+    /* margin-top: 23px; */
+    height : 100%;
 }
 
 .task-view-tab-title.active {
@@ -162,7 +164,7 @@
 .task-view-tab {
     position: relative;
     display: flex;
-    height: 33.9px;
+    height: 1.76vw;
     gap: 16px;
     padding: 0;
     margin: 0;
@@ -170,7 +172,8 @@
 }
 
 .task-view-content {
-    height: calc(100% - 33.9px);
+    /* height: calc(100% - 1.76vw); */
+    height : 95%;
 }
 
 .active-project-member {
@@ -207,7 +210,7 @@
 
 .project-member-add>span {
     font-family: Pretendard;
-    font-size: 13px;
+    font-size: 0.67vw;
     font-weight: 500;
     font-stretch: normal;
     font-style: normal;
@@ -219,22 +222,20 @@
 
 .active-project-bread {
     width: 100%;
-    height: 32px;
     font-family: Pretendard;
-    font-size: 14px;
+    font-size: 0.72vw;
     font-weight: 500;
     font-stretch: normal;
     font-style: normal;
-    line-height: 32px;
     letter-spacing: -0.14px;
     text-align: left;
     color: #222222;
 }
 
 .active-project-title {
-    margin-top: 25px;
+    margin-top: 1.73vw;
     font-family: Pretendard;
-    font-size: 30px;
+    font-size: 1.56vw;
     font-weight: 600;
     font-stretch: normal;
     font-style: normal;
@@ -251,7 +252,7 @@
     justify-content: space-between;
     align-items: flex-end;
     width: 100%;
-    height: 32px;
+    height: 1.66vw;
     margin-top: 12px;
 }
 
@@ -264,7 +265,7 @@
     border: solid 1px #1120ff;
     border-radius: 9px;
     font-family: Pretendard;
-    font-size: 12px;
+    font-size: 0.62vw;
     font-weight: normal;
     font-stretch: normal;
     font-style: normal;
@@ -282,17 +283,17 @@
 
 .task-search {
     width: 100%;
-    height: 48px;
+    height: 2.5vw;
     border-radius: 8px;
     border: none;
-    padding-left: 38px;
+    padding-left: 1.97vw;
     background: url('../../public/img/task/project-search.webp') no-repeat 3% 50%, #efefef;
-    background-size: 24px 24px;
+    background-size: 1.25vw 1.25vw;
 }
 
 .side-menu-title {
     font-family: Pretendard;
-    font-size: 16px;
+    font-size: 0.83vw;
     font-weight: 600;
     font-stretch: normal;
     font-style: normal;
@@ -305,9 +306,9 @@
 .side-menu-project-name {
     display: flex;
     align-items: center;
-    padding: 14px;
+    padding: 0.72vw;
     font-family: Pretendard;
-    font-size: 18px;
+    font-size: 0.93vw;
     font-weight: 500;
     font-stretch: normal;
     font-style: normal;
@@ -326,11 +327,11 @@
 }
 
 .favorite-project-list {
-    padding-top: 34px;
+    padding-top: 1.77vw;
 }
 
 .my-project-list {
-    padding-top: 34px;
+    padding-top: 1.77vw;
 }
 
 .open-task-side-menu {
@@ -340,8 +341,8 @@
     display: none;
     justify-content: center;
     align-items: center;
-    width: 24px;
-    height: 24px;
+    width: 1.25vw;
+    height: 1.25vw;
     border: none;
     border-radius: 4px;
     padding: 0;
@@ -359,8 +360,9 @@
     justify-content: flex-start;
     padding-top: 0.72vw;
     gap: 0.75vw;
-    overflow-x: auto;
-    max-width: 74vw;
+    /* overflow-x: auto; */
+    /* max-width: 74vw; */
+    height : 100%;
 }
 
 
@@ -470,7 +472,7 @@
 }
 
 .kanban-board-body {
-    height: 25.88vw;
+    height: 100%;
     overflow-y: auto;
     margin-top: 16px;
 }
