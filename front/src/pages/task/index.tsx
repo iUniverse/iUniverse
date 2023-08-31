@@ -148,7 +148,7 @@ export default function Task({ }: any) { //태스크 정보를 가지고 올 예
                         <div className="col-12">
                             <div className="active-project-banner">
                                 <div className="active-project-bread">
-                                    프로젝트 > {projectCategory === undefined ? '알 수 없음' : PROJECT_CATEGORY[projectCategory]} > {currentProject?.name}
+                                    프로젝트 {'>'} {projectCategory === undefined ? '알 수 없음' : PROJECT_CATEGORY[projectCategory]} {'>'} {currentProject?.name}
                                 </div>
                                 {
                                     editProjectTitle === false ?
