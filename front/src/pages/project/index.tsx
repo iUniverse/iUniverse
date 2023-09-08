@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import { loadProject } from 'api/project/project';
 import { useRouter } from 'next/router';
-import Banner from './banner';
 import Favorite from './favorite';
 import MyProject from './my_project';
 import { Project } from './interface';
+import { getMyInitTheme } from 'api/theme/card-theme';
+import dynamic from 'next/dynamic';
 
 export default function Index(props : any) {
+    const Banner = dynamic(() => import("./banner"), { ssr: false });
     const [favoriteProjects, setFavoriteProjects] = useState<Array<Project>>([]);
     const [projects, setProjects] = useState<Array<Project>>([]);
     const [colors, setcolors] = useState<string[]>([]);
@@ -20,9 +22,19 @@ export default function Index(props : any) {
             setProjects(() => [...result.normal_projects])
         });
     }
-    
+     /* 기본 테마 설정 */
+     async function settingTheme(id: number) {
+        //현재 설정한 나의 테마 정보 가져오기
+        const theme = await getMyInitTheme();
+        if (theme !== null) {
+            setcolors(() => theme.colors);
+            setfontColor(() => theme.fontColor);
+        }
+    }
+
     useEffect(() => {
         load();
+        settingTheme(0);
     }, []);
 
     return(
@@ -30,7 +42,7 @@ export default function Index(props : any) {
             <div className="project-container">
                 <Banner 
                     setcolors = {setcolors}
-                    bannerColor = {colors[0]}
+                    bannerColor = {colors[0] === undefined ? "" : colors[0]}
                     fontColor = {fontColor}
                     setfontColor = {setfontColor}
                 />

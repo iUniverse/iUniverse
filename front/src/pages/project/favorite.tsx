@@ -83,7 +83,7 @@ export default function Favorite(props: Props) {
                 <div className="favorite-card-list">
                     {
                         props.projects.map((value, index) => (
-                            <div className="favorite-card card" 
+                            <div className="favorite-card card card-shadow" 
                                 onClick={() => moveTaskPage(value.id)} 
                                 key={`favorite_${value.id}`} 
                                 style={{background : `${props.favoriteBgColor[index]}`}}>

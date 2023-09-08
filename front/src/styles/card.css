@@ -10,7 +10,6 @@
 
 .taller-card{
     display:grid;
-    min-width : 300px;
     min-height : 280px;
     border-radius: 24px;
     position : relative;
@@ -43,7 +42,6 @@
 
 .no-content-card{
     display:grid;
-    min-width : 300px;
     min-height : 180px;
     border-radius: 24px;
     color : #fff;

@@ -3,12 +3,16 @@ import { useRouter } from 'next/router';
 import useInterval from 'use-interval'
 import moment from 'moment';
 import 'moment/locale/ko';
-import themeData from "../../../public/temp-theme.json"
-import { getMyInitTheme, getTheme, loadMyThemeInfo } from 'api/theme/card-theme';
+import { getTheme, loadMyThemeInfo } from 'api/theme/card-theme';
+
 
 import BannerIuniCat from './banner_iuni_cat';
 
 
+export interface ThemeInfo {
+    id: number;
+    name: string;
+}
 interface Props {
     setcolors: Dispatch<SetStateAction<string[]>>
     setfontColor: Dispatch<SetStateAction<string>>
@@ -26,11 +30,10 @@ export default function Banner(props: any) {
     const [currentDay, setCurrentDay] = useState('');
     const [time, setTime] = useState('');
     const [timeDeco, setTimeDeco] = useState('');
-    const [isShow, setIsShow] = useState('no-show');
-
-    const [currentThemeId, setCurrentThemeId] = useState<number>(0);
+    const [isShow, setIsShow] = useState("no-show");
     const [themeInfo, setThemeInfo] = useState<Array<ThemeInfo>>([]);
 
+    console.log(props);
     const [timePeriod, setTimePeriod] = useState<string>('');
     const day: Day = {
         0: '일요일',
@@ -42,15 +45,7 @@ export default function Banner(props: any) {
         6: '토요일'
     }
 
-    /* 테마 메뉴 열기 */
-    function openThemeMenu() {
-        if (isShow === 'no-show') {
-            setIsShow(() => 'block-show')
-        } else {
-            setIsShow(() => 'no-show')
-        }
-    }
-
+   
     /* 오늘날짜 구하기 */
     function getToday() {
         const currentDate = new Date();
@@ -101,25 +96,12 @@ export default function Banner(props: any) {
     async function updateTheme(id: number) {
         //현재는 유저 정보가 없기에 업데이트문은 없음
         const theme = await getTheme(id);
-        
+        console.log(theme);
         props.setcolors(() => theme.colors);
         props.setfontColor(() => theme.fontColor);
-
-        setCurrentThemeId(() => id);
     }
 
-    /* 기본 테마 설정 */
-    async function settingTheme(id: number) {
-        //현재 설정한 나의 테마 정보 가져오기
-        const theme = await getMyInitTheme();
-    
-        if (theme !== null) {
-            props.setcolors(() => theme.colors);
-            props.setfontColor(() => theme.fontColor);
-            setCurrentThemeId(() => id);
-        }
-
-    }
+   
     const router = useRouter();
     /* 테마 관리하기 */
     function managementTheme() {
@@ -135,7 +117,7 @@ export default function Banner(props: any) {
     useEffect(() => {
         getToday();
         //getIuniCat();
-        settingTheme(0);
+        
         settingThemeSelectBox();
 
     }, []);
@@ -168,7 +150,7 @@ export default function Banner(props: any) {
                                     <div className="widget-cog">
                                         <img src={"/img/project/widget_cog.png"} />
                                     </div>
-                                    <div className="widget-brush dropdown" onClick={() => openThemeMenu()}>
+                                    <div className="widget-brush dropdown" onClick={() => setIsShow(() => isShow === "no-show" ? "block-show" : "no-show")}>
                                         <img src={"/img/project/widget_brush.png"} />
                                         <div className={`dropdown-content ${isShow}`}>
                                             {
@@ -214,7 +196,7 @@ export default function Banner(props: any) {
                     <div className="banner-recent-project">
                         <div className="recent-project-card card p-1" style={{ background: `${props.bannerColor}` }}>
                             <div className="recent-project-d-day card-header row">
-                                <div className="badge">D-13</div>
+                                <div className="badge" style={{ color : `${props.fontColor}`}}>D-13</div>
                             </div>
                             <div className="card-content row">
                                 <div className="recent-project-type col-12" style={{ color: `${props.fontColor}` }}>최근 프로젝트</div>
@@ -233,7 +215,6 @@ export default function Banner(props: any) {
                     </div>
                 </div>
             </div>
-
         </>
     )
 }

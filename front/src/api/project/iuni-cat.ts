@@ -119,7 +119,7 @@ export class IuniCatStyle {
     draw() {
         return new Promise<string>((resolve, reject) => {
             try {
-                resolve(`<svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 48 48">
+                resolve(`<svg xmlns="http://www.w3.org/2000/svg" width="48px" height="48px" viewBox="0 0 48 48">
                     ${this.background}
                     ${this.body}
                     ${this.nose}

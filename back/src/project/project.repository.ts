@@ -29,15 +29,16 @@ export class ProjectRepository extends Repository<Project> {
     }
 
     async UpdateProject(param : UpdateProjectsOutboundPortInputDto) : Promise<boolean>{
-        const obj : object = {};
-        obj[param.key] = param.value;
         
+        const obj : object = {};
+        obj[param.key] = JSON.parse(param.value);
+        obj["updateDate"] = new Date();
         const result =  await this.createQueryBuilder()
                         .update(Project)
                         .set(obj)
                         .where("id = :id", { id : param.id})
                         .execute();
-
+                        
         return result.affected === 1 ? true : false;
     }
 

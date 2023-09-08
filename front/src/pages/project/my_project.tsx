@@ -51,8 +51,8 @@ export default function MyProject(props: Props) {
     }
     /* 즐겨찾기 프로젝트로 수정 */
     async function updateFavorite(e: MouseEvent<HTMLElement>, id: number, type: boolean) {
+        console.log('%c [ id ]-54', 'font-size:13px; background:pink; color:#bf2c9f;', id)
         e.stopPropagation();
-
         const obj = {
             'key': 'isFavorite',
             'value': JSON.stringify(type),
@@ -60,6 +60,8 @@ export default function MyProject(props: Props) {
         }
 
         const result = await updateProject(obj);
+        console.log('%c [ result ]-63', 'font-size:13px; background:pink; color:#bf2c9f;', result)
+        
         if (result.statusCode === 400) {
             throw new Error('즐겨찾기 추가 도중 에러가 발생 했어요.');
         } else {
@@ -108,7 +110,7 @@ export default function MyProject(props: Props) {
             <div className="project">
                 <div className="add-project-btn" onClick={() => create()}>
                     <img src={"/img/project/bt-add-default.webp"}
-                        style={{ width: '35px', height: '35px' }}
+                        style={{ width: "24px", height: "24px" }}
                     />
                 </div>
                 <div className="project-btn-list">
@@ -126,22 +128,15 @@ export default function MyProject(props: Props) {
                         <div className="project-card-list">
                             {
                                 props.projects.map((value, index) => (
-                                    <div className="project-card no-content-card" key={value.id} onClick={() => moveTaskPage(value.id)}>
+                                    <div className="project-card no-content-card card-shadow" key={value.id} onClick={() => moveTaskPage(value.id)}>
                                         <div className="project-name">
                                             {value.name}
                                         </div>
                                         <div className="card-footer">
                                             <div className="favorite-project-icon-list">
-                                                {
-                                                    value.isFavorite === false ?
-                                                        <div className="favorite-project-icon" onClick={(e: MouseEvent<HTMLElement>) => updateFavorite(e, value.id, true)}>
-                                                            <img src={"/img/project/project_heart.png"} />
-                                                        </div> :
-                                                        <div className="favorite-project-icon" onClick={(e: MouseEvent<HTMLElement>) => updateFavorite(e, value.id, false)}>
-                                                            <img src={"/img/project/heart.png"} />
-                                                        </div>
-                                                }
-
+                                                <div className="favorite-project-icon" onClick={(e:MouseEvent<HTMLElement>) => updateFavorite(e, value.id, !value.isFavorite)}>
+                                                    <img src={value.isFavorite ? "/img/project/heart.png" : "/img/project/project_heart.png"} />
+                                                </div>
                                                 <div className="favorite-project-icon">
                                                     <img src={"/img/project/project_mountain.png"} />
                                                 </div>
