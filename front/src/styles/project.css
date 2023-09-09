@@ -37,33 +37,15 @@
     display: grid;
     width: 100%;
     gap: 1rem;
+    grid-template-columns: 5fr 7fr;
 }
-
-@media screen and (min-width : 768px) {
-    .banner-container {
-        grid-template-columns: minmax(1fr, 1fr)
-    }
-}
-
-@media screen and (min-width : 800px) {
-    .banner-container {
-        grid-template-columns: 5fr 7fr;
-    }
-}
-
 .banner-widget {
-    display: none;
     width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
-
-@media screen and (min-width : 800px) {
-    .banner-widget {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-    }
-}
 
 .widget {
     display: grid;
@@ -496,6 +478,22 @@
     grid-template-columns: 1fr 1fr 1fr 1fr;
 }
 
+.add-project-btn {
+    position: fixed;
+    width: 48px;
+    height: 48px;
+    background-color: #5915b2;
+    border-radius: 8px;
+    right: 0.83vw;
+    top: 57%;
+    z-index: 99999;
+    cursor: pointer;
+    display:flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
 @media screen and (max-width : 1280px){
     .project-card-list {
         grid-template-columns: 1fr 1fr 1fr;
@@ -503,9 +501,19 @@
     .favorite-card-list {
         grid-template-columns: 1fr 1fr 1fr;
     }
+    .banner-container {
+        grid-template-columns: 5fr 7fr;
+    }
 }
 
 @media screen and (max-width:768px){
+    .banner-container {
+        grid-template-columns: 1fr;
+    }
+    .banner-widget {
+        display:none;
+        
+    }
     .favorite-card-list {
         grid-template-columns: 1fr 1fr;
     }
@@ -522,26 +530,16 @@
     .favorite-card-list {
         grid-template-columns: 1fr;
     }
+    .add-project-btn{
+        display: none;
+    }
+    
 }
 
 
 
 
 
-.add-project-btn {
-    position: fixed;
-    width: 48px;
-    height: 48px;
-    background-color: #5915b2;
-    border-radius: 8px;
-    right: 0.83vw;
-    top: 57%;
-    z-index: 99999;
-    cursor: pointer;
-    display:flex;
-    justify-content: center;
-    align-items: center;
-}
 
 .project-card-list>div {
     height: 152px;
