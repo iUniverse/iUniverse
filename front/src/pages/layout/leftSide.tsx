@@ -1,50 +1,36 @@
 import React, { useEffect, useState } from "react";
 
 export default function IUniLeftSide(){
-    const [firstItem, setFirstItem] = useState('/img/layout/leftSide/project.png');
-    const [secondItem, setSecondItem] = useState('/img/layout/leftSide/calendar.png');
-    const [thirdItem, setThirdItem] = useState('');
-    const [fortItem, setForthItem] = useState('');
+    const [firstItem, setFirstItem] = useState('/img/layout/leftSide/home.webp');
+    const [secondItem, setSecondItem] = useState('/img/layout/leftSide/project.webp');
+    const [thirdItem, setThirdItem] = useState('/img/layout/leftSide/calendar.webp');
+    const [fortItem, setForthItem] = useState('/img/layout/leftSide/project_add_btn.webp');
     const [fifthItem, setFifthItem] = useState('');
-    
-    function renderItem(){
-        
-        // const width = window.innerWidth;
-        // if(width >= 768){
-        //     setFirstItem(() => "/img/layout/leftSide/home.png");
-        //     setSecondItem(() => "/img/layout/leftSide/tasks.png");
-        //     setThirdItem(() => "/img/layout/leftSide/check.png");
-        //     setForthItem(() => "/img/layout/leftSide/smile.png");
-        // } else {
-        //     setFirstItem(() => "/img/layout/leftSide/check.png");
-        //     setSecondItem(() => "/img/layout/leftSide/tasks.png");
-        //     setThirdItem(() => "/img/project/widget_cog.png");
-        //     setForthItem(() => "/img/layout/leftSide/smile.png");
-        //     setFifthItem(() => "/img/layout/leftSide/smile.png");
-        // }
-        
-    }
-
-
-    useEffect(() => {
-        renderItem();
-    }, []);
     
 
     return(
         <>
             <div className="iuni_left_side">
                 <div className="leftSide">
-                    <div className="leftSide-logo">
-                        <img src="/img/layout/leftSide/logo.png" alt="" />
+                    <div className="item logo">
+                        <img src="/img/layout/leftSide/logo.webp" alt="" />
                     </div>
-                    <div className="leftSide-itemBox">
-                        <div className="leftSide-item">
-                            <img src={firstItem} />  
+                    <div className="item">
+                        <img src={firstItem} />  
+                    </div>
+                    <div className="item">
+                        <img src={secondItem} />  
+                    </div>
+                    <div className="item center">
+                        <div className="add">
+                            <img src={fortItem} style={{width:"48px", height:"48px"}}/>    
                         </div>
-                        <div className="leftSide-item">
-                            <img src={secondItem} />    
-                        </div>
+                    </div>
+                    <div className="item">
+                        <img src={thirdItem} />    
+                    </div>
+                    <div className="item">
+                        <img src={thirdItem} />    
                     </div>
                 </div>
             </div>

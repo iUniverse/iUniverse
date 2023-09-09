@@ -84,12 +84,8 @@
   border: 1px solid black;
 }
 
-.item {
-  border: 1px solid black;
-}
-
 .leftSide {
-  position: fixed;
+  position : relative;
   display: flex;
   flex-direction: column;
   height: 100%;
@@ -97,11 +93,21 @@
   padding: 14px 16px;
   border-right: 1px solid #e4e4e4;
   background-color: #fff;
+  gap : 12px;
+}
+.leftSide>.item{
+  display : flex;
+  justify-content: center;
+  align-items: center;
 }
 
+.leftSide>.item>img{
+  width : 48px;
+  height: 48px;
+}
 
-@media screen and (max-width : 1280px) {
-  
+.leftSide>.item.logo{
+  margin-bottom: 32px;
 }
 
 .leftSide-logo{
@@ -112,6 +118,28 @@
 .leftSide-logo > img{
   width: 100%;
   height: 100%;
+}
+
+@media screen and (max-width : 425px){
+  .leftSide {
+    padding-top:5px;
+    padding-bottom:5px;
+    flex-direction : row;
+    justify-content: space-evenly;
+    border-top: 1px solid #e4e4e4;
+  }
+  .leftSide>.item.logo{
+    margin-bottom: 0;
+    display : none;
+  }
+  .leftSide>.item.center>.add{
+    position: absolute;
+    bottom :20%;
+  }
+  .leftSide>.item>img{
+    width : 38px;
+    height :38px;
+  }
 }
 
 .leftSide-itemBox{

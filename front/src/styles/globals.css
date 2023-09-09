@@ -103,11 +103,11 @@ a {
   color: #1890ff;
 }
 
-.logo {
+/* .logo {
   height: 32px;
   margin: 16px;
   background: rgba(255, 255, 255, 0.3);
-}
+} */
 
 @media (prefers-color-scheme: dark) {
   html {
@@ -130,7 +130,17 @@ a {
 .iuni_main{
   display : grid;
   width : 100%;
+}
+
+.iuni_main.style_type{
   grid-template-columns: 80px auto;
+}
+
+@media screen and (max-width: 425px){
+  .iuni_main.style_type{
+    grid-template-columns: none;
+    grid-template-rows: 80px auto;
+  }
 }
 
 .iuni_footer{
@@ -142,6 +152,14 @@ a {
   position:relative;
 }
 
+@media screen and (max-width : 425px){
+  .iuni_left_side {
+    position : fixed;
+    bottom : 0;
+    width : 100%;
+    z-index : 999;
+  }
+}
 .iuni_content{
   width: 100%;
   height: 100%;
