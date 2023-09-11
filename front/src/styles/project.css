@@ -147,7 +147,7 @@
 }
 
 .widget-date-time>div:nth-child(1) {
-    font-size: 0.93vw;
+    font-size: 18px;
     font-weight: bold;
     color: #ccc;
     margin-bottom: 1.1rem;
@@ -155,7 +155,7 @@
 }
 
 .widget-date-time>div:nth-child(2) {
-    font-size: 2.29vw;
+    font-size: 44px;
     font-weight: 300;
     color: #222222;
     min-width : 9vw;
@@ -213,7 +213,7 @@
 }
 
 .recent-project-name {
-    font-size: 3.375rem;
+    font-size: 36px;
     font-weight: 600;
     text-align: center;
 }
@@ -576,5 +576,26 @@
     object-fit: cover;
 }
 
+@media screen and (max-width : 1280px) {
+
+}
+@media screen and (max-width:1024px){
+    .recent-project-name {
+        font-size: 24px;
+    }
+
+    .favorite-project-name {
+        font-size: 24px;
+    }
+    .widget-date-time>div:nth-child(2){
+        font-size : 36px;
+    }
+}
+@media screen and (max-width:768px){
+
+}
+@media screen and (max-width:425px){
+
+}
 
 /* -------- myProject end -------- */

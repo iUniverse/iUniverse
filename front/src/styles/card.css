@@ -1,6 +1,5 @@
 .card{
     display:grid;
-    min-width : 300px;
     min-height : 180px;
     border-radius: 24px;
     position : relative;
@@ -18,7 +17,6 @@
 }
 .tallest-default-card {
     display:grid;
-    min-width : 300px;
     min-height : 380px;
     border-radius: 24px;
     position : relative;
