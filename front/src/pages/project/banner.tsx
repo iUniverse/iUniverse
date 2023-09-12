@@ -54,8 +54,8 @@ export default function Banner(props: any) {
         const current_date = currentDate.getDate();
         const current_day = currentDate.getDay();
 
-        setToday(() => `${current_year}. ${current_month}. ${current_date}`);
-        setCurrentDay(() => `. ${day[current_day]}`);
+        setToday(() => `${current_year}. ${current_month}. ${current_date}. `);
+        setCurrentDay(() => `${day[current_day]}`);
     }
 
     /* 현재시각 구하기 */
@@ -167,7 +167,7 @@ export default function Banner(props: any) {
                             <div className="widget-content">
                                 <div className="widget-date row">
                                     <div className="widget-date-day">
-                                        <span>{today}</span>
+                                        <span>{today}</span><br/>
                                         <span>{currentDay}</span>
                                     </div>
                                     <div className="widget-date-time row">
@@ -184,9 +184,11 @@ export default function Banner(props: any) {
                                     <div className="widget-user-name ml-1">
                                         <span className="widget-user-alaram">알림 4개</span>
                                         <br />
-                                        <span>'내 집마련 프로젝트'에 </span>
-                                        <span className="widget-alaram-type">정인님의 댓글</span>
-                                        <span>이 있어요</span>
+                                        <span>'내 집마련 프로젝트'에 
+                                        <span className="widget-alaram-type"> 정인님의 댓글 </span>
+                                        이 등록 되었어요. 아이 시벌 ㅋㅋㅋ
+                                        
+                                        </span>
                                     </div>
                                 </div>
                             </div>
