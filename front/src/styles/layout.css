@@ -131,6 +131,7 @@
   .leftSide>.item.logo{
     margin-bottom: 0;
     display : none;
+    
   }
   .leftSide>.item.center>.add{
     position: absolute;
