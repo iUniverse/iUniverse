@@ -135,7 +135,12 @@
     font-size: 24px;
     padding: 1.2rem;
 }
-
+.iuni_logo{
+    display : none;
+    padding-top : 1rem;
+    padding-left : 1rem;
+    padding-right : 1rem;
+}
 .widget-date-day>span:nth-child(1) {
     font-weight: bold;
 }
@@ -482,7 +487,7 @@
     position: fixed;
     width: 48px;
     height: 48px;
-    background-color: #5915b2;
+    background-color: #1120FF;
     border-radius: 8px;
     right: 0.83vw;
     top: 57%;
@@ -569,6 +574,9 @@
     }    
 }
 @media screen and (max-width:768px){
+    .iuni_logo{
+        display : block;
+    }
     .banner-container {
         grid-template-columns: 1fr;
     }

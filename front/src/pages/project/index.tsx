@@ -40,6 +40,9 @@ export default function Index(props : any) {
     return(
         <>
             <div className="project-container">
+                <div className="iuni_logo">
+                    <img src={"/img/layout/iuni_logo.webp"} style={{width:"170px", height :"40px" }}></img>
+                </div>
                 <Banner 
                     setcolors = {setcolors}
                     bannerColor = {colors[0] === undefined ? "" : colors[0]}
