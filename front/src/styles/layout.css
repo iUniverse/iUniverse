@@ -159,7 +159,7 @@
     justify-content: space-evenly;
     border-top: 1px solid #e4e4e4;
   }
-  /* .leftSide>.item.logo{
+  .leftSide>.item.logo{
     margin-bottom: 0;
     display : none; 
   }
@@ -198,7 +198,7 @@
   }  
 }
 
-/* .leftSide-itemBox{
+.leftSide-itemBox{
   display: flex;
   flex-direction: column;
   gap: 12px;
@@ -231,5 +231,5 @@
 
 .leftSide-item:hover > img, .leftSide-item.active > img{
   filter: grayscale(0);
-} */
+}
 
