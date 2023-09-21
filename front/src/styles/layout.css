@@ -95,6 +95,26 @@
   background-color: #fff;
   gap : 12px;
 }
+.bottomSide{
+  position:relative;
+  display: none;
+  border-right: 1px solid #e4e4e4;
+  background-color: #fff;
+  /* flex-direction: column;
+  height: 100%;
+  width: 100%;
+  padding: 14px 16px;
+ 
+  gap : 12px; */
+}
+.bottomSide>.item{
+  display : flex;
+  justify-content: center;
+  align-items: center;  
+}
+.banner-logo{
+  display: none;
+}
 .leftSide>.item{
   display : flex;
   justify-content: center;
@@ -124,19 +144,28 @@
 }
 
 @media screen and (max-width : 425px){
+  .banner-logo{
+    display: flex;
+    padding-top : 1rem;
+    padding-left : 1rem;
+    padding-right : 1rem;
+  }
+
   .leftSide {
+    display:none;
     padding-top:5px;
     padding-bottom:5px;
     flex-direction : row;
     justify-content: space-evenly;
     border-top: 1px solid #e4e4e4;
   }
-  .leftSide>.item.logo{
+  /* .leftSide>.item.logo{
     margin-bottom: 0;
     display : none; 
   }
   .leftSide>.item.center{
     display : flex;
+    display : none;
   }
   .leftSide>.item.center>.add{
     position: absolute;
@@ -146,9 +175,30 @@
     width : 38px;
     height :38px;
   }
+
+  .bottomSide {
+    display:flex;
+    padding-top:5px;
+    padding-bottom:5px;
+    flex-direction : row;
+    justify-content: space-evenly;
+    border-top: 1px solid #e4e4e4;
+  }
+  .bottomSide>.item.logo{
+    margin-bottom: 0;
+    display : none;
+  }
+  .bottomSide>.item.center>.add{
+    position: absolute;
+    bottom :20%;
+  }
+  .bottomSide>.item>img{
+    width : 38px;
+    height :38px;
+  }  
 }
 
-.leftSide-itemBox{
+/* .leftSide-itemBox{
   display: flex;
   flex-direction: column;
   gap: 12px;
@@ -181,13 +231,5 @@
 
 .leftSide-item:hover > img, .leftSide-item.active > img{
   filter: grayscale(0);
-}
+} */
 
-
-/* .banner{
-    display : flex;
-    width :100%;
-    height : 100%;
-    justify-content: center;
-    align-items: center;
-  } */

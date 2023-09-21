@@ -130,6 +130,7 @@ a {
 .iuni_main{
   display : grid;
   width : 100%;
+  height : 100%;
 }
 
 .iuni_main.style_type{

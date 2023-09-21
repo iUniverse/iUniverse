@@ -124,6 +124,9 @@ export default function Banner(props: any) {
 
     return (
         <>
+            <div className="banner-logo">
+                <img src="/img/layout/leftSide/banner_logo.webp" alt="" style={{width:"135px", height:"40px"}} />
+            </div>
             <div className="banner">
                 <div className="banner-container">
                     <div className="banner-widget">
