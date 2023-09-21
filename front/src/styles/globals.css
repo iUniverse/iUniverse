@@ -280,10 +280,6 @@ a {
 }
 
 
-.favorite-project {}
-
-.favorite-btn {}
-
 .p-0-1 {
   padding: 0.1rem;
 }
@@ -512,6 +508,7 @@ select::ms-expand {
   background-size: 24px 24px;
   cursor :pointer;
   outline:none;
+  user-select: none;
   -webkit-user-select: none;
   -moz-user-select: none;
   -khtml-user-select:none;
@@ -531,6 +528,7 @@ select::ms-expand {
   margin-top: 0.3rem;
   border-radius: 8px;
   border: 1px solid #e5e5e5;
+  user-select: none;
   -webkit-user-select: none;
   -moz-user-select: none;
   -khtml-user-select:none;
@@ -551,6 +549,7 @@ select::ms-expand {
   color: #222222;
   cursor: pointer;
   outline:none;
+  user-select: none;
   -webkit-user-select: none;
   -moz-user-select: none;
   -khtml-user-select:none;
@@ -574,9 +573,6 @@ select::ms-expand {
   min-width : 104px;
 }
 
-.btn-default:hover{
-
-}
 
 /* 저장 버튼 */
 .btn-save {
@@ -598,7 +594,4 @@ select::ms-expand {
 /* 취소 버튼 */
 .btn-cancle {
   min-width : 104px;
-}
-.btn-cancle : hover{
-
 }
