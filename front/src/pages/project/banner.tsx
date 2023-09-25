@@ -1,4 +1,4 @@
-import React, { useEffect, useState, Dispatch, SetStateAction } from 'react';
+import React, { useEffect, useState, Dispatch, SetStateAction, useCallback } from 'react';
 import { useRouter } from 'next/router';
 import useInterval from 'use-interval'
 import moment from 'moment';
@@ -33,7 +33,6 @@ export default function Banner(props: any) {
     const [isShow, setIsShow] = useState("no-show");
     const [themeInfo, setThemeInfo] = useState<Array<ThemeInfo>>([]);
 
-    console.log(props);
     const [timePeriod, setTimePeriod] = useState<string>('');
     const day: Day = {
         0: '일요일',
@@ -92,15 +91,21 @@ export default function Banner(props: any) {
         }
     }
 
-    /* 테마 업데이트 */
-    async function updateTheme(id: number) {
-        //현재는 유저 정보가 없기에 업데이트문은 없음
-        const theme = await getTheme(id);
-        console.log(theme);
-        props.setcolors(() => theme.colors);
-        props.setfontColor(() => theme.fontColor);
-    }
+    // /* 테마 업데이트 */
+    // async function updateTheme(id: number) useCallback {
+    //     //현재는 유저 정보가 없기에 업데이트문은 없음
+    //     const theme = await getTheme(id);
+    //     props.setcolors(() => theme.colors);
+    //     props.setfontColor(() => theme.fontColor);
+    // }
 
+    const updateTheme = useCallback(async (id : number) => {
+        console.log("엄?");
+        const theme = await getTheme(id);
+        props.setcolors = (() => theme.colors);
+        props.setfontColor(() => theme.fontColor);
+    },[]);
+  
    
     const router = useRouter();
     /* 테마 관리하기 */

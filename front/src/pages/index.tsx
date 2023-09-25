@@ -1,3 +1,4 @@
+import { useEffect } from "react"
 import IUniContent from "./layout/content"
 export default function Home() {
   return (
