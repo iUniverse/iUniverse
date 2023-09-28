@@ -191,7 +191,7 @@ export default function Banner(props: any) {
                                         <br />
                                         <span>'내 집마련 프로젝트'에 
                                         <span className="widget-alaram-type"> 정인님의 댓글 </span>
-                                        이 등록 되었어요. 아이 시벌 ㅋㅋㅋ
+                                        이 등록 되었어요.
                                         
                                         </span>
                                     </div>

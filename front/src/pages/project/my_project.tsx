@@ -1,4 +1,4 @@
-import React, { useEffect, useState, Dispatch, SetStateAction, MouseEvent } from 'react';
+import React, { useEffect, useState, Dispatch, SetStateAction, MouseEvent, memo } from 'react';
 import router, { useRouter } from 'next/router';
 import { createProject, updateProject } from '../../api/project/project';
 import { loadMyTheme } from 'api/theme/card-theme';
@@ -16,7 +16,7 @@ interface Props {
     setFavoriteProjects: Dispatch<SetStateAction<Project[]>>
 }
 
-export default function MyProject(props: Props) {
+function MyProject(props: Props) {
     function moveTaskPage(id: number) {
         router.push(`/task?iuni_project=${id}&p_category=my_project`);
     }
@@ -154,7 +154,6 @@ export default function MyProject(props: Props) {
                                         <img src={"/img/project/empty-project.webp"}
                                             style={{ width: '16.6667vw', height: '10.1563vw' }} />
                                     </div>
-
                                     <div className="w-auto mt-1r" style={{ width: '11.1979vw' }} onClick={() => create()}>
                                         <div className="p-0-5 project-empty-create-btn">
                                             <img src={"/img/project/btn-add-blue.webp"}
@@ -176,4 +175,5 @@ export default function MyProject(props: Props) {
     )
 }
 
+export default memo(MyProject);
 
