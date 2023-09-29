@@ -1,4 +1,4 @@
-import React, { useEffect, useState, Dispatch, SetStateAction, MouseEvent } from 'react';
+import React, { useEffect, useState, Dispatch, SetStateAction, MouseEvent, memo } from 'react';
 import router, { useRouter } from 'next/router';
 import { updateProject } from "../../api/project/project";
 interface Project {
@@ -25,7 +25,7 @@ interface Props {
     favoriteFontColor : string
 }
 
-export default function Favorite(props: Props) {
+function Favorite(props: Props) {
     function moveTaskPage(id: number) {
         router.push(`/task?iuni_project=${id}&p_category=favorite`);
     }
@@ -115,3 +115,5 @@ export default function Favorite(props: Props) {
         </>
     )
 }
+
+export default memo(Favorite);

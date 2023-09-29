@@ -1,4 +1,4 @@
-import React, { useEffect, useState, Dispatch, SetStateAction, useCallback } from 'react';
+import React, { useEffect, useState, Dispatch, SetStateAction, useCallback, memo } from 'react';
 import { useRouter } from 'next/router';
 import useInterval from 'use-interval'
 import moment from 'moment';
@@ -16,8 +16,8 @@ export interface ThemeInfo {
 interface Props {
     setcolors: Dispatch<SetStateAction<string[]>>
     setfontColor: Dispatch<SetStateAction<string>>
-    bannerColor : string;
-    fontColor : string;
+    bannerColor: string;
+    fontColor: string;
 }
 
 type Day = {
@@ -25,7 +25,7 @@ type Day = {
 }
 
 
-export default function Banner(props: any) {
+function Banner(props: any) {
     const [today, setToday] = useState('');
     const [currentDay, setCurrentDay] = useState('');
     const [time, setTime] = useState('');
@@ -44,9 +44,9 @@ export default function Banner(props: any) {
         6: '토요일'
     }
 
-   
+
     /* 오늘날짜 구하기 */
-    function getToday() {
+    const getToday = useCallback(() => {
         const currentDate = new Date();
         const current_year = currentDate.getFullYear();
         const current_month = currentDate.getMonth();
@@ -55,27 +55,27 @@ export default function Banner(props: any) {
 
         setToday(() => `${current_year}. ${current_month}. ${current_date}. `);
         setCurrentDay(() => `${day[current_day]}`);
-    }
+    }, []);
 
     /* 현재시각 구하기 */
     function getTime() {
         const current_hour = Number(moment().format('HH'));
-        setTimeDeco(() => current_hour < 12 ? 'PM' : 'AM'); 
+        setTimeDeco(() => current_hour < 12 ? 'PM' : 'AM');
         setTime(() => moment().format('hh:mm:ss'));
-        
-        if(current_hour >= 22 || current_hour < 6){
+
+        if (current_hour >= 22 || current_hour < 6) {
             setTimePeriod(() => 'dawn');
         }
-        else if(current_hour >= 6 && current_hour < 9){
+        else if (current_hour >= 6 && current_hour < 9) {
             setTimePeriod(() => 'morning');
-        } 
-        else if(current_hour >= 9 && current_hour < 14){
+        }
+        else if (current_hour >= 9 && current_hour < 14) {
             setTimePeriod(() => 'afternoon');
-        } 
-        else if(current_hour >= 14 && current_hour < 18){
+        }
+        else if (current_hour >= 14 && current_hour < 18) {
             setTimePeriod(() => 'dinner');
-        } 
-        else if(current_hour >= 18 && current_hour < 22) {
+        }
+        else if (current_hour >= 18 && current_hour < 22) {
             setTimePeriod(() => 'night');
         }
     }
@@ -99,14 +99,14 @@ export default function Banner(props: any) {
     //     props.setfontColor(() => theme.fontColor);
     // }
 
-    const updateTheme = useCallback(async (id : number) => {
+    const updateTheme = useCallback(async (id: number) => {
         console.log("엄?");
         const theme = await getTheme(id);
         props.setcolors = (() => theme.colors);
         props.setfontColor(() => theme.fontColor);
-    },[]);
-  
-   
+    }, []);
+
+
     const router = useRouter();
     /* 테마 관리하기 */
     function managementTheme() {
@@ -122,7 +122,7 @@ export default function Banner(props: any) {
     useEffect(() => {
         getToday();
         //getIuniCat();
-        
+
         settingThemeSelectBox();
 
     }, []);
@@ -138,7 +138,7 @@ export default function Banner(props: any) {
                                     <div className="widget-profile">
                                         <div className="profile">
                                             <BannerIuniCat
-                                                timePeriod = {timePeriod}
+                                                timePeriod={timePeriod}
                                             />
                                         </div>
                                     </div>
@@ -172,7 +172,7 @@ export default function Banner(props: any) {
                             <div className="widget-content">
                                 <div className="widget-date row">
                                     <div className="widget-date-day">
-                                        <span>{today}</span><br/>
+                                        <span>{today}</span><br />
                                         <span>{currentDay}</span>
                                     </div>
                                     <div className="widget-date-time row">
@@ -189,10 +189,10 @@ export default function Banner(props: any) {
                                     <div className="widget-user-name ml-1">
                                         <span className="widget-user-alaram">알림 4개</span>
                                         <br />
-                                        <span>'내 집마련 프로젝트'에 
-                                        <span className="widget-alaram-type"> 정인님의 댓글 </span>
-                                        이 등록 되었어요.
-                                        
+                                        <span>'내 집마련 프로젝트'에
+                                            <span className="widget-alaram-type"> 정인님의 댓글 </span>
+                                            이 등록 되었어요.
+
                                         </span>
                                     </div>
                                 </div>
@@ -203,7 +203,7 @@ export default function Banner(props: any) {
                     <div className="banner-recent-project">
                         <div className="recent-project-card card p-1" style={{ background: `${props.bannerColor}` }}>
                             <div className="recent-project-d-day card-header row">
-                                <div className="badge" style={{ color : `${props.fontColor}`}}>D-13</div>
+                                <div className="badge" style={{ color: `${props.fontColor}` }}>D-13</div>
                             </div>
                             <div className="card-content row">
                                 <div className="recent-project-type col-12" style={{ color: `${props.fontColor}` }}>최근 프로젝트</div>
@@ -225,3 +225,5 @@ export default function Banner(props: any) {
         </>
     )
 }
+
+export default memo(Banner);
