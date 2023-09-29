@@ -137,7 +137,7 @@ function Banner(props: any) {
                                 <div className="widget-user col-8">
                                     <div className="widget-profile">
                                         <div className="profile">
-                                            <BannerIuniCat
+                         ;l                   <BannerIuniCat
                                                 timePeriod={timePeriod}
                                             />
                                         </div>

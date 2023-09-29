@@ -49,10 +49,9 @@ function MyProject(props: Props) {
             return true;
         }
     }
+
     /* 즐겨찾기 프로젝트로 수정 */
     async function updateFavorite(e: MouseEvent<HTMLElement>, id: number, type: boolean) {
-        console.log('%c [ id ]-54', 'font-size:13px; background:pink; color:#bf2c9f;', id)
-        e.stopPropagation();
         const obj = {
             'key': 'isFavorite',
             'value': JSON.stringify(type),
@@ -60,7 +59,6 @@ function MyProject(props: Props) {
         }
 
         const result = await updateProject(obj);
-        console.log('%c [ result ]-63', 'font-size:13px; background:pink; color:#bf2c9f;', result)
         
         if (result.statusCode === 400) {
             throw new Error('즐겨찾기 추가 도중 에러가 발생 했어요.');
@@ -73,17 +71,11 @@ function MyProject(props: Props) {
                 }
 
                 const data = props.projects.find(p => p.id === id);
-                // if(data !== undefined){
-                //     props.setProjects(prev => [data, ...prev]);
-                // }
                 props.setProjects(prev => {
                     const data = prev.find(p => p.id === id);
-                    if (data !== undefined) {
-                        data.isFavorite = true;
-                    }
+                    if(data) data.isFavorite = true;
                     return [...prev];
-                })
-
+                });
             } else {
                 props.setFavoriteProjects(prev => {
                     const i = prev.findIndex(p => p.id === id);
@@ -93,9 +85,7 @@ function MyProject(props: Props) {
 
                 props.setProjects(prev => {
                     const data = prev.find(p => p.id === id);
-                    if (data !== undefined) {
-                        data.isFavorite = false;
-                    }
+                    if(data) data.isFavorite = false;
                     return [...prev];
                 })
             }

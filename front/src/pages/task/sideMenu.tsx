@@ -1,4 +1,4 @@
-import { getProject } from "api/project/project";
+import { getProject, updateProject } from "api/project/project";
 import { loadByProjectId } from "api/task/task";
 import { Dispatch, SetStateAction, useEffect, useState } from "react";
 
@@ -51,7 +51,28 @@ export default function SideMenu(props: Props) {
     const [myProjects, setMyProjects] = useState<Array<Project>>([]);
     const [favoriteProjects, setFavoriteProjects] = useState<Array<Project>>([]);
     const [currentMouseOverId, setCurrentMouseOverId] = useState<number>(-1);
+    // const [searchProjects, setSearchProjects] = useState<Array<Project>>([]);
+    // const [serachFavoriteProjects, setSearchFavoriteProjects] = useState<Array<Project>>([]);
 
+    const searchProject = (val : string) => {
+        console.log(val);
+        console.log(myProjects);
+        setMyProjects((prev : any) => {
+            if(val === ""){
+                return props.projects?.normal_projects;
+            } else {
+                return props.projects?.normal_projects.filter(e => e.name.includes(val) === true);
+            }
+        });
+        setFavoriteProjects((prev : any) => {
+            if(val === ""){
+                return props.projects?.favorite_projects;
+            } else {
+                return props.projects?.favorite_projects.filter(e => e.name.includes(val) === true);
+            }
+            
+        });
+    }
 
     const handleFavorite = (projectId: number) => {
         setCurrentMouseOverId(() => {
@@ -61,6 +82,24 @@ export default function SideMenu(props: Props) {
                 return projectId
             }
         })
+    }
+
+    /* 즐겨찾기 */
+    const handleIsFavorite = async (projectId :number, type:boolean) => {
+        /* 즐겨찾기로 변경 */        
+        const obj = {
+            "key" : "isFavorite",
+            "value" : JSON.stringify(type),
+            "id" : projectId
+        };
+        const result = await updateProject(obj);
+        if(result.statusCode == 400) throw new Error("즐겨찾기 작업 도중 에러가 발생 했어요.");
+
+        if(type){
+            //props의 favorite project 값을 변경 해야됨
+        } else {
+            //props의 my project 값을 변경 해야됨
+        }
     }
 
     /* 선택한 프로젝트 찾기 */
@@ -74,11 +113,6 @@ export default function SideMenu(props: Props) {
         setMyProjects(() => props.projects?.normal_projects);
         setFavoriteProjects(() => props.projects?.favorite_projects);
     }, [props.projects]);
-
-
-    const handleIsFavorite = () => {
-        
-    }
 
     useEffect(() => {
         setMyProjects((prev) => {
@@ -107,7 +141,7 @@ export default function SideMenu(props: Props) {
         <>
             <div className="task-side-menu">
                 <div className="task-search-box">
-                    <input type="text" className="task-search" placeholder="프로젝트를 찾아보세요." />
+                    <input type="text" className="task-search" placeholder="프로젝트를 찾아보세요." onChange={(e) => searchProject(e.target.value)} />
                 </div>
                 <div className="task-side-content">
                     <div className="recent-project-list">
@@ -131,7 +165,7 @@ export default function SideMenu(props: Props) {
                                         currentMouseOverId === val.id &&
                                         <img src='/img/task/favorite_active.webp'
                                             style={{ width: '1.19vw', height: '1.19vw' }}
-                                            onClick={() => handleIsFavorite()}
+                                            onClick={() => handleIsFavorite(val.id, false)}
                                         />
                                     }
                                 </div>
@@ -152,7 +186,7 @@ export default function SideMenu(props: Props) {
                                         currentMouseOverId === val.id &&
                                         <img src={val.isFavorite === true ? `/img/task/favorite_active.webp` : `/img/task/favorite.webp`}
                                             style={{ width: '1.19vw', height: '1.19vw' }}
-                                            onClick={() => handleIsFavorite()}
+                                            onClick={() => handleIsFavorite(val.id, true)}
                                         />
                                     }
                                 </div>

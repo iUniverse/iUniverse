@@ -1,6 +1,6 @@
 import type { Identifier, XYCoord } from "dnd-core";
 import * as taskIF from "api/task/task-interface";
-import { Dispatch, SetStateAction, useEffect, useRef } from "react";
+import { Dispatch, SetStateAction, memo, useEffect, useRef } from "react";
 import { useDrag, useDrop } from 'react-dnd';
 import * as pub from "api/public/public";
 
@@ -26,7 +26,7 @@ interface DragItem {
     borderId : number;
 }
 
-export default function KanbanCard(props: Props) {
+function KanbanCard(props: Props) {
     const ref = useRef<HTMLDivElement>(null);
     
     const [{ handlerId, isOver }, drop] = useDrop<DragItem, void, { handlerId: Identifier | null, isOver : any }>
@@ -119,3 +119,5 @@ export default function KanbanCard(props: Props) {
         </div>
     )
 }
+
+export default memo(KanbanCard);
