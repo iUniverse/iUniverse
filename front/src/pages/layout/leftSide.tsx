@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from "react";
 
+
 export default function IUniLeftSide() {
     const [firstItem, setFirstItem] = useState('/img/layout/leftSide/home.webp');
     const [secondItem, setSecondItem] = useState('/img/layout/leftSide/project.webp');
     const [thirdItem, setThirdItem] = useState('/img/layout/leftSide/calendar.webp');
     const [fortItem, setForthItem] = useState('/img/layout/leftSide/project_add_btn.webp');
-    const [fifthItem, setFifthItem] = useState('');
+
 
     return (
         <>
