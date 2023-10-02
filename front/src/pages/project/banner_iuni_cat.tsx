@@ -1,7 +1,7 @@
 import { IuniCatStyle } from 'api/project/iuni-cat';
 import { findMyIuniCat } from 'api/theme/iuni-cat-theme';
 import IuniCat from 'pages/theme/iuni_cat';
-import React, { useEffect, useState } from 'react';
+import React, { memo, useEffect, useState } from 'react';
 import { CatStyle } from './interface';
 
 
@@ -10,7 +10,8 @@ interface Props{
     timePeriod : string;
 }
 
-export default function BannerIuniCat(props : Props){
+function BannerIuniCat(props : Props){
+    console.log(props);
     const [catStyle, setCatStyle] = useState<CatStyle>();
     const [myCat, setMyCat] = useState<string>('');
     function handlePart(val : string) {
@@ -52,3 +53,5 @@ export default function BannerIuniCat(props : Props){
         </>
     )
 }
+
+export default memo(BannerIuniCat);

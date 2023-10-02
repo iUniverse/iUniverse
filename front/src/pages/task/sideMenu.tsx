@@ -70,7 +70,6 @@ export default function SideMenu(props: Props) {
             } else {
                 return props.projects?.favorite_projects.filter(e => e.name.includes(val) === true);
             }
-            
         });
     }
 
@@ -97,8 +96,14 @@ export default function SideMenu(props: Props) {
 
         if(type){
             //props의 favorite project 값을 변경 해야됨
+            setFavoriteProjects((prev : any) => {
+                return [props.projects.normal_projects.find(e => e.id === projectId), ...prev];
+            });
         } else {
-            //props의 my project 값을 변경 해야됨
+            setFavoriteProjects((prev : any) => {
+                const result = props.projects.favorite_projects.filter(e => e.id !== projectId)
+                return [...result];
+            })
         }
     }
 
@@ -111,11 +116,13 @@ export default function SideMenu(props: Props) {
 
     useEffect(() => {
         setMyProjects(() => props.projects?.normal_projects);
+        console.log(props.projects?.normal_projects);
         setFavoriteProjects(() => props.projects?.favorite_projects);
+        console.log(props.projects?.favorite_projects);
     }, [props.projects]);
 
     useEffect(() => {
-        setMyProjects((prev) => {
+        setMyProjects((prev : Project[]) => {
             if (prev !== undefined) {
                 const project = prev.find(z => z.id === props.currentProject.id);
                 if (project !== undefined) {
@@ -193,54 +200,6 @@ export default function SideMenu(props: Props) {
                             ))
                         }
 
-                        {/* <div key={`my_projects_q`} className="side-menu-project-name">
-                            <div className="col-11">테스트 플젝</div>
-                                <img src={"/img/task/favorite_active.webp"}
-                                    style={{ width: '1.19vw', height: '1.19vw' }}
-                                />
-                        </div>
-                        <div key={`my_projects_q1`} className="side-menu-project-name">
-                            <div className="col-11">테스트 플젝</div>
-                                <img src={"/img/task/favorite_active.webp"}
-                                    style={{ width: '1.19vw', height: '1.19vw' }}
-                                />
-                        </div>
-                        <div key={`my_projects_q2`} className="side-menu-project-name">
-                            <div className="col-11">테스트 플젝</div>
-                                <img src={"/img/task/favorite_active.webp"}
-                                    style={{ width: '1.19vw', height: '1.19vw' }}
-                                />
-                        </div>
-                        <div key={`my_projects_q3`} className="side-menu-project-name">
-                            <div className="col-11">테스트 플젝</div>
-                                <img src={"/img/task/favorite_active.webp"}
-                                    style={{ width: '1.19vw', height: '1.19vw' }}
-                                />
-                        </div>
-                        <div key={`my_projects_q4`} className="side-menu-project-name">
-                            <div className="col-11">테스트 플젝</div>
-                                <img src={"/img/task/favorite_active.webp"}
-                                    style={{ width: '1.19vw', height: '1.19vw' }}
-                                />
-                        </div>
-                        <div key={`my_projects_q5`} className="side-menu-project-name">
-                            <div className="col-11">테스트 플젝</div>
-                                <img src={"/img/task/favorite_active.webp"}
-                                    style={{ width: '1.19vw', height: '1.19vw' }}
-                                />
-                        </div>
-                        <div key={`my_projects_q6`} className="side-menu-project-name">
-                            <div className="col-11">테스트 플젝</div>
-                                <img src={"/img/task/favorite_active.webp"}
-                                    style={{ width: '1.19vw', height: '1.19vw' }}
-                                />
-                        </div>
-                        <div key={`my_projects_q7`} className="side-menu-project-name">
-                            <div className="col-11">테스트 플젝</div>
-                                <img src={"/img/task/favorite_active.webp"}
-                                    style={{ width: '1.19vw', height: '1.19vw' }}
-                                />
-                        </div> */}
                     </div>
                 </div>
 

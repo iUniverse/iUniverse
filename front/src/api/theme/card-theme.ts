@@ -63,11 +63,12 @@ export interface SelectTheme {
 }
 
 export interface themeInfo {
-    'colors' : string[],
-    'fontColor' : string,
-    'id' : number,
-    'name' : string,
-    'userId' : number
+    "colors" : [];
+    "fontColor" : string;
+    "id" : number;
+    "name" : string;
+    "otherName" : string;
+    "userId" : number;
 }
 
 /* 나의 테마 전체 불러오기 */

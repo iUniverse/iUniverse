@@ -9,10 +9,20 @@ import { getTheme, loadMyThemeInfo } from 'api/theme/card-theme';
 import BannerIuniCat from './banner_iuni_cat';
 
 
+interface Theme{
+    "colors" : [];
+    "fontColor" : string;
+    "id" : number;
+    "name" : string;
+    "otherName" : string;
+    "userId" : number;
+}
+
 export interface ThemeInfo {
     id: number;
     name: string;
 }
+
 interface Props {
     setcolors: Dispatch<SetStateAction<string[]>>
     setfontColor: Dispatch<SetStateAction<string>>
@@ -91,18 +101,10 @@ function Banner(props: any) {
         }
     }
 
-    // /* 테마 업데이트 */
-    // async function updateTheme(id: number) useCallback {
-    //     //현재는 유저 정보가 없기에 업데이트문은 없음
-    //     const theme = await getTheme(id);
-    //     props.setcolors(() => theme.colors);
-    //     props.setfontColor(() => theme.fontColor);
-    // }
-
+    /* 테마 업데이트 */
     const updateTheme = useCallback(async (id: number) => {
-        console.log("엄?");
-        const theme = await getTheme(id);
-        props.setcolors = (() => theme.colors);
+        const theme : themeInfo | string = await getTheme(id);
+        props.setcolors(() => theme.colors);
         props.setfontColor(() => theme.fontColor);
     }, []);
 
@@ -110,7 +112,6 @@ function Banner(props: any) {
     const router = useRouter();
     /* 테마 관리하기 */
     function managementTheme() {
-
         router.push('/theme');
     }
 
@@ -137,7 +138,7 @@ function Banner(props: any) {
                                 <div className="widget-user col-8">
                                     <div className="widget-profile">
                                         <div className="profile">
-                         ;l                   <BannerIuniCat
+                                        <BannerIuniCat
                                                 timePeriod={timePeriod}
                                             />
                                         </div>
