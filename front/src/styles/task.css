@@ -219,9 +219,20 @@
     text-align: left;
     color: #fff;
 }
+.active-project-bread-container{
+    display : flex;
+    width: 100%;
+    font-family: Pretendard;
+    font-size: 0.72vw;
+    font-weight: 500;
+    font-stretch: normal;
+    font-style: normal;
+    letter-spacing: -0.14px;
+    text-align: left;
+    color: #222222;
+}
 
 .active-project-bread {
-    width: 100%;
     font-family: Pretendard;
     font-size: 0.72vw;
     font-weight: 500;
